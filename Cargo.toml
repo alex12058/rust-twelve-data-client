@@ -1,6 +1,6 @@
 [package]
 name = "twelve-data-client"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Alex Ashand <ashand@inav.ca>"]
 description = "Rust API client for Twelve Data with automatic builder pattern generation. Provides access to comprehensive financial market data including stocks, forex, ETFs, mutual funds, commodities, and cryptocurrencies."
 repository = "https://github.com/alex12058/rust-twelve-data-client"
