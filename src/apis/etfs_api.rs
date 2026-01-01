@@ -15,7 +15,7 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
 /// struct for passing parameters to the method [`get_etfs_world`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetEtfsWorldParams {
     /// Symbol ticker of etf
     pub symbol: Option<String>,
@@ -101,7 +101,7 @@ impl GetEtfsWorldParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_etfs_world_composition`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetEtfsWorldCompositionParams {
     /// Symbol ticker of etf
     pub symbol: Option<String>,
@@ -187,7 +187,7 @@ impl GetEtfsWorldCompositionParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_etfs_world_performance`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetEtfsWorldPerformanceParams {
     /// Symbol ticker of etf
     pub symbol: Option<String>,
@@ -273,7 +273,7 @@ impl GetEtfsWorldPerformanceParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_etfs_world_risk`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetEtfsWorldRiskParams {
     /// Symbol ticker of etf
     pub symbol: Option<String>,
@@ -359,7 +359,7 @@ impl GetEtfsWorldRiskParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_etfs_world_summary`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetEtfsWorldSummaryParams {
     /// Symbol ticker of etf
     pub symbol: Option<String>,

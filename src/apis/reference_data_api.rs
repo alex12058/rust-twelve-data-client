@@ -15,7 +15,7 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
 /// struct for passing parameters to the method [`get_bonds`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetBondsParams {
     /// The ticker symbol of an instrument for which data is requested
     pub symbol: Option<String>,
@@ -121,7 +121,7 @@ impl GetBondsParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_commodities`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetCommoditiesParams {
     /// The ticker symbol of an instrument for which data is requested
     pub symbol: Option<String>,
@@ -187,7 +187,7 @@ impl GetCommoditiesParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_cross_listings`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetCrossListingsParams {
     /// The ticker symbol of an instrument for which data is requested
     pub symbol: String,
@@ -253,7 +253,7 @@ impl GetCrossListingsParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_cryptocurrencies`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetCryptocurrenciesParams {
     /// The ticker symbol of an instrument for which data is requested
     pub symbol: Option<String>,
@@ -339,7 +339,7 @@ impl GetCryptocurrenciesParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_cryptocurrency_exchanges`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetCryptocurrencyExchangesParams {
     /// The format of the response data
     pub format: Option<String>,
@@ -385,7 +385,7 @@ impl GetCryptocurrencyExchangesParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_earliest_timestamp`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetEarliestTimestampParams {
     /// Interval between two consecutive points in time series.
     pub interval: String,
@@ -491,7 +491,7 @@ impl GetEarliestTimestampParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_etf`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetEtfParams {
     /// The ticker symbol of an instrument for which data is requested
     pub symbol: Option<String>,
@@ -637,7 +637,7 @@ impl GetEtfParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_etfs_family`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetEtfsFamilyParams {
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub country: Option<String>,
@@ -683,7 +683,7 @@ impl GetEtfsFamilyParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_etfs_list`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetEtfsListParams {
     /// Filter by symbol
     pub symbol: Option<String>,
@@ -809,7 +809,7 @@ impl GetEtfsListParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_etfs_type`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetEtfsTypeParams {
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub country: Option<String>,
@@ -855,7 +855,7 @@ impl GetEtfsTypeParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_exchange_schedule`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetExchangeScheduleParams {
     /// Filter by exchange name
     pub mic_name: Option<String>,
@@ -921,7 +921,7 @@ impl GetExchangeScheduleParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_exchanges`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetExchangesParams {
     /// The asset class to which the instrument belongs
     pub r#type: Option<String>,
@@ -1017,7 +1017,7 @@ impl GetExchangesParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_forex_pairs`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetForexPairsParams {
     /// The ticker symbol of an instrument for which data is requested
     pub symbol: Option<String>,
@@ -1093,7 +1093,7 @@ impl GetForexPairsParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_funds`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetFundsParams {
     /// The ticker symbol of an instrument for which data is requested
     pub symbol: Option<String>,
@@ -1239,7 +1239,7 @@ impl GetFundsParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_market_state`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetMarketStateParams {
     /// The exchange name where the instrument is traded.
     pub exchange: Option<String>,
@@ -1295,7 +1295,7 @@ impl GetMarketStateParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_mutual_funds_family`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetMutualFundsFamilyParams {
     /// Filter by investment company that manages the fund
     pub fund_family: Option<String>,
@@ -1341,7 +1341,7 @@ impl GetMutualFundsFamilyParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_mutual_funds_list`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetMutualFundsListParams {
     /// Filter by symbol
     pub symbol: Option<String>,
@@ -1487,7 +1487,7 @@ impl GetMutualFundsListParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_mutual_funds_type`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetMutualFundsTypeParams {
     /// Filter by the type of fund
     pub fund_type: Option<String>,
@@ -1533,7 +1533,7 @@ impl GetMutualFundsTypeParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_stocks`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetStocksParams {
     /// The ticker symbol of an instrument for which data is requested
     pub symbol: Option<String>,
@@ -1689,7 +1689,7 @@ impl GetStocksParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_symbol_search`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetSymbolSearchParams {
     /// Symbol to search. Supports: <ul> <li>Ticker symbol of instrument.</li> <li>International securities identification number (ISIN). <li>Financial instrument global identifier (FIGI). <li>Composite FIGI.</li> <li>Share Class FIGI.</li> </ul>
     pub symbol: String,

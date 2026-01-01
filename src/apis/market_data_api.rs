@@ -15,7 +15,7 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
 /// struct for passing parameters to the method [`get_currency_conversion`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetCurrencyConversionParams {
     /// The currency pair you want to request can be either forex or cryptocurrency. Slash(`/`) delimiter is used. E.g. `EUR/USD` or `BTC/ETH` will be correct
     pub symbol: String,
@@ -111,7 +111,7 @@ impl GetCurrencyConversionParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_eod`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetEodParams {
     /// Symbol ticker of the instrument
     pub symbol: Option<String>,
@@ -247,7 +247,7 @@ impl GetEodParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_exchange_rate`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetExchangeRateParams {
     /// The currency pair you want to request can be either forex or cryptocurrency. Slash(`/`) delimiter is used. E.g. `EUR/USD` or `BTC/ETH` will be correct
     pub symbol: String,
@@ -333,7 +333,7 @@ impl GetExchangeRateParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_market_movers`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetMarketMoversParams {
     /// Maket type
     pub market: String,
@@ -419,7 +419,7 @@ impl GetMarketMoversParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_price`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetPriceParams {
     /// Symbol ticker of the instrument
     pub symbol: Option<String>,
@@ -565,7 +565,7 @@ impl GetPriceParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_quote`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetQuoteParams {
     /// Symbol ticker of the instrument
     pub symbol: Option<String>,
@@ -761,7 +761,7 @@ impl GetQuoteParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -997,7 +997,7 @@ impl GetTimeSeriesParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_cross`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesCrossParams {
     /// Base currency symbol
     pub base: String,
