@@ -18,7 +18,7 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-twelve-data-client = "0.1.0"
+twelve-data-client = "0.2"
 tokio = { version = "1", features = ["full"] }
 ```
 

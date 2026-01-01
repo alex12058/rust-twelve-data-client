@@ -15,7 +15,7 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
 /// struct for passing parameters to the method [`advanced`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct AdvancedParams {
     /// Map of requests
     pub key: Option<std::collections::HashMap<String, models::AdvancedRequestValue>>
@@ -51,7 +51,7 @@ impl AdvancedParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_api_usage`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetApiUsageParams {
     /// Output format
     pub format: Option<String>,

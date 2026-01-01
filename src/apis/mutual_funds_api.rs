@@ -15,7 +15,7 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
 /// struct for passing parameters to the method [`get_mutual_funds_world`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetMutualFundsWorldParams {
     /// Symbol ticker of mutual fund
     pub symbol: Option<String>,
@@ -101,7 +101,7 @@ impl GetMutualFundsWorldParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_mutual_funds_world_composition`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetMutualFundsWorldCompositionParams {
     /// Symbol ticker of mutual fund
     pub symbol: Option<String>,
@@ -187,7 +187,7 @@ impl GetMutualFundsWorldCompositionParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_mutual_funds_world_performance`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetMutualFundsWorldPerformanceParams {
     /// Symbol ticker of mutual fund
     pub symbol: Option<String>,
@@ -273,7 +273,7 @@ impl GetMutualFundsWorldPerformanceParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_mutual_funds_world_purchase_info`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetMutualFundsWorldPurchaseInfoParams {
     /// Symbol ticker of mutual fund
     pub symbol: Option<String>,
@@ -359,7 +359,7 @@ impl GetMutualFundsWorldPurchaseInfoParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_mutual_funds_world_ratings`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetMutualFundsWorldRatingsParams {
     /// Symbol ticker of mutual fund
     pub symbol: Option<String>,
@@ -445,7 +445,7 @@ impl GetMutualFundsWorldRatingsParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_mutual_funds_world_risk`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetMutualFundsWorldRiskParams {
     /// Symbol ticker of mutual fund
     pub symbol: Option<String>,
@@ -531,7 +531,7 @@ impl GetMutualFundsWorldRiskParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_mutual_funds_world_summary`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetMutualFundsWorldSummaryParams {
     /// Symbol ticker of mutual fund
     pub symbol: Option<String>,
@@ -617,7 +617,7 @@ impl GetMutualFundsWorldSummaryParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_mutual_funds_world_sustainability`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetMutualFundsWorldSustainabilityParams {
     /// Symbol ticker of mutual fund
     pub symbol: Option<String>,

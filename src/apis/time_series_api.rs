@@ -15,7 +15,7 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
 /// struct for passing parameters to the method [`get_time_series`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -251,7 +251,7 @@ impl GetTimeSeriesParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_cross`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesCrossParams {
     /// Base currency symbol
     pub base: String,

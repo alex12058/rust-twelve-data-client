@@ -15,7 +15,7 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
 /// struct for passing parameters to the method [`get_time_series_ad`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesAdParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -261,7 +261,7 @@ impl GetTimeSeriesAdParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_ad_osc`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesAdOscParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -527,7 +527,7 @@ impl GetTimeSeriesAdOscParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_add`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesAddParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -793,7 +793,7 @@ impl GetTimeSeriesAddParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_adx`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesAdxParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -1049,7 +1049,7 @@ impl GetTimeSeriesAdxParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_adxr`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesAdxrParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -1305,7 +1305,7 @@ impl GetTimeSeriesAdxrParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_apo`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesApoParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -1591,7 +1591,7 @@ impl GetTimeSeriesApoParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_aroon`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesAroonParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -1847,7 +1847,7 @@ impl GetTimeSeriesAroonParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_aroon_osc`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesAroonOscParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -2103,7 +2103,7 @@ impl GetTimeSeriesAroonOscParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_atr`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesAtrParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -2359,7 +2359,7 @@ impl GetTimeSeriesAtrParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_avg`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesAvgParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -2625,7 +2625,7 @@ impl GetTimeSeriesAvgParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_avg_price`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesAvgPriceParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -2871,7 +2871,7 @@ impl GetTimeSeriesAvgPriceParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_b_bands`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesBBandsParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -3157,7 +3157,7 @@ impl GetTimeSeriesBBandsParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_beta`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesBetaParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -3433,7 +3433,7 @@ impl GetTimeSeriesBetaParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_bop`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesBopParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -3679,7 +3679,7 @@ impl GetTimeSeriesBopParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_cci`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesCciParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -3935,7 +3935,7 @@ impl GetTimeSeriesCciParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_ceil`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesCeilParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -4191,7 +4191,7 @@ impl GetTimeSeriesCeilParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_cmo`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesCmoParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -4457,7 +4457,7 @@ impl GetTimeSeriesCmoParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_coppock`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesCoppockParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -4743,7 +4743,7 @@ impl GetTimeSeriesCoppockParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_correl`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesCorrelParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -5019,7 +5019,7 @@ impl GetTimeSeriesCorrelParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_crsi`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesCrsiParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -5305,7 +5305,7 @@ impl GetTimeSeriesCrsiParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_dema`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesDemaParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -5571,7 +5571,7 @@ impl GetTimeSeriesDemaParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_div`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesDivParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -5837,7 +5837,7 @@ impl GetTimeSeriesDivParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_dpo`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesDpoParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -6113,7 +6113,7 @@ impl GetTimeSeriesDpoParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_dx`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesDxParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -6369,7 +6369,7 @@ impl GetTimeSeriesDxParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_ema`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesEmaParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -6635,7 +6635,7 @@ impl GetTimeSeriesEmaParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_exp`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesExpParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -6891,7 +6891,7 @@ impl GetTimeSeriesExpParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_floor`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesFloorParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -7147,7 +7147,7 @@ impl GetTimeSeriesFloorParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_heikinashi_candles`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesHeikinashiCandlesParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -7393,7 +7393,7 @@ impl GetTimeSeriesHeikinashiCandlesParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_hlc3`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesHlc3Params {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -7639,7 +7639,7 @@ impl GetTimeSeriesHlc3ParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_ht_dc_period`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesHtDcPeriodParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -7895,7 +7895,7 @@ impl GetTimeSeriesHtDcPeriodParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_ht_dc_phase`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesHtDcPhaseParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -8151,7 +8151,7 @@ impl GetTimeSeriesHtDcPhaseParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_ht_phasor`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesHtPhasorParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -8407,7 +8407,7 @@ impl GetTimeSeriesHtPhasorParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_ht_sine`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesHtSineParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -8663,7 +8663,7 @@ impl GetTimeSeriesHtSineParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_ht_trend_mode`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesHtTrendModeParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -8919,7 +8919,7 @@ impl GetTimeSeriesHtTrendModeParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_ht_trendline`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesHtTrendlineParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -9175,7 +9175,7 @@ impl GetTimeSeriesHtTrendlineParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_ichimoku`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesIchimokuParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -9471,7 +9471,7 @@ impl GetTimeSeriesIchimokuParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_kama`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesKamaParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -9737,7 +9737,7 @@ impl GetTimeSeriesKamaParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_keltner`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesKeltnerParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -10033,7 +10033,7 @@ impl GetTimeSeriesKeltnerParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_kst`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesKstParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -10369,7 +10369,7 @@ impl GetTimeSeriesKstParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_linear_reg`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesLinearRegParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -10635,7 +10635,7 @@ impl GetTimeSeriesLinearRegParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_linear_reg_angle`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesLinearRegAngleParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -10901,7 +10901,7 @@ impl GetTimeSeriesLinearRegAngleParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_linear_reg_intercept`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesLinearRegInterceptParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -11167,7 +11167,7 @@ impl GetTimeSeriesLinearRegInterceptParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_linear_reg_slope`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesLinearRegSlopeParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -11433,7 +11433,7 @@ impl GetTimeSeriesLinearRegSlopeParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_ln`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesLnParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -11689,7 +11689,7 @@ impl GetTimeSeriesLnParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_log10`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesLog10Params {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -11945,7 +11945,7 @@ impl GetTimeSeriesLog10ParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_ma`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMaParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -12221,7 +12221,7 @@ impl GetTimeSeriesMaParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_macd`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMacdParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -12507,7 +12507,7 @@ impl GetTimeSeriesMacdParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_macd_ext`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMacdExtParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -12823,7 +12823,7 @@ impl GetTimeSeriesMacdExtParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_macd_slope`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMacdSlopeParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -13119,7 +13119,7 @@ impl GetTimeSeriesMacdSlopeParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_mama`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMamaParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -13395,7 +13395,7 @@ impl GetTimeSeriesMamaParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_max`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMaxParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -13661,7 +13661,7 @@ impl GetTimeSeriesMaxParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_max_index`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMaxIndexParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -13927,7 +13927,7 @@ impl GetTimeSeriesMaxIndexParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_mc_ginley_dynamic`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMcGinleyDynamicParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -14183,7 +14183,7 @@ impl GetTimeSeriesMcGinleyDynamicParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_med_price`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMedPriceParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -14429,7 +14429,7 @@ impl GetTimeSeriesMedPriceParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_mfi`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMfiParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -14685,7 +14685,7 @@ impl GetTimeSeriesMfiParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_mid_point`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMidPointParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -14951,7 +14951,7 @@ impl GetTimeSeriesMidPointParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_mid_price`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMidPriceParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -15207,7 +15207,7 @@ impl GetTimeSeriesMidPriceParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_min`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMinParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -15473,7 +15473,7 @@ impl GetTimeSeriesMinParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_min_index`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMinIndexParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -15739,7 +15739,7 @@ impl GetTimeSeriesMinIndexParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_min_max`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMinMaxParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -16005,7 +16005,7 @@ impl GetTimeSeriesMinMaxParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_min_max_index`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMinMaxIndexParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -16271,7 +16271,7 @@ impl GetTimeSeriesMinMaxIndexParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_minus_di`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMinusDiParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -16527,7 +16527,7 @@ impl GetTimeSeriesMinusDiParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_minus_dm`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMinusDmParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -16783,7 +16783,7 @@ impl GetTimeSeriesMinusDmParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_mom`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMomParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -17049,7 +17049,7 @@ impl GetTimeSeriesMomParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_mult`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesMultParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -17315,7 +17315,7 @@ impl GetTimeSeriesMultParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_natr`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesNatrParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -17571,7 +17571,7 @@ impl GetTimeSeriesNatrParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_obv`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesObvParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -17827,7 +17827,7 @@ impl GetTimeSeriesObvParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_percent_b`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesPercentBParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -18113,7 +18113,7 @@ impl GetTimeSeriesPercentBParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_pivot_points_hl`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesPivotPointsHlParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -18369,7 +18369,7 @@ impl GetTimeSeriesPivotPointsHlParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_plus_di`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesPlusDiParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -18625,7 +18625,7 @@ impl GetTimeSeriesPlusDiParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_plus_dm`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesPlusDmParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -18881,7 +18881,7 @@ impl GetTimeSeriesPlusDmParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_ppo`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesPpoParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -19167,7 +19167,7 @@ impl GetTimeSeriesPpoParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_roc`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesRocParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -19433,7 +19433,7 @@ impl GetTimeSeriesRocParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_rocp`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesRocpParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -19699,7 +19699,7 @@ impl GetTimeSeriesRocpParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_rocr`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesRocrParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -19965,7 +19965,7 @@ impl GetTimeSeriesRocrParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_rocr100`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesRocr100Params {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -20231,7 +20231,7 @@ impl GetTimeSeriesRocr100ParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_rsi`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesRsiParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -20497,7 +20497,7 @@ impl GetTimeSeriesRsiParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_rvol`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesRvolParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -20753,7 +20753,7 @@ impl GetTimeSeriesRvolParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_sar`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesSarParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -21019,7 +21019,7 @@ impl GetTimeSeriesSarParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_sar_ext`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesSarExtParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -21345,7 +21345,7 @@ impl GetTimeSeriesSarExtParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_sma`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesSmaParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -21611,7 +21611,7 @@ impl GetTimeSeriesSmaParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_sqrt`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesSqrtParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -21867,7 +21867,7 @@ impl GetTimeSeriesSqrtParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_std_dev`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesStdDevParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -22143,7 +22143,7 @@ impl GetTimeSeriesStdDevParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_stoch`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesStochParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -22439,7 +22439,7 @@ impl GetTimeSeriesStochParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_stoch_f`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesStochFParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -22715,7 +22715,7 @@ impl GetTimeSeriesStochFParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_stoch_rsi`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesStochRsiParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -23025,7 +23025,7 @@ impl GetTimeSeriesStochRsiParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_sub`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesSubParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -23291,7 +23291,7 @@ impl GetTimeSeriesSubParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_sum`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesSumParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -23557,7 +23557,7 @@ impl GetTimeSeriesSumParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_super_trend`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesSuperTrendParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -23823,7 +23823,7 @@ impl GetTimeSeriesSuperTrendParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_super_trend_heikin_ashi_candles`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesSuperTrendHeikinAshiCandlesParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -24089,7 +24089,7 @@ impl GetTimeSeriesSuperTrendHeikinAshiCandlesParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_t3ma`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesT3maParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -24365,7 +24365,7 @@ impl GetTimeSeriesT3maParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_t_range`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesTRangeParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -24611,7 +24611,7 @@ impl GetTimeSeriesTRangeParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_tema`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesTemaParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -24877,7 +24877,7 @@ impl GetTimeSeriesTemaParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_trima`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesTrimaParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -25143,7 +25143,7 @@ impl GetTimeSeriesTrimaParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_tsf`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesTsfParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -25409,7 +25409,7 @@ impl GetTimeSeriesTsfParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_typ_price`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesTypPriceParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -25655,7 +25655,7 @@ impl GetTimeSeriesTypPriceParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_ult_osc`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesUltOscParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -25931,7 +25931,7 @@ impl GetTimeSeriesUltOscParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_var`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesVarParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -26197,7 +26197,7 @@ impl GetTimeSeriesVarParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_vwap`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesVwapParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -26463,7 +26463,7 @@ impl GetTimeSeriesVwapParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_wcl_price`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesWclPriceParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -26709,7 +26709,7 @@ impl GetTimeSeriesWclPriceParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_will_r`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesWillRParams {
     /// Interval between two consecutive points in time series
     pub interval: String,
@@ -26965,7 +26965,7 @@ impl GetTimeSeriesWillRParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_time_series_wma`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTimeSeriesWmaParams {
     /// Interval between two consecutive points in time series
     pub interval: String,

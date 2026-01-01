@@ -15,7 +15,7 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
 /// struct for passing parameters to the method [`get_analyst_ratings_light`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetAnalystRatingsLightParams {
     /// Filter by symbol
     pub symbol: Option<String>,
@@ -121,7 +121,7 @@ impl GetAnalystRatingsLightParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_analyst_ratings_us_equities`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetAnalystRatingsUsEquitiesParams {
     /// Filter by symbol
     pub symbol: Option<String>,
@@ -217,7 +217,7 @@ impl GetAnalystRatingsUsEquitiesParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_earnings_estimate`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetEarningsEstimateParams {
     /// Filter by symbol
     pub symbol: Option<String>,
@@ -303,7 +303,7 @@ impl GetEarningsEstimateParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_edgar_filings_archive`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetEdgarFilingsArchiveParams {
     /// The ticker symbol of an instrument for which data is requested
     pub symbol: Option<String>,
@@ -449,7 +449,7 @@ impl GetEdgarFilingsArchiveParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_eps_revisions`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetEpsRevisionsParams {
     /// Filter by symbol
     pub symbol: Option<String>,
@@ -535,7 +535,7 @@ impl GetEpsRevisionsParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_eps_trend`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetEpsTrendParams {
     /// Filter by symbol
     pub symbol: Option<String>,
@@ -621,7 +621,7 @@ impl GetEpsTrendParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_growth_estimates`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetGrowthEstimatesParams {
     /// Filter by symbol
     pub symbol: Option<String>,
@@ -707,7 +707,7 @@ impl GetGrowthEstimatesParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_price_target`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetPriceTargetParams {
     /// Filter by symbol
     pub symbol: Option<String>,
@@ -793,7 +793,7 @@ impl GetPriceTargetParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_recommendations`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetRecommendationsParams {
     /// Filter by symbol
     pub symbol: Option<String>,
@@ -879,7 +879,7 @@ impl GetRecommendationsParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_revenue_estimate`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetRevenueEstimateParams {
     /// Filter by symbol
     pub symbol: Option<String>,

@@ -15,7 +15,7 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
 /// struct for passing parameters to the method [`get_direct_holders`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetDirectHoldersParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
@@ -111,7 +111,7 @@ impl GetDirectHoldersParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_fund_holders`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetFundHoldersParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
@@ -207,7 +207,7 @@ impl GetFundHoldersParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_insider_transactions`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetInsiderTransactionsParams {
     /// The ticker symbol of an instrument for which data is requested, e.g., `AAPL`, `TSLA`. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
@@ -303,7 +303,7 @@ impl GetInsiderTransactionsParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_institutional_holders`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetInstitutionalHoldersParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
@@ -399,7 +399,7 @@ impl GetInstitutionalHoldersParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_source_sanctioned_entities`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetSourceSanctionedEntitiesParams {
     /// Sanctions source
     pub source: String
@@ -435,7 +435,7 @@ impl GetSourceSanctionedEntitiesParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_tax_info`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetTaxInfoParams {
     /// The ticker symbol of an instrument for which data is requested, e.g., `SKYQ`, `AIRE`, `ALM:BME`, `HSI:HKEX`.
     pub symbol: Option<String>,

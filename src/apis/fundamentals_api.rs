@@ -15,7 +15,7 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
 /// struct for passing parameters to the method [`get_balance_sheet`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetBalanceSheetParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
@@ -151,7 +151,7 @@ impl GetBalanceSheetParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_balance_sheet_consolidated`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetBalanceSheetConsolidatedParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
@@ -287,7 +287,7 @@ impl GetBalanceSheetConsolidatedParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_cash_flow`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetCashFlowParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
@@ -423,7 +423,7 @@ impl GetCashFlowParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_cash_flow_consolidated`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetCashFlowConsolidatedParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
@@ -559,7 +559,7 @@ impl GetCashFlowConsolidatedParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_dividends`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetDividendsParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
@@ -695,7 +695,7 @@ impl GetDividendsParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_dividends_calendar`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetDividendsCalendarParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
@@ -831,7 +831,7 @@ impl GetDividendsCalendarParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_earnings`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetEarningsParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
@@ -1007,7 +1007,7 @@ impl GetEarningsParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_earnings_calendar`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetEarningsCalendarParams {
     /// Exchange where instrument is traded
     pub exchange: Option<String>,
@@ -1113,7 +1113,7 @@ impl GetEarningsCalendarParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_income_statement`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetIncomeStatementParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
@@ -1249,7 +1249,7 @@ impl GetIncomeStatementParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_income_statement_consolidated`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetIncomeStatementConsolidatedParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
@@ -1385,7 +1385,7 @@ impl GetIncomeStatementConsolidatedParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_ipo_calendar`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetIpoCalendarParams {
     /// Exchange where instrument is traded
     pub exchange: Option<String>,
@@ -1461,7 +1461,7 @@ impl GetIpoCalendarParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_key_executives`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetKeyExecutivesParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
@@ -1557,7 +1557,7 @@ impl GetKeyExecutivesParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_last_changes`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetLastChangesParams {
     /// Endpoint name
     pub endpoint: String,
@@ -1663,7 +1663,7 @@ impl GetLastChangesParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_logo`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetLogoParams {
     /// The ticker symbol of an instrument for which data is requested, e.g., `AAPL`, `BTC/USD`, `EUR/USD`.
     pub symbol: String,
@@ -1729,7 +1729,7 @@ impl GetLogoParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_market_cap`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetMarketCapParams {
     /// Filter by symbol
     pub symbol: Option<String>,
@@ -1865,7 +1865,7 @@ impl GetMarketCapParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_profile`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetProfileParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
@@ -1961,7 +1961,7 @@ impl GetProfileParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_splits`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetSplitsParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
@@ -2087,7 +2087,7 @@ impl GetSplitsParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_splits_calendar`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetSplitsCalendarParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
@@ -2223,7 +2223,7 @@ impl GetSplitsCalendarParamsBuilder {
 }
 
 /// struct for passing parameters to the method [`get_statistics`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GetStatisticsParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
