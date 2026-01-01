@@ -38,9 +38,7 @@ pub struct AdvancedParamsBuilder {
 impl AdvancedParamsBuilder {
     /// Map of requests
     pub fn key(mut self, key: std::collections::HashMap<String, models::AdvancedRequestValue>) -> Self {
-        
         self.key = Some(key);
-        
         self
     }
 
@@ -85,19 +83,16 @@ impl GetApiUsageParamsBuilder {
     /// Output format
     pub fn format(mut self, format: impl Into<String>) -> Self {
         self.format = Some(format.into());
-        
         self
     }
     /// Specify the delimiter used when downloading the CSV file
     pub fn delimiter(mut self, delimiter: impl Into<String>) -> Self {
         self.delimiter = Some(delimiter.into());
-        
         self
     }
     /// Timezone at which output datetime will be displayed. Supports: <ul> <li>1. <code>UTC</code> for datetime at universal UTC standard</li> <li>2. Timezone name according to the IANA Time Zone Database. E.g. <code>America/New_York</code>, <code>Asia/Singapore</code>. Full list of timezones can be found <a href=\"https://en.wikipedia.org/wiki/List_of_tz_database_time_zones\" target=\"blank\">here</a>.</li> </ul> <i>Take note that the IANA Timezone name is case-sensitive</i>
     pub fn timezone(mut self, timezone: impl Into<String>) -> Self {
         self.timezone = Some(timezone.into());
-        
         self
     }
 

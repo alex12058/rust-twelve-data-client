@@ -119,131 +119,106 @@ impl GetTimeSeriesParamsBuilder {
     /// Interval between two consecutive points in time series
     pub fn interval(mut self, interval: impl Into<String>) -> Self {
         self.interval = interval.into();
-        
         self
     }
     /// Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ...
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = Some(symbol.into());
-        
         self
     }
     /// Filter by international securities identification number (ISIN)
     pub fn isin(mut self, isin: impl Into<String>) -> Self {
         self.isin = Some(isin.into());
-        
         self
     }
     /// The FIGI of an instrument for which data is requested
     pub fn figi(mut self, figi: impl Into<String>) -> Self {
         self.figi = Some(figi.into());
-        
         self
     }
     /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
     pub fn cusip(mut self, cusip: impl Into<String>) -> Self {
         self.cusip = Some(cusip.into());
-        
         self
     }
     /// Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum
     pub fn outputsize(mut self, outputsize: i64) -> Self {
-        
         self.outputsize = Some(outputsize);
-        
         self
     }
     /// Exchange where instrument is traded
     pub fn exchange(mut self, exchange: impl Into<String>) -> Self {
         self.exchange = Some(exchange.into());
-        
         self
     }
     /// Market Identifier Code (MIC) under ISO 10383 standard
     pub fn mic_code(mut self, mic_code: impl Into<String>) -> Self {
         self.mic_code = Some(mic_code.into());
-        
         self
     }
     /// The country where the instrument is traded, e.g., `United States` or `US`
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
     /// The asset class to which the instrument belongs
     pub fn r#type(mut self, r#type: impl Into<String>) -> Self {
         self.r#type = Some(r#type.into());
-        
         self
     }
     /// Timezone at which output datetime will be displayed. Supports: <ul> <li>1. <code>Exchange</code> for local exchange time</li> <li>2. <code>UTC</code> for datetime at universal UTC standard</li> <li>3. Timezone name according to the IANA Time Zone Database. E.g. <code>America/New_York</code>, <code>Asia/Singapore</code>. Full list of timezones can be found <a href=\"https://en.wikipedia.org/wiki/List_of_tz_database_time_zones\" target=\"blank\">here</a></li> </ul> <i>Take note that the IANA Timezone name is case-sensitive</i>
     pub fn timezone(mut self, timezone: impl Into<String>) -> Self {
         self.timezone = Some(timezone.into());
-        
         self
     }
     /// Can be used separately and together with `end_date`. Format `2006-01-02` or `2006-01-02T15:04:05`  Default location: <ul> <li>Forex and Cryptocurrencies - <code>UTC</code></li> <li>Stocks - where exchange is located (e.g. for AAPL it will be <code>America/New_York</code>)</li> </ul> Both parameters take into account if <code>timezone</code> parameter is provided.<br/> If <code>timezone</code> is given then, <code>start_date</code> and <code>end_date</code> will be used in the specified location  Examples: <ul> <li>1. <code>&symbol=AAPL&start_date=2019-08-09T15:50:00&…</code><br/> Returns all records starting from 2019-08-09T15:50:00 New York time up to current date</li> <li>2. <code>&symbol=EUR/USD&timezone=Asia/Singapore&start_date=2019-08-09T15:50:00&…</code><br/> Returns all records starting from 2019-08-09T15:50:00 Singapore time up to current date</li> <li>3. <code>&symbol=ETH/BTC&timezone=Europe/Zurich&start_date=2019-08-09T15:50:00&end_date=2019-08-09T15:55:00&...</code><br/> Returns all records starting from 2019-08-09T15:50:00 Zurich time up to 2019-08-09T15:55:00</li> </ul>
     pub fn start_date(mut self, start_date: impl Into<String>) -> Self {
         self.start_date = Some(start_date.into());
-        
         self
     }
     /// The ending date and time for data selection, see `start_date` description for details.
     pub fn end_date(mut self, end_date: impl Into<String>) -> Self {
         self.end_date = Some(end_date.into());
-        
         self
     }
     /// Specifies the exact date to get the data for. Could be the exact date, e.g. `2021-10-27`, or in human language `today` or `yesterday`
     pub fn date(mut self, date: impl Into<String>) -> Self {
         self.date = Some(date.into());
-        
         self
     }
     /// Sorting order of the output
     pub fn order(mut self, order: impl Into<String>) -> Self {
         self.order = Some(order.into());
-        
         self
     }
     /// Returns quotes that include pre-market and post-market data. Only for `Pro` and above plans. Available at the `1min`, `5min`, `15min`, and `30min` intervals for US equities. Open, high, low, close values are supplied without volume
     pub fn prepost(mut self, prepost: bool) -> Self {
-        
         self.prepost = Some(prepost);
-        
         self
     }
     /// The format of the response data
     pub fn format(mut self, format: impl Into<String>) -> Self {
         self.format = Some(format.into());
-        
         self
     }
     /// The separator used in the CSV response data
     pub fn delimiter(mut self, delimiter: impl Into<String>) -> Self {
         self.delimiter = Some(delimiter.into());
-        
         self
     }
     /// Specifies the number of decimal places for floating values. Should be in range [0, 11] inclusive. By default, the number of decimal places is automatically determined based on the values provided
     pub fn dp(mut self, dp: i64) -> Self {
-        
         self.dp = Some(dp);
-        
         self
     }
     /// A boolean parameter to include the previous closing price in the time_series data. If true, adds previous bar close price value to the current object
     pub fn previous_close(mut self, previous_close: bool) -> Self {
-        
         self.previous_close = Some(previous_close);
-        
         self
     }
     /// Adjusting mode for prices
     pub fn adjust(mut self, adjust: impl Into<String>) -> Self {
         self.adjust = Some(adjust.into());
-        
         self
     }
 
@@ -368,113 +343,91 @@ impl GetTimeSeriesCrossParamsBuilder {
     /// Base currency symbol
     pub fn base(mut self, base: impl Into<String>) -> Self {
         self.base = base.into();
-        
         self
     }
     /// Quote currency symbol
     pub fn quote(mut self, quote: impl Into<String>) -> Self {
         self.quote = quote.into();
-        
         self
     }
     /// Interval between two consecutive points in time series
     pub fn interval(mut self, interval: impl Into<String>) -> Self {
         self.interval = interval.into();
-        
         self
     }
     /// Base instrument type according to the `/instrument_type` endpoint
     pub fn base_type(mut self, base_type: impl Into<String>) -> Self {
         self.base_type = Some(base_type.into());
-        
         self
     }
     /// Base exchange
     pub fn base_exchange(mut self, base_exchange: impl Into<String>) -> Self {
         self.base_exchange = Some(base_exchange.into());
-        
         self
     }
     /// Base MIC code
     pub fn base_mic_code(mut self, base_mic_code: impl Into<String>) -> Self {
         self.base_mic_code = Some(base_mic_code.into());
-        
         self
     }
     /// Quote instrument type according to the `/instrument_type` endpoint
     pub fn quote_type(mut self, quote_type: impl Into<String>) -> Self {
         self.quote_type = Some(quote_type.into());
-        
         self
     }
     /// Quote exchange
     pub fn quote_exchange(mut self, quote_exchange: impl Into<String>) -> Self {
         self.quote_exchange = Some(quote_exchange.into());
-        
         self
     }
     /// Quote MIC code
     pub fn quote_mic_code(mut self, quote_mic_code: impl Into<String>) -> Self {
         self.quote_mic_code = Some(quote_mic_code.into());
-        
         self
     }
     /// Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum
     pub fn outputsize(mut self, outputsize: i64) -> Self {
-        
         self.outputsize = Some(outputsize);
-        
         self
     }
     /// Format of the response data
     pub fn format(mut self, format: impl Into<String>) -> Self {
         self.format = Some(format.into());
-        
         self
     }
     /// Delimiter used in CSV file
     pub fn delimiter(mut self, delimiter: impl Into<String>) -> Self {
         self.delimiter = Some(delimiter.into());
-        
         self
     }
     /// Only for `Pro` and above plans. Available at the `1min`, `5min`, `15min`, and `30min` intervals for US equities. Open, high, low, close values are supplied without volume.
     pub fn prepost(mut self, prepost: bool) -> Self {
-        
         self.prepost = Some(prepost);
-        
         self
     }
     /// Start date for the time series data
     pub fn start_date(mut self, start_date: impl Into<String>) -> Self {
         self.start_date = Some(start_date.into());
-        
         self
     }
     /// End date for the time series data
     pub fn end_date(mut self, end_date: impl Into<String>) -> Self {
         self.end_date = Some(end_date.into());
-        
         self
     }
     /// Specifies if there should be an adjustment
     pub fn adjust(mut self, adjust: bool) -> Self {
-        
         self.adjust = Some(adjust);
-        
         self
     }
     /// Specifies the number of decimal places for floating values. Should be in range [0, 11] inclusive.
     pub fn dp(mut self, dp: i64) -> Self {
-        
         self.dp = Some(dp);
-        
         self
     }
     /// Timezone at which output datetime will be displayed. Supports: <ul> <li>1. <code>Exchange</code> for local exchange time</li> <li>2. <code>UTC</code> for datetime at universal UTC standard</li> <li>3. Timezone name according to the IANA Time Zone Database. E.g. <code>America/New_York</code>, <code>Asia/Singapore</code>. Full list of timezones can be found <a href=\"https://en.wikipedia.org/wiki/List_of_tz_database_time_zones\" target=\"blank\">here</a>.</li> </ul> <i>Take note that the IANA Timezone name is case-sensitive</i>
     pub fn timezone(mut self, timezone: impl Into<String>) -> Self {
         self.timezone = Some(timezone.into());
-        
         self
     }
 

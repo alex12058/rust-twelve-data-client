@@ -67,52 +67,41 @@ impl GetBondsParamsBuilder {
     /// The ticker symbol of an instrument for which data is requested
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = Some(symbol.into());
-        
         self
     }
     /// Filter by exchange name
     pub fn exchange(mut self, exchange: impl Into<String>) -> Self {
         self.exchange = Some(exchange.into());
-        
         self
     }
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
     /// The format of the response data
     pub fn format(mut self, format: impl Into<String>) -> Self {
         self.format = Some(format.into());
-        
         self
     }
     /// The separator used in the CSV response data
     pub fn delimiter(mut self, delimiter: impl Into<String>) -> Self {
         self.delimiter = Some(delimiter.into());
-        
         self
     }
     /// Adds info on which plan symbol is available
     pub fn show_plan(mut self, show_plan: bool) -> Self {
-        
         self.show_plan = Some(show_plan);
-        
         self
     }
     /// Page number of the results to fetch
     pub fn page(mut self, page: i64) -> Self {
-        
         self.page = Some(page);
-        
         self
     }
     /// Determines the number of data points returned in the output
     pub fn outputsize(mut self, outputsize: i64) -> Self {
-        
         self.outputsize = Some(outputsize);
-        
         self
     }
 
@@ -168,25 +157,21 @@ impl GetCommoditiesParamsBuilder {
     /// The ticker symbol of an instrument for which data is requested
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = Some(symbol.into());
-        
         self
     }
     /// Filter by category of commodity
     pub fn category(mut self, category: impl Into<String>) -> Self {
         self.category = Some(category.into());
-        
         self
     }
     /// The format of the response data
     pub fn format(mut self, format: impl Into<String>) -> Self {
         self.format = Some(format.into());
-        
         self
     }
     /// The separator used in the CSV response data
     pub fn delimiter(mut self, delimiter: impl Into<String>) -> Self {
         self.delimiter = Some(delimiter.into());
-        
         self
     }
 
@@ -238,25 +223,21 @@ impl GetCrossListingsParamsBuilder {
     /// The ticker symbol of an instrument for which data is requested
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = symbol.into();
-        
         self
     }
     /// Exchange where instrument is traded
     pub fn exchange(mut self, exchange: impl Into<String>) -> Self {
         self.exchange = Some(exchange.into());
-        
         self
     }
     /// Market identifier code (MIC) under ISO 10383 standard
     pub fn mic_code(mut self, mic_code: impl Into<String>) -> Self {
         self.mic_code = Some(mic_code.into());
-        
         self
     }
     /// Country to which stock exchange belongs to
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
 
@@ -316,37 +297,31 @@ impl GetCryptocurrenciesParamsBuilder {
     /// The ticker symbol of an instrument for which data is requested
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = Some(symbol.into());
-        
         self
     }
     /// Filter by exchange name. E.g. `Binance`, `Coinbase`, etc.
     pub fn exchange(mut self, exchange: impl Into<String>) -> Self {
         self.exchange = Some(exchange.into());
-        
         self
     }
     /// Filter by currency base
     pub fn currency_base(mut self, currency_base: impl Into<String>) -> Self {
         self.currency_base = Some(currency_base.into());
-        
         self
     }
     /// Filter by currency quote
     pub fn currency_quote(mut self, currency_quote: impl Into<String>) -> Self {
         self.currency_quote = Some(currency_quote.into());
-        
         self
     }
     /// The format of the response data
     pub fn format(mut self, format: impl Into<String>) -> Self {
         self.format = Some(format.into());
-        
         self
     }
     /// The separator used in the CSV response data
     pub fn delimiter(mut self, delimiter: impl Into<String>) -> Self {
         self.delimiter = Some(delimiter.into());
-        
         self
     }
 
@@ -392,13 +367,11 @@ impl GetCryptocurrencyExchangesParamsBuilder {
     /// The format of the response data
     pub fn format(mut self, format: impl Into<String>) -> Self {
         self.format = Some(format.into());
-        
         self
     }
     /// Specify the delimiter used when downloading the CSV file
     pub fn delimiter(mut self, delimiter: impl Into<String>) -> Self {
         self.delimiter = Some(delimiter.into());
-        
         self
     }
 
@@ -464,49 +437,41 @@ impl GetEarliestTimestampParamsBuilder {
     /// Interval between two consecutive points in time series.
     pub fn interval(mut self, interval: impl Into<String>) -> Self {
         self.interval = interval.into();
-        
         self
     }
     /// Symbol ticker of the instrument.
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = Some(symbol.into());
-        
         self
     }
     /// Filter by financial instrument global identifier (FIGI).
     pub fn figi(mut self, figi: impl Into<String>) -> Self {
         self.figi = Some(figi.into());
-        
         self
     }
     /// Filter by international securities identification number (ISIN)
     pub fn isin(mut self, isin: impl Into<String>) -> Self {
         self.isin = Some(isin.into());
-        
         self
     }
     /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
     pub fn cusip(mut self, cusip: impl Into<String>) -> Self {
         self.cusip = Some(cusip.into());
-        
         self
     }
     /// Exchange where instrument is traded.
     pub fn exchange(mut self, exchange: impl Into<String>) -> Self {
         self.exchange = Some(exchange.into());
-        
         self
     }
     /// Market Identifier Code (MIC) under ISO 10383 standard.
     pub fn mic_code(mut self, mic_code: impl Into<String>) -> Self {
         self.mic_code = Some(mic_code.into());
-        
         self
     }
     /// Timezone at which output datetime will be displayed. Supports: <ul> <li>1. <code>Exchange</code> for local exchange time</li> <li>2. <code>UTC</code> for datetime at universal UTC standard</li> <li>3. Timezone name according to the IANA Time Zone Database. E.g. <code>America/New_York</code>, <code>Asia/Singapore</code>. Full list of timezones can be found <a href=\"https://en.wikipedia.org/wiki/List_of_tz_database_time_zones\" target=\"blank\">here</a>.</li> </ul> <i>Take note that the IANA Timezone name is case-sensitive</i>
     pub fn timezone(mut self, timezone: impl Into<String>) -> Self {
         self.timezone = Some(timezone.into());
-        
         self
     }
 
@@ -594,75 +559,61 @@ impl GetEtfParamsBuilder {
     /// The ticker symbol of an instrument for which data is requested
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = Some(symbol.into());
-        
         self
     }
     /// Filter by financial instrument global identifier (FIGI)
     pub fn figi(mut self, figi: impl Into<String>) -> Self {
         self.figi = Some(figi.into());
-        
         self
     }
     /// Filter by international securities identification number (ISIN)
     pub fn isin(mut self, isin: impl Into<String>) -> Self {
         self.isin = Some(isin.into());
-        
         self
     }
     /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
     pub fn cusip(mut self, cusip: impl Into<String>) -> Self {
         self.cusip = Some(cusip.into());
-        
         self
     }
     /// The CIK of an instrument for which data is requested
     pub fn cik(mut self, cik: impl Into<String>) -> Self {
         self.cik = Some(cik.into());
-        
         self
     }
     /// Filter by exchange name
     pub fn exchange(mut self, exchange: impl Into<String>) -> Self {
         self.exchange = Some(exchange.into());
-        
         self
     }
     /// Filter by market identifier code (MIC) under ISO 10383 standard
     pub fn mic_code(mut self, mic_code: impl Into<String>) -> Self {
         self.mic_code = Some(mic_code.into());
-        
         self
     }
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
     /// The format of the response data
     pub fn format(mut self, format: impl Into<String>) -> Self {
         self.format = Some(format.into());
-        
         self
     }
     /// The separator used in the CSV response data
     pub fn delimiter(mut self, delimiter: impl Into<String>) -> Self {
         self.delimiter = Some(delimiter.into());
-        
         self
     }
     /// Adds info on which plan symbol is available
     pub fn show_plan(mut self, show_plan: bool) -> Self {
-        
         self.show_plan = Some(show_plan);
-        
         self
     }
     /// Include delisted identifiers
     pub fn include_delisted(mut self, include_delisted: bool) -> Self {
-        
         self.include_delisted = Some(include_delisted);
-        
         self
     }
 
@@ -714,13 +665,11 @@ impl GetEtfsFamilyParamsBuilder {
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
     /// Filter by investment company that manages the fund
     pub fn fund_family(mut self, fund_family: impl Into<String>) -> Self {
         self.fund_family = Some(fund_family.into());
-        
         self
     }
 
@@ -794,63 +743,51 @@ impl GetEtfsListParamsBuilder {
     /// Filter by symbol
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = Some(symbol.into());
-        
         self
     }
     /// Filter by financial instrument global identifier (FIGI)
     pub fn figi(mut self, figi: impl Into<String>) -> Self {
         self.figi = Some(figi.into());
-        
         self
     }
     /// Filter by international securities identification number (ISIN)
     pub fn isin(mut self, isin: impl Into<String>) -> Self {
         self.isin = Some(isin.into());
-        
         self
     }
     /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
     pub fn cusip(mut self, cusip: impl Into<String>) -> Self {
         self.cusip = Some(cusip.into());
-        
         self
     }
     /// The CIK of an instrument for which data is requested
     pub fn cik(mut self, cik: impl Into<String>) -> Self {
         self.cik = Some(cik.into());
-        
         self
     }
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
     /// Filter by investment company that manages the fund
     pub fn fund_family(mut self, fund_family: impl Into<String>) -> Self {
         self.fund_family = Some(fund_family.into());
-        
         self
     }
     /// Filter by the type of fund
     pub fn fund_type(mut self, fund_type: impl Into<String>) -> Self {
         self.fund_type = Some(fund_type.into());
-        
         self
     }
     /// Page number
     pub fn page(mut self, page: i64) -> Self {
-        
         self.page = Some(page);
-        
         self
     }
     /// Number of records in response
     pub fn outputsize(mut self, outputsize: i64) -> Self {
-        
         self.outputsize = Some(outputsize);
-        
         self
     }
 
@@ -900,13 +837,11 @@ impl GetEtfsTypeParamsBuilder {
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
     /// Filter by the type of fund
     pub fn fund_type(mut self, fund_type: impl Into<String>) -> Self {
         self.fund_type = Some(fund_type.into());
-        
         self
     }
 
@@ -956,25 +891,21 @@ impl GetExchangeScheduleParamsBuilder {
     /// Filter by exchange name
     pub fn mic_name(mut self, mic_name: impl Into<String>) -> Self {
         self.mic_name = Some(mic_name.into());
-        
         self
     }
     /// Filter by market identifier code (MIC) under ISO 10383 standard
     pub fn mic_code(mut self, mic_code: impl Into<String>) -> Self {
         self.mic_code = Some(mic_code.into());
-        
         self
     }
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
     /// <p> If a date is provided, the API returns the schedule for the specified date; otherwise, it returns the default (common) schedule. </p> The date can be specified in one of the following formats: <ul> <li>An exact date (e.g., <code>2021-10-27</code>)</li> <li>A human-readable keyword: <code>today</code> or <code>yesterday</code></li> <li>A full datetime string in UTC (e.g., <code>2025-04-11T20:00:00</code>) to retrieve the schedule corresponding to the day in the specified time.</li> </ul> When using a datetime value, the resulting schedule will correspond to the local calendar day at the specified time. For example, <code>2025-04-11T20:00:00 UTC</code> corresponds to: <ul> <li><code>2025-04-11</code> in the <code>America/New_York</code> timezone</li> <li><code>2025-04-12</code> in the <code>Australia/Sydney</code> timezone</li> </ul>
     pub fn date(mut self, date: impl Into<String>) -> Self {
         self.date = Some(date.into());
-        
         self
     }
 
@@ -1038,44 +969,36 @@ impl GetExchangesParamsBuilder {
     /// The asset class to which the instrument belongs
     pub fn r#type(mut self, r#type: impl Into<String>) -> Self {
         self.r#type = Some(r#type.into());
-        
         self
     }
     /// Filter by exchange name
     pub fn name(mut self, name: impl Into<String>) -> Self {
         self.name = Some(name.into());
-        
         self
     }
     /// Filter by market identifier code (MIC) under ISO 10383 standard
     pub fn code(mut self, code: impl Into<String>) -> Self {
         self.code = Some(code.into());
-        
         self
     }
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
     /// The format of the response data
     pub fn format(mut self, format: impl Into<String>) -> Self {
         self.format = Some(format.into());
-        
         self
     }
     /// The separator used in the CSV response data
     pub fn delimiter(mut self, delimiter: impl Into<String>) -> Self {
         self.delimiter = Some(delimiter.into());
-        
         self
     }
     /// Adds info on which plan symbol is available
     pub fn show_plan(mut self, show_plan: bool) -> Self {
-        
         self.show_plan = Some(show_plan);
-        
         self
     }
 
@@ -1134,31 +1057,26 @@ impl GetForexPairsParamsBuilder {
     /// The ticker symbol of an instrument for which data is requested
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = Some(symbol.into());
-        
         self
     }
     /// Filter by currency base
     pub fn currency_base(mut self, currency_base: impl Into<String>) -> Self {
         self.currency_base = Some(currency_base.into());
-        
         self
     }
     /// Filter by currency quote
     pub fn currency_quote(mut self, currency_quote: impl Into<String>) -> Self {
         self.currency_quote = Some(currency_quote.into());
-        
         self
     }
     /// The format of the response data
     pub fn format(mut self, format: impl Into<String>) -> Self {
         self.format = Some(format.into());
-        
         self
     }
     /// The separator used in the CSV response data
     pub fn delimiter(mut self, delimiter: impl Into<String>) -> Self {
         self.delimiter = Some(delimiter.into());
-        
         self
     }
 
@@ -1243,76 +1161,61 @@ impl GetFundsParamsBuilder {
     /// The ticker symbol of an instrument for which data is requested
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = Some(symbol.into());
-        
         self
     }
     /// Filter by financial instrument global identifier (FIGI)
     pub fn figi(mut self, figi: impl Into<String>) -> Self {
         self.figi = Some(figi.into());
-        
         self
     }
     /// Filter by international securities identification number (ISIN)
     pub fn isin(mut self, isin: impl Into<String>) -> Self {
         self.isin = Some(isin.into());
-        
         self
     }
     /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
     pub fn cusip(mut self, cusip: impl Into<String>) -> Self {
         self.cusip = Some(cusip.into());
-        
         self
     }
     /// The CIK of an instrument for which data is requested
     pub fn cik(mut self, cik: impl Into<String>) -> Self {
         self.cik = Some(cik.into());
-        
         self
     }
     /// Filter by exchange name
     pub fn exchange(mut self, exchange: impl Into<String>) -> Self {
         self.exchange = Some(exchange.into());
-        
         self
     }
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
     /// The format of the response data
     pub fn format(mut self, format: impl Into<String>) -> Self {
         self.format = Some(format.into());
-        
         self
     }
     /// The separator used in the CSV response data
     pub fn delimiter(mut self, delimiter: impl Into<String>) -> Self {
         self.delimiter = Some(delimiter.into());
-        
         self
     }
     /// Adds info on which plan symbol is available
     pub fn show_plan(mut self, show_plan: bool) -> Self {
-        
         self.show_plan = Some(show_plan);
-        
         self
     }
     /// Page number of the results to fetch
     pub fn page(mut self, page: i64) -> Self {
-        
         self.page = Some(page);
-        
         self
     }
     /// Determines the number of data points returned in the output
     pub fn outputsize(mut self, outputsize: i64) -> Self {
-        
         self.outputsize = Some(outputsize);
-        
         self
     }
 
@@ -1368,19 +1271,16 @@ impl GetMarketStateParamsBuilder {
     /// The exchange name where the instrument is traded.
     pub fn exchange(mut self, exchange: impl Into<String>) -> Self {
         self.exchange = Some(exchange.into());
-        
         self
     }
     /// The Market Identifier Code (MIC) of the exchange where the instrument is traded.
     pub fn code(mut self, code: impl Into<String>) -> Self {
         self.code = Some(code.into());
-        
         self
     }
     /// The country where the exchange is located. Takes country name or alpha code.
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
 
@@ -1423,13 +1323,11 @@ impl GetMutualFundsFamilyParamsBuilder {
     /// Filter by investment company that manages the fund
     pub fn fund_family(mut self, fund_family: impl Into<String>) -> Self {
         self.fund_family = Some(fund_family.into());
-        
         self
     }
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
 
@@ -1511,77 +1409,61 @@ impl GetMutualFundsListParamsBuilder {
     /// Filter by symbol
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = Some(symbol.into());
-        
         self
     }
     /// Filter by financial instrument global identifier (FIGI)
     pub fn figi(mut self, figi: impl Into<String>) -> Self {
         self.figi = Some(figi.into());
-        
         self
     }
     /// Filter by international securities identification number (ISIN)
     pub fn isin(mut self, isin: impl Into<String>) -> Self {
         self.isin = Some(isin.into());
-        
         self
     }
     /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
     pub fn cusip(mut self, cusip: impl Into<String>) -> Self {
         self.cusip = Some(cusip.into());
-        
         self
     }
     /// The CIK of an instrument for which data is requested
     pub fn cik(mut self, cik: impl Into<String>) -> Self {
         self.cik = Some(cik.into());
-        
         self
     }
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
     /// Filter by investment company that manages the fund
     pub fn fund_family(mut self, fund_family: impl Into<String>) -> Self {
         self.fund_family = Some(fund_family.into());
-        
         self
     }
     /// Filter by the type of fund
     pub fn fund_type(mut self, fund_type: impl Into<String>) -> Self {
         self.fund_type = Some(fund_type.into());
-        
         self
     }
     /// Filter by performance rating from `0` to `5`
     pub fn performance_rating(mut self, performance_rating: i64) -> Self {
-        
         self.performance_rating = Some(performance_rating);
-        
         self
     }
     /// Filter by risk rating from `0` to `5`
     pub fn risk_rating(mut self, risk_rating: i64) -> Self {
-        
         self.risk_rating = Some(risk_rating);
-        
         self
     }
     /// Page number
     pub fn page(mut self, page: i64) -> Self {
-        
         self.page = Some(page);
-        
         self
     }
     /// Number of records in response
     pub fn outputsize(mut self, outputsize: i64) -> Self {
-        
         self.outputsize = Some(outputsize);
-        
         self
     }
 
@@ -1633,13 +1515,11 @@ impl GetMutualFundsTypeParamsBuilder {
     /// Filter by the type of fund
     pub fn fund_type(mut self, fund_type: impl Into<String>) -> Self {
         self.fund_type = Some(fund_type.into());
-        
         self
     }
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
 
@@ -1725,81 +1605,66 @@ impl GetStocksParamsBuilder {
     /// The ticker symbol of an instrument for which data is requested
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = Some(symbol.into());
-        
         self
     }
     /// Filter by financial instrument global identifier (FIGI)
     pub fn figi(mut self, figi: impl Into<String>) -> Self {
         self.figi = Some(figi.into());
-        
         self
     }
     /// Filter by international securities identification number (ISIN)
     pub fn isin(mut self, isin: impl Into<String>) -> Self {
         self.isin = Some(isin.into());
-        
         self
     }
     /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
     pub fn cusip(mut self, cusip: impl Into<String>) -> Self {
         self.cusip = Some(cusip.into());
-        
         self
     }
     /// The CIK of an instrument for which data is requested
     pub fn cik(mut self, cik: impl Into<String>) -> Self {
         self.cik = Some(cik.into());
-        
         self
     }
     /// Filter by exchange name
     pub fn exchange(mut self, exchange: impl Into<String>) -> Self {
         self.exchange = Some(exchange.into());
-        
         self
     }
     /// Filter by market identifier code (MIC) under ISO 10383 standard
     pub fn mic_code(mut self, mic_code: impl Into<String>) -> Self {
         self.mic_code = Some(mic_code.into());
-        
         self
     }
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
     /// The asset class to which the instrument belongs
     pub fn r#type(mut self, r#type: impl Into<String>) -> Self {
         self.r#type = Some(r#type.into());
-        
         self
     }
     /// The format of the response data
     pub fn format(mut self, format: impl Into<String>) -> Self {
         self.format = Some(format.into());
-        
         self
     }
     /// The separator used in the CSV response data
     pub fn delimiter(mut self, delimiter: impl Into<String>) -> Self {
         self.delimiter = Some(delimiter.into());
-        
         self
     }
     /// Adds info on which plan symbol is available
     pub fn show_plan(mut self, show_plan: bool) -> Self {
-        
         self.show_plan = Some(show_plan);
-        
         self
     }
     /// Include delisted identifiers
     pub fn include_delisted(mut self, include_delisted: bool) -> Self {
-        
         self.include_delisted = Some(include_delisted);
-        
         self
     }
 
@@ -1856,21 +1721,16 @@ impl GetSymbolSearchParamsBuilder {
     /// Symbol to search. Supports: <ul> <li>Ticker symbol of instrument.</li> <li>International securities identification number (ISIN). <li>Financial instrument global identifier (FIGI). <li>Composite FIGI.</li> <li>Share Class FIGI.</li> </ul>
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = symbol.into();
-        
         self
     }
     /// Number of matches in response. Max <code>120</code>
     pub fn outputsize(mut self, outputsize: i64) -> Self {
-        
         self.outputsize = Some(outputsize);
-        
         self
     }
     /// Adds info on which plan symbol is available.
     pub fn show_plan(mut self, show_plan: bool) -> Self {
-        
         self.show_plan = Some(show_plan);
-        
         self
     }
 

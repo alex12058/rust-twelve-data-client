@@ -63,43 +63,36 @@ impl GetDirectHoldersParamsBuilder {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = Some(symbol.into());
-        
         self
     }
     /// Filter by financial instrument global identifier (FIGI)
     pub fn figi(mut self, figi: impl Into<String>) -> Self {
         self.figi = Some(figi.into());
-        
         self
     }
     /// Filter by international securities identification number (ISIN)
     pub fn isin(mut self, isin: impl Into<String>) -> Self {
         self.isin = Some(isin.into());
-        
         self
     }
     /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
     pub fn cusip(mut self, cusip: impl Into<String>) -> Self {
         self.cusip = Some(cusip.into());
-        
         self
     }
     /// Exchange where instrument is traded
     pub fn exchange(mut self, exchange: impl Into<String>) -> Self {
         self.exchange = Some(exchange.into());
-        
         self
     }
     /// Market Identifier Code (MIC) under ISO 10383 standard
     pub fn mic_code(mut self, mic_code: impl Into<String>) -> Self {
         self.mic_code = Some(mic_code.into());
-        
         self
     }
     /// Country where instrument is traded, e.g., `United States` or `US`
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
 
@@ -166,43 +159,36 @@ impl GetFundHoldersParamsBuilder {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = Some(symbol.into());
-        
         self
     }
     /// Filter by financial instrument global identifier (FIGI)
     pub fn figi(mut self, figi: impl Into<String>) -> Self {
         self.figi = Some(figi.into());
-        
         self
     }
     /// Filter by international securities identification number (ISIN)
     pub fn isin(mut self, isin: impl Into<String>) -> Self {
         self.isin = Some(isin.into());
-        
         self
     }
     /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
     pub fn cusip(mut self, cusip: impl Into<String>) -> Self {
         self.cusip = Some(cusip.into());
-        
         self
     }
     /// Exchange where instrument is traded
     pub fn exchange(mut self, exchange: impl Into<String>) -> Self {
         self.exchange = Some(exchange.into());
-        
         self
     }
     /// Market Identifier Code (MIC) under ISO 10383 standard
     pub fn mic_code(mut self, mic_code: impl Into<String>) -> Self {
         self.mic_code = Some(mic_code.into());
-        
         self
     }
     /// Country where instrument is traded, e.g., `United States` or `US`
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
 
@@ -269,43 +255,36 @@ impl GetInsiderTransactionsParamsBuilder {
     /// The ticker symbol of an instrument for which data is requested, e.g., `AAPL`, `TSLA`. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = Some(symbol.into());
-        
         self
     }
     /// Filter by financial instrument global identifier (FIGI)
     pub fn figi(mut self, figi: impl Into<String>) -> Self {
         self.figi = Some(figi.into());
-        
         self
     }
     /// Filter by international securities identification number (ISIN)
     pub fn isin(mut self, isin: impl Into<String>) -> Self {
         self.isin = Some(isin.into());
-        
         self
     }
     /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
     pub fn cusip(mut self, cusip: impl Into<String>) -> Self {
         self.cusip = Some(cusip.into());
-        
         self
     }
     /// Exchange where instrument is traded, e.g., `Nasdaq`, `NSE`
     pub fn exchange(mut self, exchange: impl Into<String>) -> Self {
         self.exchange = Some(exchange.into());
-        
         self
     }
     /// Market Identifier Code (MIC) under ISO 10383 standard
     pub fn mic_code(mut self, mic_code: impl Into<String>) -> Self {
         self.mic_code = Some(mic_code.into());
-        
         self
     }
     /// Country where instrument is traded, e.g., United States or US.
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
 
@@ -372,43 +351,36 @@ impl GetInstitutionalHoldersParamsBuilder {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = Some(symbol.into());
-        
         self
     }
     /// Filter by financial instrument global identifier (FIGI)
     pub fn figi(mut self, figi: impl Into<String>) -> Self {
         self.figi = Some(figi.into());
-        
         self
     }
     /// Filter by international securities identification number (ISIN)
     pub fn isin(mut self, isin: impl Into<String>) -> Self {
         self.isin = Some(isin.into());
-        
         self
     }
     /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
     pub fn cusip(mut self, cusip: impl Into<String>) -> Self {
         self.cusip = Some(cusip.into());
-        
         self
     }
     /// Exchange where instrument is traded
     pub fn exchange(mut self, exchange: impl Into<String>) -> Self {
         self.exchange = Some(exchange.into());
-        
         self
     }
     /// Market Identifier Code (MIC) under ISO 10383 standard
     pub fn mic_code(mut self, mic_code: impl Into<String>) -> Self {
         self.mic_code = Some(mic_code.into());
-        
         self
     }
     /// Country where instrument is traded, e.g., `United States` or `US`
     pub fn country(mut self, country: impl Into<String>) -> Self {
         self.country = Some(country.into());
-        
         self
     }
 
@@ -451,7 +423,6 @@ impl GetSourceSanctionedEntitiesParamsBuilder {
     /// Sanctions source
     pub fn source(mut self, source: impl Into<String>) -> Self {
         self.source = source.into();
-        
         self
     }
 
@@ -508,37 +479,31 @@ impl GetTaxInfoParamsBuilder {
     /// The ticker symbol of an instrument for which data is requested, e.g., `SKYQ`, `AIRE`, `ALM:BME`, `HSI:HKEX`.
     pub fn symbol(mut self, symbol: impl Into<String>) -> Self {
         self.symbol = Some(symbol.into());
-        
         self
     }
     /// The ISIN of an instrument for which data is requested
     pub fn isin(mut self, isin: impl Into<String>) -> Self {
         self.isin = Some(isin.into());
-        
         self
     }
     /// The FIGI of an instrument for which data is requested
     pub fn figi(mut self, figi: impl Into<String>) -> Self {
         self.figi = Some(figi.into());
-        
         self
     }
     /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
     pub fn cusip(mut self, cusip: impl Into<String>) -> Self {
         self.cusip = Some(cusip.into());
-        
         self
     }
     /// The exchange name where the instrument is traded, e.g., `Nasdaq`, `Euronext`
     pub fn exchange(mut self, exchange: impl Into<String>) -> Self {
         self.exchange = Some(exchange.into());
-        
         self
     }
     /// The Market Identifier Code (MIC) of the exchange where the instrument is traded, e.g., `XNAS`, `XLON`
     pub fn mic_code(mut self, mic_code: impl Into<String>) -> Self {
         self.mic_code = Some(mic_code.into());
-        
         self
     }
 
