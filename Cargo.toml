@@ -1,0 +1,36 @@
+[package]
+name = "twelve-data-client"
+version = "0.1.0"
+authors = ["Alex Ashand <ashand@inav.ca>"]
+description = "Rust API client for Twelve Data with automatic builder pattern generation. Provides access to comprehensive financial market data including stocks, forex, ETFs, mutual funds, commodities, and cryptocurrencies."
+repository = "https://github.com/alex12058/rust-twelve-data-client"
+homepage = "https://github.com/alex12058/rust-twelve-data-client"
+documentation = "https://docs.rs/twelve-data-client"
+keywords = ["twelve-data", "finance", "api", "stocks", "forex"]
+categories = ["api-bindings", "web-programming::http-client"]
+license = "Unlicense"
+edition = "2021"
+readme = "README.md"
+exclude = [
+    "openapi-generator-rust-builders/",
+    ".openapi-generator/",
+    ".openapi-generator-ignore",
+    ".gitmodules",
+    ".travis.yml",
+    "openapi.json",
+]
+
+[dependencies]
+serde = { version = "^1.0", features = ["derive"] }
+serde_json = "^1.0"
+serde_repr = "^0.1"
+url = "^2.5"
+reqwest = { version = "^0.12", default-features = false, features = ["json", "multipart"] }
+
+[features]
+default = ["native-tls"]
+native-tls = ["reqwest/native-tls"]
+rustls-tls = ["reqwest/rustls-tls"]
+
+[dev-dependencies]
+tokio = { version = "1", features = ["full"] }

@@ -1,0 +1,15 @@
+# GetTimeSeriesMacd200ResponseMetaIndicator
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | Option<**String**> | Name of the technical indicator | [optional]
+**series_type** | Option<**String**> | Price type on which technical indicator is calculated | [optional]
+**fast_period** | Option<**i64**> | Fast period value | [optional]
+**slow_period** | Option<**i64**> | Slow period value | [optional]
+**signal_period** | Option<**i64**> | Signal period value | [optional]
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

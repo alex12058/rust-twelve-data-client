@@ -1,0 +1,3 @@
+[submodule "openapi-generator-rust-builders"]
+	path = openapi-generator-rust-builders
+	url = git@github.com:alex12058/openapi-generator-rust-builders.git
