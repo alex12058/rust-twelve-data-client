@@ -482,7 +482,7 @@ pub enum GetEtfsWorldSummaryError {
 pub async fn get_etfs_world(
     configuration: &configuration::Configuration,
     params: GetEtfsWorldParams,
-) -> Result<models::GetEtfsWorld200ResponseEnum, Error<GetEtfsWorldError>> {
+) -> Result<models::GetEtfsWorldResponse, Error<GetEtfsWorldError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -539,8 +539,8 @@ pub async fn get_etfs_world(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsWorld200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsWorld200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsWorldResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsWorldResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -557,7 +557,7 @@ pub async fn get_etfs_world(
 pub async fn get_etfs_world_composition(
     configuration: &configuration::Configuration,
     params: GetEtfsWorldCompositionParams,
-) -> Result<models::GetEtfsWorldComposition200ResponseEnum, Error<GetEtfsWorldCompositionError>> {
+) -> Result<models::GetEtfsWorldCompositionResponse, Error<GetEtfsWorldCompositionError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -614,8 +614,8 @@ pub async fn get_etfs_world_composition(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsWorldComposition200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsWorldComposition200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsWorldCompositionResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsWorldCompositionResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -632,7 +632,7 @@ pub async fn get_etfs_world_composition(
 pub async fn get_etfs_world_performance(
     configuration: &configuration::Configuration,
     params: GetEtfsWorldPerformanceParams,
-) -> Result<models::GetEtfsWorldPerformance200ResponseEnum, Error<GetEtfsWorldPerformanceError>> {
+) -> Result<models::GetEtfsWorldPerformanceResponse, Error<GetEtfsWorldPerformanceError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -689,8 +689,8 @@ pub async fn get_etfs_world_performance(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsWorldPerformance200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsWorldPerformance200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsWorldPerformanceResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsWorldPerformanceResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -707,7 +707,7 @@ pub async fn get_etfs_world_performance(
 pub async fn get_etfs_world_risk(
     configuration: &configuration::Configuration,
     params: GetEtfsWorldRiskParams,
-) -> Result<models::GetEtfsWorldRisk200ResponseEnum, Error<GetEtfsWorldRiskError>> {
+) -> Result<models::GetEtfsWorldRiskResponse, Error<GetEtfsWorldRiskError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -764,8 +764,8 @@ pub async fn get_etfs_world_risk(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsWorldRisk200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsWorldRisk200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsWorldRiskResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsWorldRiskResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -782,7 +782,7 @@ pub async fn get_etfs_world_risk(
 pub async fn get_etfs_world_summary(
     configuration: &configuration::Configuration,
     params: GetEtfsWorldSummaryParams,
-) -> Result<models::GetEtfsWorldSummary200ResponseEnum, Error<GetEtfsWorldSummaryError>> {
+) -> Result<models::GetEtfsWorldSummaryResponse, Error<GetEtfsWorldSummaryError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -839,8 +839,8 @@ pub async fn get_etfs_world_summary(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsWorldSummary200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsWorldSummary200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsWorldSummaryResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsWorldSummaryResponse`")))),
         }
     } else {
         let content = resp.text().await?;

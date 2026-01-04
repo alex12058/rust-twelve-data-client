@@ -33,7 +33,7 @@ Method | HTTP request | Description
 
 ## get_bonds
 
-> models::GetBonds200ResponseEnum get_bonds(symbol, exchange, country, format, delimiter, show_plan, page, outputsize)
+> models::GetBondsResponse get_bonds(symbol, exchange, country, format, delimiter, show_plan, page, outputsize)
 Fixed income
 
 The fixed income endpoint provides a daily updated list of available bonds. It returns an array containing detailed information about each bond, including identifiers, names, and other relevant attributes.
@@ -54,7 +54,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetBonds200ResponseEnum**](GetBonds_200_responseEnum.md)
+[**models::GetBondsResponse**](GetBonds_response.md)
 
 ### Authorization
 
@@ -70,7 +70,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_commodities
 
-> models::GetCommodities200ResponseEnum get_commodities(symbol, category, format, delimiter)
+> models::GetCommoditiesResponse get_commodities(symbol, category, format, delimiter)
 Commodities
 
 The commodities endpoint provides a daily updated list of available commodity pairs, across precious metals, livestock, softs, grains, etc.
@@ -87,7 +87,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetCommodities200ResponseEnum**](GetCommodities_200_responseEnum.md)
+[**models::GetCommoditiesResponse**](GetCommodities_response.md)
 
 ### Authorization
 
@@ -103,7 +103,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_countries
 
-> models::GetCountries200ResponseEnum get_countries()
+> models::GetCountriesResponse get_countries()
 Countries
 
 The countries endpoint provides a comprehensive list of countries, including their ISO codes, official names, capitals, and currencies. This data is essential for applications requiring accurate country information for tasks such as localization, currency conversion, or geographic analysis.
@@ -114,7 +114,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**models::GetCountries200ResponseEnum**](GetCountries_200_responseEnum.md)
+[**models::GetCountriesResponse**](GetCountries_response.md)
 
 ### Authorization
 
@@ -130,7 +130,7 @@ This endpoint does not need any parameter.
 
 ## get_cross_listings
 
-> models::GetCrossListings200ResponseEnum get_cross_listings(symbol, exchange, mic_code, country)
+> models::GetCrossListingsResponse get_cross_listings(symbol, exchange, mic_code, country)
 Cross listings
 
 The cross_listings endpoint provides a daily updated list of cross-listed symbols for a specified financial instrument. Cross-listed symbols represent the same security available on multiple exchanges. This endpoint is useful for identifying all the exchanges where a particular security is traded, allowing users to access comprehensive trading information across different markets.
@@ -147,7 +147,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetCrossListings200ResponseEnum**](GetCrossListings_200_responseEnum.md)
+[**models::GetCrossListingsResponse**](GetCrossListings_response.md)
 
 ### Authorization
 
@@ -163,7 +163,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_cryptocurrencies
 
-> models::GetCryptocurrencies200ResponseEnum get_cryptocurrencies(symbol, exchange, currency_base, currency_quote, format, delimiter)
+> models::GetCryptocurrenciesResponse get_cryptocurrencies(symbol, exchange, currency_base, currency_quote, format, delimiter)
 Cryptocurrency pairs
 
 The cryptocurrencies endpoint provides a daily updated list of all available cryptos. It returns an array containing detailed information about each cryptocurrency, including its symbol, name, and other relevant identifiers. This endpoint is useful for retrieving a comprehensive catalog of cryptocurrencies for applications that require up-to-date market listings or need to display available crypto assets to users.
@@ -182,7 +182,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetCryptocurrencies200ResponseEnum**](GetCryptocurrencies_200_responseEnum.md)
+[**models::GetCryptocurrenciesResponse**](GetCryptocurrencies_response.md)
 
 ### Authorization
 
@@ -198,7 +198,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_cryptocurrency_exchanges
 
-> models::GetCryptocurrencyExchanges200ResponseEnum get_cryptocurrency_exchanges(format, delimiter)
+> models::GetCryptocurrencyExchangesResponse get_cryptocurrency_exchanges(format, delimiter)
 Cryptocurrency exchanges
 
 The cryptocurrency exchanges endpoint provides a daily updated list of available cryptocurrency exchanges. It returns an array containing details about each exchange, such as exchange names and identifiers.
@@ -213,7 +213,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetCryptocurrencyExchanges200ResponseEnum**](GetCryptocurrencyExchanges_200_responseEnum.md)
+[**models::GetCryptocurrencyExchangesResponse**](GetCryptocurrencyExchanges_response.md)
 
 ### Authorization
 
@@ -229,7 +229,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_earliest_timestamp
 
-> models::GetEarliestTimestamp200ResponseEnum get_earliest_timestamp(interval, symbol, figi, isin, cusip, exchange, mic_code, timezone)
+> models::GetEarliestTimestampResponse get_earliest_timestamp(interval, symbol, figi, isin, cusip, exchange, mic_code, timezone)
 Earliest timestamp
 
 The earliest_timestamp endpoint provides the earliest available date and time for a specified financial instrument at a given data interval. This endpoint is useful for determining the starting point of historical data availability for various assets, such as stocks or currencies, allowing users to understand the time range covered by the data.
@@ -250,7 +250,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetEarliestTimestamp200ResponseEnum**](GetEarliestTimestamp_200_responseEnum.md)
+[**models::GetEarliestTimestampResponse**](GetEarliestTimestamp_response.md)
 
 ### Authorization
 
@@ -266,7 +266,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_etf
 
-> models::GetEtf200ResponseEnum get_etf(symbol, figi, isin, cusip, cik, exchange, mic_code, country, format, delimiter, show_plan, include_delisted)
+> models::GetEtfResponse get_etf(symbol, figi, isin, cusip, cik, exchange, mic_code, country, format, delimiter, show_plan, include_delisted)
 ETFs
 
 The ETFs endpoint provides a daily updated list of all available Exchange-Traded Funds. It returns an array containing detailed information about each ETF, including its symbol, name, and other relevant identifiers. This endpoint is useful for retrieving a comprehensive catalog of ETFs for portfolio management, investment tracking, or financial analysis.
@@ -291,7 +291,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetEtf200ResponseEnum**](GetEtf_200_responseEnum.md)
+[**models::GetEtfResponse**](GetEtf_response.md)
 
 ### Authorization
 
@@ -307,7 +307,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_etfs_family
 
-> models::GetEtfsFamily200ResponseEnum get_etfs_family(country, fund_family)
+> models::GetEtfsFamilyResponse get_etfs_family(country, fund_family)
 ETFs families
 
 Retrieve a comprehensive list of exchange-traded fund (ETF) families, providing users with detailed information on various ETF groups available in the market. This endpoint is ideal for users looking to explore different ETF categories, compare offerings, or integrate ETF family data into their financial applications.
@@ -322,7 +322,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetEtfsFamily200ResponseEnum**](GetETFsFamily_200_responseEnum.md)
+[**models::GetEtfsFamilyResponse**](GetETFsFamily_response.md)
 
 ### Authorization
 
@@ -338,7 +338,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_etfs_list
 
-> models::GetEtfsList200ResponseEnum get_etfs_list(symbol, figi, isin, cusip, cik, country, fund_family, fund_type, page, outputsize)
+> models::GetEtfsListResponse get_etfs_list(symbol, figi, isin, cusip, cik, country, fund_family, fund_type, page, outputsize)
 ETFs directory
 
 The ETFs directory endpoint provides a daily updated list of exchange-traded funds, sorted by total assets in descending order. This endpoint is useful for retrieving comprehensive ETF data, including fund names and asset values, to assist users in quickly identifying the ETFs available.
@@ -361,7 +361,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetEtfsList200ResponseEnum**](GetETFsList_200_responseEnum.md)
+[**models::GetEtfsListResponse**](GetETFsList_response.md)
 
 ### Authorization
 
@@ -377,7 +377,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_etfs_type
 
-> models::GetEtfsType200ResponseEnum get_etfs_type(country, fund_type)
+> models::GetEtfsTypeResponse get_etfs_type(country, fund_type)
 ETFs types
 
 The ETFs Types endpoint provides a concise list of ETF categories by market (e.g., Singapore, United States), including types like \"Equity Precious Metals\" and \"Large Blend.\" It supports targeted investment research and portfolio diversification.
@@ -392,7 +392,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetEtfsType200ResponseEnum**](GetETFsType_200_responseEnum.md)
+[**models::GetEtfsTypeResponse**](GetETFsType_response.md)
 
 ### Authorization
 
@@ -408,7 +408,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_exchange_schedule
 
-> models::GetExchangeSchedule200ResponseEnum get_exchange_schedule(mic_name, mic_code, country, date)
+> models::GetExchangeScheduleResponse get_exchange_schedule(mic_name, mic_code, country, date)
 Exchanges schedule
 
 The exchanges schedule endpoint provides detailed information about various stock exchanges, including their trading hours and operational days. This data is essential for users who need to know when specific exchanges are open for trading, allowing them to plan their activities around the availability of these markets.
@@ -425,7 +425,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetExchangeSchedule200ResponseEnum**](GetExchangeSchedule_200_responseEnum.md)
+[**models::GetExchangeScheduleResponse**](GetExchangeSchedule_response.md)
 
 ### Authorization
 
@@ -441,7 +441,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_exchanges
 
-> models::GetExchanges200ResponseEnum get_exchanges(r#type, name, code, country, format, delimiter, show_plan)
+> models::GetExchangesResponse get_exchanges(r#type, name, code, country, format, delimiter, show_plan)
 Exchanges
 
 The exchanges endpoint provides a comprehensive list of all available equity exchanges. It returns an array containing detailed information about each exchange, such as exchange code, name, country, and timezone. This data is updated daily.
@@ -461,7 +461,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetExchanges200ResponseEnum**](GetExchanges_200_responseEnum.md)
+[**models::GetExchangesResponse**](GetExchanges_response.md)
 
 ### Authorization
 
@@ -477,7 +477,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_forex_pairs
 
-> models::GetForexPairs200ResponseEnum get_forex_pairs(symbol, currency_base, currency_quote, format, delimiter)
+> models::GetForexPairsResponse get_forex_pairs(symbol, currency_base, currency_quote, format, delimiter)
 Forex pairs
 
 The forex pairs endpoint provides a comprehensive list of all available foreign exchange currency pairs. It returns an array of forex pairs, which is updated daily.
@@ -495,7 +495,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetForexPairs200ResponseEnum**](GetForexPairs_200_responseEnum.md)
+[**models::GetForexPairsResponse**](GetForexPairs_response.md)
 
 ### Authorization
 
@@ -511,7 +511,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_funds
 
-> models::GetFunds200ResponseEnum get_funds(symbol, figi, isin, cusip, cik, exchange, country, format, delimiter, show_plan, page, outputsize)
+> models::GetFundsResponse get_funds(symbol, figi, isin, cusip, cik, exchange, country, format, delimiter, show_plan, page, outputsize)
 Funds
 
 The funds endpoint provides a daily updated list of available investment funds. It returns an array containing detailed information about each fund, including identifiers, names, and other relevant attributes.
@@ -536,7 +536,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetFunds200ResponseEnum**](GetFunds_200_responseEnum.md)
+[**models::GetFundsResponse**](GetFunds_response.md)
 
 ### Authorization
 
@@ -552,7 +552,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_instrument_type
 
-> models::GetInstrumentType200ResponseEnum get_instrument_type()
+> models::GetInstrumentTypeResponse get_instrument_type()
 Instrument type
 
 The instrument type endpoint lists all available financial instrument types, such as stocks, ETFs, and cryptos. This information is essential for users to identify and categorize different financial instruments when accessing or analyzing market data.
@@ -563,7 +563,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**models::GetInstrumentType200ResponseEnum**](GetInstrumentType_200_responseEnum.md)
+[**models::GetInstrumentTypeResponse**](GetInstrumentType_response.md)
 
 ### Authorization
 
@@ -579,7 +579,7 @@ This endpoint does not need any parameter.
 
 ## get_intervals
 
-> models::GetIntervals200ResponseEnum get_intervals()
+> models::GetIntervalsResponse get_intervals()
 Intervals List
 
 The intervals endpoint provides a list of supported time intervals that can be used for querying financial data.
@@ -590,7 +590,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**models::GetIntervals200ResponseEnum**](GetIntervals_200_responseEnum.md)
+[**models::GetIntervalsResponse**](GetIntervals_response.md)
 
 ### Authorization
 
@@ -606,7 +606,7 @@ This endpoint does not need any parameter.
 
 ## get_market_state
 
-> models::GetMarketState200ResponseEnum get_market_state(exchange, code, country)
+> models::GetMarketStateResponse get_market_state(exchange, code, country)
 Market state
 
 The market state endpoint provides real-time information on the operational status of all available stock exchanges. It returns data on whether each exchange is currently open or closed, along with the time remaining until the next opening or closing. This endpoint is useful for users who need to monitor exchange hours and plan their trading activities accordingly.
@@ -622,7 +622,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetMarketState200ResponseEnum**](GetMarketState_200_responseEnum.md)
+[**models::GetMarketStateResponse**](GetMarketState_response.md)
 
 ### Authorization
 
@@ -638,7 +638,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_mutual_funds_family
 
-> models::GetMutualFundsFamily200ResponseEnum get_mutual_funds_family(fund_family, country)
+> models::GetMutualFundsFamilyResponse get_mutual_funds_family(fund_family, country)
 MFs families
 
 The mutual funds family endpoint provides a comprehensive list of MF families, which are groups of mutual funds managed by the same investment company. This data is useful for users looking to explore or compare different fund families, understand the range of investment options offered by each, and identify potential investment opportunities within specific fund families.
@@ -653,7 +653,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetMutualFundsFamily200ResponseEnum**](GetMutualFundsFamily_200_responseEnum.md)
+[**models::GetMutualFundsFamilyResponse**](GetMutualFundsFamily_response.md)
 
 ### Authorization
 
@@ -669,7 +669,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_mutual_funds_list
 
-> models::GetMutualFundsList200ResponseEnum get_mutual_funds_list(symbol, figi, isin, cusip, cik, country, fund_family, fund_type, performance_rating, risk_rating, page, outputsize)
+> models::GetMutualFundsListResponse get_mutual_funds_list(symbol, figi, isin, cusip, cik, country, fund_family, fund_type, performance_rating, risk_rating, page, outputsize)
 MFs directory
 
 The mutual funds directory endpoint provides a daily updated list of mutual funds, sorted in descending order by their total assets value. This endpoint is useful for retrieving an organized overview of available mutual funds.
@@ -694,7 +694,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetMutualFundsList200ResponseEnum**](GetMutualFundsList_200_responseEnum.md)
+[**models::GetMutualFundsListResponse**](GetMutualFundsList_response.md)
 
 ### Authorization
 
@@ -710,7 +710,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_mutual_funds_type
 
-> models::GetMutualFundsType200ResponseEnum get_mutual_funds_type(fund_type, country)
+> models::GetMutualFundsTypeResponse get_mutual_funds_type(fund_type, country)
 MFs types
 
 This endpoint provides detailed information on various types of mutual funds, such as equity, bond, and balanced funds, allowing users to understand the different investment options available.
@@ -725,7 +725,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetMutualFundsType200ResponseEnum**](GetMutualFundsType_200_responseEnum.md)
+[**models::GetMutualFundsTypeResponse**](GetMutualFundsType_response.md)
 
 ### Authorization
 
@@ -741,7 +741,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_stocks
 
-> models::GetStocks200ResponseEnum get_stocks(symbol, figi, isin, cusip, cik, exchange, mic_code, country, r#type, format, delimiter, show_plan, include_delisted)
+> models::GetStocksResponse get_stocks(symbol, figi, isin, cusip, cik, exchange, mic_code, country, r#type, format, delimiter, show_plan, include_delisted)
 Stocks
 
 The stocks endpoint provides a daily updated list of all available stock symbols. It returns an array containing the symbols, which can be used to identify and access specific stock data across various services. This endpoint is essential for users needing to retrieve the latest stock symbol information for further data requests or integration into financial applications.
@@ -767,7 +767,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetStocks200ResponseEnum**](GetStocks_200_responseEnum.md)
+[**models::GetStocksResponse**](GetStocks_response.md)
 
 ### Authorization
 
@@ -783,7 +783,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_symbol_search
 
-> models::GetSymbolSearch200ResponseEnum get_symbol_search(symbol, outputsize, show_plan)
+> models::GetSymbolSearchResponse get_symbol_search(symbol, outputsize, show_plan)
 Symbol search
 
 The symbol search endpoint allows users to find financial instruments by name or symbol. It returns a list of matching symbols, ordered by relevance, with the most relevant instrument first. This is useful for quickly locating specific stocks, ETFs, or other financial instruments when only partial information is available.
@@ -799,7 +799,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetSymbolSearch200ResponseEnum**](GetSymbolSearch_200_responseEnum.md)
+[**models::GetSymbolSearchResponse**](GetSymbolSearch_response.md)
 
 ### Authorization
 
@@ -815,7 +815,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_technical_indicators
 
-> models::GetTechnicalIndicators200ResponseEnum get_technical_indicators()
+> models::GetTechnicalIndicatorsResponse get_technical_indicators()
 Technical indicators
 
 The technical indicators endpoint provides a comprehensive list of available technical indicators, each represented as an object. This endpoint is useful for developers looking to integrate a variety of technical analysis tools into their applications, allowing for streamlined access to indicator data without needing to manually configure each one.
@@ -826,7 +826,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**models::GetTechnicalIndicators200ResponseEnum**](GetTechnicalIndicators_200_responseEnum.md)
+[**models::GetTechnicalIndicatorsResponse**](GetTechnicalIndicators_response.md)
 
 ### Authorization
 

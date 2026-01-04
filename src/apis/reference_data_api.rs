@@ -1915,7 +1915,7 @@ pub enum GetTechnicalIndicatorsError {
 pub async fn get_bonds(
     configuration: &configuration::Configuration,
     params: GetBondsParams,
-) -> Result<models::GetBonds200ResponseEnum, Error<GetBondsError>> {
+) -> Result<models::GetBondsResponse, Error<GetBondsError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_exchange = params.exchange;
@@ -1980,8 +1980,8 @@ pub async fn get_bonds(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Ok(models::GetBonds200ResponseEnum::Text(content)),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetBonds200ResponseEnum`")))),
+            ContentType::Text => return Ok(models::GetBondsResponse::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetBondsResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -1998,7 +1998,7 @@ pub async fn get_bonds(
 pub async fn get_commodities(
     configuration: &configuration::Configuration,
     params: GetCommoditiesParams,
-) -> Result<models::GetCommodities200ResponseEnum, Error<GetCommoditiesError>> {
+) -> Result<models::GetCommoditiesResponse, Error<GetCommoditiesError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_category = params.category;
@@ -2047,8 +2047,8 @@ pub async fn get_commodities(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Ok(models::GetCommodities200ResponseEnum::Text(content)),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCommodities200ResponseEnum`")))),
+            ContentType::Text => return Ok(models::GetCommoditiesResponse::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCommoditiesResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -2064,7 +2064,7 @@ pub async fn get_commodities(
 /// The countries endpoint provides a comprehensive list of countries, including their ISO codes, official names, capitals, and currencies. This data is essential for applications requiring accurate country information for tasks such as localization, currency conversion, or geographic analysis.
 pub async fn get_countries(
     configuration: &configuration::Configuration,
-) -> Result<models::GetCountries200ResponseEnum, Error<GetCountriesError>> {
+) -> Result<models::GetCountriesResponse, Error<GetCountriesError>> {
     let uri_str = format!("{}/countries", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
@@ -2095,8 +2095,8 @@ pub async fn get_countries(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetCountries200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCountries200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetCountriesResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCountriesResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -2113,7 +2113,7 @@ pub async fn get_countries(
 pub async fn get_cross_listings(
     configuration: &configuration::Configuration,
     params: GetCrossListingsParams,
-) -> Result<models::GetCrossListings200ResponseEnum, Error<GetCrossListingsError>> {
+) -> Result<models::GetCrossListingsResponse, Error<GetCrossListingsError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_exchange = params.exchange;
@@ -2160,8 +2160,8 @@ pub async fn get_cross_listings(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetCrossListings200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCrossListings200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetCrossListingsResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCrossListingsResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -2178,7 +2178,7 @@ pub async fn get_cross_listings(
 pub async fn get_cryptocurrencies(
     configuration: &configuration::Configuration,
     params: GetCryptocurrenciesParams,
-) -> Result<models::GetCryptocurrencies200ResponseEnum, Error<GetCryptocurrenciesError>> {
+) -> Result<models::GetCryptocurrenciesResponse, Error<GetCryptocurrenciesError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_exchange = params.exchange;
@@ -2235,8 +2235,8 @@ pub async fn get_cryptocurrencies(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Ok(models::GetCryptocurrencies200ResponseEnum::Text(content)),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCryptocurrencies200ResponseEnum`")))),
+            ContentType::Text => return Ok(models::GetCryptocurrenciesResponse::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCryptocurrenciesResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -2253,8 +2253,7 @@ pub async fn get_cryptocurrencies(
 pub async fn get_cryptocurrency_exchanges(
     configuration: &configuration::Configuration,
     params: GetCryptocurrencyExchangesParams,
-) -> Result<models::GetCryptocurrencyExchanges200ResponseEnum, Error<GetCryptocurrencyExchangesError>>
-{
+) -> Result<models::GetCryptocurrencyExchangesResponse, Error<GetCryptocurrencyExchangesError>> {
     // Extract parameters from params struct
     let p_query_format = params.format;
     let p_query_delimiter = params.delimiter;
@@ -2295,8 +2294,8 @@ pub async fn get_cryptocurrency_exchanges(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Ok(models::GetCryptocurrencyExchanges200ResponseEnum::Text(content)),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCryptocurrencyExchanges200ResponseEnum`")))),
+            ContentType::Text => return Ok(models::GetCryptocurrencyExchangesResponse::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCryptocurrencyExchangesResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -2313,7 +2312,7 @@ pub async fn get_cryptocurrency_exchanges(
 pub async fn get_earliest_timestamp(
     configuration: &configuration::Configuration,
     params: GetEarliestTimestampParams,
-) -> Result<models::GetEarliestTimestamp200ResponseEnum, Error<GetEarliestTimestampError>> {
+) -> Result<models::GetEarliestTimestampResponse, Error<GetEarliestTimestampError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -2376,8 +2375,8 @@ pub async fn get_earliest_timestamp(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEarliestTimestamp200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEarliestTimestamp200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEarliestTimestampResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEarliestTimestampResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -2394,7 +2393,7 @@ pub async fn get_earliest_timestamp(
 pub async fn get_etf(
     configuration: &configuration::Configuration,
     params: GetEtfParams,
-) -> Result<models::GetEtf200ResponseEnum, Error<GetEtfError>> {
+) -> Result<models::GetEtfResponse, Error<GetEtfError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -2475,8 +2474,8 @@ pub async fn get_etf(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Ok(models::GetEtf200ResponseEnum::Text(content)),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtf200ResponseEnum`")))),
+            ContentType::Text => return Ok(models::GetEtfResponse::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -2493,7 +2492,7 @@ pub async fn get_etf(
 pub async fn get_etfs_family(
     configuration: &configuration::Configuration,
     params: GetEtfsFamilyParams,
-) -> Result<models::GetEtfsFamily200ResponseEnum, Error<GetEtfsFamilyError>> {
+) -> Result<models::GetEtfsFamilyResponse, Error<GetEtfsFamilyError>> {
     // Extract parameters from params struct
     let p_query_country = params.country;
     let p_query_fund_family = params.fund_family;
@@ -2534,8 +2533,8 @@ pub async fn get_etfs_family(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsFamily200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsFamily200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsFamilyResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsFamilyResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -2552,7 +2551,7 @@ pub async fn get_etfs_family(
 pub async fn get_etfs_list(
     configuration: &configuration::Configuration,
     params: GetEtfsListParams,
-) -> Result<models::GetEtfsList200ResponseEnum, Error<GetEtfsListError>> {
+) -> Result<models::GetEtfsListResponse, Error<GetEtfsListError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -2625,8 +2624,8 @@ pub async fn get_etfs_list(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsList200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsList200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsListResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsListResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -2643,7 +2642,7 @@ pub async fn get_etfs_list(
 pub async fn get_etfs_type(
     configuration: &configuration::Configuration,
     params: GetEtfsTypeParams,
-) -> Result<models::GetEtfsType200ResponseEnum, Error<GetEtfsTypeError>> {
+) -> Result<models::GetEtfsTypeResponse, Error<GetEtfsTypeError>> {
     // Extract parameters from params struct
     let p_query_country = params.country;
     let p_query_fund_type = params.fund_type;
@@ -2684,8 +2683,8 @@ pub async fn get_etfs_type(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsType200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsType200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsTypeResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsTypeResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -2702,7 +2701,7 @@ pub async fn get_etfs_type(
 pub async fn get_exchange_schedule(
     configuration: &configuration::Configuration,
     params: GetExchangeScheduleParams,
-) -> Result<models::GetExchangeSchedule200ResponseEnum, Error<GetExchangeScheduleError>> {
+) -> Result<models::GetExchangeScheduleResponse, Error<GetExchangeScheduleError>> {
     // Extract parameters from params struct
     let p_query_mic_name = params.mic_name;
     let p_query_mic_code = params.mic_code;
@@ -2751,8 +2750,8 @@ pub async fn get_exchange_schedule(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetExchangeSchedule200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetExchangeSchedule200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetExchangeScheduleResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetExchangeScheduleResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -2769,7 +2768,7 @@ pub async fn get_exchange_schedule(
 pub async fn get_exchanges(
     configuration: &configuration::Configuration,
     params: GetExchangesParams,
-) -> Result<models::GetExchanges200ResponseEnum, Error<GetExchangesError>> {
+) -> Result<models::GetExchangesResponse, Error<GetExchangesError>> {
     // Extract parameters from params struct
     let p_query_type = params.r#type;
     let p_query_name = params.name;
@@ -2830,8 +2829,8 @@ pub async fn get_exchanges(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Ok(models::GetExchanges200ResponseEnum::Text(content)),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetExchanges200ResponseEnum`")))),
+            ContentType::Text => return Ok(models::GetExchangesResponse::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetExchangesResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -2848,7 +2847,7 @@ pub async fn get_exchanges(
 pub async fn get_forex_pairs(
     configuration: &configuration::Configuration,
     params: GetForexPairsParams,
-) -> Result<models::GetForexPairs200ResponseEnum, Error<GetForexPairsError>> {
+) -> Result<models::GetForexPairsResponse, Error<GetForexPairsError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_currency_base = params.currency_base;
@@ -2901,8 +2900,8 @@ pub async fn get_forex_pairs(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Ok(models::GetForexPairs200ResponseEnum::Text(content)),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetForexPairs200ResponseEnum`")))),
+            ContentType::Text => return Ok(models::GetForexPairsResponse::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetForexPairsResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -2919,7 +2918,7 @@ pub async fn get_forex_pairs(
 pub async fn get_funds(
     configuration: &configuration::Configuration,
     params: GetFundsParams,
-) -> Result<models::GetFunds200ResponseEnum, Error<GetFundsError>> {
+) -> Result<models::GetFundsResponse, Error<GetFundsError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -3000,8 +2999,8 @@ pub async fn get_funds(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Ok(models::GetFunds200ResponseEnum::Text(content)),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetFunds200ResponseEnum`")))),
+            ContentType::Text => return Ok(models::GetFundsResponse::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetFundsResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -3017,7 +3016,7 @@ pub async fn get_funds(
 /// The instrument type endpoint lists all available financial instrument types, such as stocks, ETFs, and cryptos. This information is essential for users to identify and categorize different financial instruments when accessing or analyzing market data.
 pub async fn get_instrument_type(
     configuration: &configuration::Configuration,
-) -> Result<models::GetInstrumentType200ResponseEnum, Error<GetInstrumentTypeError>> {
+) -> Result<models::GetInstrumentTypeResponse, Error<GetInstrumentTypeError>> {
     let uri_str = format!("{}/instrument_type", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
@@ -3048,8 +3047,8 @@ pub async fn get_instrument_type(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetInstrumentType200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetInstrumentType200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetInstrumentTypeResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetInstrumentTypeResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -3065,7 +3064,7 @@ pub async fn get_instrument_type(
 /// The intervals endpoint provides a list of supported time intervals that can be used for querying financial data.
 pub async fn get_intervals(
     configuration: &configuration::Configuration,
-) -> Result<models::GetIntervals200ResponseEnum, Error<GetIntervalsError>> {
+) -> Result<models::GetIntervalsResponse, Error<GetIntervalsError>> {
     let uri_str = format!("{}/intervals", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
@@ -3096,8 +3095,8 @@ pub async fn get_intervals(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetIntervals200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetIntervals200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetIntervalsResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetIntervalsResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -3114,7 +3113,7 @@ pub async fn get_intervals(
 pub async fn get_market_state(
     configuration: &configuration::Configuration,
     params: GetMarketStateParams,
-) -> Result<models::GetMarketState200ResponseEnum, Error<GetMarketStateError>> {
+) -> Result<models::GetMarketStateResponse, Error<GetMarketStateError>> {
     // Extract parameters from params struct
     let p_query_exchange = params.exchange;
     let p_query_code = params.code;
@@ -3159,8 +3158,8 @@ pub async fn get_market_state(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMarketState200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMarketState200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMarketStateResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMarketStateResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -3177,7 +3176,7 @@ pub async fn get_market_state(
 pub async fn get_mutual_funds_family(
     configuration: &configuration::Configuration,
     params: GetMutualFundsFamilyParams,
-) -> Result<models::GetMutualFundsFamily200ResponseEnum, Error<GetMutualFundsFamilyError>> {
+) -> Result<models::GetMutualFundsFamilyResponse, Error<GetMutualFundsFamilyError>> {
     // Extract parameters from params struct
     let p_query_fund_family = params.fund_family;
     let p_query_country = params.country;
@@ -3218,8 +3217,8 @@ pub async fn get_mutual_funds_family(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsFamily200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsFamily200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsFamilyResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsFamilyResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -3236,7 +3235,7 @@ pub async fn get_mutual_funds_family(
 pub async fn get_mutual_funds_list(
     configuration: &configuration::Configuration,
     params: GetMutualFundsListParams,
-) -> Result<models::GetMutualFundsList200ResponseEnum, Error<GetMutualFundsListError>> {
+) -> Result<models::GetMutualFundsListResponse, Error<GetMutualFundsListError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -3317,8 +3316,8 @@ pub async fn get_mutual_funds_list(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsList200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsList200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsListResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsListResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -3335,7 +3334,7 @@ pub async fn get_mutual_funds_list(
 pub async fn get_mutual_funds_type(
     configuration: &configuration::Configuration,
     params: GetMutualFundsTypeParams,
-) -> Result<models::GetMutualFundsType200ResponseEnum, Error<GetMutualFundsTypeError>> {
+) -> Result<models::GetMutualFundsTypeResponse, Error<GetMutualFundsTypeError>> {
     // Extract parameters from params struct
     let p_query_fund_type = params.fund_type;
     let p_query_country = params.country;
@@ -3376,8 +3375,8 @@ pub async fn get_mutual_funds_type(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsType200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsType200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsTypeResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsTypeResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -3394,7 +3393,7 @@ pub async fn get_mutual_funds_type(
 pub async fn get_stocks(
     configuration: &configuration::Configuration,
     params: GetStocksParams,
-) -> Result<models::GetStocks200ResponseEnum, Error<GetStocksError>> {
+) -> Result<models::GetStocksResponse, Error<GetStocksError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -3479,8 +3478,8 @@ pub async fn get_stocks(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Ok(models::GetStocks200ResponseEnum::Text(content)),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetStocks200ResponseEnum`")))),
+            ContentType::Text => return Ok(models::GetStocksResponse::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetStocksResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -3497,7 +3496,7 @@ pub async fn get_stocks(
 pub async fn get_symbol_search(
     configuration: &configuration::Configuration,
     params: GetSymbolSearchParams,
-) -> Result<models::GetSymbolSearch200ResponseEnum, Error<GetSymbolSearchError>> {
+) -> Result<models::GetSymbolSearchResponse, Error<GetSymbolSearchError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_outputsize = params.outputsize;
@@ -3540,8 +3539,8 @@ pub async fn get_symbol_search(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetSymbolSearch200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetSymbolSearch200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetSymbolSearchResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetSymbolSearchResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -3557,7 +3556,7 @@ pub async fn get_symbol_search(
 /// The technical indicators endpoint provides a comprehensive list of available technical indicators, each represented as an object. This endpoint is useful for developers looking to integrate a variety of technical analysis tools into their applications, allowing for streamlined access to indicator data without needing to manually configure each one.
 pub async fn get_technical_indicators(
     configuration: &configuration::Configuration,
-) -> Result<models::GetTechnicalIndicators200ResponseEnum, Error<GetTechnicalIndicatorsError>> {
+) -> Result<models::GetTechnicalIndicatorsResponse, Error<GetTechnicalIndicatorsError>> {
     let uri_str = format!("{}/technical_indicators", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
@@ -3588,8 +3587,8 @@ pub async fn get_technical_indicators(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetTechnicalIndicators200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTechnicalIndicators200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetTechnicalIndicatorsResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTechnicalIndicatorsResponse`")))),
         }
     } else {
         let content = resp.text().await?;

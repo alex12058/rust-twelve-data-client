@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **turnover_rate** | Option<**f64**> | Percentage rate at which mutual fund replaces its holdings on investment every year | [optional]
 **net_assets** | Option<**i64**> | Total assets of a fund minus its total liabilities | [optional]
 **overview** | Option<**String**> | Description of the fund | [optional]
-**people** | Option<[**Vec<models::GetMutualFundsWorld200ResponseMutualFundSummaryPeopleInner>**](GetMutualFundsWorld_200_response_mutual_fund_summary_people_inner.md)> | Information about the fund’s managers | [optional]
+**people** | Option<[**Vec<models::MutualFundsWorldMutualFundSummaryPeopleInner>**](MutualFundsWorld_mutual_fund_summary_people_inner.md)> | Information about the fund’s managers | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

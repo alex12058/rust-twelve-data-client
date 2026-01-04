@@ -1,6 +1,6 @@
 [package]
 name = "twelve-data-client"
-version = "0.3.0"
+version = "0.4.0"
 authors = ["Alex Ashand <ashand@inav.ca>"]
 description = "Rust API client for Twelve Data with automatic builder pattern generation. Provides access to comprehensive financial market data including stocks, forex, ETFs, mutual funds, commodities, and cryptocurrencies."
 repository = "https://github.com/alex12058/rust-twelve-data-client"
@@ -17,9 +17,9 @@ exclude = [
     ".openapi-generator-ignore",
     ".gitmodules",
     ".travis.yml",
+    "regenerate.sh",
+    "generate_openapi.py",
     "openapi.json",
-    "add_api_error_to_responses.py",
-    "add_text_csv_responses.py",
 ]
 
 [dependencies]

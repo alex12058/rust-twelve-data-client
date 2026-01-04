@@ -19,19 +19,15 @@ pub struct ResponseMutualFundWorldComposition {
         rename = "major_market_sectors",
         skip_serializing_if = "Option::is_none"
     )]
-    pub major_market_sectors: Option<
-        Vec<models::GetMutualFundsWorld200ResponseMutualFundCompositionMajorMarketSectorsInner>,
-    >,
+    pub major_market_sectors:
+        Option<Vec<models::MutualFundsWorldMutualFundCompositionMajorMarketSectorsInner>>,
     /// Top holdings of the fund with their respective weights in the overall portfolio composition
     #[serde(rename = "top_holdings", skip_serializing_if = "Option::is_none")]
-    pub top_holdings:
-        Option<Vec<models::GetMutualFundsWorld200ResponseMutualFundCompositionTopHoldingsInner>>,
+    pub top_holdings: Option<Vec<models::MutualFundsWorldMutualFundCompositionTopHoldingsInner>>,
     #[serde(rename = "asset_allocation", skip_serializing_if = "Option::is_none")]
-    pub asset_allocation:
-        Option<Box<models::GetMutualFundsWorld200ResponseMutualFundCompositionAssetAllocation>>,
+    pub asset_allocation: Option<Box<models::MutualFundsWorldMutualFundCompositionAssetAllocation>>,
     #[serde(rename = "bond_breakdown", skip_serializing_if = "Option::is_none")]
-    pub bond_breakdown:
-        Option<Box<models::GetMutualFundsWorld200ResponseMutualFundCompositionBondBreakdown>>,
+    pub bond_breakdown: Option<Box<models::MutualFundsWorldMutualFundCompositionBondBreakdown>>,
 }
 
 impl ResponseMutualFundWorldComposition {

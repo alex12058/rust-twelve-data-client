@@ -124,7 +124,7 @@ pub enum GetApiUsageError {
 pub async fn advanced(
     configuration: &configuration::Configuration,
     params: AdvancedParams,
-) -> Result<models::Advanced200ResponseEnum, Error<AdvancedError>> {
+) -> Result<models::AdvancedResponse, Error<AdvancedError>> {
     // Extract parameters from params struct
     let p_body_key = params.key;
 
@@ -161,8 +161,8 @@ pub async fn advanced(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::Advanced200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::Advanced200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::AdvancedResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AdvancedResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -179,7 +179,7 @@ pub async fn advanced(
 pub async fn get_api_usage(
     configuration: &configuration::Configuration,
     params: GetApiUsageParams,
-) -> Result<models::GetApiUsage200ResponseEnum, Error<GetApiUsageError>> {
+) -> Result<models::GetApiUsageResponse, Error<GetApiUsageError>> {
     // Extract parameters from params struct
     let p_query_format = params.format;
     let p_query_delimiter = params.delimiter;
@@ -224,8 +224,8 @@ pub async fn get_api_usage(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Ok(models::GetApiUsage200ResponseEnum::Text(content)),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetApiUsage200ResponseEnum`")))),
+            ContentType::Text => return Ok(models::GetApiUsageResponse::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetApiUsageResponse`")))),
         }
     } else {
         let content = resp.text().await?;

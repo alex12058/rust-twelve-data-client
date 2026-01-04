@@ -761,7 +761,7 @@ pub enum GetMutualFundsWorldSustainabilityError {
 pub async fn get_mutual_funds_world(
     configuration: &configuration::Configuration,
     params: GetMutualFundsWorldParams,
-) -> Result<models::GetMutualFundsWorld200ResponseEnum, Error<GetMutualFundsWorldError>> {
+) -> Result<models::GetMutualFundsWorldResponse, Error<GetMutualFundsWorldError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -818,8 +818,8 @@ pub async fn get_mutual_funds_world(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsWorld200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsWorld200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsWorldResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsWorldResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -837,7 +837,7 @@ pub async fn get_mutual_funds_world_composition(
     configuration: &configuration::Configuration,
     params: GetMutualFundsWorldCompositionParams,
 ) -> Result<
-    models::GetMutualFundsWorldComposition200ResponseEnum,
+    models::GetMutualFundsWorldCompositionResponse,
     Error<GetMutualFundsWorldCompositionError>,
 > {
     // Extract parameters from params struct
@@ -896,8 +896,8 @@ pub async fn get_mutual_funds_world_composition(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsWorldComposition200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsWorldComposition200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsWorldCompositionResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsWorldCompositionResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -916,7 +916,7 @@ pub async fn get_mutual_funds_world_performance(
     configuration: &configuration::Configuration,
     params: GetMutualFundsWorldPerformanceParams,
 ) -> Result<
-    models::GetMutualFundsWorldPerformance200ResponseEnum,
+    models::GetMutualFundsWorldPerformanceResponse,
     Error<GetMutualFundsWorldPerformanceError>,
 > {
     // Extract parameters from params struct
@@ -975,8 +975,8 @@ pub async fn get_mutual_funds_world_performance(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsWorldPerformance200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsWorldPerformance200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsWorldPerformanceResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsWorldPerformanceResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -995,7 +995,7 @@ pub async fn get_mutual_funds_world_purchase_info(
     configuration: &configuration::Configuration,
     params: GetMutualFundsWorldPurchaseInfoParams,
 ) -> Result<
-    models::GetMutualFundsWorldPurchaseInfo200ResponseEnum,
+    models::GetMutualFundsWorldPurchaseInfoResponse,
     Error<GetMutualFundsWorldPurchaseInfoError>,
 > {
     // Extract parameters from params struct
@@ -1057,8 +1057,8 @@ pub async fn get_mutual_funds_world_purchase_info(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsWorldPurchaseInfo200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsWorldPurchaseInfo200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsWorldPurchaseInfoResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsWorldPurchaseInfoResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -1076,8 +1076,7 @@ pub async fn get_mutual_funds_world_purchase_info(
 pub async fn get_mutual_funds_world_ratings(
     configuration: &configuration::Configuration,
     params: GetMutualFundsWorldRatingsParams,
-) -> Result<models::GetMutualFundsWorldRatings200ResponseEnum, Error<GetMutualFundsWorldRatingsError>>
-{
+) -> Result<models::GetMutualFundsWorldRatingsResponse, Error<GetMutualFundsWorldRatingsError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -1134,8 +1133,8 @@ pub async fn get_mutual_funds_world_ratings(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsWorldRatings200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsWorldRatings200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsWorldRatingsResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsWorldRatingsResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -1152,7 +1151,7 @@ pub async fn get_mutual_funds_world_ratings(
 pub async fn get_mutual_funds_world_risk(
     configuration: &configuration::Configuration,
     params: GetMutualFundsWorldRiskParams,
-) -> Result<models::GetMutualFundsWorldRisk200ResponseEnum, Error<GetMutualFundsWorldRiskError>> {
+) -> Result<models::GetMutualFundsWorldRiskResponse, Error<GetMutualFundsWorldRiskError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -1209,8 +1208,8 @@ pub async fn get_mutual_funds_world_risk(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsWorldRisk200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsWorldRisk200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsWorldRiskResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsWorldRiskResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -1227,8 +1226,7 @@ pub async fn get_mutual_funds_world_risk(
 pub async fn get_mutual_funds_world_summary(
     configuration: &configuration::Configuration,
     params: GetMutualFundsWorldSummaryParams,
-) -> Result<models::GetMutualFundsWorldSummary200ResponseEnum, Error<GetMutualFundsWorldSummaryError>>
-{
+) -> Result<models::GetMutualFundsWorldSummaryResponse, Error<GetMutualFundsWorldSummaryError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -1285,8 +1283,8 @@ pub async fn get_mutual_funds_world_summary(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsWorldSummary200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsWorldSummary200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsWorldSummaryResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsWorldSummaryResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -1304,7 +1302,7 @@ pub async fn get_mutual_funds_world_sustainability(
     configuration: &configuration::Configuration,
     params: GetMutualFundsWorldSustainabilityParams,
 ) -> Result<
-    models::GetMutualFundsWorldSustainability200ResponseEnum,
+    models::GetMutualFundsWorldSustainabilityResponse,
     Error<GetMutualFundsWorldSustainabilityError>,
 > {
     // Extract parameters from params struct
@@ -1366,8 +1364,8 @@ pub async fn get_mutual_funds_world_sustainability(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsWorldSustainability200ResponseEnum`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsWorldSustainability200ResponseEnum`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsWorldSustainabilityResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsWorldSustainabilityResponse`")))),
         }
     } else {
         let content = resp.text().await?;

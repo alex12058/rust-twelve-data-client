@@ -16,33 +16,29 @@ use serde::{Deserialize, Serialize};
 pub struct ResponseMutualFundWorldPerformance {
     /// Trailing returns of the fund
     #[serde(rename = "trailing_returns", skip_serializing_if = "Option::is_none")]
-    pub trailing_returns: Option<
-        Vec<models::GetMutualFundsWorld200ResponseMutualFundPerformanceTrailingReturnsInner>,
-    >,
+    pub trailing_returns:
+        Option<Vec<models::MutualFundsWorldMutualFundPerformanceTrailingReturnsInner>>,
     /// Annual total returns of the fund
     #[serde(
         rename = "annual_total_returns",
         skip_serializing_if = "Option::is_none"
     )]
-    pub annual_total_returns: Option<
-        Vec<models::GetMutualFundsWorld200ResponseMutualFundPerformanceAnnualTotalReturnsInner>,
-    >,
+    pub annual_total_returns:
+        Option<Vec<models::MutualFundsWorldMutualFundPerformanceAnnualTotalReturnsInner>>,
     /// Quarterly total returns of the fund
     #[serde(
         rename = "quarterly_total_returns",
         skip_serializing_if = "Option::is_none"
     )]
-    pub quarterly_total_returns: Option<
-        Vec<models::GetMutualFundsWorld200ResponseMutualFundPerformanceQuarterlyTotalReturnsInner>,
-    >,
+    pub quarterly_total_returns:
+        Option<Vec<models::MutualFundsWorldMutualFundPerformanceQuarterlyTotalReturnsInner>>,
     /// Load adjusted return of the fund
     #[serde(
         rename = "load_adjusted_return",
         skip_serializing_if = "Option::is_none"
     )]
-    pub load_adjusted_return: Option<
-        Vec<models::GetMutualFundsWorld200ResponseMutualFundPerformanceLoadAdjustedReturnInner>,
-    >,
+    pub load_adjusted_return:
+        Option<Vec<models::MutualFundsWorldMutualFundPerformanceLoadAdjustedReturnInner>>,
 }
 
 impl ResponseMutualFundWorldPerformance {

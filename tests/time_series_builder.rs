@@ -2,7 +2,7 @@ use twelve_data_client::apis::{
     configuration::{ApiKey, Configuration},
     time_series_api,
 };
-use twelve_data_client::models::GetTimeSeries200ResponseEnum;
+use twelve_data_client::models::GetTimeSeriesResponse;
 
 fn get_config() -> Configuration {
     let api_key = std::env::var("TWELVE_DATA_API_KEY")
@@ -32,7 +32,7 @@ async fn test_time_series_json_response() {
         .expect("API call failed");
 
     match response {
-        GetTimeSeries200ResponseEnum::GetTimeSeries200Response(res) => {
+        GetTimeSeriesResponse::TimeSeries(res) => {
             assert_eq!(res.status, Some("ok".to_string()));
             assert!(res.meta.is_some());
             assert!(res.values.is_some());
@@ -55,7 +55,7 @@ async fn test_time_series_error_response() {
         .expect("API call failed");
 
     match response {
-        GetTimeSeries200ResponseEnum::ApiError(err) => {
+        GetTimeSeriesResponse::ApiError(err) => {
             assert_eq!(err.code, 400);
             assert!(err.message.contains("Invalid **interval** provided"));
         }
@@ -78,7 +78,7 @@ async fn test_time_series_csv_response() {
         .expect("API call failed");
 
     match response {
-        GetTimeSeries200ResponseEnum::Text(csv_data) => {
+        GetTimeSeriesResponse::Text(csv_data) => {
             let lines: Vec<&str> = csv_data.lines().collect();
             assert!(!lines.is_empty(), "CSV response should not be empty");
             // CSV should have header and data rows

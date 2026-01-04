@@ -20,10 +20,9 @@ pub struct ResponseMutualFundWorldRisk {
         skip_serializing_if = "Option::is_none"
     )]
     pub volatility_measures:
-        Option<Vec<models::GetMutualFundsWorld200ResponseMutualFundRiskVolatilityMeasuresInner>>,
+        Option<Vec<models::MutualFundsWorldMutualFundRiskVolatilityMeasuresInner>>,
     #[serde(rename = "valuation_metrics", skip_serializing_if = "Option::is_none")]
-    pub valuation_metrics:
-        Option<Box<models::GetMutualFundsWorld200ResponseMutualFundRiskValuationMetrics>>,
+    pub valuation_metrics: Option<Box<models::MutualFundsWorldMutualFundRiskValuationMetrics>>,
 }
 
 impl ResponseMutualFundWorldRisk {

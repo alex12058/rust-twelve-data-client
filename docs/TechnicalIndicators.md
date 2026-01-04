@@ -1,0 +1,12 @@
+# TechnicalIndicators
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**data** | Option<[**std::collections::HashMap<String, models::TechnicalIndicatorsDataValue>**](TechnicalIndicators_data_value.md)> | Map of technical indicators available at Twelve Data API | [optional]
+**status** | Option<**String**> | Response status | [optional]
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

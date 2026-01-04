@@ -1,0 +1,12 @@
+# GetIpoCalendarResponse
+
+## Enum Variants
+
+| Name | Description |
+|---- | -----|
+| ApiError |  |
+| std::collections::HashMap<String, Vec<models::IpoCalendarValueInner>> |  |
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

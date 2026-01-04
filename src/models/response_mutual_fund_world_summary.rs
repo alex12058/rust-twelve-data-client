@@ -61,7 +61,7 @@ pub struct ResponseMutualFundWorldSummary {
     pub overview: Option<String>,
     /// Information about the fund’s managers
     #[serde(rename = "people", skip_serializing_if = "Option::is_none")]
-    pub people: Option<Vec<models::GetMutualFundsWorld200ResponseMutualFundSummaryPeopleInner>>,
+    pub people: Option<Vec<models::MutualFundsWorldMutualFundSummaryPeopleInner>>,
 }
 
 impl ResponseMutualFundWorldSummary {

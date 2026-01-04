@@ -473,7 +473,7 @@ pub enum GetTimeSeriesCrossError {
 pub async fn get_time_series(
     configuration: &configuration::Configuration,
     params: GetTimeSeriesParams,
-) -> Result<models::GetTimeSeries200ResponseEnum, Error<GetTimeSeriesError>> {
+) -> Result<models::GetTimeSeriesResponse, Error<GetTimeSeriesError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -588,8 +588,8 @@ pub async fn get_time_series(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Ok(models::GetTimeSeries200ResponseEnum::Text(content)),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeries200ResponseEnum`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesResponse::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -606,7 +606,7 @@ pub async fn get_time_series(
 pub async fn get_time_series_cross(
     configuration: &configuration::Configuration,
     params: GetTimeSeriesCrossParams,
-) -> Result<models::GetTimeSeriesCross200ResponseEnum, Error<GetTimeSeriesCrossError>> {
+) -> Result<models::GetTimeSeriesCrossResponse, Error<GetTimeSeriesCrossError>> {
     // Extract parameters from params struct
     let p_query_base = params.base;
     let p_query_quote = params.quote;
@@ -705,8 +705,8 @@ pub async fn get_time_series_cross(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Ok(models::GetTimeSeriesCross200ResponseEnum::Text(content)),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesCross200ResponseEnum`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesCrossResponse::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesCrossResponse`")))),
         }
     } else {
         let content = resp.text().await?;

@@ -1,0 +1,15 @@
+# TimeSeriesHeikinashiCandlesValuesInner
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**datetime** | Option<**String**> | Datetime in local market time for equities and in UTC for forex and cryptocurrencies referring to when the bar with specified interval was opened | [optional]
+**heikinhighs** | Option<**String**> | Heikin-Ashi highs value | [optional]
+**heikinopens** | Option<**String**> | Heikin-Ashi opens value | [optional]
+**heikincloses** | Option<**String**> | Heikin-Ashi closes value | [optional]
+**heikinlows** | Option<**String**> | Heikin-Ashi lows value | [optional]
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

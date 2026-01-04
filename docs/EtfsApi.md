@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## get_etfs_world
 
-> models::GetEtfsWorld200ResponseEnum get_etfs_world(symbol, figi, isin, cusip, country, dp)
+> models::GetEtfsWorldResponse get_etfs_world(symbol, figi, isin, cusip, country, dp)
 ETF full data
 
 The ETF full data endpoint provides detailed information about global Exchange-Traded Funds. It returns comprehensive data, including a summary, performance metrics, risk assessment, and composition details. This endpoint is ideal for users seeking an in-depth analysis of worldwide ETFs, enabling them to access key financial metrics and portfolio breakdowns.
@@ -33,7 +33,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetEtfsWorld200ResponseEnum**](GetETFsWorld_200_responseEnum.md)
+[**models::GetEtfsWorldResponse**](GetETFsWorld_response.md)
 
 ### Authorization
 
@@ -49,7 +49,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_etfs_world_composition
 
-> models::GetEtfsWorldComposition200ResponseEnum get_etfs_world_composition(symbol, figi, isin, cusip, country, dp)
+> models::GetEtfsWorldCompositionResponse get_etfs_world_composition(symbol, figi, isin, cusip, country, dp)
 Composition
 
 The ETFs composition endpoint provides detailed information about the composition of global Exchange-Traded Funds. It returns data on the sectors included in the ETF, specific holding details, and the weighted exposure of each component. This endpoint is useful for users who need to understand the specific makeup and sector distribution of an ETF portfolio.
@@ -68,7 +68,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetEtfsWorldComposition200ResponseEnum**](GetETFsWorldComposition_200_responseEnum.md)
+[**models::GetEtfsWorldCompositionResponse**](GetETFsWorldComposition_response.md)
 
 ### Authorization
 
@@ -84,7 +84,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_etfs_world_performance
 
-> models::GetEtfsWorldPerformance200ResponseEnum get_etfs_world_performance(symbol, figi, isin, cusip, country, dp)
+> models::GetEtfsWorldPerformanceResponse get_etfs_world_performance(symbol, figi, isin, cusip, country, dp)
 Performance
 
 The ETFs performance endpoint provides comprehensive performance data for exchange-traded funds globally. It returns detailed metrics such as trailing returns and annual returns, enabling users to evaluate the historical performance of various ETFs. This endpoint is ideal for users looking to compare ETF performance over different time periods and assess their investment potential.
@@ -103,7 +103,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetEtfsWorldPerformance200ResponseEnum**](GetETFsWorldPerformance_200_responseEnum.md)
+[**models::GetEtfsWorldPerformanceResponse**](GetETFsWorldPerformance_response.md)
 
 ### Authorization
 
@@ -119,7 +119,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_etfs_world_risk
 
-> models::GetEtfsWorldRisk200ResponseEnum get_etfs_world_risk(symbol, figi, isin, cusip, country, dp)
+> models::GetEtfsWorldRiskResponse get_etfs_world_risk(symbol, figi, isin, cusip, country, dp)
 Risk
 
 The ETFs risk endpoint provides essential risk metrics for global Exchange Traded Funds. It returns data such as volatility, beta, and other risk-related indicators, enabling users to assess the potential risk associated with investing in various ETFs worldwide.
@@ -138,7 +138,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetEtfsWorldRisk200ResponseEnum**](GetETFsWorldRisk_200_responseEnum.md)
+[**models::GetEtfsWorldRiskResponse**](GetETFsWorldRisk_response.md)
 
 ### Authorization
 
@@ -154,7 +154,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_etfs_world_summary
 
-> models::GetEtfsWorldSummary200ResponseEnum get_etfs_world_summary(symbol, figi, isin, cusip, country, dp)
+> models::GetEtfsWorldSummaryResponse get_etfs_world_summary(symbol, figi, isin, cusip, country, dp)
 Summary
 
 The ETFs summary endpoint provides a concise overview of global Exchange-Traded Funds. It returns key data points such as ETF names, symbols, and current market values, enabling users to quickly assess the performance and status of various international ETFs. This summary is ideal for users who need a snapshot of the global ETF landscape without delving into detailed analysis.
@@ -173,7 +173,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetEtfsWorldSummary200ResponseEnum**](GetETFsWorldSummary_200_responseEnum.md)
+[**models::GetEtfsWorldSummaryResponse**](GetETFsWorldSummary_response.md)
 
 ### Authorization
 

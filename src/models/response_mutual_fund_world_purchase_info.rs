@@ -15,11 +15,11 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ResponseMutualFundWorldPurchaseInfo {
     #[serde(rename = "expenses", skip_serializing_if = "Option::is_none")]
-    pub expenses: Option<Box<models::GetMutualFundsWorld200ResponseMutualFundPurchaseInfoExpenses>>,
+    pub expenses: Option<Box<models::MutualFundsWorldMutualFundPurchaseInfoExpenses>>,
     #[serde(rename = "minimums", skip_serializing_if = "Option::is_none")]
-    pub minimums: Option<Box<models::GetMutualFundsWorld200ResponseMutualFundPurchaseInfoMinimums>>,
+    pub minimums: Option<Box<models::MutualFundsWorldMutualFundPurchaseInfoMinimums>>,
     #[serde(rename = "pricing", skip_serializing_if = "Option::is_none")]
-    pub pricing: Option<Box<models::GetMutualFundsWorld200ResponseMutualFundPurchaseInfoPricing>>,
+    pub pricing: Option<Box<models::MutualFundsWorldMutualFundPurchaseInfoPricing>>,
     /// List of brokerages where mutual fund can be purchased
     #[serde(rename = "brokerages", skip_serializing_if = "Option::is_none")]
     pub brokerages: Option<Vec<String>>,

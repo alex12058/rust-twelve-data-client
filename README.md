@@ -18,7 +18,7 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-twelve-data-client = "0.3"
+twelve-data-client = "0.4"
 tokio = { version = "1.49.0", features = ["full"] }
 ```
 
@@ -27,7 +27,7 @@ tokio = { version = "1.49.0", features = ["full"] }
 ```rust
 use twelve_data_client::apis::{configuration, time_series_api};
 use twelve_data_client::apis::time_series_api::GetTimeSeriesParams;
-use twelve_data_client::models::GetTimeSeries200ResponseEnum;
+use twelve_data_client::models::GetTimeSeriesResponse;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -49,14 +49,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let response = time_series_api::get_time_series(&config, params).await?;
     
     match response {
-        GetTimeSeries200ResponseEnum::GetTimeSeries200Response(data) => {
+        GetTimeSeriesResponse::TimeSeries(data) => {
             println!("Symbol: {:?}", data.meta.as_ref().unwrap().symbol);
             println!("Data points: {}", data.values.as_ref().unwrap().len());
         }
-        GetTimeSeries200ResponseEnum::ApiError(err) => {
+        GetTimeSeriesResponse::ApiError(err) => {
             eprintln!("API Error: {}", err.message.unwrap_or_default());
         }
-        GetTimeSeries200ResponseEnum::Text(csv) => {
+        GetTimeSeriesResponse::Text(csv) => {
             println!("CSV Response:\n{}", csv);
         }
     }
@@ -82,60 +82,15 @@ config.api_key = Some(configuration::ApiKey {
 });
 ```
 
-## Builder Pattern Example
+## Response Types
 
-Instead of this (many individual parameters):
-```rust
-// Old style - difficult to use
-get_time_series(
-    &config,
-    "AAPL",
-    "1day",
-    None, None, None, None, None, 
-    Some(10), 
-    None, None, None, None, None, None, None, None, None
-).await?
-```
+Most endpoints return an enum with variants for different response scenarios:
 
-You get this (clean builder pattern):
-```rust
-use twelve_data_client::models::GetTimeSeries200ResponseEnum;
-
-// New style - ergonomic and clear
-let params = GetTimeSeriesParams::builder()
-    .symbol("AAPL")
-    .interval("1day")
-    .outputsize(10)
-    .build();
-
-let response = get_time_series(&config, params).await?;
-
-// Handle the response enum
-match response {
-    GetTimeSeries200ResponseEnum::GetTimeSeries200Response(data) => {
-        // Process successful JSON response
-        println!("Got {} data points", data.values.unwrap().len());
-    }
-    GetTimeSeries200ResponseEnum::ApiError(err) => {
-        // Handle API errors
-        eprintln!("Error: {}", err.message.unwrap_or_default());
-    }
-    GetTimeSeries200ResponseEnum::Text(csv) => {
-        // Handle CSV format response
-        println!("CSV data:\n{}", csv);
-    }
-}
-```
-
-### Response Types
-
-Most endpoints return an enum type with multiple variants to handle different response scenarios:
-
-- **Success variant**: Contains the actual data (e.g., `GetTimeSeries200Response`)
+- **Data variant**: Contains the actual response data (e.g., `TimeSeries`)
 - **`ApiError` variant**: Contains error information when the API returns an error
 - **`Text` variant**: Contains raw text (CSV) response when using `format` parameter
 
-This approach provides type-safe error handling and format flexibility.
+This provides type-safe error handling and format flexibility without needing to manually parse errors.
 
 ## Available APIs
 
@@ -154,92 +109,42 @@ This client provides access to all Twelve Data endpoints organized by module:
 
 ## Code Generation
 
-This client was automatically generated from the [Twelve Data OpenAPI specification](https://api.twelvedata.com/doc/swagger/openapi.json) using a modified version of [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator).
+This client is auto-generated from the [Twelve Data OpenAPI spec](https://api.twelvedata.com/doc/swagger/openapi.json) using [openapi-generator-rust-builders](https://github.com/alex12058/openapi-generator-rust-builders), which adds automatic builder pattern support.
 
-### Generation Process
+### Requirements
 
-The client was generated using [openapi-generator-rust-builders](https://github.com/alex12058/openapi-generator-rust-builders), a fork of OpenAPI Generator that adds automatic builder pattern generation for all Rust API operations.
-
-**Generator Location**: The generator is included as a git submodule at `./openapi-generator-rust-builders/`
-
-**Build and generate:**
-```bash
-# Build the modified generator
-cd openapi-generator-rust-builders
-./mvnw clean package -DskipTests
-
-# Generate the client
-cd ..
-java -jar openapi-generator-rust-builders/modules/openapi-generator-cli/target/openapi-generator-cli.jar generate \
-  -i openapi.json \
-  -g rust \
-  -o . \
-  --additional-properties=packageName=twelve_data_client,packageVersion=0.1.0,library=reqwest
-```
-
-### OpenAPI Specification Modification
-
-The original Twelve Data OpenAPI spec required one minor modification to work with this generator:
-
-**Issue**: The spec defined API key authentication in two places:
-- As a query parameter: `?apikey=value`
-- As an Authorization header: `Authorization: apikey value`
-
-This caused the generator to add the API key twice, which the Twelve Data API rejected.
-
-**Solution**: Removed the `queryParameters` security scheme from the OpenAPI spec, keeping only the header-based authentication:
-
-```json
-{
-  "security": [
-    {
-      "ApiKeyAuth": []
-    }
-  ],
-  "securitySchemes": {
-    "ApiKeyAuth": {
-      "type": "apiKey",
-      "in": "header",
-      "name": "Authorization"
-    }
-  }
-}
-```
-
-The modified OpenAPI specification is saved as `openapi.json` in this repository.
+Before regenerating the client, ensure you have:
+- **Java 21 or later** - Required to run the OpenAPI Generator
+- **Python 3.6+** - Required for spec transformation scripts
+- **Maven** - Included with the generator (uses `./mvnw` wrapper)
 
 ### Regenerating the Client
 
-To regenerate the client after OpenAPI spec updates:
+Run the provided script to fetch the latest spec, apply transformations, and regenerate:
 
-1. Download the latest spec from Twelve Data:
-   ```bash
-   curl https://api.twelvedata.com/doc/swagger/openapi.json -o openapi.json
-   ```
+```bash
+bash regenerate.sh
+```
 
-2. Apply the security modification (remove query parameter security scheme)
+This script:
+1. Fetches the latest OpenAPI spec from Twelve Data
+2. Removes the `queryParameter` security scheme (best practice: API keys should only be in headers, not query parameters)
+3. Ensures all 200 responses include `ApiError` variant for error handling
+4. Adds `text/csv` response type to endpoints supporting the `format` parameter
+5. Renames response schemas to cleaner names (e.g., `GetTimeSeries_200_response` → `time_series_data`)
+6. Regenerates the Rust client with the modified spec
+7. Formats the generated code
 
-3. Rebuild the generator (if needed):
-   ```bash
-   cd openapi-generator-rust-builders
-   ./mvnw clean package -DskipTests
-   cd ..
-   ```
+### First-Time Setup
 
-4. Generate the client:
-   ```bash
-   java -jar openapi-generator-rust-builders/modules/openapi-generator-cli/target/openapi-generator-cli.jar generate \
-     -i openapi.json \
-     -g rust \
-     -o . \
-     --additional-properties=packageName=twelve_data_client,packageVersion=0.1.0,library=reqwest
-   ```
+If this is your first time generating the client, build the generator first:
 
-5. Add tokio dev-dependency back to Cargo.toml (it gets overwritten):
-   ```toml
-   [dev-dependencies]
-   tokio = { version = "1", features = ["full"] }
-   ```
+```bash
+cd openapi-generator-rust-builders
+./mvnw clean package -DskipTests
+cd ..
+bash regenerate.sh
+```
 
 ## Examples
 

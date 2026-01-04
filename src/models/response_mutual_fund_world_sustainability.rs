@@ -21,9 +21,8 @@ pub struct ResponseMutualFundWorldSustainability {
         rename = "corporate_esg_pillars",
         skip_serializing_if = "Option::is_none"
     )]
-    pub corporate_esg_pillars: Option<
-        Box<models::GetMutualFundsWorld200ResponseMutualFundSustainabilityCorporateEsgPillars>,
-    >,
+    pub corporate_esg_pillars:
+        Option<Box<models::MutualFundsWorldMutualFundSustainabilityCorporateEsgPillars>>,
     /// Indication that the fund discloses in their prospectus that they employ socially responsible or ESG principles in their investment selection processes
     #[serde(
         rename = "sustainable_investment",
