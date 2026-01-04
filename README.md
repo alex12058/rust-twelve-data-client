@@ -131,7 +131,7 @@ This script:
 2. Removes the `queryParameter` security scheme (best practice: API keys should only be in headers, not query parameters)
 3. Ensures all 200 responses include `ApiError` variant for error handling
 4. Adds `text/csv` response type to endpoints supporting the `format` parameter
-5. Renames response schemas to cleaner names (e.g., `GetTimeSeries_200_response` → `time_series_data`)
+5. Renames response schemas to cleaner names (e.g., `GetTimeSeries_200_response` → `time_series`)
 6. Regenerates the Rust client with the modified spec
 7. Formats the generated code
 
