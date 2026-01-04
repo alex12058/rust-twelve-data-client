@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 ## get_currency_conversion
 
-> models::GetCurrencyConversion200Response get_currency_conversion(symbol, amount, date, format, delimiter, dp, timezone)
+> models::GetCurrencyConversion200ResponseEnum get_currency_conversion(symbol, amount, date, format, delimiter, dp, timezone)
 Currency conversion
 
 The currency conversion endpoint provides real-time exchange rates and calculates the converted amount for specified currency pairs, including both forex and cryptocurrencies. This endpoint is useful for obtaining up-to-date conversion values between two currencies, facilitating tasks such as financial reporting, e-commerce transactions, and travel budgeting.
@@ -37,7 +37,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetCurrencyConversion200Response**](GetCurrencyConversion_200_response.md)
+[**models::GetCurrencyConversion200ResponseEnum**](GetCurrencyConversion_200_responseEnum.md)
 
 ### Authorization
 
@@ -46,14 +46,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_eod
 
-> models::GetEod200Response get_eod(symbol, figi, isin, cusip, exchange, mic_code, country, r#type, date, prepost, dp)
+> models::GetEod200ResponseEnum get_eod(symbol, figi, isin, cusip, exchange, mic_code, country, r#type, date, prepost, dp)
 End of day price
 
 The End of Day (EOD) Prices endpoint provides the closing price and other relevant metadata for a financial instrument at the end of a trading day. This endpoint is useful for retrieving daily historical data for stocks, ETFs, or other securities, allowing users to track performance over time and compare daily market movements.
@@ -77,7 +77,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetEod200Response**](GetEod_200_response.md)
+[**models::GetEod200ResponseEnum**](GetEod_200_responseEnum.md)
 
 ### Authorization
 
@@ -93,7 +93,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_exchange_rate
 
-> models::GetExchangeRate200Response get_exchange_rate(symbol, date, format, delimiter, dp, timezone)
+> models::GetExchangeRate200ResponseEnum get_exchange_rate(symbol, date, format, delimiter, dp, timezone)
 Exchange rate
 
 The exchange rate endpoint provides real-time exchange rates for specified currency pairs, including both forex and cryptocurrency. It returns the current exchange rate value between two currencies, allowing users to quickly access up-to-date conversion rates for financial transactions or market analysis.
@@ -112,7 +112,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetExchangeRate200Response**](GetExchangeRate_200_response.md)
+[**models::GetExchangeRate200ResponseEnum**](GetExchangeRate_200_responseEnum.md)
 
 ### Authorization
 
@@ -121,14 +121,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_market_movers
 
-> models::MarketMoversResponseBody get_market_movers(market, direction, outputsize, country, price_greater_than, dp)
+> models::GetMarketMovers200Response get_market_movers(market, direction, outputsize, country, price_greater_than, dp)
 Market movers
 
 The market movers endpoint provides a ranked list of the top-gaining and losing assets for the current trading day. It returns detailed data on the highest percentage price increases and decreases since the previous day's close. This endpoint supports international equities, forex, and cryptocurrencies, enabling users to quickly identify significant market movements across various asset classes.
@@ -147,7 +147,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::MarketMoversResponseBody**](MarketMoversResponseBody.md)
+[**models::GetMarketMovers200Response**](GetMarketMovers_200_response.md)
 
 ### Authorization
 
@@ -163,7 +163,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_price
 
-> models::GetPrice200Response get_price(symbol, figi, isin, cusip, exchange, mic_code, country, r#type, format, delimiter, prepost, dp)
+> models::GetPrice200ResponseEnum get_price(symbol, figi, isin, cusip, exchange, mic_code, country, r#type, format, delimiter, prepost, dp)
 Latest price
 
 The latest price endpoint provides the latest market price for a specified financial instrument. It returns a single data point representing the current (or the most recently available) trading price.
@@ -188,7 +188,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetPrice200Response**](GetPrice_200_response.md)
+[**models::GetPrice200ResponseEnum**](GetPrice_200_responseEnum.md)
 
 ### Authorization
 
@@ -197,14 +197,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_quote
 
-> models::GetQuote200Response get_quote(symbol, figi, isin, cusip, interval, exchange, mic_code, country, volume_time_period, r#type, format, delimiter, prepost, eod, rolling_period, dp, timezone)
+> models::GetQuote200ResponseEnum get_quote(symbol, figi, isin, cusip, interval, exchange, mic_code, country, volume_time_period, r#type, format, delimiter, prepost, eod, rolling_period, dp, timezone)
 Quote
 
 The quote endpoint provides real-time data for a selected financial instrument, returning essential information such as the latest price, open, high, low, close, volume, and price change. This endpoint is ideal for users needing up-to-date market data to track price movements and trading activity for specific stocks, ETFs, or other securities.
@@ -234,7 +234,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetQuote200Response**](GetQuote_200_response.md)
+[**models::GetQuote200ResponseEnum**](GetQuote_200_responseEnum.md)
 
 ### Authorization
 
@@ -243,14 +243,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series
 
-> models::GetTimeSeries200Response get_time_series(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust)
+> models::GetTimeSeries200ResponseEnum get_time_series(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust)
 Time series
 
 The time series endpoint provides detailed historical data for a specified financial instrument. It returns two main components: metadata, which includes essential information about the instrument, and a time series dataset. The time series consists of chronological entries with Open, High, Low, and Close prices, and for applicable instruments, it also includes trading volume. This endpoint is ideal for retrieving comprehensive historical price data for analysis or visualization purposes.
@@ -284,7 +284,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeries200Response**](GetTimeSeries_200_response.md)
+[**models::GetTimeSeries200ResponseEnum**](GetTimeSeries_200_responseEnum.md)
 
 ### Authorization
 
@@ -293,14 +293,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_cross
 
-> models::GetTimeSeriesCross200Response get_time_series_cross(base, quote, interval, base_type, base_exchange, base_mic_code, quote_type, quote_exchange, quote_mic_code, outputsize, format, delimiter, prepost, start_date, end_date, adjust, dp, timezone)
+> models::GetTimeSeriesCross200ResponseEnum get_time_series_cross(base, quote, interval, base_type, base_exchange, base_mic_code, quote_type, quote_exchange, quote_mic_code, outputsize, format, delimiter, prepost, start_date, end_date, adjust, dp, timezone)
 Time series cross
 
 The Time Series Cross endpoint calculates and returns historical cross-rate data for exotic forex pairs, cryptocurrencies, or stocks (e.g., Apple Inc. price in Indian Rupees) on the fly. It provides metadata about the requested symbol and a time series array with Open, High, Low, and Close prices, sorted descending by time, enabling analysis of price history and market trends.
@@ -331,7 +331,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesCross200Response**](GetTimeSeriesCross_200_response.md)
+[**models::GetTimeSeriesCross200ResponseEnum**](GetTimeSeriesCross_200_responseEnum.md)
 
 ### Authorization
 
@@ -340,7 +340,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

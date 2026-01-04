@@ -111,7 +111,7 @@ Method | HTTP request | Description
 
 ## get_time_series_ad
 
-> models::GetTimeSeriesAd200Response get_time_series_ad(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
+> models::GetTimeSeriesAd200ResponseEnum get_time_series_ad(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
 Accumulation/distribution
 
 The Accumulation/Distribution (AD) endpoint provides data on the cumulative money flow into and out of a financial instrument, using its closing price, price range, and trading volume. This endpoint returns the AD line, which helps users identify potential buying or selling pressure and assess the strength of price movements.
@@ -146,7 +146,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesAd200Response**](GetTimeSeriesAd_200_response.md)
+[**models::GetTimeSeriesAd200ResponseEnum**](GetTimeSeriesAd_200_responseEnum.md)
 
 ### Authorization
 
@@ -155,14 +155,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_ad_osc
 
-> models::GetTimeSeriesAdOsc200Response get_time_series_ad_osc(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, fast_period, slow_period, include_ohlc)
+> models::GetTimeSeriesAdOsc200ResponseEnum get_time_series_ad_osc(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, fast_period, slow_period, include_ohlc)
 Accumulation/distribution oscillator
 
 The Accumulation/Distribution Oscillator endpoint (ADOSC) calculates a momentum indicator that highlights shifts in buying or selling pressure by analyzing price and volume data over different time frames. It returns numerical values that help users identify potential trend reversals in financial markets.
@@ -199,7 +199,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesAdOsc200Response**](GetTimeSeriesAdOsc_200_response.md)
+[**models::GetTimeSeriesAdOsc200ResponseEnum**](GetTimeSeriesAdOsc_200_responseEnum.md)
 
 ### Authorization
 
@@ -208,14 +208,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_add
 
-> models::GetTimeSeriesAdd200Response get_time_series_add(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type_1, series_type_2, include_ohlc)
+> models::GetTimeSeriesAdd200ResponseEnum get_time_series_add(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type_1, series_type_2, include_ohlc)
 Addition
 
 The Addition (ADD) endpoint calculates the sum of two input data series, such as technical indicators or price data, and returns the combined result. This endpoint is useful for users who need to aggregate data points to create custom indicators or analyze the combined effect of multiple data series in financial analysis.
@@ -252,7 +252,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesAdd200Response**](GetTimeSeriesAdd_200_response.md)
+[**models::GetTimeSeriesAdd200ResponseEnum**](GetTimeSeriesAdd_200_responseEnum.md)
 
 ### Authorization
 
@@ -261,14 +261,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_adx
 
-> models::GetTimeSeriesAdx200Response get_time_series_adx(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesAdx200ResponseEnum get_time_series_adx(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 Average directional index
 
 The Average Directional Index (ADX) endpoint provides data on the strength of a market trend, regardless of its direction. It returns a numerical value that helps users identify whether a market is trending or moving sideways.
@@ -304,7 +304,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesAdx200Response**](GetTimeSeriesAdx_200_response.md)
+[**models::GetTimeSeriesAdx200ResponseEnum**](GetTimeSeriesAdx_200_responseEnum.md)
 
 ### Authorization
 
@@ -313,14 +313,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_adxr
 
-> models::GetTimeSeriesAdxr200Response get_time_series_adxr(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesAdxr200ResponseEnum get_time_series_adxr(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 Average directional movement index rating
 
 The Average Directional Movement Index Rating (ADXR) endpoint provides a smoothed measure of trend strength for a specified financial instrument. It returns the ADXR values, which help users assess the consistency of a trend over a given period by reducing short-term fluctuations. This endpoint is useful for traders and analysts who need to evaluate the stability of market trends for better timing of entry and exit points in their trading strategies.
@@ -356,7 +356,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesAdxr200Response**](GetTimeSeriesAdxr_200_response.md)
+[**models::GetTimeSeriesAdxr200ResponseEnum**](GetTimeSeriesAdxr_200_responseEnum.md)
 
 ### Authorization
 
@@ -365,14 +365,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_apo
 
-> models::GetTimeSeriesApo200Response get_time_series_apo(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, fast_period, slow_period, ma_type, include_ohlc)
+> models::GetTimeSeriesApo200ResponseEnum get_time_series_apo(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, fast_period, slow_period, ma_type, include_ohlc)
 Absolute price oscillator
 
 The Absolute Price Oscillator (APO) endpoint calculates the difference between two specified moving averages of a financial instrument's price, providing data that helps users identify potential price trends and reversals. The response includes the calculated APO values over a specified time period, which can be used to track momentum changes and assess the strength of price movements.
@@ -411,7 +411,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesApo200Response**](GetTimeSeriesApo_200_response.md)
+[**models::GetTimeSeriesApo200ResponseEnum**](GetTimeSeriesApo_200_responseEnum.md)
 
 ### Authorization
 
@@ -420,14 +420,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_aroon
 
-> models::GetTimeSeriesAroon200Response get_time_series_aroon(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesAroon200ResponseEnum get_time_series_aroon(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 Aroon indicator
 
 The Aroon Indicator endpoint provides data on the time elapsed since the highest high and lowest low within a specified period, helping users identify the presence and strength of market trends. It returns two values: Aroon Up and Aroon Down, which indicate the trend direction and momentum. This endpoint is useful for traders and analysts looking to assess trend patterns and potential reversals in financial markets.
@@ -463,7 +463,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesAroon200Response**](GetTimeSeriesAroon_200_response.md)
+[**models::GetTimeSeriesAroon200ResponseEnum**](GetTimeSeriesAroon_200_responseEnum.md)
 
 ### Authorization
 
@@ -472,14 +472,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_aroon_osc
 
-> models::GetTimeSeriesAroonOsc200Response get_time_series_aroon_osc(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesAroonOsc200ResponseEnum get_time_series_aroon_osc(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 Aroon oscillator
 
 The Aroon Oscillator endpoint provides the calculated difference between the Aroon Up and Aroon Down indicators for a given financial instrument. It returns a time series of values that help users identify the strength and direction of a trend, as well as potential trend reversals. This data is useful for traders and analysts seeking to evaluate market trends over a specified period.
@@ -515,7 +515,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesAroonOsc200Response**](GetTimeSeriesAroonOsc_200_response.md)
+[**models::GetTimeSeriesAroonOsc200ResponseEnum**](GetTimeSeriesAroonOsc_200_responseEnum.md)
 
 ### Authorization
 
@@ -524,14 +524,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_atr
 
-> models::GetTimeSeriesAtr200Response get_time_series_atr(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesAtr200ResponseEnum get_time_series_atr(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 Average true range
 
 The Average True Range (ATR) endpoint provides data on market volatility by calculating the average range of price movement over a user-defined period. It returns numerical values representing the ATR for each time interval, allowing users to gauge the degree of price fluctuation in a financial instrument. This data is useful for setting stop-loss levels and determining optimal entry and exit points in trading strategies.
@@ -567,7 +567,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesAtr200Response**](GetTimeSeriesAtr_200_response.md)
+[**models::GetTimeSeriesAtr200ResponseEnum**](GetTimeSeriesAtr_200_responseEnum.md)
 
 ### Authorization
 
@@ -576,14 +576,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_avg
 
-> models::GetTimeSeriesAvg200Response get_time_series_avg(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesAvg200ResponseEnum get_time_series_avg(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Average
 
 The Average (AVG) endpoint calculates the arithmetic mean of a specified data series over a chosen time period. It returns a smoothed dataset that helps users identify trends by reducing short-term fluctuations. This endpoint is useful for obtaining a clearer view of data trends, particularly in time series analysis.
@@ -620,7 +620,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesAvg200Response**](GetTimeSeriesAvg_200_response.md)
+[**models::GetTimeSeriesAvg200ResponseEnum**](GetTimeSeriesAvg_200_responseEnum.md)
 
 ### Authorization
 
@@ -629,14 +629,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_avg_price
 
-> models::GetTimeSeriesAvgPrice200Response get_time_series_avg_price(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
+> models::GetTimeSeriesAvgPrice200ResponseEnum get_time_series_avg_price(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
 Average price
 
 The Average Price (AVGPRICE) endpoint calculates and returns the mean value of a security's open, high, low, and close prices. This endpoint provides a straightforward metric to assess the overall price level of a security over a specified period.
@@ -671,7 +671,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesAvgPrice200Response**](GetTimeSeriesAvgPrice_200_response.md)
+[**models::GetTimeSeriesAvgPrice200ResponseEnum**](GetTimeSeriesAvgPrice_200_responseEnum.md)
 
 ### Authorization
 
@@ -680,14 +680,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_b_bands
 
-> models::GetTimeSeriesBBands200Response get_time_series_b_bands(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, sd, ma_type, include_ohlc)
+> models::GetTimeSeriesBBands200ResponseEnum get_time_series_b_bands(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, sd, ma_type, include_ohlc)
 Bollinger bands
 
 The Bollinger Bands (BBANDS) endpoint calculates and returns three key data points: an upper band, a lower band, and a simple moving average (SMA) for a specified financial instrument. These bands are used to assess market volatility by showing how far prices deviate from the SMA. This information helps users identify potential price reversals and determine whether an asset is overbought or oversold.
@@ -726,7 +726,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesBBands200Response**](GetTimeSeriesBBands_200_response.md)
+[**models::GetTimeSeriesBBands200ResponseEnum**](GetTimeSeriesBBands_200_responseEnum.md)
 
 ### Authorization
 
@@ -735,14 +735,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_beta
 
-> models::GetTimeSeriesBeta200Response get_time_series_beta(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type_1, series_type_2, time_period, include_ohlc)
+> models::GetTimeSeriesBeta200ResponseEnum get_time_series_beta(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type_1, series_type_2, time_period, include_ohlc)
 Beta indicator
 
 The Beta Indicator endpoint provides data on a security's sensitivity to market movements by comparing its price changes to a benchmark index. It returns the beta value, which quantifies the systematic risk of the security relative to the market. This information is useful for evaluating how much a security's price is expected to move in relation to market changes.
@@ -780,7 +780,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesBeta200Response**](GetTimeSeriesBeta_200_response.md)
+[**models::GetTimeSeriesBeta200ResponseEnum**](GetTimeSeriesBeta_200_responseEnum.md)
 
 ### Authorization
 
@@ -789,14 +789,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_bop
 
-> models::GetTimeSeriesBop200Response get_time_series_bop(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
+> models::GetTimeSeriesBop200ResponseEnum get_time_series_bop(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
 Balance of power
 
 The Balance of Power (BOP) endpoint provides data on the buying and selling pressure of a security by analyzing its open, high, low, and close prices. It returns numerical values that help users detect shifts in market sentiment and potential price movements.
@@ -831,7 +831,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesBop200Response**](GetTimeSeriesBop_200_response.md)
+[**models::GetTimeSeriesBop200ResponseEnum**](GetTimeSeriesBop_200_responseEnum.md)
 
 ### Authorization
 
@@ -840,14 +840,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_cci
 
-> models::GetTimeSeriesCci200Response get_time_series_cci(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesCci200ResponseEnum get_time_series_cci(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 Commodity channel index
 
 The Commodity Channel Index (CCI) endpoint provides data on the CCI values for a specified security, helping users detect potential price reversals by identifying overbought or oversold conditions. It returns a series of CCI values calculated over a specified time period, allowing users to assess the momentum of a security relative to its average price range.
@@ -883,7 +883,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesCci200Response**](GetTimeSeriesCci_200_response.md)
+[**models::GetTimeSeriesCci200ResponseEnum**](GetTimeSeriesCci_200_responseEnum.md)
 
 ### Authorization
 
@@ -892,14 +892,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_ceil
 
-> models::GetTimeSeriesCeil200Response get_time_series_ceil(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
+> models::GetTimeSeriesCeil200ResponseEnum get_time_series_ceil(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
 Ceiling
 
 The Ceiling (CEIL) endpoint rounds each value in the input data series up to the nearest whole number. It returns a series where each original data point is adjusted to its ceiling value, which can be useful for precise calculations or when integrating with other technical indicators that require integer inputs.
@@ -935,7 +935,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesCeil200Response**](GetTimeSeriesCeil_200_response.md)
+[**models::GetTimeSeriesCeil200ResponseEnum**](GetTimeSeriesCeil_200_responseEnum.md)
 
 ### Authorization
 
@@ -944,14 +944,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_cmo
 
-> models::GetTimeSeriesCmo200Response get_time_series_cmo(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesCmo200ResponseEnum get_time_series_cmo(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Chande momentum oscillator
 
 The Chande Momentum Oscillator (CMO) endpoint provides data on the momentum of a security by calculating the relative strength of recent price movements. It returns a numerical value indicating whether a security is potentially overbought or oversold, assisting users in identifying possible trend reversals.
@@ -988,7 +988,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesCmo200Response**](GetTimeSeriesCmo_200_response.md)
+[**models::GetTimeSeriesCmo200ResponseEnum**](GetTimeSeriesCmo_200_responseEnum.md)
 
 ### Authorization
 
@@ -997,14 +997,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_coppock
 
-> models::GetTimeSeriesCoppock200Response get_time_series_coppock(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, wma_period, long_roc_period, short_roc_period, include_ohlc)
+> models::GetTimeSeriesCoppock200ResponseEnum get_time_series_coppock(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, wma_period, long_roc_period, short_roc_period, include_ohlc)
 Coppock curve
 
 The Coppock Curve is a momentum oscillator used to detect potential long-term trend reversals in financial markets. It returns the calculated values of this indicator over a specified period, allowing users to identify when a security's price may be shifting from a downtrend to an uptrend. This endpoint is particularly useful for analyzing securities in bottoming markets.
@@ -1043,7 +1043,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesCoppock200Response**](GetTimeSeriesCoppock_200_response.md)
+[**models::GetTimeSeriesCoppock200ResponseEnum**](GetTimeSeriesCoppock_200_responseEnum.md)
 
 ### Authorization
 
@@ -1052,14 +1052,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_correl
 
-> models::GetTimeSeriesCorrel200Response get_time_series_correl(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type_1, series_type_2, time_period, include_ohlc)
+> models::GetTimeSeriesCorrel200ResponseEnum get_time_series_correl(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type_1, series_type_2, time_period, include_ohlc)
 Correlation
 
 The Correlation (CORREL) endpoint calculates the statistical relationship between two securities over a specified time period, returning a correlation coefficient. This coefficient ranges from -1 to 1, indicating the strength and direction of their linear relationship. A value close to 1 suggests a strong positive correlation, while a value near -1 indicates a strong negative correlation. This data is useful for identifying securities that move together or in opposite directions, aiding in strategies like diversification or pairs trading.
@@ -1097,7 +1097,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesCorrel200Response**](GetTimeSeriesCorrel_200_response.md)
+[**models::GetTimeSeriesCorrel200ResponseEnum**](GetTimeSeriesCorrel_200_responseEnum.md)
 
 ### Authorization
 
@@ -1106,14 +1106,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_crsi
 
-> models::GetTimeSeriesCrsi200Response get_time_series_crsi(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, rsi_period, up_down_length, percent_rank_period, include_ohlc)
+> models::GetTimeSeriesCrsi200ResponseEnum get_time_series_crsi(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, rsi_period, up_down_length, percent_rank_period, include_ohlc)
 Connors relative strength index
 
 The Connors Relative Strength Index (CRSI) endpoint provides a detailed analysis of stock momentum by combining three components: the Relative Strength Index, the Rate of Change, and the Up/Down Length. This endpoint returns a numerical value that helps identify potential trend reversals and momentum shifts in a security's price. Ideal for traders seeking to refine entry and exit points, the CRSI offers a nuanced view of market conditions beyond traditional RSI indicators.
@@ -1152,7 +1152,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesCrsi200Response**](GetTimeSeriesCrsi_200_response.md)
+[**models::GetTimeSeriesCrsi200ResponseEnum**](GetTimeSeriesCrsi_200_responseEnum.md)
 
 ### Authorization
 
@@ -1161,14 +1161,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_dema
 
-> models::GetTimeSeriesDema200Response get_time_series_dema(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesDema200ResponseEnum get_time_series_dema(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Double exponential moving average
 
 The Double Exponential Moving Average (DEMA) endpoint provides a data series that calculates a moving average with reduced lag by emphasizing recent price data. This endpoint returns time-series data that includes the DEMA values for a specified financial instrument, allowing users to track price trends and identify potential trading opportunities.
@@ -1205,7 +1205,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesDema200Response**](GetTimeSeriesDema_200_response.md)
+[**models::GetTimeSeriesDema200ResponseEnum**](GetTimeSeriesDema_200_responseEnum.md)
 
 ### Authorization
 
@@ -1214,14 +1214,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_div
 
-> models::GetTimeSeriesDiv200Response get_time_series_div(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type_1, series_type_2, include_ohlc)
+> models::GetTimeSeriesDiv200ResponseEnum get_time_series_div(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type_1, series_type_2, include_ohlc)
 Division
 
 The Division (DIV) endpoint calculates the result of dividing one data series by another, providing a normalized output. It is commonly used to combine or adjust multiple technical indicators or price data for comparative analysis. This endpoint returns the division results as a time series, allowing users to easily interpret and utilize the normalized data in their financial models or charts.
@@ -1258,7 +1258,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesDiv200Response**](GetTimeSeriesDiv_200_response.md)
+[**models::GetTimeSeriesDiv200ResponseEnum**](GetTimeSeriesDiv_200_responseEnum.md)
 
 ### Authorization
 
@@ -1267,14 +1267,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_dpo
 
-> models::GetTimeSeriesDpo200Response get_time_series_dpo(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, centered, include_ohlc)
+> models::GetTimeSeriesDpo200ResponseEnum get_time_series_dpo(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, centered, include_ohlc)
 Detrended price oscillator
 
 The Detrended Price Oscillator (DPO) endpoint calculates and returns the DPO values for a specified financial instrument over a given time period. This endpoint helps traders by highlighting short-term price cycles and identifying potential overbought or oversold conditions without the influence of long-term trends. The response includes a series of DPO values, which can be used to assess price momentum and cyclical patterns in the market.
@@ -1312,7 +1312,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesDpo200Response**](GetTimeSeriesDpo_200_response.md)
+[**models::GetTimeSeriesDpo200ResponseEnum**](GetTimeSeriesDpo_200_responseEnum.md)
 
 ### Authorization
 
@@ -1321,14 +1321,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_dx
 
-> models::GetTimeSeriesDx200Response get_time_series_dx(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesDx200ResponseEnum get_time_series_dx(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 Directional movement index
 
 Retrieve the Directional Movement Index (DX) values for a given security to assess the strength of its positive and negative price movements. This endpoint provides a time series of DX values, which are useful for evaluating the momentum and trend direction of the security over a specified period.
@@ -1364,7 +1364,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesDx200Response**](GetTimeSeriesDx_200_response.md)
+[**models::GetTimeSeriesDx200ResponseEnum**](GetTimeSeriesDx_200_responseEnum.md)
 
 ### Authorization
 
@@ -1373,14 +1373,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_ema
 
-> models::GetTimeSeriesEma200Response get_time_series_ema(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesEma200ResponseEnum get_time_series_ema(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Exponential moving average
 
 The Exponential Moving Average (EMA) endpoint calculates the EMA for a specified financial instrument over a given time period. It returns a time series of EMA values, which highlight recent price trends by weighting recent data more heavily. This is useful for traders seeking to identify trend directions and potential trade opportunities based on recent price movements.
@@ -1417,7 +1417,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesEma200Response**](GetTimeSeriesEma_200_response.md)
+[**models::GetTimeSeriesEma200ResponseEnum**](GetTimeSeriesEma_200_responseEnum.md)
 
 ### Authorization
 
@@ -1426,14 +1426,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_exp
 
-> models::GetTimeSeriesExp200Response get_time_series_exp(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
+> models::GetTimeSeriesExp200ResponseEnum get_time_series_exp(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
 Exponential
 
 The Exponential (EXP) Indicator endpoint computes the exponential value of a specified input, providing a numerical result that is commonly applied in complex mathematical and financial computations.
@@ -1469,7 +1469,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesExp200Response**](GetTimeSeriesExp_200_response.md)
+[**models::GetTimeSeriesExp200ResponseEnum**](GetTimeSeriesExp_200_responseEnum.md)
 
 ### Authorization
 
@@ -1478,14 +1478,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_floor
 
-> models::GetTimeSeriesFloor200Response get_time_series_floor(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
+> models::GetTimeSeriesFloor200ResponseEnum get_time_series_floor(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
 Floor
 
 The Floor (FLOOR) endpoint processes numerical input data by rounding each value down to the nearest integer. It returns a series of adjusted data points that can be used for further calculations or combined with other datasets. This endpoint is useful for users needing to simplify data by removing decimal precision, aiding in scenarios where integer values are required.
@@ -1521,7 +1521,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesFloor200Response**](GetTimeSeriesFloor_200_response.md)
+[**models::GetTimeSeriesFloor200ResponseEnum**](GetTimeSeriesFloor_200_responseEnum.md)
 
 ### Authorization
 
@@ -1530,14 +1530,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_heikinashi_candles
 
-> models::GetTimeSeriesHeikinashiCandles200Response get_time_series_heikinashi_candles(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
+> models::GetTimeSeriesHeikinashiCandles200ResponseEnum get_time_series_heikinashi_candles(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
 Heikinashi candles
 
 The heikinashi candles endpoint provides smoothed candlestick data by averaging price information to reduce market noise. It returns a series of Heikin Ashi candles, which include open, high, low, and close values, making it easier to identify trends and potential reversals in asset prices. This endpoint is useful for traders and analysts seeking a clearer view of market trends without the volatility present in traditional candlestick charts.
@@ -1572,7 +1572,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesHeikinashiCandles200Response**](GetTimeSeriesHeikinashiCandles_200_response.md)
+[**models::GetTimeSeriesHeikinashiCandles200ResponseEnum**](GetTimeSeriesHeikinashiCandles_200_responseEnum.md)
 
 ### Authorization
 
@@ -1581,14 +1581,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_hlc3
 
-> models::GetTimeSeriesHlc3200Response get_time_series_hlc3(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
+> models::GetTimeSeriesHlc3200ResponseEnum get_time_series_hlc3(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
 High, low, close average
 
 The High, Low, Close Average (HLC3) endpoint calculates and returns the average of a security's high, low, and close prices for a specified period. This endpoint provides a straightforward metric to assess price trends, helping users quickly identify the average price level of a security over time.
@@ -1623,7 +1623,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesHlc3200Response**](GetTimeSeriesHlc3_200_response.md)
+[**models::GetTimeSeriesHlc3200ResponseEnum**](GetTimeSeriesHlc3_200_responseEnum.md)
 
 ### Authorization
 
@@ -1632,14 +1632,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_ht_dc_period
 
-> models::GetTimeSeriesHtDcPeriod200Response get_time_series_ht_dc_period(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
+> models::GetTimeSeriesHtDcPeriod200ResponseEnum get_time_series_ht_dc_period(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
 Hilbert transform dominant cycle period
 
 The Hilbert Transform Dominant Cycle Period (HT_DCPERIOD) endpoint calculates the dominant cycle length of a financial instrument's price data. It returns a numerical value representing the cycle period, which traders can use to identify prevailing market cycles and adjust their trading strategies accordingly.
@@ -1675,7 +1675,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesHtDcPeriod200Response**](GetTimeSeriesHtDcPeriod_200_response.md)
+[**models::GetTimeSeriesHtDcPeriod200ResponseEnum**](GetTimeSeriesHtDcPeriod_200_responseEnum.md)
 
 ### Authorization
 
@@ -1684,14 +1684,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_ht_dc_phase
 
-> models::GetTimeSeriesHtDcPhase200Response get_time_series_ht_dc_phase(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
+> models::GetTimeSeriesHtDcPhase200ResponseEnum get_time_series_ht_dc_phase(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
 Hilbert transform dominant cycle phase
 
 The Hilbert Transform Dominant Cycle Phase (HT_DCPHASE) endpoint provides the current phase of the dominant market cycle for a given financial instrument. It returns numerical data indicating the phase angle, which can be used by traders to identify potential market entry and exit points based on cyclical patterns.
@@ -1727,7 +1727,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesHtDcPhase200Response**](GetTimeSeriesHtDcPhase_200_response.md)
+[**models::GetTimeSeriesHtDcPhase200ResponseEnum**](GetTimeSeriesHtDcPhase_200_responseEnum.md)
 
 ### Authorization
 
@@ -1736,14 +1736,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_ht_phasor
 
-> models::GetTimeSeriesHtPhasor200Response get_time_series_ht_phasor(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
+> models::GetTimeSeriesHtPhasor200ResponseEnum get_time_series_ht_phasor(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
 Hilbert transform phasor components
 
 The Hilbert Transform Phasor Components (HT_PHASOR) endpoint analyzes a price series to return two key components: in-phase and quadrature. These components help identify cyclical patterns and the direction of trends in the data. Use this endpoint to gain precise insights into the timing and strength of market cycles, enhancing your ability to track and predict price movements.
@@ -1779,7 +1779,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesHtPhasor200Response**](GetTimeSeriesHtPhasor_200_response.md)
+[**models::GetTimeSeriesHtPhasor200ResponseEnum**](GetTimeSeriesHtPhasor_200_responseEnum.md)
 
 ### Authorization
 
@@ -1788,14 +1788,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_ht_sine
 
-> models::GetTimeSeriesHtSine200Response get_time_series_ht_sine(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
+> models::GetTimeSeriesHtSine200ResponseEnum get_time_series_ht_sine(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
 Hilbert transform sine wave
 
 The Hilbert Transform Sine Wave (HT_SINE) endpoint provides sine and cosine wave components derived from the dominant market cycle. This data helps traders pinpoint potential market turning points and assess trend directions by analyzing cyclical patterns.
@@ -1831,7 +1831,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesHtSine200Response**](GetTimeSeriesHtSine_200_response.md)
+[**models::GetTimeSeriesHtSine200ResponseEnum**](GetTimeSeriesHtSine_200_responseEnum.md)
 
 ### Authorization
 
@@ -1840,14 +1840,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_ht_trend_mode
 
-> models::GetTimeSeriesHtTrendMode200Response get_time_series_ht_trend_mode(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
+> models::GetTimeSeriesHtTrendMode200ResponseEnum get_time_series_ht_trend_mode(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
 Hilbert transform trend vs cycle mode
 
 The Hilbert Transform Trend vs Cycle Mode (HT_TRENDMODE) endpoint identifies whether a market is in a trending or cyclical phase. It returns data indicating the current market phase, allowing users to adjust their trading strategies based on the prevailing conditions.
@@ -1883,7 +1883,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesHtTrendMode200Response**](GetTimeSeriesHtTrendMode_200_response.md)
+[**models::GetTimeSeriesHtTrendMode200ResponseEnum**](GetTimeSeriesHtTrendMode_200_responseEnum.md)
 
 ### Authorization
 
@@ -1892,14 +1892,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_ht_trendline
 
-> models::GetTimeSeriesHtTrendline200Response get_time_series_ht_trendline(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
+> models::GetTimeSeriesHtTrendline200ResponseEnum get_time_series_ht_trendline(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
 Hilbert transform instantaneous trendline
 
 The Hilbert Transform Instantaneous Trendline (HT_TRENDLINE) endpoint provides a smoothed moving average that aligns with the dominant market cycle. It returns data points that help traders identify current market trends and determine potential entry or exit points in trading.
@@ -1935,7 +1935,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesHtTrendline200Response**](GetTimeSeriesHtTrendline_200_response.md)
+[**models::GetTimeSeriesHtTrendline200ResponseEnum**](GetTimeSeriesHtTrendline_200_responseEnum.md)
 
 ### Authorization
 
@@ -1944,14 +1944,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_ichimoku
 
-> models::GetTimeSeriesIchimoku200Response get_time_series_ichimoku(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, conversion_line_period, base_line_period, leading_span_b_period, lagging_span_period, include_ahead_span_period, include_ohlc)
+> models::GetTimeSeriesIchimoku200ResponseEnum get_time_series_ichimoku(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, conversion_line_period, base_line_period, leading_span_b_period, lagging_span_period, include_ahead_span_period, include_ohlc)
 Ichimoku cloud
 
 The Ichimoku Cloud endpoint provides data on the Ichimoku Kinko Hyo indicator, offering insights into trend direction, support and resistance levels, and potential entry and exit points. It returns key components such as the Tenkan-sen, Kijun-sen, Senkou Span A, Senkou Span B, and Chikou Span. This data helps users evaluate market trends and identify strategic trading opportunities.
@@ -1991,7 +1991,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesIchimoku200Response**](GetTimeSeriesIchimoku_200_response.md)
+[**models::GetTimeSeriesIchimoku200ResponseEnum**](GetTimeSeriesIchimoku_200_responseEnum.md)
 
 ### Authorization
 
@@ -2000,14 +2000,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_kama
 
-> models::GetTimeSeriesKama200Response get_time_series_kama(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesKama200ResponseEnum get_time_series_kama(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Kaufman adaptive moving average
 
 The Kaufman Adaptive Moving Average (KAMA) endpoint calculates the KAMA for a specified financial instrument, returning a time series of values that reflect the average price adjusted for market volatility. This endpoint helps users identify trends by smoothing out price fluctuations while remaining sensitive to significant price movements.
@@ -2044,7 +2044,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesKama200Response**](GetTimeSeriesKama_200_response.md)
+[**models::GetTimeSeriesKama200ResponseEnum**](GetTimeSeriesKama_200_responseEnum.md)
 
 ### Authorization
 
@@ -2053,14 +2053,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_keltner
 
-> models::GetTimeSeriesKeltner200Response get_time_series_keltner(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, atr_time_period, multiplier, series_type, ma_type, include_ohlc)
+> models::GetTimeSeriesKeltner200ResponseEnum get_time_series_keltner(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, atr_time_period, multiplier, series_type, ma_type, include_ohlc)
 Keltner channel
 
 The Keltner Channel endpoint provides data for a volatility-based technical indicator that combines the Exponential Moving Average (EMA) and the Average True Range (ATR) to form a channel around a security's price. This endpoint returns the upper, middle, and lower bands of the channel, which can be used to identify potential overbought or oversold conditions, assess trend direction, and detect possible price breakouts.
@@ -2100,7 +2100,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesKeltner200Response**](GetTimeSeriesKeltner_200_response.md)
+[**models::GetTimeSeriesKeltner200ResponseEnum**](GetTimeSeriesKeltner_200_responseEnum.md)
 
 ### Authorization
 
@@ -2109,14 +2109,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_kst
 
-> models::GetTimeSeriesKst200Response get_time_series_kst(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, roc_period_1, roc_period_2, roc_period_3, roc_period_4, sma_period_1, sma_period_2, sma_period_3, sma_period_4, signal_period, include_ohlc)
+> models::GetTimeSeriesKst200ResponseEnum get_time_series_kst(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, roc_period_1, roc_period_2, roc_period_3, roc_period_4, sma_period_1, sma_period_2, sma_period_3, sma_period_4, signal_period, include_ohlc)
 Know sure thing
 
 The Know Sure Thing (KST) endpoint provides a momentum oscillator that combines four smoothed rates of change into a single trend-following indicator. This endpoint returns data that helps users identify potential trend reversals, as well as overbought or oversold conditions in the market.
@@ -2160,7 +2160,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesKst200Response**](GetTimeSeriesKst_200_response.md)
+[**models::GetTimeSeriesKst200ResponseEnum**](GetTimeSeriesKst_200_responseEnum.md)
 
 ### Authorization
 
@@ -2169,14 +2169,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_linear_reg
 
-> models::GetTimeSeriesLinearReg200Response get_time_series_linear_reg(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesLinearReg200ResponseEnum get_time_series_linear_reg(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Linear regression
 
 The Linear Regression endpoint (LINEARREG) calculates the best-fit straight line through a series of financial data points. It returns the slope and intercept values of this line, allowing users to determine the overall direction of a market trend and identify potential support or resistance levels.
@@ -2213,7 +2213,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesLinearReg200Response**](GetTimeSeriesLinearReg_200_response.md)
+[**models::GetTimeSeriesLinearReg200ResponseEnum**](GetTimeSeriesLinearReg_200_responseEnum.md)
 
 ### Authorization
 
@@ -2222,14 +2222,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_linear_reg_angle
 
-> models::GetTimeSeriesLinearRegAngle200Response get_time_series_linear_reg_angle(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesLinearRegAngle200ResponseEnum get_time_series_linear_reg_angle(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Linear regression angle
 
 The Linear Regression Angle endpoint (LINEARREGANGLE) calculates the angle of the linear regression line for a given time series of stock prices. It returns the slope of the trend line, expressed in degrees, which helps users identify the direction and steepness of a trend over a specified period. This data is useful for detecting upward or downward trends in asset prices.
@@ -2266,7 +2266,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesLinearRegAngle200Response**](GetTimeSeriesLinearRegAngle_200_response.md)
+[**models::GetTimeSeriesLinearRegAngle200ResponseEnum**](GetTimeSeriesLinearRegAngle_200_responseEnum.md)
 
 ### Authorization
 
@@ -2275,14 +2275,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_linear_reg_intercept
 
-> models::GetTimeSeriesLinearRegIntercept200Response get_time_series_linear_reg_intercept(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesLinearRegIntercept200ResponseEnum get_time_series_linear_reg_intercept(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Linear regression intercept
 
 The Linear Regression Intercept endpoint (LINEARREGINTERCEPT) calculates the y-intercept of a linear regression line for a given dataset. It returns the value where the regression line crosses the y-axis, providing a numerical reference point for understanding the starting position of a trend over a specified period. This can be useful for users needing to establish baseline values in their data analysis.
@@ -2319,7 +2319,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesLinearRegIntercept200Response**](GetTimeSeriesLinearRegIntercept_200_response.md)
+[**models::GetTimeSeriesLinearRegIntercept200ResponseEnum**](GetTimeSeriesLinearRegIntercept_200_responseEnum.md)
 
 ### Authorization
 
@@ -2328,14 +2328,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_linear_reg_slope
 
-> models::GetTimeSeriesLinearRegSlope200Response get_time_series_linear_reg_slope(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesLinearRegSlope200ResponseEnum get_time_series_linear_reg_slope(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Linear regression slope
 
 The Linear Regression Slope endpoint (LINEARREGSLOPE) calculates the slope of a linear regression line for a given dataset, reflecting the rate of change in the data trend over a specified period. It returns a numerical value representing this slope, which can be used to assess the direction and strength of the trend in the dataset.
@@ -2372,7 +2372,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesLinearRegSlope200Response**](GetTimeSeriesLinearRegSlope_200_response.md)
+[**models::GetTimeSeriesLinearRegSlope200ResponseEnum**](GetTimeSeriesLinearRegSlope_200_responseEnum.md)
 
 ### Authorization
 
@@ -2381,14 +2381,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_ln
 
-> models::GetTimeSeriesLn200Response get_time_series_ln(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
+> models::GetTimeSeriesLn200ResponseEnum get_time_series_ln(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
 Natural logarithm
 
 The Natural Logarithm (LN) endpoint computes the natural logarithm of a specified input value, returning a numerical result. This endpoint is useful for users needing to perform logarithmic transformations on data, which can be applied in various financial calculations and advanced mathematical analyses.
@@ -2424,7 +2424,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesLn200Response**](GetTimeSeriesLn_200_response.md)
+[**models::GetTimeSeriesLn200ResponseEnum**](GetTimeSeriesLn_200_responseEnum.md)
 
 ### Authorization
 
@@ -2433,14 +2433,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_log10
 
-> models::GetTimeSeriesLog10200Response get_time_series_log10(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
+> models::GetTimeSeriesLog10200ResponseEnum get_time_series_log10(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
 Base-10 logarithm
 
 The Base-10 Logarithm (LOG10) endpoint computes the base-10 logarithm of a specified input value. It returns a numerical result that represents the power to which the number 10 must be raised to obtain the input value. This endpoint is useful for transforming data into a logarithmic scale, which can simplify the analysis of exponential growth patterns or compress large ranges of data in financial calculations.
@@ -2476,7 +2476,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesLog10200Response**](GetTimeSeriesLog10_200_response.md)
+[**models::GetTimeSeriesLog10200ResponseEnum**](GetTimeSeriesLog10_200_responseEnum.md)
 
 ### Authorization
 
@@ -2485,14 +2485,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_ma
 
-> models::GetTimeSeriesMa200Response get_time_series_ma(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, ma_type, include_ohlc)
+> models::GetTimeSeriesMa200ResponseEnum get_time_series_ma(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, ma_type, include_ohlc)
 Moving average
 
 The Moving Average (MA) endpoint provides the average price of a security over a specified time frame, offering a smoothed representation of price data. This endpoint returns the calculated moving average values, which can assist users in identifying price trends and potential support or resistance levels in the market.
@@ -2530,7 +2530,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMa200Response**](GetTimeSeriesMa_200_response.md)
+[**models::GetTimeSeriesMa200ResponseEnum**](GetTimeSeriesMa_200_responseEnum.md)
 
 ### Authorization
 
@@ -2539,14 +2539,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_macd
 
-> models::GetTimeSeriesMacd200Response get_time_series_macd(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, fast_period, slow_period, signal_period, include_ohlc)
+> models::GetTimeSeriesMacd200ResponseEnum get_time_series_macd(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, fast_period, slow_period, signal_period, include_ohlc)
 Moving average convergence divergence
 
 This endpoint calculates the Moving Average Convergence Divergence (MACD) for a specified financial instrument. It returns the MACD line, signal line, and histogram values, which help users identify potential trend reversals and trading opportunities by analyzing the relationship between two moving averages.
@@ -2585,7 +2585,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMacd200Response**](GetTimeSeriesMacd_200_response.md)
+[**models::GetTimeSeriesMacd200ResponseEnum**](GetTimeSeriesMacd_200_responseEnum.md)
 
 ### Authorization
 
@@ -2594,14 +2594,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_macd_ext
 
-> models::GetTimeSeriesMacdExt200Response get_time_series_macd_ext(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, fast_period, fast_ma_type, slow_period, slow_ma_type, signal_period, signal_ma_type, include_ohlc)
+> models::GetTimeSeriesMacdExt200ResponseEnum get_time_series_macd_ext(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, fast_period, fast_ma_type, slow_period, slow_ma_type, signal_period, signal_ma_type, include_ohlc)
 Moving average convergence divergence extension
 
 The Moving Average Convergence Divergence Extension (MACDEXT) endpoint provides a customizable version of the MACD indicator, allowing users to specify different moving average types and parameters. It returns data that includes the MACD line, signal line, and histogram values, tailored to the user's chosen settings. This endpoint is useful for traders who require flexibility in analyzing price trends and momentum by adjusting the calculation methods to fit their specific trading strategies.
@@ -2643,7 +2643,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMacdExt200Response**](GetTimeSeriesMacdExt_200_response.md)
+[**models::GetTimeSeriesMacdExt200ResponseEnum**](GetTimeSeriesMacdExt_200_responseEnum.md)
 
 ### Authorization
 
@@ -2652,14 +2652,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_macd_slope
 
-> models::GetTimeSeriesMacdSlope200Response get_time_series_macd_slope(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, fast_period, slow_period, signal_period, time_period, include_ohlc)
+> models::GetTimeSeriesMacdSlope200ResponseEnum get_time_series_macd_slope(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, fast_period, slow_period, signal_period, time_period, include_ohlc)
 Moving average convergence divergence slope
 
 The Moving Average Convergence Divergence (MACD) Slope endpoint provides the rate of change of the MACD line for a given security. It returns data on how quickly the MACD line is rising or falling, offering insights into the momentum shifts in the security's price. This information is useful for traders looking to gauge the speed of price movements and potential trend reversals.
@@ -2699,7 +2699,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMacdSlope200Response**](GetTimeSeriesMacdSlope_200_response.md)
+[**models::GetTimeSeriesMacdSlope200ResponseEnum**](GetTimeSeriesMacdSlope_200_responseEnum.md)
 
 ### Authorization
 
@@ -2708,14 +2708,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_mama
 
-> models::GetTimeSeriesMama200Response get_time_series_mama(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, fast_limit, slow_limit, include_ohlc)
+> models::GetTimeSeriesMama200ResponseEnum get_time_series_mama(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, fast_limit, slow_limit, include_ohlc)
 MESA adaptive moving average
 
 The MESA Adaptive Moving Average (MAMA) endpoint calculates a moving average that adjusts to the dominant market cycle, offering a balance between quick response to price changes and noise reduction. It returns data that includes the adaptive moving average values, which can be used to identify trends and potential reversal points.
@@ -2753,7 +2753,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMama200Response**](GetTimeSeriesMama_200_response.md)
+[**models::GetTimeSeriesMama200ResponseEnum**](GetTimeSeriesMama_200_responseEnum.md)
 
 ### Authorization
 
@@ -2762,14 +2762,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_max
 
-> models::GetTimeSeriesMax200Response get_time_series_max(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesMax200ResponseEnum get_time_series_max(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Maximum
 
 The Maximum (MAX) endpoint calculates and returns the highest value within a specified data series over a given period. This endpoint is useful for identifying potential resistance levels or detecting extreme price movements in financial data.
@@ -2806,7 +2806,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMax200Response**](GetTimeSeriesMax_200_response.md)
+[**models::GetTimeSeriesMax200ResponseEnum**](GetTimeSeriesMax_200_responseEnum.md)
 
 ### Authorization
 
@@ -2815,14 +2815,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_max_index
 
-> models::GetTimeSeriesMaxIndex200Response get_time_series_max_index(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesMaxIndex200ResponseEnum get_time_series_max_index(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Maximum Index
 
 The Maximum Index (MAXINDEX) endpoint identifies the position of the highest value within a specified data series over a given time frame. It returns the index where the peak value occurs, allowing users to pinpoint when the maximum price or value was reached in the series. This is useful for tracking the timing of significant peaks in financial data.
@@ -2859,7 +2859,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMaxIndex200Response**](GetTimeSeriesMaxIndex_200_response.md)
+[**models::GetTimeSeriesMaxIndex200ResponseEnum**](GetTimeSeriesMaxIndex_200_responseEnum.md)
 
 ### Authorization
 
@@ -2868,14 +2868,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_mc_ginley_dynamic
 
-> models::GetTimeSeriesMcGinleyDynamic200Response get_time_series_mc_ginley_dynamic(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesMcGinleyDynamic200ResponseEnum get_time_series_mc_ginley_dynamic(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 McGinley dynamic indicator
 
 This endpoint calculates the McGinley Dynamic (MCGINLEY_DYNAMIC) indicator, which provides a refined moving average that adapts to market volatility. This endpoint returns data that reflects smoother price trends and identifies potential support or resistance levels more accurately than traditional moving averages. It is useful for users seeking to track price movements with reduced lag and enhanced responsiveness to market changes.
@@ -2911,7 +2911,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMcGinleyDynamic200Response**](GetTimeSeriesMcGinleyDynamic_200_response.md)
+[**models::GetTimeSeriesMcGinleyDynamic200ResponseEnum**](GetTimeSeriesMcGinleyDynamic_200_responseEnum.md)
 
 ### Authorization
 
@@ -2920,14 +2920,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_med_price
 
-> models::GetTimeSeriesMedPrice200Response get_time_series_med_price(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
+> models::GetTimeSeriesMedPrice200ResponseEnum get_time_series_med_price(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
 Median price
 
 The Median Price (MEDPRICE) endpoint calculates and returns the average of the high and low prices of a security for a specified period. This endpoint provides a simplified view of price movements, helping users quickly assess price trends by focusing on the midpoint of price action.
@@ -2962,7 +2962,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMedPrice200Response**](GetTimeSeriesMedPrice_200_response.md)
+[**models::GetTimeSeriesMedPrice200ResponseEnum**](GetTimeSeriesMedPrice_200_responseEnum.md)
 
 ### Authorization
 
@@ -2971,14 +2971,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_mfi
 
-> models::GetTimeSeriesMfi200Response get_time_series_mfi(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesMfi200ResponseEnum get_time_series_mfi(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 Money flow index
 
 The Money Flow Index (MFI) endpoint provides a volume-weighted momentum oscillator that quantifies buying and selling pressure by analyzing positive and negative money flow. It returns data indicating potential overbought or oversold conditions in a financial asset, aiding users in understanding market trends and price movements.
@@ -3014,7 +3014,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMfi200Response**](GetTimeSeriesMfi_200_response.md)
+[**models::GetTimeSeriesMfi200ResponseEnum**](GetTimeSeriesMfi_200_responseEnum.md)
 
 ### Authorization
 
@@ -3023,14 +3023,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_mid_point
 
-> models::GetTimeSeriesMidPoint200Response get_time_series_mid_point(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesMidPoint200ResponseEnum get_time_series_mid_point(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Midpoint
 
 The Midpoint (MIDPOINT) endpoint calculates the average value between the highest and lowest prices of a financial instrument over a specified period. It returns a time series of midpoint values, which can help users identify price trends and smooth out short-term fluctuations in the data.
@@ -3067,7 +3067,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMidPoint200Response**](GetTimeSeriesMidPoint_200_response.md)
+[**models::GetTimeSeriesMidPoint200ResponseEnum**](GetTimeSeriesMidPoint_200_responseEnum.md)
 
 ### Authorization
 
@@ -3076,14 +3076,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_mid_price
 
-> models::GetTimeSeriesMidPrice200Response get_time_series_mid_price(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesMidPrice200ResponseEnum get_time_series_mid_price(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 Midprice
 
 The Midprice (MIDPRICE) endpoint calculates and returns the average of a financial instrument's highest and lowest prices over a specified time period. This data provides a smoothed representation of price movements, helping users identify potential support or resistance levels in the market.
@@ -3119,7 +3119,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMidPrice200Response**](GetTimeSeriesMidPrice_200_response.md)
+[**models::GetTimeSeriesMidPrice200ResponseEnum**](GetTimeSeriesMidPrice_200_responseEnum.md)
 
 ### Authorization
 
@@ -3128,14 +3128,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_min
 
-> models::GetTimeSeriesMin200Response get_time_series_min(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesMin200ResponseEnum get_time_series_min(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Minimum
 
 The Minimum (MIN) Indicator endpoint provides the lowest value of a specified data series over a chosen time period. This endpoint is useful for identifying potential support levels or detecting extreme price movements in financial data.
@@ -3172,7 +3172,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMin200Response**](GetTimeSeriesMin_200_response.md)
+[**models::GetTimeSeriesMin200ResponseEnum**](GetTimeSeriesMin_200_responseEnum.md)
 
 ### Authorization
 
@@ -3181,14 +3181,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_min_index
 
-> models::GetTimeSeriesMinIndex200Response get_time_series_min_index(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesMinIndex200ResponseEnum get_time_series_min_index(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Minimum index
 
 The Minimum Index (MININDEX) endpoint identifies the position of the lowest value within a specified data series over a given time frame. It returns the index number corresponding to the earliest occurrence of this minimum value. This is useful for pinpointing when the lowest price or value occurred in a dataset, aiding in time-based analysis of data trends.
@@ -3225,7 +3225,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMinIndex200Response**](GetTimeSeriesMinIndex_200_response.md)
+[**models::GetTimeSeriesMinIndex200ResponseEnum**](GetTimeSeriesMinIndex_200_responseEnum.md)
 
 ### Authorization
 
@@ -3234,14 +3234,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_min_max
 
-> models::GetTimeSeriesMinMax200Response get_time_series_min_max(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesMinMax200ResponseEnum get_time_series_min_max(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Minimum and maximum
 
 The Minimum and Maximum (MINMAX) endpoint identifies the lowest and highest values within a specified time frame for a given data series. It returns these extreme values, which can be used to detect potential support and resistance levels or significant price fluctuations in the data.
@@ -3278,7 +3278,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMinMax200Response**](GetTimeSeriesMinMax_200_response.md)
+[**models::GetTimeSeriesMinMax200ResponseEnum**](GetTimeSeriesMinMax_200_responseEnum.md)
 
 ### Authorization
 
@@ -3287,14 +3287,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_min_max_index
 
-> models::GetTimeSeriesMinMaxIndex200Response get_time_series_min_max_index(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesMinMaxIndex200ResponseEnum get_time_series_min_max_index(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Minimum and maximum index
 
 The Minimum and Maximum Index (MINMAXINDEX) endpoint identifies the positions of the lowest and highest values within a specified data series period. It returns indices that indicate when these extreme values occur, allowing users to pinpoint significant price changes over time.
@@ -3331,7 +3331,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMinMaxIndex200Response**](GetTimeSeriesMinMaxIndex_200_response.md)
+[**models::GetTimeSeriesMinMaxIndex200ResponseEnum**](GetTimeSeriesMinMaxIndex_200_responseEnum.md)
 
 ### Authorization
 
@@ -3340,14 +3340,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_minus_di
 
-> models::GetTimeSeriesMinusDi200Response get_time_series_minus_di(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesMinusDi200ResponseEnum get_time_series_minus_di(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 Minus directional indicator
 
 The Minus Directional Indicator (MINUS_DI) endpoint calculates and returns the strength of a security's downward price movement over a specified period. This data is useful for traders and analysts looking to identify bearish trends and assess the intensity of price declines in financial markets.
@@ -3383,7 +3383,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMinusDi200Response**](GetTimeSeriesMinusDI_200_response.md)
+[**models::GetTimeSeriesMinusDi200ResponseEnum**](GetTimeSeriesMinusDI_200_responseEnum.md)
 
 ### Authorization
 
@@ -3392,14 +3392,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_minus_dm
 
-> models::GetTimeSeriesMinusDm200Response get_time_series_minus_dm(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesMinusDm200ResponseEnum get_time_series_minus_dm(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 Minus directional movement
 
 The Minus Directional Movement endpoint (MINUS_DM) calculates the downward price movement of a security over a specified period. It returns a series of values indicating the strength of downward trends, useful for traders to identify potential selling opportunities or confirm bearish market conditions.
@@ -3435,7 +3435,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMinusDm200Response**](GetTimeSeriesMinusDM_200_response.md)
+[**models::GetTimeSeriesMinusDm200ResponseEnum**](GetTimeSeriesMinusDM_200_responseEnum.md)
 
 ### Authorization
 
@@ -3444,14 +3444,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_mom
 
-> models::GetTimeSeriesMom200Response get_time_series_mom(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesMom200ResponseEnum get_time_series_mom(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Momentum
 
 The Momentum (MOM) endpoint provides data on the rate of change in a security's price over a user-defined period. It returns a series of numerical values indicating the speed and direction of the price movement, which can help users detect emerging trends or potential reversals in the market.
@@ -3488,7 +3488,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMom200Response**](GetTimeSeriesMom_200_response.md)
+[**models::GetTimeSeriesMom200ResponseEnum**](GetTimeSeriesMom_200_responseEnum.md)
 
 ### Authorization
 
@@ -3497,14 +3497,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_mult
 
-> models::GetTimeSeriesMult200Response get_time_series_mult(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type_1, series_type_2, include_ohlc)
+> models::GetTimeSeriesMult200ResponseEnum get_time_series_mult(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type_1, series_type_2, include_ohlc)
 Multiplication
 
 The Multiplication (MULT) endpoint calculates the product of two input data series, returning a new data series that represents the element-wise multiplication of the inputs. This is useful for combining or adjusting technical indicators or price data to create custom metrics or to normalize values across different scales.
@@ -3541,7 +3541,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesMult200Response**](GetTimeSeriesMult_200_response.md)
+[**models::GetTimeSeriesMult200ResponseEnum**](GetTimeSeriesMult_200_responseEnum.md)
 
 ### Authorization
 
@@ -3550,14 +3550,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_natr
 
-> models::GetTimeSeriesNatr200Response get_time_series_natr(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesNatr200ResponseEnum get_time_series_natr(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 Normalized average true range
 
 The Normalized Average True Range (NATR) endpoint provides a volatility indicator that calculates the average range of price movement over a specified period, expressed as a percentage of the security's price. This data allows users to compare volatility levels across different securities easily. The endpoint returns a time series of NATR values, which can be used to assess and compare the price volatility of various financial instruments.
@@ -3593,7 +3593,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesNatr200Response**](GetTimeSeriesNatr_200_response.md)
+[**models::GetTimeSeriesNatr200ResponseEnum**](GetTimeSeriesNatr_200_responseEnum.md)
 
 ### Authorization
 
@@ -3602,14 +3602,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_obv
 
-> models::GetTimeSeriesObv200Response get_time_series_obv(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
+> models::GetTimeSeriesObv200ResponseEnum get_time_series_obv(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
 On balance volume
 
 The On Balance Volume (OBV) endpoint provides a time series of the OBV indicator, which calculates cumulative volume to reflect buying and selling pressure over time. This endpoint returns data that helps users track volume trends in relation to price movements, aiding in the identification of potential trend continuations or reversals in a security's price.
@@ -3645,7 +3645,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesObv200Response**](GetTimeSeriesObv_200_response.md)
+[**models::GetTimeSeriesObv200ResponseEnum**](GetTimeSeriesObv_200_responseEnum.md)
 
 ### Authorization
 
@@ -3654,14 +3654,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_percent_b
 
-> models::GetTimeSeriesPercentB200Response get_time_series_percent_b(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, sd, ma_type, include_ohlc)
+> models::GetTimeSeriesPercentB200ResponseEnum get_time_series_percent_b(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, sd, ma_type, include_ohlc)
 Percent B
 
 The Percent B (%B) endpoint calculates and returns the %B value, which indicates the position of a security's price relative to its Bollinger Bands. This data helps users determine if a security is near the upper or lower band, potentially signaling overbought or oversold conditions.
@@ -3700,7 +3700,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesPercentB200Response**](GetTimeSeriesPercent_B_200_response.md)
+[**models::GetTimeSeriesPercentB200ResponseEnum**](GetTimeSeriesPercent_B_200_responseEnum.md)
 
 ### Authorization
 
@@ -3709,14 +3709,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_pivot_points_hl
 
-> models::GetTimeSeriesPivotPointsHl200Response get_time_series_pivot_points_hl(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesPivotPointsHl200ResponseEnum get_time_series_pivot_points_hl(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 Pivot points high low
 
 The Pivot Points High Low (PIVOT_POINTS_HL) endpoint calculates key support and resistance levels for a security by analyzing its highest and lowest prices over a specified period. This endpoint returns data that includes pivot points, support levels, and resistance levels, which can be used to identify potential price reversal zones and optimize trade entry and exit strategies.
@@ -3752,7 +3752,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesPivotPointsHl200Response**](GetTimeSeriesPivotPointsHL_200_response.md)
+[**models::GetTimeSeriesPivotPointsHl200ResponseEnum**](GetTimeSeriesPivotPointsHL_200_responseEnum.md)
 
 ### Authorization
 
@@ -3761,14 +3761,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_plus_di
 
-> models::GetTimeSeriesPlusDi200Response get_time_series_plus_di(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesPlusDi200ResponseEnum get_time_series_plus_di(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 Plus directional indicator
 
 The Plus Directional Indicator endpoint (/plus_di) provides data on the strength of a security's upward price movement by calculating the Plus Directional Indicator (PLUS_DI). It returns a time series of PLUS_DI values, which can be used to assess the intensity of upward trends in a security's price over a specified period.
@@ -3804,7 +3804,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesPlusDi200Response**](GetTimeSeriesPlusDI_200_response.md)
+[**models::GetTimeSeriesPlusDi200ResponseEnum**](GetTimeSeriesPlusDI_200_responseEnum.md)
 
 ### Authorization
 
@@ -3813,14 +3813,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_plus_dm
 
-> models::GetTimeSeriesPlusDm200Response get_time_series_plus_dm(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesPlusDm200ResponseEnum get_time_series_plus_dm(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 Plus directional movement
 
 The Plus Directional Movement (PLUS_DM) endpoint calculates the upward price movement of a financial security over a specified period. It returns numerical values representing the magnitude of upward price changes, which can be used to assess the strength of an uptrend. This data is essential for traders and analysts who need to evaluate the bullish momentum of a security.
@@ -3856,7 +3856,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesPlusDm200Response**](GetTimeSeriesPlusDM_200_response.md)
+[**models::GetTimeSeriesPlusDm200ResponseEnum**](GetTimeSeriesPlusDM_200_responseEnum.md)
 
 ### Authorization
 
@@ -3865,14 +3865,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_ppo
 
-> models::GetTimeSeriesPpo200Response get_time_series_ppo(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, fast_period, slow_period, ma_type, include_ohlc)
+> models::GetTimeSeriesPpo200ResponseEnum get_time_series_ppo(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, fast_period, slow_period, ma_type, include_ohlc)
 Percentage price oscillator
 
 The Percentage Price Oscillator (PPO) endpoint calculates the percentage difference between two specified moving averages of a financial instrument's price. It returns data that includes the PPO values, which traders can use to identify potential trend reversals and generate trading signals.
@@ -3911,7 +3911,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesPpo200Response**](GetTimeSeriesPpo_200_response.md)
+[**models::GetTimeSeriesPpo200ResponseEnum**](GetTimeSeriesPpo_200_responseEnum.md)
 
 ### Authorization
 
@@ -3920,14 +3920,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_roc
 
-> models::GetTimeSeriesRoc200Response get_time_series_roc(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesRoc200ResponseEnum get_time_series_roc(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Rate of change
 
 The Rate of Change (ROC) endpoint calculates the percentage change in a security's price over a defined period, returning a time series of ROC values. This data helps users track momentum by showing how quickly prices are changing, which can be useful for identifying potential price movements.
@@ -3964,7 +3964,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesRoc200Response**](GetTimeSeriesRoc_200_response.md)
+[**models::GetTimeSeriesRoc200ResponseEnum**](GetTimeSeriesRoc_200_responseEnum.md)
 
 ### Authorization
 
@@ -3973,14 +3973,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_rocp
 
-> models::GetTimeSeriesRocp200Response get_time_series_rocp(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesRocp200ResponseEnum get_time_series_rocp(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Rate of change percentage
 
 The Rate of Change Percentage (ROCP) endpoint calculates and returns the percentage change in the price of a financial security over a user-defined period. This data helps users identify shifts in price momentum and potential trend reversals by providing a clear numerical representation of how much the price has increased or decreased in percentage terms.
@@ -4017,7 +4017,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesRocp200Response**](GetTimeSeriesRocp_200_response.md)
+[**models::GetTimeSeriesRocp200ResponseEnum**](GetTimeSeriesRocp_200_responseEnum.md)
 
 ### Authorization
 
@@ -4026,14 +4026,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_rocr
 
-> models::GetTimeSeriesRocr200Response get_time_series_rocr(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesRocr200ResponseEnum get_time_series_rocr(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Rate of change ratio
 
 The Rate of Change Ratio (ROCR) endpoint calculates and returns the ratio of a security's current price to its price from a specified number of periods ago. This data helps users track price momentum and identify potential trend reversals by providing a clear numerical value that reflects price changes over time.
@@ -4070,7 +4070,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesRocr200Response**](GetTimeSeriesRocr_200_response.md)
+[**models::GetTimeSeriesRocr200ResponseEnum**](GetTimeSeriesRocr_200_responseEnum.md)
 
 ### Authorization
 
@@ -4079,14 +4079,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_rocr100
 
-> models::GetTimeSeriesRocr100200Response get_time_series_rocr100(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesRocr100200ResponseEnum get_time_series_rocr100(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Rate of change ratio 100
 
 The Rate of Change Ratio 100 (ROCR100) endpoint calculates the percentage change in a security's price over a specified period, expressed as a ratio to 100. It returns data that highlights the momentum of the price movement and identifies potential trend reversals. This endpoint is useful for users looking to assess the strength and direction of a security's price trend over time.
@@ -4123,7 +4123,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesRocr100200Response**](GetTimeSeriesRocr100_200_response.md)
+[**models::GetTimeSeriesRocr100200ResponseEnum**](GetTimeSeriesRocr100_200_responseEnum.md)
 
 ### Authorization
 
@@ -4132,14 +4132,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_rsi
 
-> models::GetTimeSeriesRsi200Response get_time_series_rsi(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesRsi200ResponseEnum get_time_series_rsi(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Relative strength index
 
 The Relative Strength Index (RSI) endpoint provides data on the RSI values for a specified financial instrument over a given period. It returns a series of RSI values, which indicate the momentum of price movements and help identify potential overbought or oversold conditions. This data is useful for traders looking to assess the strength of price trends and anticipate possible trend reversals.
@@ -4176,7 +4176,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesRsi200Response**](GetTimeSeriesRsi_200_response.md)
+[**models::GetTimeSeriesRsi200ResponseEnum**](GetTimeSeriesRsi_200_responseEnum.md)
 
 ### Authorization
 
@@ -4185,14 +4185,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_rvol
 
-> models::GetTimeSeriesRvol200Response get_time_series_rvol(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesRvol200ResponseEnum get_time_series_rvol(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 Relative volume
 
 The Relative Volume endpoint (/rvol) provides a ratio comparing a security's current trading volume to its average volume over a specified period. This data helps users detect unusual trading activity and assess the strength of price movements, offering insights into potential market breakouts.
@@ -4228,7 +4228,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesRvol200Response**](GetTimeSeriesRvol_200_response.md)
+[**models::GetTimeSeriesRvol200ResponseEnum**](GetTimeSeriesRvol_200_responseEnum.md)
 
 ### Authorization
 
@@ -4237,14 +4237,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_sar
 
-> models::GetTimeSeriesSar200Response get_time_series_sar(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, acceleration, maximum, include_ohlc)
+> models::GetTimeSeriesSar200ResponseEnum get_time_series_sar(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, acceleration, maximum, include_ohlc)
 Parabolic stop and reverse
 
 The Parabolic Stop and Reverse (SAR) endpoint provides data on potential support and resistance levels for a specified security, using its price and time. This endpoint returns numerical values that help traders determine possible entry and exit points in their trading strategies.
@@ -4281,7 +4281,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesSar200Response**](GetTimeSeriesSar_200_response.md)
+[**models::GetTimeSeriesSar200ResponseEnum**](GetTimeSeriesSar_200_responseEnum.md)
 
 ### Authorization
 
@@ -4290,14 +4290,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_sar_ext
 
-> models::GetTimeSeriesSarExt200Response get_time_series_sar_ext(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, start_value, offset_on_reverse, acceleration_limit_long, acceleration_long, acceleration_max_long, acceleration_limit_short, acceleration_short, acceleration_max_short, include_ohlc)
+> models::GetTimeSeriesSarExt200ResponseEnum get_time_series_sar_ext(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, start_value, offset_on_reverse, acceleration_limit_long, acceleration_long, acceleration_max_long, acceleration_limit_short, acceleration_short, acceleration_max_short, include_ohlc)
 Parabolic stop and reverse extended
 
 The Parabolic SAR Extended (SAREXT) endpoint provides a customizable version of the Parabolic SAR indicator, which is used to identify potential entry and exit points in trading. Users can adjust parameters such as acceleration factors to tailor the indicator to specific trading strategies. The endpoint returns data points indicating potential trend reversals.
@@ -4340,7 +4340,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesSarExt200Response**](GetTimeSeriesSarExt_200_response.md)
+[**models::GetTimeSeriesSarExt200ResponseEnum**](GetTimeSeriesSarExt_200_responseEnum.md)
 
 ### Authorization
 
@@ -4349,14 +4349,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_sma
 
-> models::GetTimeSeriesSma200Response get_time_series_sma(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesSma200ResponseEnum get_time_series_sma(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Simple moving average
 
 The Simple Moving Average (SMA) endpoint calculates and returns the average price of a security over a user-defined time period. This endpoint provides a series of data points that represent the smoothed price trend, which can help users identify potential price movements and evaluate historical price behavior.
@@ -4393,7 +4393,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesSma200Response**](GetTimeSeriesSma_200_response.md)
+[**models::GetTimeSeriesSma200ResponseEnum**](GetTimeSeriesSma_200_responseEnum.md)
 
 ### Authorization
 
@@ -4402,14 +4402,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_sqrt
 
-> models::GetTimeSeriesSqrt200Response get_time_series_sqrt(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
+> models::GetTimeSeriesSqrt200ResponseEnum get_time_series_sqrt(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, include_ohlc)
 Square root
 
 The Square Root (SQRT) endpoint computes the square root of a specified numerical input. It returns a single numerical value representing the square root, which can be used in various mathematical computations or financial models requiring this specific transformation.
@@ -4445,7 +4445,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesSqrt200Response**](GetTimeSeriesSqrt_200_response.md)
+[**models::GetTimeSeriesSqrt200ResponseEnum**](GetTimeSeriesSqrt_200_responseEnum.md)
 
 ### Authorization
 
@@ -4454,14 +4454,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_std_dev
 
-> models::GetTimeSeriesStdDev200Response get_time_series_std_dev(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, sd, include_ohlc)
+> models::GetTimeSeriesStdDev200ResponseEnum get_time_series_std_dev(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, sd, include_ohlc)
 Standard deviation
 
 The Standard Deviation (STDDEV) endpoint calculates the dispersion of a financial instrument's price data from its average value. It returns a numerical value representing the volatility of the asset over a specified period. This endpoint is useful for traders and analysts to assess price variability and identify periods of high or low volatility in the market.
@@ -4499,7 +4499,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesStdDev200Response**](GetTimeSeriesStdDev_200_response.md)
+[**models::GetTimeSeriesStdDev200ResponseEnum**](GetTimeSeriesStdDev_200_responseEnum.md)
 
 ### Authorization
 
@@ -4508,14 +4508,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_stoch
 
-> models::GetTimeSeriesStoch200Response get_time_series_stoch(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, fast_k_period, slow_k_period, slow_d_period, slow_kma_type, slow_dma_type, include_ohlc)
+> models::GetTimeSeriesStoch200ResponseEnum get_time_series_stoch(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, fast_k_period, slow_k_period, slow_d_period, slow_kma_type, slow_dma_type, include_ohlc)
 Stochastic oscillator
 
 The Stochastic Oscillator endpoint provides data on a momentum indicator that evaluates a security's closing price relative to its price range over a specified timeframe. It returns values indicating potential overbought or oversold conditions, aiding in identifying possible trend reversals. Users receive the %K and %D values, which are essential for analyzing the momentum and potential turning points in the market.
@@ -4555,7 +4555,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesStoch200Response**](GetTimeSeriesStoch_200_response.md)
+[**models::GetTimeSeriesStoch200ResponseEnum**](GetTimeSeriesStoch_200_responseEnum.md)
 
 ### Authorization
 
@@ -4564,14 +4564,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_stoch_f
 
-> models::GetTimeSeriesStochF200Response get_time_series_stoch_f(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, fast_k_period, fast_d_period, fast_dma_type, include_ohlc)
+> models::GetTimeSeriesStochF200ResponseEnum get_time_series_stoch_f(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, fast_k_period, fast_d_period, fast_dma_type, include_ohlc)
 Stochastic fast
 
 The Stochastic Fast (STOCHF) endpoint calculates the fast version of the Stochastic Oscillator, providing data on the momentum of a financial instrument by comparing a particular closing price to a range of its prices over a specified period. This endpoint returns the %K and %D values, which are used to identify potential overbought or oversold conditions in the market. It is useful for traders who need quick, responsive insights into price movements, although it may generate more false signals due to its sensitivity.
@@ -4609,7 +4609,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesStochF200Response**](GetTimeSeriesStochF_200_response.md)
+[**models::GetTimeSeriesStochF200ResponseEnum**](GetTimeSeriesStochF_200_responseEnum.md)
 
 ### Authorization
 
@@ -4618,14 +4618,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_stoch_rsi
 
-> models::GetTimeSeriesStochRsi200Response get_time_series_stoch_rsi(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, rsi_length, stoch_length, k_period, slow_kma_type, d_period, slow_dma_type, include_ohlc)
+> models::GetTimeSeriesStochRsi200ResponseEnum get_time_series_stoch_rsi(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, rsi_length, stoch_length, k_period, slow_kma_type, d_period, slow_dma_type, include_ohlc)
 Stochastic relative strength index
 
 The Stochastic Relative Strength Index (Stochastic RSI) endpoint calculates the Stochastic RSI values for a given financial instrument, providing data on its momentum and potential price reversals. This endpoint returns time-series data, including the %K and %D lines, which help users identify overbought or oversold conditions. Ideal for traders seeking to refine entry and exit points by analyzing short-term price movements.
@@ -4667,7 +4667,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesStochRsi200Response**](GetTimeSeriesStochRsi_200_response.md)
+[**models::GetTimeSeriesStochRsi200ResponseEnum**](GetTimeSeriesStochRsi_200_responseEnum.md)
 
 ### Authorization
 
@@ -4676,14 +4676,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_sub
 
-> models::GetTimeSeriesSub200Response get_time_series_sub(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type_1, series_type_2, include_ohlc)
+> models::GetTimeSeriesSub200ResponseEnum get_time_series_sub(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type_1, series_type_2, include_ohlc)
 Subtraction
 
 The Subtraction (SUB) endpoint calculates the difference between two input data series, such as technical indicators or price data. It returns a time series of the resulting values, allowing users to compare or normalize data by highlighting the variance between the two series.
@@ -4720,7 +4720,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesSub200Response**](GetTimeSeriesSub_200_response.md)
+[**models::GetTimeSeriesSub200ResponseEnum**](GetTimeSeriesSub_200_responseEnum.md)
 
 ### Authorization
 
@@ -4729,14 +4729,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_sum
 
-> models::GetTimeSeriesSum200Response get_time_series_sum(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesSum200ResponseEnum get_time_series_sum(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Summation
 
 The Summation (SUM) endpoint calculates the cumulative total of a specified data series over a defined time period. It returns a numerical value representing the sum, which can be used to track the aggregate value of financial data, such as stock prices or trading volumes, over time. This endpoint is useful for users needing to compute the total accumulation of a dataset for further analysis or reporting.
@@ -4773,7 +4773,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesSum200Response**](GetTimeSeriesSum_200_response.md)
+[**models::GetTimeSeriesSum200ResponseEnum**](GetTimeSeriesSum_200_responseEnum.md)
 
 ### Authorization
 
@@ -4782,14 +4782,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_super_trend
 
-> models::GetTimeSeriesSuperTrend200Response get_time_series_super_trend(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, period, multiplier, include_ohlc)
+> models::GetTimeSeriesSuperTrend200ResponseEnum get_time_series_super_trend(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, period, multiplier, include_ohlc)
 Supertrend
 
 The Supertrend endpoint provides data on the Supertrend indicator, a tool used to identify potential buy and sell signals in trending markets. It returns values that indicate the current trend direction and potential reversal points based on price, time, and volatility. Users can leverage this data to pinpoint optimal entry and exit points for trades.
@@ -4826,7 +4826,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesSuperTrend200Response**](GetTimeSeriesSuperTrend_200_response.md)
+[**models::GetTimeSeriesSuperTrend200ResponseEnum**](GetTimeSeriesSuperTrend_200_responseEnum.md)
 
 ### Authorization
 
@@ -4835,14 +4835,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_super_trend_heikin_ashi_candles
 
-> models::GetTimeSeriesSuperTrendHeikinAshiCandles200Response get_time_series_super_trend_heikin_ashi_candles(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, period, multiplier, include_ohlc)
+> models::GetTimeSeriesSuperTrendHeikinAshiCandles200ResponseEnum get_time_series_super_trend_heikin_ashi_candles(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, period, multiplier, include_ohlc)
 Supertrend Heikin Ashi candles
 
 The Supertrend Heikin Ashi candles endpoint provides data combining Supertrend signals with Heikin Ashi candlestick patterns. It returns a series of data points indicating trend direction and smoothed price movements, useful for identifying potential buy or sell opportunities in trading.
@@ -4879,7 +4879,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesSuperTrendHeikinAshiCandles200Response**](GetTimeSeriesSuperTrendHeikinAshiCandles_200_response.md)
+[**models::GetTimeSeriesSuperTrendHeikinAshiCandles200ResponseEnum**](GetTimeSeriesSuperTrendHeikinAshiCandles_200_responseEnum.md)
 
 ### Authorization
 
@@ -4888,14 +4888,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_t3ma
 
-> models::GetTimeSeriesT3ma200Response get_time_series_t3ma(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, v_factor, include_ohlc)
+> models::GetTimeSeriesT3ma200ResponseEnum get_time_series_t3ma(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, v_factor, include_ohlc)
 Triple exponential moving average
 
 The Triple Exponential Moving Average (T3MA) endpoint calculates a smoothed moving average using three exponential moving averages on price data. It returns a dataset that highlights price trends with reduced lag, offering precise trend analysis. This is useful for identifying trend direction and potential reversal points.
@@ -4933,7 +4933,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesT3ma200Response**](GetTimeSeriesT3ma_200_response.md)
+[**models::GetTimeSeriesT3ma200ResponseEnum**](GetTimeSeriesT3ma_200_responseEnum.md)
 
 ### Authorization
 
@@ -4942,14 +4942,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_t_range
 
-> models::GetTimeSeriesTRange200Response get_time_series_t_range(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
+> models::GetTimeSeriesTRange200ResponseEnum get_time_series_t_range(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
 True range
 
 The True Range (TRANGE) endpoint calculates the range of price movement for a specified period, providing a measure of market volatility. It returns data that includes the highest and lowest prices over the period, along with the closing price from the previous period. This information is useful for traders to assess market volatility and adjust their trading strategies accordingly.
@@ -4984,7 +4984,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesTRange200Response**](GetTimeSeriesTRange_200_response.md)
+[**models::GetTimeSeriesTRange200ResponseEnum**](GetTimeSeriesTRange_200_responseEnum.md)
 
 ### Authorization
 
@@ -4993,14 +4993,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_tema
 
-> models::GetTimeSeriesTema200Response get_time_series_tema(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesTema200ResponseEnum get_time_series_tema(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Triple exponential moving average
 
 The Triple Exponential Moving Average (TEMA) endpoint calculates and returns the TEMA values for a specified financial instrument over a given time period. This endpoint provides a series of data points that smooth out price fluctuations by applying three layers of exponential moving averages, allowing users to identify and track underlying trends in the instrument's price movement.
@@ -5037,7 +5037,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesTema200Response**](GetTimeSeriesTema_200_response.md)
+[**models::GetTimeSeriesTema200ResponseEnum**](GetTimeSeriesTema_200_responseEnum.md)
 
 ### Authorization
 
@@ -5046,14 +5046,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_trima
 
-> models::GetTimeSeriesTrima200Response get_time_series_trima(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesTrima200ResponseEnum get_time_series_trima(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Triangular moving average
 
 The Triangular Moving Average (TRIMA) endpoint calculates and returns the smoothed average price of a financial security over a specified period, with a focus on central data points. This endpoint provides a balanced view of price trends by applying a double smoothing process, making it useful for identifying underlying price patterns and reducing short-term fluctuations.
@@ -5090,7 +5090,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesTrima200Response**](GetTimeSeriesTrima_200_response.md)
+[**models::GetTimeSeriesTrima200ResponseEnum**](GetTimeSeriesTrima_200_responseEnum.md)
 
 ### Authorization
 
@@ -5099,14 +5099,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_tsf
 
-> models::GetTimeSeriesTsf200Response get_time_series_tsf(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesTsf200ResponseEnum get_time_series_tsf(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Time series forecast
 
 The Time Series Forecast (TSF) endpoint provides projected future price levels using linear regression analysis. It returns data that helps users identify potential support and resistance levels, as well as trend direction in a financial market. This endpoint is useful for traders seeking to anticipate price movements and adjust their strategies accordingly.
@@ -5143,7 +5143,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesTsf200Response**](GetTimeSeriesTsf_200_response.md)
+[**models::GetTimeSeriesTsf200ResponseEnum**](GetTimeSeriesTsf_200_responseEnum.md)
 
 ### Authorization
 
@@ -5152,14 +5152,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_typ_price
 
-> models::GetTimeSeriesTypPrice200Response get_time_series_typ_price(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
+> models::GetTimeSeriesTypPrice200ResponseEnum get_time_series_typ_price(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
 Typical price
 
 The Typical Price (TYPPRICE) endpoint calculates and returns the average of a financial instrument's high, low, and close prices for a given period. This endpoint provides a simplified metric that reflects the central tendency of price movements, useful for traders and analysts who need a straightforward view of price trends.
@@ -5194,7 +5194,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesTypPrice200Response**](GetTimeSeriesTypPrice_200_response.md)
+[**models::GetTimeSeriesTypPrice200ResponseEnum**](GetTimeSeriesTypPrice_200_responseEnum.md)
 
 ### Authorization
 
@@ -5203,14 +5203,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_ult_osc
 
-> models::GetTimeSeriesUltOsc200Response get_time_series_ult_osc(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period_1, time_period_2, time_period_3, include_ohlc)
+> models::GetTimeSeriesUltOsc200ResponseEnum get_time_series_ult_osc(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period_1, time_period_2, time_period_3, include_ohlc)
 Ultimate oscillator endpoint
 
 The Ultimate Oscillator endpoint (/ultosc) calculates a momentum oscillator that integrates short, intermediate, and long-term price movements to detect potential overbought or oversold conditions and possible trend reversals. It returns a time series of oscillator values, which can be used to assess market momentum and identify entry or exit points in trading strategies.
@@ -5248,7 +5248,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesUltOsc200Response**](GetTimeSeriesUltOsc_200_response.md)
+[**models::GetTimeSeriesUltOsc200ResponseEnum**](GetTimeSeriesUltOsc_200_responseEnum.md)
 
 ### Authorization
 
@@ -5257,14 +5257,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_var
 
-> models::GetTimeSeriesVar200Response get_time_series_var(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesVar200ResponseEnum get_time_series_var(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Variance
 
 The Variance (VAR) endpoint calculates the statistical variance of a financial data series, providing a measure of how much the data points deviate from the average value. It returns a numerical value representing this dispersion, which can be used to assess the volatility of a security over a specified period. This information is crucial for traders and analysts who need to evaluate the risk associated with price fluctuations in the market.
@@ -5301,7 +5301,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesVar200Response**](GetTimeSeriesVar_200_response.md)
+[**models::GetTimeSeriesVar200ResponseEnum**](GetTimeSeriesVar_200_responseEnum.md)
 
 ### Authorization
 
@@ -5310,14 +5310,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_vwap
 
-> models::GetTimeSeriesVwap200Response get_time_series_vwap(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, sd_time_period, sd, include_ohlc)
+> models::GetTimeSeriesVwap200ResponseEnum get_time_series_vwap(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, sd_time_period, sd, include_ohlc)
 Volume weighted average price
 
 The Volume Weighted Average Price (VWAP) endpoint provides the VWAP value for a specified stock or asset over a given time period. This indicator calculates the average price at which a security has traded throughout the day, based on both volume and price. It is useful for identifying the true average price of an asset, helping traders to assess the current price relative to the day's average.
@@ -5354,7 +5354,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesVwap200Response**](GetTimeSeriesVwap_200_response.md)
+[**models::GetTimeSeriesVwap200ResponseEnum**](GetTimeSeriesVwap_200_responseEnum.md)
 
 ### Authorization
 
@@ -5363,14 +5363,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_wcl_price
 
-> models::GetTimeSeriesWclPrice200Response get_time_series_wcl_price(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
+> models::GetTimeSeriesWclPrice200ResponseEnum get_time_series_wcl_price(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, include_ohlc)
 Weighted close price
 
 The Weighted Close Price (WCLPRICE) endpoint calculates a security's average price by giving additional weight to the closing price, using the formula: (High + Low + Close * 2) / 4.
@@ -5405,7 +5405,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesWclPrice200Response**](GetTimeSeriesWclPrice_200_response.md)
+[**models::GetTimeSeriesWclPrice200ResponseEnum**](GetTimeSeriesWclPrice_200_responseEnum.md)
 
 ### Authorization
 
@@ -5414,14 +5414,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_will_r
 
-> models::GetTimeSeriesWillR200Response get_time_series_will_r(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
+> models::GetTimeSeriesWillR200ResponseEnum get_time_series_will_r(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, time_period, include_ohlc)
 Williams %R
 
 The Williams %R (WILLR) endpoint calculates the Williams Percent Range, a momentum indicator that evaluates a security's closing price relative to its high-low range over a specified period. This endpoint returns data that helps users identify potential overbought or oversold conditions and possible trend reversals in the market.
@@ -5457,7 +5457,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesWillR200Response**](GetTimeSeriesWillR_200_response.md)
+[**models::GetTimeSeriesWillR200ResponseEnum**](GetTimeSeriesWillR_200_responseEnum.md)
 
 ### Authorization
 
@@ -5466,14 +5466,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_wma
 
-> models::GetTimeSeriesWma200Response get_time_series_wma(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
+> models::GetTimeSeriesWma200ResponseEnum get_time_series_wma(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust, series_type, time_period, include_ohlc)
 Weighted moving average
 
 The Weighted Moving Average (WMA) endpoint calculates and returns the WMA values for a given security over a specified period. This endpoint provides a time series of weighted averages, where recent prices have a higher influence, allowing users to track and analyze short-term price trends effectively.
@@ -5510,7 +5510,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesWma200Response**](GetTimeSeriesWma_200_response.md)
+[**models::GetTimeSeriesWma200ResponseEnum**](GetTimeSeriesWma_200_responseEnum.md)
 
 ### Authorization
 
@@ -5519,7 +5519,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

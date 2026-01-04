@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## get_direct_holders
 
-> models::GetDirectHolders200Response get_direct_holders(symbol, figi, isin, cusip, exchange, mic_code, country)
+> models::GetDirectHolders200ResponseEnum get_direct_holders(symbol, figi, isin, cusip, exchange, mic_code, country)
 Direct holders
 
 The direct holders endpoint provides detailed information about the number of shares directly held by individuals or entities as recorded in a company's official share registry. This data is essential for understanding the distribution of stock ownership within a company, helping users identify major shareholders and assess shareholder concentration.
@@ -35,7 +35,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetDirectHolders200Response**](GetDirectHolders_200_response.md)
+[**models::GetDirectHolders200ResponseEnum**](GetDirectHolders_200_responseEnum.md)
 
 ### Authorization
 
@@ -51,7 +51,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_fund_holders
 
-> models::GetFundHolders200Response get_fund_holders(symbol, figi, isin, cusip, exchange, mic_code, country)
+> models::GetFundHolders200ResponseEnum get_fund_holders(symbol, figi, isin, cusip, exchange, mic_code, country)
 Fund holders
 
 The fund holders endpoint provides detailed information about the proportion of a company's stock that is owned by mutual fund holders. It returns data on the number of shares held, the percentage of total shares outstanding, and the names of the mutual funds involved. This endpoint is useful for users looking to understand mutual fund investment in a specific company.
@@ -71,7 +71,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetFundHolders200Response**](GetFundHolders_200_response.md)
+[**models::GetFundHolders200ResponseEnum**](GetFundHolders_200_responseEnum.md)
 
 ### Authorization
 
@@ -87,7 +87,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_insider_transactions
 
-> models::GetInsiderTransactions200Response get_insider_transactions(symbol, figi, isin, cusip, exchange, mic_code, country)
+> models::GetInsiderTransactions200ResponseEnum get_insider_transactions(symbol, figi, isin, cusip, exchange, mic_code, country)
 Insider transaction
 
 The insider transaction endpoint provides detailed data on trades executed by company insiders, such as executives and directors. It returns information including the insider's name, their role, the transaction type, the number of shares, the transaction date, and the price per share. This endpoint is useful for tracking insider activity and understanding potential insider sentiment towards a company's stock.
@@ -107,7 +107,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetInsiderTransactions200Response**](GetInsiderTransactions_200_response.md)
+[**models::GetInsiderTransactions200ResponseEnum**](GetInsiderTransactions_200_responseEnum.md)
 
 ### Authorization
 
@@ -123,7 +123,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_institutional_holders
 
-> models::GetInstitutionalHolders200Response get_institutional_holders(symbol, figi, isin, cusip, exchange, mic_code, country)
+> models::GetInstitutionalHolders200ResponseEnum get_institutional_holders(symbol, figi, isin, cusip, exchange, mic_code, country)
 Institutional holders
 
 The institutional holders endpoint provides detailed information on the percentage and amount of a company's stock owned by institutional investors, such as pension funds, insurance companies, and investment firms. This data is essential for understanding the influence and involvement of large entities in a company's ownership structure.
@@ -143,7 +143,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetInstitutionalHolders200Response**](GetInstitutionalHolders_200_response.md)
+[**models::GetInstitutionalHolders200ResponseEnum**](GetInstitutionalHolders_200_responseEnum.md)
 
 ### Authorization
 
@@ -159,7 +159,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_source_sanctioned_entities
 
-> models::GetSourceSanctionedEntities200Response get_source_sanctioned_entities(source)
+> models::GetSourceSanctionedEntities200ResponseEnum get_source_sanctioned_entities(source)
 Sanctioned entities
 
 The sanctions entities endpoint provides a comprehensive list of entities sanctioned by a specified authority, such as OFAC, UK, EU, or AU. Users can retrieve detailed information about individuals, organizations, and other entities subject to sanctions from the chosen source, facilitating compliance and risk management processes.
@@ -173,7 +173,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetSourceSanctionedEntities200Response**](GetSourceSanctionedEntities_200_response.md)
+[**models::GetSourceSanctionedEntities200ResponseEnum**](GetSourceSanctionedEntities_200_responseEnum.md)
 
 ### Authorization
 
@@ -189,7 +189,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_tax_info
 
-> models::GetTaxInfo200Response get_tax_info(symbol, isin, figi, cusip, exchange, mic_code)
+> models::GetTaxInfo200ResponseEnum get_tax_info(symbol, isin, figi, cusip, exchange, mic_code)
 Tax information
 
 The tax information endpoint provides detailed tax-related data for a specified financial instrument, including applicable tax rates and relevant tax codes. This information is essential for users needing to understand the tax implications associated with trading or investing in specific instruments.
@@ -208,7 +208,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTaxInfo200Response**](GetTaxInfo_200_response.md)
+[**models::GetTaxInfo200ResponseEnum**](GetTaxInfo_200_responseEnum.md)
 
 ### Authorization
 

@@ -4,15 +4,14 @@
  * ## Overview  Welcome to Twelve Data developer docs — your gateway to comprehensive financial market data through a powerful and easy-to-use API. Twelve Data provides access to financial markets across over 50 global countries, covering more than 1 million public instruments, including stocks, forex, ETFs, mutual funds, commodities, and cryptocurrencies.  ## Quickstart  To get started, you'll need to sign up for an API key. Once you have your API key, you can start making requests to the API.  ### Step 1: Create Twelve Data account  Sign up on the Twelve Data website to create your account [here](https://twelvedata.com/register). This gives you access to the API dashboard and your API key.  ### Step 2: Get your API key  After signing in, navigate to your [dashboard](https://twelvedata.com/account/api-keys) to find your unique API key. This key is required to authenticate all API and WebSocket requests.  ### Step 3: Make your first request  Try a simple API call with cURL to fetch the latest price for Apple (AAPL):  ``` curl \"https://api.twelvedata.com/price?symbol=AAPL&apikey=your_api_key\" ```  ### Step 4: Make a request from Python or Javascript  Use our client libraries or standard HTTP clients to make API calls programmatically. Here’s an example in [Python](https://github.com/twelvedata/twelvedata-python) and JavaScript:  #### Python (using official Twelve Data SDK):  ```python from twelvedata import TDClient  # Initialize client with your API key td = TDClient(apikey=\"your_api_key\")  # Get latest price for Apple price = td.price(symbol=\"AAPL\").as_json()  print(price) ```  #### JavaScript (Node.js):  ```javascript const fetch = require('node-fetch');  fetch('https://api.twelvedata.com/price?symbol=AAPL&apikey=your_api_key') &nbsp;&nbsp;.then(response => response.json()) &nbsp;&nbsp;.then(data => console.log(data)); ```  ### Step 5: Perform correlation analysis between Tesla and Microsoft prices  Fetch historical price data for Tesla (TSLA) and Microsoft (MSFT) and calculate the correlation of their closing prices:  ```python from twelvedata import TDClient import pandas as pd  # Initialize client with your API key td = TDClient(apikey=\"your_api_key\")  # Fetch historical price data for Tesla tsla_ts = td.time_series( &nbsp;&nbsp;&nbsp;&nbsp;symbol=\"TSLA\", &nbsp;&nbsp;&nbsp;&nbsp;interval=\"1day\", &nbsp;&nbsp;&nbsp;&nbsp;outputsize=100 ).as_pandas()  # Fetch historical price data for Microsoft msft_ts = td.time_series( &nbsp;&nbsp;&nbsp;&nbsp;symbol=\"MSFT\", &nbsp;&nbsp;&nbsp;&nbsp;interval=\"1day\", &nbsp;&nbsp;&nbsp;&nbsp;outputsize=100 ).as_pandas()  # Align data on datetime index combined = pd.concat( &nbsp;&nbsp;&nbsp;&nbsp;[tsla_ts['close'].astype(float), msft_ts['close'].astype(float)], &nbsp;&nbsp;&nbsp;&nbsp;axis=1, &nbsp;&nbsp;&nbsp;&nbsp;keys=[\"TSLA\", \"MSFT\"] ).dropna()  # Calculate correlation correlation = combined[\"TSLA\"].corr(combined[\"MSFT\"]) print(f\"Correlation of closing prices between TSLA and MSFT: {correlation:.2f}\") ```  ### Authentication  Authenticate your requests using one of these methods:  #### Query parameter method ``` GET https://api.twelvedata.com/endpoint?symbol=AAPL&apikey=your_api_key ```  #### HTTP header method (recommended) ``` Authorization: apikey your_api_key ```  ##### API key useful information <ul> <li> Demo API key (<code>apikey=demo</code>) available for demo requests</li> <li> Personal API key required for full access</li> <li> Premium endpoints and data require higher-tier plans (testable with <a href=\"https://twelvedata.com/exchanges\">trial symbols</a>)</li> </ul>  ### API endpoints   Service | Base URL | ---------|----------|  REST API | `https://api.twelvedata.com` |  WebSocket | `wss://ws.twelvedata.com` |  ### Parameter guidelines <ul> <li><b>Separator:</b> Use <code>&</code> to separate multiple parameters</li> <li><b>Case sensitivity:</b> Parameter names are case-insensitive</li>  <ul><li><code>symbol=AAPL</code> = <code>symbol=aapl</code></li></ul>  <li><b>Multiple values:</b> Separate with commas where supported</li> </ul>  ### Response handling  #### Default format All responses return JSON format by default unless otherwise specified.  #### Null values <b>Important:</b> Some response fields may contain `null` values when data is unavailable for specific metrics. This is expected behavior, not an error.  ##### Best Practices: <ul> <li>Always implement <code>null</code> value handling in your application</li> <li>Use defensive programming techniques for data processing</li> <li>Consider fallback values or error handling for critical metrics</li> </ul>  #### Error handling Structure your code to gracefully handle: <ul> <li>Network timeouts</li> <li>Rate limiting responses</li> <li>Invalid parameter errors</li> <li>Data unavailability periods</li> </ul>  ##### Best practices <ul> <li><b>Rate limits:</b> Adhere to your plan’s rate limits to avoid throttling. Check your dashboard for details.</li> <li><b>Error handling:</b> Implement retry logic for transient errors (e.g., <code>429 Too Many Requests</code>).</li> <li><b>Caching:</b> Cache responses for frequently accessed data to reduce API calls and improve performance.</li> <li><b>Secure storage:</b> Store your API key securely and never expose it in client-side code or public repositories.</li> </ul>  ## Errors  Twelve Data API employs a standardized error response format, delivering a JSON object with `code`, `message`, and `status` keys for clear and consistent error communication.  ### Codes  Below is a table of possible error codes, their HTTP status, meanings, and resolution steps:   Code | status | Meaning | Resolution |  --- | --- | --- | --- |  **400** | Bad Request | Invalid or incorrect parameter(s) provided. | Check the `message` in the response for details. Refer to the API Documenta­tion to correct the input. |  **401** | Unauthor­ized | Invalid or incorrect API key. | Verify your API key is correct. Sign up for a key <a href=\"https://twelvedata.com/account/api-keys\">here</a>. |  **403** | Forbidden | API key lacks permissions for the requested resource (upgrade required). | Upgrade your plan <a href=\"https://twelvedata.com/pricing\">here</a>. |  **404** | Not Found | Requested data could not be found. | Adjust parameters to be less strict as they may be too restrictive. |  **414** | Parameter Too Long | Input parameter array exceeds the allowed length. | Follow the `message` guidance to adjust the parameter length. |  **429** | Too Many Requests | API request limit reached for your key. | Wait briefly or upgrade your plan <a href=\"https://twelvedata.com/pricing\">here</a>. |  **500** | Internal Server Error | Server-side issue occurred; retry later. | Contact support <a href=\"https://twelvedata.com/contact\">here</a> for assistance. |  ### Example error response  Consider the following invalid request:  ``` https://api.twelvedata.com/time_series?symbol=AAPL&interval=0.99min&apikey=your_api_key ```  Due to the incorrect `interval` value, the API returns:  ```json { &nbsp;&nbsp;\"code\": 400, &nbsp;&nbsp;\"message\": \"Invalid **interval** provided: 0.99min. Supported intervals: 1min, 5min, 15min, 30min, 45min, 1h, 2h, 4h, 8h, 1day, 1week, 1month\", &nbsp;&nbsp;\"status\": \"error\" } ```  Refer to the API Documentation for valid parameter values to resolve such errors.  ## Libraries  Twelve Data provides a growing ecosystem of libraries and integrations to help you build faster and smarter in your preferred environment. Official libraries are actively maintained by the Twelve Data team, while selected community-built libraries offer additional flexibility.  A full list is available on our [GitHub profile](https://github.com/search?q=twelvedata).  ### Official SDKs <ul> <li><b>Python:</b> <a href=\"https://github.com/twelvedata/twelvedata-python\">twelvedata-python</a></li> <li><b>R:</b> <a href=\"https://github.com/twelvedata/twelvedata-r-sdk\">twelvedata-r-sdk</a></li> </ul>  ### AI integrations <ul> <li><b>Twelve Data MCP Server:</b> <a href=\"https://github.com/twelvedata/mcp\">Repository</a> — Model Context Protocol (MCP) server that provides seamless integration with AI assistants and language models, enabling direct access to Twelve Data's financial market data within conversational interfaces and AI workflows.</li> </ul>  ### Spreadsheet add-ons <ul> <li><b>Excel:</b> <a href=\"https://twelvedata.com/excel\">Excel Add-in</a></li> <li><b>Google Sheets:</b> <a href=\"https://twelvedata.com/google-sheets\">Google Sheets Add-on</a></li> </ul>  ### Community libraries  The community has developed libraries in several popular languages. You can explore more community libraries on [GitHub](https://github.com/search?q=twelvedata). <ul> <li><b>C#:</b> <a href=\"https://github.com/pseudomarkets/TwelveDataSharp\">TwelveDataSharp</a></li> <li><b>JavaScript:</b> <a href=\"https://github.com/evzaboun/twelvedata\">twelvedata</a></li> <li><b>PHP:</b> <a href=\"https://github.com/ingelby/twelvedata\">twelvedata</a></li> <li><b>Go:</b> <a href=\"https://github.com/soulgarden/twelvedata\">twelvedata</a></li> <li><b>TypeScript:</b> <a href=\"https://github.com/Clyde-Goodall/twelve-data-wrapper\">twelve-data-wrapper</a></li> </ul>  ### Other Twelve Data repositories <ul> <li><b>searchindex</b> <i>(Go)</i>: <a href=\"https://github.com/twelvedata/searchindex\">Repository</a> — In-memory search index by strings</li> <li><b>ws-tools</b> <i>(Python)</i>: <a href=\"https://github.com/twelvedata/ws-tools\">Repository</a> — Utility tools for WebSocket stream handling</li> </ul>  ### API specification <ul> <li><b>OpenAPI / Swagger:</b> Access the <a href=\"https://api.twelvedata.com/doc/swagger/openapi.json\">complete API specification</a> in OpenAPI format. You can use this file to automatically generate client libraries in your preferred programming language, explore the API interactively via Swagger tools, or integrate Twelve Data seamlessly into your AI and LLM workflows.</li> </ul>
  *
  * The version of the OpenAPI document: 0.0.1
- * 
+ *
  * Generated by: https://openapi-generator.tech
  */
 
-
-use reqwest;
-use serde::{Deserialize, Serialize, de::Error as _};
+use super::{configuration, ContentType, Error};
 use crate::{apis::ResponseContent, models};
-use super::{Error, configuration, ContentType};
+use reqwest;
+use serde::{de::Error as _, Deserialize, Serialize};
 
 /// struct for passing parameters to the method [`get_bonds`]
 #[derive(Clone, Debug, Default, Serialize, Deserialize)]
@@ -32,7 +31,7 @@ pub struct GetBondsParams {
     /// Page number of the results to fetch
     pub page: Option<i64>,
     /// Determines the number of data points returned in the output
-    pub outputsize: Option<i64>
+    pub outputsize: Option<i64>,
 }
 
 impl GetBondsParams {
@@ -60,7 +59,7 @@ pub struct GetBondsParamsBuilder {
     /// Page number of the results to fetch
     page: Option<i64>,
     /// Determines the number of data points returned in the output
-    outputsize: Option<i64>
+    outputsize: Option<i64>,
 }
 
 impl GetBondsParamsBuilder {
@@ -115,7 +114,7 @@ impl GetBondsParamsBuilder {
             delimiter: self.delimiter,
             show_plan: self.show_plan,
             page: self.page,
-            outputsize: self.outputsize
+            outputsize: self.outputsize,
         }
     }
 }
@@ -130,7 +129,7 @@ pub struct GetCommoditiesParams {
     /// The format of the response data
     pub format: Option<String>,
     /// The separator used in the CSV response data
-    pub delimiter: Option<String>
+    pub delimiter: Option<String>,
 }
 
 impl GetCommoditiesParams {
@@ -150,7 +149,7 @@ pub struct GetCommoditiesParamsBuilder {
     /// The format of the response data
     format: Option<String>,
     /// The separator used in the CSV response data
-    delimiter: Option<String>
+    delimiter: Option<String>,
 }
 
 impl GetCommoditiesParamsBuilder {
@@ -181,7 +180,7 @@ impl GetCommoditiesParamsBuilder {
             symbol: self.symbol,
             category: self.category,
             format: self.format,
-            delimiter: self.delimiter
+            delimiter: self.delimiter,
         }
     }
 }
@@ -196,7 +195,7 @@ pub struct GetCrossListingsParams {
     /// Market identifier code (MIC) under ISO 10383 standard
     pub mic_code: Option<String>,
     /// Country to which stock exchange belongs to
-    pub country: Option<String>
+    pub country: Option<String>,
 }
 
 impl GetCrossListingsParams {
@@ -216,7 +215,7 @@ pub struct GetCrossListingsParamsBuilder {
     /// Market identifier code (MIC) under ISO 10383 standard
     mic_code: Option<String>,
     /// Country to which stock exchange belongs to
-    country: Option<String>
+    country: Option<String>,
 }
 
 impl GetCrossListingsParamsBuilder {
@@ -247,7 +246,7 @@ impl GetCrossListingsParamsBuilder {
             symbol: self.symbol,
             exchange: self.exchange,
             mic_code: self.mic_code,
-            country: self.country
+            country: self.country,
         }
     }
 }
@@ -266,7 +265,7 @@ pub struct GetCryptocurrenciesParams {
     /// The format of the response data
     pub format: Option<String>,
     /// The separator used in the CSV response data
-    pub delimiter: Option<String>
+    pub delimiter: Option<String>,
 }
 
 impl GetCryptocurrenciesParams {
@@ -290,7 +289,7 @@ pub struct GetCryptocurrenciesParamsBuilder {
     /// The format of the response data
     format: Option<String>,
     /// The separator used in the CSV response data
-    delimiter: Option<String>
+    delimiter: Option<String>,
 }
 
 impl GetCryptocurrenciesParamsBuilder {
@@ -333,7 +332,7 @@ impl GetCryptocurrenciesParamsBuilder {
             currency_base: self.currency_base,
             currency_quote: self.currency_quote,
             format: self.format,
-            delimiter: self.delimiter
+            delimiter: self.delimiter,
         }
     }
 }
@@ -344,7 +343,7 @@ pub struct GetCryptocurrencyExchangesParams {
     /// The format of the response data
     pub format: Option<String>,
     /// Specify the delimiter used when downloading the CSV file
-    pub delimiter: Option<String>
+    pub delimiter: Option<String>,
 }
 
 impl GetCryptocurrencyExchangesParams {
@@ -360,7 +359,7 @@ pub struct GetCryptocurrencyExchangesParamsBuilder {
     /// The format of the response data
     format: Option<String>,
     /// Specify the delimiter used when downloading the CSV file
-    delimiter: Option<String>
+    delimiter: Option<String>,
 }
 
 impl GetCryptocurrencyExchangesParamsBuilder {
@@ -379,7 +378,7 @@ impl GetCryptocurrencyExchangesParamsBuilder {
     pub fn build(self) -> GetCryptocurrencyExchangesParams {
         GetCryptocurrencyExchangesParams {
             format: self.format,
-            delimiter: self.delimiter
+            delimiter: self.delimiter,
         }
     }
 }
@@ -402,7 +401,7 @@ pub struct GetEarliestTimestampParams {
     /// Market Identifier Code (MIC) under ISO 10383 standard.
     pub mic_code: Option<String>,
     /// Timezone at which output datetime will be displayed. Supports: <ul> <li>1. <code>Exchange</code> for local exchange time</li> <li>2. <code>UTC</code> for datetime at universal UTC standard</li> <li>3. Timezone name according to the IANA Time Zone Database. E.g. <code>America/New_York</code>, <code>Asia/Singapore</code>. Full list of timezones can be found <a href=\"https://en.wikipedia.org/wiki/List_of_tz_database_time_zones\" target=\"blank\">here</a>.</li> </ul> <i>Take note that the IANA Timezone name is case-sensitive</i>
-    pub timezone: Option<String>
+    pub timezone: Option<String>,
 }
 
 impl GetEarliestTimestampParams {
@@ -430,7 +429,7 @@ pub struct GetEarliestTimestampParamsBuilder {
     /// Market Identifier Code (MIC) under ISO 10383 standard.
     mic_code: Option<String>,
     /// Timezone at which output datetime will be displayed. Supports: <ul> <li>1. <code>Exchange</code> for local exchange time</li> <li>2. <code>UTC</code> for datetime at universal UTC standard</li> <li>3. Timezone name according to the IANA Time Zone Database. E.g. <code>America/New_York</code>, <code>Asia/Singapore</code>. Full list of timezones can be found <a href=\"https://en.wikipedia.org/wiki/List_of_tz_database_time_zones\" target=\"blank\">here</a>.</li> </ul> <i>Take note that the IANA Timezone name is case-sensitive</i>
-    timezone: Option<String>
+    timezone: Option<String>,
 }
 
 impl GetEarliestTimestampParamsBuilder {
@@ -485,7 +484,7 @@ impl GetEarliestTimestampParamsBuilder {
             cusip: self.cusip,
             exchange: self.exchange,
             mic_code: self.mic_code,
-            timezone: self.timezone
+            timezone: self.timezone,
         }
     }
 }
@@ -516,7 +515,7 @@ pub struct GetEtfParams {
     /// Adds info on which plan symbol is available
     pub show_plan: Option<bool>,
     /// Include delisted identifiers
-    pub include_delisted: Option<bool>
+    pub include_delisted: Option<bool>,
 }
 
 impl GetEtfParams {
@@ -552,7 +551,7 @@ pub struct GetEtfParamsBuilder {
     /// Adds info on which plan symbol is available
     show_plan: Option<bool>,
     /// Include delisted identifiers
-    include_delisted: Option<bool>
+    include_delisted: Option<bool>,
 }
 
 impl GetEtfParamsBuilder {
@@ -631,7 +630,7 @@ impl GetEtfParamsBuilder {
             format: self.format,
             delimiter: self.delimiter,
             show_plan: self.show_plan,
-            include_delisted: self.include_delisted
+            include_delisted: self.include_delisted,
         }
     }
 }
@@ -642,7 +641,7 @@ pub struct GetEtfsFamilyParams {
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub country: Option<String>,
     /// Filter by investment company that manages the fund
-    pub fund_family: Option<String>
+    pub fund_family: Option<String>,
 }
 
 impl GetEtfsFamilyParams {
@@ -658,7 +657,7 @@ pub struct GetEtfsFamilyParamsBuilder {
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     country: Option<String>,
     /// Filter by investment company that manages the fund
-    fund_family: Option<String>
+    fund_family: Option<String>,
 }
 
 impl GetEtfsFamilyParamsBuilder {
@@ -677,7 +676,7 @@ impl GetEtfsFamilyParamsBuilder {
     pub fn build(self) -> GetEtfsFamilyParams {
         GetEtfsFamilyParams {
             country: self.country,
-            fund_family: self.fund_family
+            fund_family: self.fund_family,
         }
     }
 }
@@ -704,7 +703,7 @@ pub struct GetEtfsListParams {
     /// Page number
     pub page: Option<i64>,
     /// Number of records in response
-    pub outputsize: Option<i64>
+    pub outputsize: Option<i64>,
 }
 
 impl GetEtfsListParams {
@@ -736,7 +735,7 @@ pub struct GetEtfsListParamsBuilder {
     /// Page number
     page: Option<i64>,
     /// Number of records in response
-    outputsize: Option<i64>
+    outputsize: Option<i64>,
 }
 
 impl GetEtfsListParamsBuilder {
@@ -803,7 +802,7 @@ impl GetEtfsListParamsBuilder {
             fund_family: self.fund_family,
             fund_type: self.fund_type,
             page: self.page,
-            outputsize: self.outputsize
+            outputsize: self.outputsize,
         }
     }
 }
@@ -814,7 +813,7 @@ pub struct GetEtfsTypeParams {
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub country: Option<String>,
     /// Filter by the type of fund
-    pub fund_type: Option<String>
+    pub fund_type: Option<String>,
 }
 
 impl GetEtfsTypeParams {
@@ -830,7 +829,7 @@ pub struct GetEtfsTypeParamsBuilder {
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     country: Option<String>,
     /// Filter by the type of fund
-    fund_type: Option<String>
+    fund_type: Option<String>,
 }
 
 impl GetEtfsTypeParamsBuilder {
@@ -849,7 +848,7 @@ impl GetEtfsTypeParamsBuilder {
     pub fn build(self) -> GetEtfsTypeParams {
         GetEtfsTypeParams {
             country: self.country,
-            fund_type: self.fund_type
+            fund_type: self.fund_type,
         }
     }
 }
@@ -864,7 +863,7 @@ pub struct GetExchangeScheduleParams {
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub country: Option<String>,
     /// <p> If a date is provided, the API returns the schedule for the specified date; otherwise, it returns the default (common) schedule. </p> The date can be specified in one of the following formats: <ul> <li>An exact date (e.g., <code>2021-10-27</code>)</li> <li>A human-readable keyword: <code>today</code> or <code>yesterday</code></li> <li>A full datetime string in UTC (e.g., <code>2025-04-11T20:00:00</code>) to retrieve the schedule corresponding to the day in the specified time.</li> </ul> When using a datetime value, the resulting schedule will correspond to the local calendar day at the specified time. For example, <code>2025-04-11T20:00:00 UTC</code> corresponds to: <ul> <li><code>2025-04-11</code> in the <code>America/New_York</code> timezone</li> <li><code>2025-04-12</code> in the <code>Australia/Sydney</code> timezone</li> </ul>
-    pub date: Option<String>
+    pub date: Option<String>,
 }
 
 impl GetExchangeScheduleParams {
@@ -884,7 +883,7 @@ pub struct GetExchangeScheduleParamsBuilder {
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     country: Option<String>,
     /// <p> If a date is provided, the API returns the schedule for the specified date; otherwise, it returns the default (common) schedule. </p> The date can be specified in one of the following formats: <ul> <li>An exact date (e.g., <code>2021-10-27</code>)</li> <li>A human-readable keyword: <code>today</code> or <code>yesterday</code></li> <li>A full datetime string in UTC (e.g., <code>2025-04-11T20:00:00</code>) to retrieve the schedule corresponding to the day in the specified time.</li> </ul> When using a datetime value, the resulting schedule will correspond to the local calendar day at the specified time. For example, <code>2025-04-11T20:00:00 UTC</code> corresponds to: <ul> <li><code>2025-04-11</code> in the <code>America/New_York</code> timezone</li> <li><code>2025-04-12</code> in the <code>Australia/Sydney</code> timezone</li> </ul>
-    date: Option<String>
+    date: Option<String>,
 }
 
 impl GetExchangeScheduleParamsBuilder {
@@ -915,7 +914,7 @@ impl GetExchangeScheduleParamsBuilder {
             mic_name: self.mic_name,
             mic_code: self.mic_code,
             country: self.country,
-            date: self.date
+            date: self.date,
         }
     }
 }
@@ -936,7 +935,7 @@ pub struct GetExchangesParams {
     /// The separator used in the CSV response data
     pub delimiter: Option<String>,
     /// Adds info on which plan symbol is available
-    pub show_plan: Option<bool>
+    pub show_plan: Option<bool>,
 }
 
 impl GetExchangesParams {
@@ -962,7 +961,7 @@ pub struct GetExchangesParamsBuilder {
     /// The separator used in the CSV response data
     delimiter: Option<String>,
     /// Adds info on which plan symbol is available
-    show_plan: Option<bool>
+    show_plan: Option<bool>,
 }
 
 impl GetExchangesParamsBuilder {
@@ -1011,7 +1010,7 @@ impl GetExchangesParamsBuilder {
             country: self.country,
             format: self.format,
             delimiter: self.delimiter,
-            show_plan: self.show_plan
+            show_plan: self.show_plan,
         }
     }
 }
@@ -1028,7 +1027,7 @@ pub struct GetForexPairsParams {
     /// The format of the response data
     pub format: Option<String>,
     /// The separator used in the CSV response data
-    pub delimiter: Option<String>
+    pub delimiter: Option<String>,
 }
 
 impl GetForexPairsParams {
@@ -1050,7 +1049,7 @@ pub struct GetForexPairsParamsBuilder {
     /// The format of the response data
     format: Option<String>,
     /// The separator used in the CSV response data
-    delimiter: Option<String>
+    delimiter: Option<String>,
 }
 
 impl GetForexPairsParamsBuilder {
@@ -1087,7 +1086,7 @@ impl GetForexPairsParamsBuilder {
             currency_base: self.currency_base,
             currency_quote: self.currency_quote,
             format: self.format,
-            delimiter: self.delimiter
+            delimiter: self.delimiter,
         }
     }
 }
@@ -1118,7 +1117,7 @@ pub struct GetFundsParams {
     /// Page number of the results to fetch
     pub page: Option<i64>,
     /// Determines the number of data points returned in the output
-    pub outputsize: Option<i64>
+    pub outputsize: Option<i64>,
 }
 
 impl GetFundsParams {
@@ -1154,7 +1153,7 @@ pub struct GetFundsParamsBuilder {
     /// Page number of the results to fetch
     page: Option<i64>,
     /// Determines the number of data points returned in the output
-    outputsize: Option<i64>
+    outputsize: Option<i64>,
 }
 
 impl GetFundsParamsBuilder {
@@ -1233,7 +1232,7 @@ impl GetFundsParamsBuilder {
             delimiter: self.delimiter,
             show_plan: self.show_plan,
             page: self.page,
-            outputsize: self.outputsize
+            outputsize: self.outputsize,
         }
     }
 }
@@ -1246,7 +1245,7 @@ pub struct GetMarketStateParams {
     /// The Market Identifier Code (MIC) of the exchange where the instrument is traded.
     pub code: Option<String>,
     /// The country where the exchange is located. Takes country name or alpha code.
-    pub country: Option<String>
+    pub country: Option<String>,
 }
 
 impl GetMarketStateParams {
@@ -1264,7 +1263,7 @@ pub struct GetMarketStateParamsBuilder {
     /// The Market Identifier Code (MIC) of the exchange where the instrument is traded.
     code: Option<String>,
     /// The country where the exchange is located. Takes country name or alpha code.
-    country: Option<String>
+    country: Option<String>,
 }
 
 impl GetMarketStateParamsBuilder {
@@ -1289,7 +1288,7 @@ impl GetMarketStateParamsBuilder {
         GetMarketStateParams {
             exchange: self.exchange,
             code: self.code,
-            country: self.country
+            country: self.country,
         }
     }
 }
@@ -1300,7 +1299,7 @@ pub struct GetMutualFundsFamilyParams {
     /// Filter by investment company that manages the fund
     pub fund_family: Option<String>,
     /// Filter by country name or alpha code, e.g., `United States` or `US`
-    pub country: Option<String>
+    pub country: Option<String>,
 }
 
 impl GetMutualFundsFamilyParams {
@@ -1316,7 +1315,7 @@ pub struct GetMutualFundsFamilyParamsBuilder {
     /// Filter by investment company that manages the fund
     fund_family: Option<String>,
     /// Filter by country name or alpha code, e.g., `United States` or `US`
-    country: Option<String>
+    country: Option<String>,
 }
 
 impl GetMutualFundsFamilyParamsBuilder {
@@ -1335,7 +1334,7 @@ impl GetMutualFundsFamilyParamsBuilder {
     pub fn build(self) -> GetMutualFundsFamilyParams {
         GetMutualFundsFamilyParams {
             fund_family: self.fund_family,
-            country: self.country
+            country: self.country,
         }
     }
 }
@@ -1366,7 +1365,7 @@ pub struct GetMutualFundsListParams {
     /// Page number
     pub page: Option<i64>,
     /// Number of records in response
-    pub outputsize: Option<i64>
+    pub outputsize: Option<i64>,
 }
 
 impl GetMutualFundsListParams {
@@ -1402,7 +1401,7 @@ pub struct GetMutualFundsListParamsBuilder {
     /// Page number
     page: Option<i64>,
     /// Number of records in response
-    outputsize: Option<i64>
+    outputsize: Option<i64>,
 }
 
 impl GetMutualFundsListParamsBuilder {
@@ -1481,7 +1480,7 @@ impl GetMutualFundsListParamsBuilder {
             performance_rating: self.performance_rating,
             risk_rating: self.risk_rating,
             page: self.page,
-            outputsize: self.outputsize
+            outputsize: self.outputsize,
         }
     }
 }
@@ -1492,7 +1491,7 @@ pub struct GetMutualFundsTypeParams {
     /// Filter by the type of fund
     pub fund_type: Option<String>,
     /// Filter by country name or alpha code, e.g., `United States` or `US`
-    pub country: Option<String>
+    pub country: Option<String>,
 }
 
 impl GetMutualFundsTypeParams {
@@ -1508,7 +1507,7 @@ pub struct GetMutualFundsTypeParamsBuilder {
     /// Filter by the type of fund
     fund_type: Option<String>,
     /// Filter by country name or alpha code, e.g., `United States` or `US`
-    country: Option<String>
+    country: Option<String>,
 }
 
 impl GetMutualFundsTypeParamsBuilder {
@@ -1527,7 +1526,7 @@ impl GetMutualFundsTypeParamsBuilder {
     pub fn build(self) -> GetMutualFundsTypeParams {
         GetMutualFundsTypeParams {
             fund_type: self.fund_type,
-            country: self.country
+            country: self.country,
         }
     }
 }
@@ -1560,7 +1559,7 @@ pub struct GetStocksParams {
     /// Adds info on which plan symbol is available
     pub show_plan: Option<bool>,
     /// Include delisted identifiers
-    pub include_delisted: Option<bool>
+    pub include_delisted: Option<bool>,
 }
 
 impl GetStocksParams {
@@ -1598,7 +1597,7 @@ pub struct GetStocksParamsBuilder {
     /// Adds info on which plan symbol is available
     show_plan: Option<bool>,
     /// Include delisted identifiers
-    include_delisted: Option<bool>
+    include_delisted: Option<bool>,
 }
 
 impl GetStocksParamsBuilder {
@@ -1683,7 +1682,7 @@ impl GetStocksParamsBuilder {
             format: self.format,
             delimiter: self.delimiter,
             show_plan: self.show_plan,
-            include_delisted: self.include_delisted
+            include_delisted: self.include_delisted,
         }
     }
 }
@@ -1696,7 +1695,7 @@ pub struct GetSymbolSearchParams {
     /// Number of matches in response. Max <code>120</code>
     pub outputsize: Option<i64>,
     /// Adds info on which plan symbol is available.
-    pub show_plan: Option<bool>
+    pub show_plan: Option<bool>,
 }
 
 impl GetSymbolSearchParams {
@@ -1714,7 +1713,7 @@ pub struct GetSymbolSearchParamsBuilder {
     /// Number of matches in response. Max <code>120</code>
     outputsize: Option<i64>,
     /// Adds info on which plan symbol is available.
-    show_plan: Option<bool>
+    show_plan: Option<bool>,
 }
 
 impl GetSymbolSearchParamsBuilder {
@@ -1739,11 +1738,10 @@ impl GetSymbolSearchParamsBuilder {
         GetSymbolSearchParams {
             symbol: self.symbol,
             outputsize: self.outputsize,
-            show_plan: self.show_plan
+            show_plan: self.show_plan,
         }
     }
 }
-
 
 /// struct for typed errors of method [`get_bonds`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -1913,9 +1911,11 @@ pub enum GetTechnicalIndicatorsError {
     UnknownValue(serde_json::Value),
 }
 
-
 /// The fixed income endpoint provides a daily updated list of available bonds. It returns an array containing detailed information about each bond, including identifiers, names, and other relevant attributes.
-pub async fn get_bonds(configuration: &configuration::Configuration, params: GetBondsParams) -> Result<models::GetBonds200Response, Error<GetBondsError>> {
+pub async fn get_bonds(
+    configuration: &configuration::Configuration,
+    params: GetBondsParams,
+) -> Result<models::GetBonds200ResponseEnum, Error<GetBondsError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_exchange = params.exchange;
@@ -1939,7 +1939,7 @@ pub async fn get_bonds(configuration: &configuration::Configuration, params: Get
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -1980,18 +1980,25 @@ pub async fn get_bonds(configuration: &configuration::Configuration, params: Get
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetBonds200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetBonds200Response`")))),
+            ContentType::Text => return Ok(models::GetBonds200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetBonds200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetBondsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The commodities endpoint provides a daily updated list of available commodity pairs, across precious metals, livestock, softs, grains, etc.
-pub async fn get_commodities(configuration: &configuration::Configuration, params: GetCommoditiesParams) -> Result<models::GetCommodities200Response, Error<GetCommoditiesError>> {
+pub async fn get_commodities(
+    configuration: &configuration::Configuration,
+    params: GetCommoditiesParams,
+) -> Result<models::GetCommodities200ResponseEnum, Error<GetCommoditiesError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_category = params.category;
@@ -2008,7 +2015,7 @@ pub async fn get_commodities(configuration: &configuration::Configuration, param
         req_builder = req_builder.query(&[("category", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -2040,19 +2047,24 @@ pub async fn get_commodities(configuration: &configuration::Configuration, param
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetCommodities200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCommodities200Response`")))),
+            ContentType::Text => return Ok(models::GetCommodities200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCommodities200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetCommoditiesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The countries endpoint provides a comprehensive list of countries, including their ISO codes, official names, capitals, and currencies. This data is essential for applications requiring accurate country information for tasks such as localization, currency conversion, or geographic analysis.
-pub async fn get_countries(configuration: &configuration::Configuration) -> Result<models::GetCountries200Response, Error<GetCountriesError>> {
-
+pub async fn get_countries(
+    configuration: &configuration::Configuration,
+) -> Result<models::GetCountries200ResponseEnum, Error<GetCountriesError>> {
     let uri_str = format!("{}/countries", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
@@ -2083,18 +2095,25 @@ pub async fn get_countries(configuration: &configuration::Configuration) -> Resu
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetCountries200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCountries200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetCountries200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCountries200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetCountriesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The cross_listings endpoint provides a daily updated list of cross-listed symbols for a specified financial instrument. Cross-listed symbols represent the same security available on multiple exchanges. This endpoint is useful for identifying all the exchanges where a particular security is traded, allowing users to access comprehensive trading information across different markets.
-pub async fn get_cross_listings(configuration: &configuration::Configuration, params: GetCrossListingsParams) -> Result<models::GetCrossListings200Response, Error<GetCrossListingsError>> {
+pub async fn get_cross_listings(
+    configuration: &configuration::Configuration,
+    params: GetCrossListingsParams,
+) -> Result<models::GetCrossListings200ResponseEnum, Error<GetCrossListingsError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_exchange = params.exchange;
@@ -2141,18 +2160,25 @@ pub async fn get_cross_listings(configuration: &configuration::Configuration, pa
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetCrossListings200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCrossListings200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetCrossListings200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCrossListings200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetCrossListingsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The cryptocurrencies endpoint provides a daily updated list of all available cryptos. It returns an array containing detailed information about each cryptocurrency, including its symbol, name, and other relevant identifiers. This endpoint is useful for retrieving a comprehensive catalog of cryptocurrencies for applications that require up-to-date market listings or need to display available crypto assets to users.
-pub async fn get_cryptocurrencies(configuration: &configuration::Configuration, params: GetCryptocurrenciesParams) -> Result<models::GetCryptocurrencies200Response, Error<GetCryptocurrenciesError>> {
+pub async fn get_cryptocurrencies(
+    configuration: &configuration::Configuration,
+    params: GetCryptocurrenciesParams,
+) -> Result<models::GetCryptocurrencies200ResponseEnum, Error<GetCryptocurrenciesError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_exchange = params.exchange;
@@ -2177,7 +2203,7 @@ pub async fn get_cryptocurrencies(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("currency_quote", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -2209,18 +2235,26 @@ pub async fn get_cryptocurrencies(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetCryptocurrencies200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCryptocurrencies200Response`")))),
+            ContentType::Text => return Ok(models::GetCryptocurrencies200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCryptocurrencies200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetCryptocurrenciesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The cryptocurrency exchanges endpoint provides a daily updated list of available cryptocurrency exchanges. It returns an array containing details about each exchange, such as exchange names and identifiers.
-pub async fn get_cryptocurrency_exchanges(configuration: &configuration::Configuration, params: GetCryptocurrencyExchangesParams) -> Result<models::GetCryptocurrencyExchanges200Response, Error<GetCryptocurrencyExchangesError>> {
+pub async fn get_cryptocurrency_exchanges(
+    configuration: &configuration::Configuration,
+    params: GetCryptocurrencyExchangesParams,
+) -> Result<models::GetCryptocurrencyExchanges200ResponseEnum, Error<GetCryptocurrencyExchangesError>>
+{
     // Extract parameters from params struct
     let p_query_format = params.format;
     let p_query_delimiter = params.delimiter;
@@ -2229,7 +2263,7 @@ pub async fn get_cryptocurrency_exchanges(configuration: &configuration::Configu
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -2261,18 +2295,25 @@ pub async fn get_cryptocurrency_exchanges(configuration: &configuration::Configu
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetCryptocurrencyExchanges200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCryptocurrencyExchanges200Response`")))),
+            ContentType::Text => return Ok(models::GetCryptocurrencyExchanges200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCryptocurrencyExchanges200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetCryptocurrencyExchangesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The earliest_timestamp endpoint provides the earliest available date and time for a specified financial instrument at a given data interval. This endpoint is useful for determining the starting point of historical data availability for various assets, such as stocks or currencies, allowing users to understand the time range covered by the data.
-pub async fn get_earliest_timestamp(configuration: &configuration::Configuration, params: GetEarliestTimestampParams) -> Result<models::GetEarliestTimestamp200Response, Error<GetEarliestTimestampError>> {
+pub async fn get_earliest_timestamp(
+    configuration: &configuration::Configuration,
+    params: GetEarliestTimestampParams,
+) -> Result<models::GetEarliestTimestamp200ResponseEnum, Error<GetEarliestTimestampError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -2335,18 +2376,25 @@ pub async fn get_earliest_timestamp(configuration: &configuration::Configuration
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetEarliestTimestamp200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEarliestTimestamp200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEarliestTimestamp200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEarliestTimestamp200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetEarliestTimestampError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The ETFs endpoint provides a daily updated list of all available Exchange-Traded Funds. It returns an array containing detailed information about each ETF, including its symbol, name, and other relevant identifiers. This endpoint is useful for retrieving a comprehensive catalog of ETFs for portfolio management, investment tracking, or financial analysis.
-pub async fn get_etf(configuration: &configuration::Configuration, params: GetEtfParams) -> Result<models::GetEtf200Response, Error<GetEtfError>> {
+pub async fn get_etf(
+    configuration: &configuration::Configuration,
+    params: GetEtfParams,
+) -> Result<models::GetEtf200ResponseEnum, Error<GetEtfError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -2389,7 +2437,7 @@ pub async fn get_etf(configuration: &configuration::Configuration, params: GetEt
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -2427,18 +2475,25 @@ pub async fn get_etf(configuration: &configuration::Configuration, params: GetEt
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetEtf200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtf200Response`")))),
+            ContentType::Text => return Ok(models::GetEtf200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtf200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetEtfError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// Retrieve a comprehensive list of exchange-traded fund (ETF) families, providing users with detailed information on various ETF groups available in the market. This endpoint is ideal for users looking to explore different ETF categories, compare offerings, or integrate ETF family data into their financial applications.
-pub async fn get_etfs_family(configuration: &configuration::Configuration, params: GetEtfsFamilyParams) -> Result<models::GetEtfsFamily200Response, Error<GetEtfsFamilyError>> {
+pub async fn get_etfs_family(
+    configuration: &configuration::Configuration,
+    params: GetEtfsFamilyParams,
+) -> Result<models::GetEtfsFamily200ResponseEnum, Error<GetEtfsFamilyError>> {
     // Extract parameters from params struct
     let p_query_country = params.country;
     let p_query_fund_family = params.fund_family;
@@ -2479,18 +2534,25 @@ pub async fn get_etfs_family(configuration: &configuration::Configuration, param
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetEtfsFamily200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsFamily200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsFamily200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsFamily200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetEtfsFamilyError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The ETFs directory endpoint provides a daily updated list of exchange-traded funds, sorted by total assets in descending order. This endpoint is useful for retrieving comprehensive ETF data, including fund names and asset values, to assist users in quickly identifying the ETFs available.
-pub async fn get_etfs_list(configuration: &configuration::Configuration, params: GetEtfsListParams) -> Result<models::GetEtfsList200Response, Error<GetEtfsListError>> {
+pub async fn get_etfs_list(
+    configuration: &configuration::Configuration,
+    params: GetEtfsListParams,
+) -> Result<models::GetEtfsList200ResponseEnum, Error<GetEtfsListError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -2563,18 +2625,25 @@ pub async fn get_etfs_list(configuration: &configuration::Configuration, params:
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetEtfsList200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsList200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsList200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsList200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetEtfsListError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The ETFs Types endpoint provides a concise list of ETF categories by market (e.g., Singapore, United States), including types like \"Equity Precious Metals\" and \"Large Blend.\" It supports targeted investment research and portfolio diversification.
-pub async fn get_etfs_type(configuration: &configuration::Configuration, params: GetEtfsTypeParams) -> Result<models::GetEtfsType200Response, Error<GetEtfsTypeError>> {
+pub async fn get_etfs_type(
+    configuration: &configuration::Configuration,
+    params: GetEtfsTypeParams,
+) -> Result<models::GetEtfsType200ResponseEnum, Error<GetEtfsTypeError>> {
     // Extract parameters from params struct
     let p_query_country = params.country;
     let p_query_fund_type = params.fund_type;
@@ -2615,18 +2684,25 @@ pub async fn get_etfs_type(configuration: &configuration::Configuration, params:
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetEtfsType200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsType200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEtfsType200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEtfsType200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetEtfsTypeError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The exchanges schedule endpoint provides detailed information about various stock exchanges, including their trading hours and operational days. This data is essential for users who need to know when specific exchanges are open for trading, allowing them to plan their activities around the availability of these markets.
-pub async fn get_exchange_schedule(configuration: &configuration::Configuration, params: GetExchangeScheduleParams) -> Result<models::GetExchangeSchedule200Response, Error<GetExchangeScheduleError>> {
+pub async fn get_exchange_schedule(
+    configuration: &configuration::Configuration,
+    params: GetExchangeScheduleParams,
+) -> Result<models::GetExchangeSchedule200ResponseEnum, Error<GetExchangeScheduleError>> {
     // Extract parameters from params struct
     let p_query_mic_name = params.mic_name;
     let p_query_mic_code = params.mic_code;
@@ -2675,18 +2751,25 @@ pub async fn get_exchange_schedule(configuration: &configuration::Configuration,
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetExchangeSchedule200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetExchangeSchedule200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetExchangeSchedule200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetExchangeSchedule200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetExchangeScheduleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The exchanges endpoint provides a comprehensive list of all available equity exchanges. It returns an array containing detailed information about each exchange, such as exchange code, name, country, and timezone. This data is updated daily.
-pub async fn get_exchanges(configuration: &configuration::Configuration, params: GetExchangesParams) -> Result<models::GetExchanges200Response, Error<GetExchangesError>> {
+pub async fn get_exchanges(
+    configuration: &configuration::Configuration,
+    params: GetExchangesParams,
+) -> Result<models::GetExchanges200ResponseEnum, Error<GetExchangesError>> {
     // Extract parameters from params struct
     let p_query_type = params.r#type;
     let p_query_name = params.name;
@@ -2700,7 +2783,7 @@ pub async fn get_exchanges(configuration: &configuration::Configuration, params:
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_name {
         req_builder = req_builder.query(&[("name", &param_value.to_string())]);
@@ -2712,7 +2795,7 @@ pub async fn get_exchanges(configuration: &configuration::Configuration, params:
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -2747,18 +2830,25 @@ pub async fn get_exchanges(configuration: &configuration::Configuration, params:
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetExchanges200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetExchanges200Response`")))),
+            ContentType::Text => return Ok(models::GetExchanges200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetExchanges200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetExchangesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The forex pairs endpoint provides a comprehensive list of all available foreign exchange currency pairs. It returns an array of forex pairs, which is updated daily.
-pub async fn get_forex_pairs(configuration: &configuration::Configuration, params: GetForexPairsParams) -> Result<models::GetForexPairs200Response, Error<GetForexPairsError>> {
+pub async fn get_forex_pairs(
+    configuration: &configuration::Configuration,
+    params: GetForexPairsParams,
+) -> Result<models::GetForexPairs200ResponseEnum, Error<GetForexPairsError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_currency_base = params.currency_base;
@@ -2779,7 +2869,7 @@ pub async fn get_forex_pairs(configuration: &configuration::Configuration, param
         req_builder = req_builder.query(&[("currency_quote", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -2811,18 +2901,25 @@ pub async fn get_forex_pairs(configuration: &configuration::Configuration, param
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetForexPairs200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetForexPairs200Response`")))),
+            ContentType::Text => return Ok(models::GetForexPairs200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetForexPairs200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetForexPairsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The funds endpoint provides a daily updated list of available investment funds. It returns an array containing detailed information about each fund, including identifiers, names, and other relevant attributes.
-pub async fn get_funds(configuration: &configuration::Configuration, params: GetFundsParams) -> Result<models::GetFunds200Response, Error<GetFundsError>> {
+pub async fn get_funds(
+    configuration: &configuration::Configuration,
+    params: GetFundsParams,
+) -> Result<models::GetFunds200ResponseEnum, Error<GetFundsError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -2862,7 +2959,7 @@ pub async fn get_funds(configuration: &configuration::Configuration, params: Get
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -2903,19 +3000,24 @@ pub async fn get_funds(configuration: &configuration::Configuration, params: Get
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetFunds200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetFunds200Response`")))),
+            ContentType::Text => return Ok(models::GetFunds200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetFunds200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetFundsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The instrument type endpoint lists all available financial instrument types, such as stocks, ETFs, and cryptos. This information is essential for users to identify and categorize different financial instruments when accessing or analyzing market data.
-pub async fn get_instrument_type(configuration: &configuration::Configuration) -> Result<models::GetInstrumentType200Response, Error<GetInstrumentTypeError>> {
-
+pub async fn get_instrument_type(
+    configuration: &configuration::Configuration,
+) -> Result<models::GetInstrumentType200ResponseEnum, Error<GetInstrumentTypeError>> {
     let uri_str = format!("{}/instrument_type", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
@@ -2946,19 +3048,24 @@ pub async fn get_instrument_type(configuration: &configuration::Configuration) -
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetInstrumentType200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetInstrumentType200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetInstrumentType200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetInstrumentType200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetInstrumentTypeError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The intervals endpoint provides a list of supported time intervals that can be used for querying financial data.
-pub async fn get_intervals(configuration: &configuration::Configuration) -> Result<models::GetIntervals200Response, Error<GetIntervalsError>> {
-
+pub async fn get_intervals(
+    configuration: &configuration::Configuration,
+) -> Result<models::GetIntervals200ResponseEnum, Error<GetIntervalsError>> {
     let uri_str = format!("{}/intervals", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
@@ -2989,18 +3096,25 @@ pub async fn get_intervals(configuration: &configuration::Configuration) -> Resu
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetIntervals200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetIntervals200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetIntervals200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetIntervals200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetIntervalsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The market state endpoint provides real-time information on the operational status of all available stock exchanges. It returns data on whether each exchange is currently open or closed, along with the time remaining until the next opening or closing. This endpoint is useful for users who need to monitor exchange hours and plan their trading activities accordingly.
-pub async fn get_market_state(configuration: &configuration::Configuration, params: GetMarketStateParams) -> Result<Vec<models::MarketStateResponseItem>, Error<GetMarketStateError>> {
+pub async fn get_market_state(
+    configuration: &configuration::Configuration,
+    params: GetMarketStateParams,
+) -> Result<models::GetMarketState200ResponseEnum, Error<GetMarketStateError>> {
     // Extract parameters from params struct
     let p_query_exchange = params.exchange;
     let p_query_code = params.code;
@@ -3045,18 +3159,25 @@ pub async fn get_market_state(configuration: &configuration::Configuration, para
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `Vec&lt;models::MarketStateResponseItem&gt;`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `Vec&lt;models::MarketStateResponseItem&gt;`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMarketState200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMarketState200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetMarketStateError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The mutual funds family endpoint provides a comprehensive list of MF families, which are groups of mutual funds managed by the same investment company. This data is useful for users looking to explore or compare different fund families, understand the range of investment options offered by each, and identify potential investment opportunities within specific fund families.
-pub async fn get_mutual_funds_family(configuration: &configuration::Configuration, params: GetMutualFundsFamilyParams) -> Result<models::GetMutualFundsFamily200Response, Error<GetMutualFundsFamilyError>> {
+pub async fn get_mutual_funds_family(
+    configuration: &configuration::Configuration,
+    params: GetMutualFundsFamilyParams,
+) -> Result<models::GetMutualFundsFamily200ResponseEnum, Error<GetMutualFundsFamilyError>> {
     // Extract parameters from params struct
     let p_query_fund_family = params.fund_family;
     let p_query_country = params.country;
@@ -3097,18 +3218,25 @@ pub async fn get_mutual_funds_family(configuration: &configuration::Configuratio
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetMutualFundsFamily200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsFamily200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsFamily200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsFamily200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetMutualFundsFamilyError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The mutual funds directory endpoint provides a daily updated list of mutual funds, sorted in descending order by their total assets value. This endpoint is useful for retrieving an organized overview of available mutual funds.
-pub async fn get_mutual_funds_list(configuration: &configuration::Configuration, params: GetMutualFundsListParams) -> Result<models::GetMutualFundsList200Response, Error<GetMutualFundsListError>> {
+pub async fn get_mutual_funds_list(
+    configuration: &configuration::Configuration,
+    params: GetMutualFundsListParams,
+) -> Result<models::GetMutualFundsList200ResponseEnum, Error<GetMutualFundsListError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -3189,18 +3317,25 @@ pub async fn get_mutual_funds_list(configuration: &configuration::Configuration,
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetMutualFundsList200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsList200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsList200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsList200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetMutualFundsListError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// This endpoint provides detailed information on various types of mutual funds, such as equity, bond, and balanced funds, allowing users to understand the different investment options available.
-pub async fn get_mutual_funds_type(configuration: &configuration::Configuration, params: GetMutualFundsTypeParams) -> Result<models::GetMutualFundsType200Response, Error<GetMutualFundsTypeError>> {
+pub async fn get_mutual_funds_type(
+    configuration: &configuration::Configuration,
+    params: GetMutualFundsTypeParams,
+) -> Result<models::GetMutualFundsType200ResponseEnum, Error<GetMutualFundsTypeError>> {
     // Extract parameters from params struct
     let p_query_fund_type = params.fund_type;
     let p_query_country = params.country;
@@ -3241,18 +3376,25 @@ pub async fn get_mutual_funds_type(configuration: &configuration::Configuration,
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetMutualFundsType200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsType200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMutualFundsType200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMutualFundsType200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetMutualFundsTypeError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The stocks endpoint provides a daily updated list of all available stock symbols. It returns an array containing the symbols, which can be used to identify and access specific stock data across various services. This endpoint is essential for users needing to retrieve the latest stock symbol information for further data requests or integration into financial applications.
-pub async fn get_stocks(configuration: &configuration::Configuration, params: GetStocksParams) -> Result<models::GetStocks200Response, Error<GetStocksError>> {
+pub async fn get_stocks(
+    configuration: &configuration::Configuration,
+    params: GetStocksParams,
+) -> Result<models::GetStocks200ResponseEnum, Error<GetStocksError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -3296,10 +3438,10 @@ pub async fn get_stocks(configuration: &configuration::Configuration, params: Ge
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -3337,18 +3479,25 @@ pub async fn get_stocks(configuration: &configuration::Configuration, params: Ge
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetStocks200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetStocks200Response`")))),
+            ContentType::Text => return Ok(models::GetStocks200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetStocks200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetStocksError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The symbol search endpoint allows users to find financial instruments by name or symbol. It returns a list of matching symbols, ordered by relevance, with the most relevant instrument first. This is useful for quickly locating specific stocks, ETFs, or other financial instruments when only partial information is available.
-pub async fn get_symbol_search(configuration: &configuration::Configuration, params: GetSymbolSearchParams) -> Result<models::GetSymbolSearch200Response, Error<GetSymbolSearchError>> {
+pub async fn get_symbol_search(
+    configuration: &configuration::Configuration,
+    params: GetSymbolSearchParams,
+) -> Result<models::GetSymbolSearch200ResponseEnum, Error<GetSymbolSearchError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_outputsize = params.outputsize;
@@ -3391,19 +3540,24 @@ pub async fn get_symbol_search(configuration: &configuration::Configuration, par
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetSymbolSearch200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetSymbolSearch200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetSymbolSearch200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetSymbolSearch200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetSymbolSearchError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The technical indicators endpoint provides a comprehensive list of available technical indicators, each represented as an object. This endpoint is useful for developers looking to integrate a variety of technical analysis tools into their applications, allowing for streamlined access to indicator data without needing to manually configure each one.
-pub async fn get_technical_indicators(configuration: &configuration::Configuration) -> Result<models::GetTechnicalIndicators200Response, Error<GetTechnicalIndicatorsError>> {
-
+pub async fn get_technical_indicators(
+    configuration: &configuration::Configuration,
+) -> Result<models::GetTechnicalIndicators200ResponseEnum, Error<GetTechnicalIndicatorsError>> {
     let uri_str = format!("{}/technical_indicators", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
@@ -3434,13 +3588,16 @@ pub async fn get_technical_indicators(configuration: &configuration::Configurati
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTechnicalIndicators200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTechnicalIndicators200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetTechnicalIndicators200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTechnicalIndicators200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTechnicalIndicatorsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
-

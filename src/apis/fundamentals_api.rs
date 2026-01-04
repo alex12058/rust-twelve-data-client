@@ -4,15 +4,14 @@
  * ## Overview  Welcome to Twelve Data developer docs — your gateway to comprehensive financial market data through a powerful and easy-to-use API. Twelve Data provides access to financial markets across over 50 global countries, covering more than 1 million public instruments, including stocks, forex, ETFs, mutual funds, commodities, and cryptocurrencies.  ## Quickstart  To get started, you'll need to sign up for an API key. Once you have your API key, you can start making requests to the API.  ### Step 1: Create Twelve Data account  Sign up on the Twelve Data website to create your account [here](https://twelvedata.com/register). This gives you access to the API dashboard and your API key.  ### Step 2: Get your API key  After signing in, navigate to your [dashboard](https://twelvedata.com/account/api-keys) to find your unique API key. This key is required to authenticate all API and WebSocket requests.  ### Step 3: Make your first request  Try a simple API call with cURL to fetch the latest price for Apple (AAPL):  ``` curl \"https://api.twelvedata.com/price?symbol=AAPL&apikey=your_api_key\" ```  ### Step 4: Make a request from Python or Javascript  Use our client libraries or standard HTTP clients to make API calls programmatically. Here’s an example in [Python](https://github.com/twelvedata/twelvedata-python) and JavaScript:  #### Python (using official Twelve Data SDK):  ```python from twelvedata import TDClient  # Initialize client with your API key td = TDClient(apikey=\"your_api_key\")  # Get latest price for Apple price = td.price(symbol=\"AAPL\").as_json()  print(price) ```  #### JavaScript (Node.js):  ```javascript const fetch = require('node-fetch');  fetch('https://api.twelvedata.com/price?symbol=AAPL&apikey=your_api_key') &nbsp;&nbsp;.then(response => response.json()) &nbsp;&nbsp;.then(data => console.log(data)); ```  ### Step 5: Perform correlation analysis between Tesla and Microsoft prices  Fetch historical price data for Tesla (TSLA) and Microsoft (MSFT) and calculate the correlation of their closing prices:  ```python from twelvedata import TDClient import pandas as pd  # Initialize client with your API key td = TDClient(apikey=\"your_api_key\")  # Fetch historical price data for Tesla tsla_ts = td.time_series( &nbsp;&nbsp;&nbsp;&nbsp;symbol=\"TSLA\", &nbsp;&nbsp;&nbsp;&nbsp;interval=\"1day\", &nbsp;&nbsp;&nbsp;&nbsp;outputsize=100 ).as_pandas()  # Fetch historical price data for Microsoft msft_ts = td.time_series( &nbsp;&nbsp;&nbsp;&nbsp;symbol=\"MSFT\", &nbsp;&nbsp;&nbsp;&nbsp;interval=\"1day\", &nbsp;&nbsp;&nbsp;&nbsp;outputsize=100 ).as_pandas()  # Align data on datetime index combined = pd.concat( &nbsp;&nbsp;&nbsp;&nbsp;[tsla_ts['close'].astype(float), msft_ts['close'].astype(float)], &nbsp;&nbsp;&nbsp;&nbsp;axis=1, &nbsp;&nbsp;&nbsp;&nbsp;keys=[\"TSLA\", \"MSFT\"] ).dropna()  # Calculate correlation correlation = combined[\"TSLA\"].corr(combined[\"MSFT\"]) print(f\"Correlation of closing prices between TSLA and MSFT: {correlation:.2f}\") ```  ### Authentication  Authenticate your requests using one of these methods:  #### Query parameter method ``` GET https://api.twelvedata.com/endpoint?symbol=AAPL&apikey=your_api_key ```  #### HTTP header method (recommended) ``` Authorization: apikey your_api_key ```  ##### API key useful information <ul> <li> Demo API key (<code>apikey=demo</code>) available for demo requests</li> <li> Personal API key required for full access</li> <li> Premium endpoints and data require higher-tier plans (testable with <a href=\"https://twelvedata.com/exchanges\">trial symbols</a>)</li> </ul>  ### API endpoints   Service | Base URL | ---------|----------|  REST API | `https://api.twelvedata.com` |  WebSocket | `wss://ws.twelvedata.com` |  ### Parameter guidelines <ul> <li><b>Separator:</b> Use <code>&</code> to separate multiple parameters</li> <li><b>Case sensitivity:</b> Parameter names are case-insensitive</li>  <ul><li><code>symbol=AAPL</code> = <code>symbol=aapl</code></li></ul>  <li><b>Multiple values:</b> Separate with commas where supported</li> </ul>  ### Response handling  #### Default format All responses return JSON format by default unless otherwise specified.  #### Null values <b>Important:</b> Some response fields may contain `null` values when data is unavailable for specific metrics. This is expected behavior, not an error.  ##### Best Practices: <ul> <li>Always implement <code>null</code> value handling in your application</li> <li>Use defensive programming techniques for data processing</li> <li>Consider fallback values or error handling for critical metrics</li> </ul>  #### Error handling Structure your code to gracefully handle: <ul> <li>Network timeouts</li> <li>Rate limiting responses</li> <li>Invalid parameter errors</li> <li>Data unavailability periods</li> </ul>  ##### Best practices <ul> <li><b>Rate limits:</b> Adhere to your plan’s rate limits to avoid throttling. Check your dashboard for details.</li> <li><b>Error handling:</b> Implement retry logic for transient errors (e.g., <code>429 Too Many Requests</code>).</li> <li><b>Caching:</b> Cache responses for frequently accessed data to reduce API calls and improve performance.</li> <li><b>Secure storage:</b> Store your API key securely and never expose it in client-side code or public repositories.</li> </ul>  ## Errors  Twelve Data API employs a standardized error response format, delivering a JSON object with `code`, `message`, and `status` keys for clear and consistent error communication.  ### Codes  Below is a table of possible error codes, their HTTP status, meanings, and resolution steps:   Code | status | Meaning | Resolution |  --- | --- | --- | --- |  **400** | Bad Request | Invalid or incorrect parameter(s) provided. | Check the `message` in the response for details. Refer to the API Documenta­tion to correct the input. |  **401** | Unauthor­ized | Invalid or incorrect API key. | Verify your API key is correct. Sign up for a key <a href=\"https://twelvedata.com/account/api-keys\">here</a>. |  **403** | Forbidden | API key lacks permissions for the requested resource (upgrade required). | Upgrade your plan <a href=\"https://twelvedata.com/pricing\">here</a>. |  **404** | Not Found | Requested data could not be found. | Adjust parameters to be less strict as they may be too restrictive. |  **414** | Parameter Too Long | Input parameter array exceeds the allowed length. | Follow the `message` guidance to adjust the parameter length. |  **429** | Too Many Requests | API request limit reached for your key. | Wait briefly or upgrade your plan <a href=\"https://twelvedata.com/pricing\">here</a>. |  **500** | Internal Server Error | Server-side issue occurred; retry later. | Contact support <a href=\"https://twelvedata.com/contact\">here</a> for assistance. |  ### Example error response  Consider the following invalid request:  ``` https://api.twelvedata.com/time_series?symbol=AAPL&interval=0.99min&apikey=your_api_key ```  Due to the incorrect `interval` value, the API returns:  ```json { &nbsp;&nbsp;\"code\": 400, &nbsp;&nbsp;\"message\": \"Invalid **interval** provided: 0.99min. Supported intervals: 1min, 5min, 15min, 30min, 45min, 1h, 2h, 4h, 8h, 1day, 1week, 1month\", &nbsp;&nbsp;\"status\": \"error\" } ```  Refer to the API Documentation for valid parameter values to resolve such errors.  ## Libraries  Twelve Data provides a growing ecosystem of libraries and integrations to help you build faster and smarter in your preferred environment. Official libraries are actively maintained by the Twelve Data team, while selected community-built libraries offer additional flexibility.  A full list is available on our [GitHub profile](https://github.com/search?q=twelvedata).  ### Official SDKs <ul> <li><b>Python:</b> <a href=\"https://github.com/twelvedata/twelvedata-python\">twelvedata-python</a></li> <li><b>R:</b> <a href=\"https://github.com/twelvedata/twelvedata-r-sdk\">twelvedata-r-sdk</a></li> </ul>  ### AI integrations <ul> <li><b>Twelve Data MCP Server:</b> <a href=\"https://github.com/twelvedata/mcp\">Repository</a> — Model Context Protocol (MCP) server that provides seamless integration with AI assistants and language models, enabling direct access to Twelve Data's financial market data within conversational interfaces and AI workflows.</li> </ul>  ### Spreadsheet add-ons <ul> <li><b>Excel:</b> <a href=\"https://twelvedata.com/excel\">Excel Add-in</a></li> <li><b>Google Sheets:</b> <a href=\"https://twelvedata.com/google-sheets\">Google Sheets Add-on</a></li> </ul>  ### Community libraries  The community has developed libraries in several popular languages. You can explore more community libraries on [GitHub](https://github.com/search?q=twelvedata). <ul> <li><b>C#:</b> <a href=\"https://github.com/pseudomarkets/TwelveDataSharp\">TwelveDataSharp</a></li> <li><b>JavaScript:</b> <a href=\"https://github.com/evzaboun/twelvedata\">twelvedata</a></li> <li><b>PHP:</b> <a href=\"https://github.com/ingelby/twelvedata\">twelvedata</a></li> <li><b>Go:</b> <a href=\"https://github.com/soulgarden/twelvedata\">twelvedata</a></li> <li><b>TypeScript:</b> <a href=\"https://github.com/Clyde-Goodall/twelve-data-wrapper\">twelve-data-wrapper</a></li> </ul>  ### Other Twelve Data repositories <ul> <li><b>searchindex</b> <i>(Go)</i>: <a href=\"https://github.com/twelvedata/searchindex\">Repository</a> — In-memory search index by strings</li> <li><b>ws-tools</b> <i>(Python)</i>: <a href=\"https://github.com/twelvedata/ws-tools\">Repository</a> — Utility tools for WebSocket stream handling</li> </ul>  ### API specification <ul> <li><b>OpenAPI / Swagger:</b> Access the <a href=\"https://api.twelvedata.com/doc/swagger/openapi.json\">complete API specification</a> in OpenAPI format. You can use this file to automatically generate client libraries in your preferred programming language, explore the API interactively via Swagger tools, or integrate Twelve Data seamlessly into your AI and LLM workflows.</li> </ul>
  *
  * The version of the OpenAPI document: 0.0.1
- * 
+ *
  * Generated by: https://openapi-generator.tech
  */
 
-
-use reqwest;
-use serde::{Deserialize, Serialize, de::Error as _};
+use super::{configuration, ContentType, Error};
 use crate::{apis::ResponseContent, models};
-use super::{Error, configuration, ContentType};
+use reqwest;
+use serde::{de::Error as _, Deserialize, Serialize};
 
 /// struct for passing parameters to the method [`get_balance_sheet`]
 #[derive(Clone, Debug, Default, Serialize, Deserialize)]
@@ -38,7 +37,7 @@ pub struct GetBalanceSheetParams {
     /// End date for filtering items by fiscal date. Returns income statements with fiscal dates on or before this date. Format `2006-01-02`
     pub end_date: Option<String>,
     /// Number of records in response
-    pub outputsize: Option<i64>
+    pub outputsize: Option<i64>,
 }
 
 impl GetBalanceSheetParams {
@@ -72,7 +71,7 @@ pub struct GetBalanceSheetParamsBuilder {
     /// End date for filtering items by fiscal date. Returns income statements with fiscal dates on or before this date. Format `2006-01-02`
     end_date: Option<String>,
     /// Number of records in response
-    outputsize: Option<i64>
+    outputsize: Option<i64>,
 }
 
 impl GetBalanceSheetParamsBuilder {
@@ -145,7 +144,7 @@ impl GetBalanceSheetParamsBuilder {
             period: self.period,
             start_date: self.start_date,
             end_date: self.end_date,
-            outputsize: self.outputsize
+            outputsize: self.outputsize,
         }
     }
 }
@@ -174,7 +173,7 @@ pub struct GetBalanceSheetConsolidatedParams {
     /// End date for filtering items by fiscal date. Returns income statements with fiscal dates on or before this date. Format `2006-01-02`
     pub end_date: Option<String>,
     /// Number of records in response
-    pub outputsize: Option<i64>
+    pub outputsize: Option<i64>,
 }
 
 impl GetBalanceSheetConsolidatedParams {
@@ -208,7 +207,7 @@ pub struct GetBalanceSheetConsolidatedParamsBuilder {
     /// End date for filtering items by fiscal date. Returns income statements with fiscal dates on or before this date. Format `2006-01-02`
     end_date: Option<String>,
     /// Number of records in response
-    outputsize: Option<i64>
+    outputsize: Option<i64>,
 }
 
 impl GetBalanceSheetConsolidatedParamsBuilder {
@@ -281,7 +280,7 @@ impl GetBalanceSheetConsolidatedParamsBuilder {
             period: self.period,
             start_date: self.start_date,
             end_date: self.end_date,
-            outputsize: self.outputsize
+            outputsize: self.outputsize,
         }
     }
 }
@@ -310,7 +309,7 @@ pub struct GetCashFlowParams {
     /// End date for filtering cash flow statements. Only cash flow statements with fiscal dates on or before this date will be included. Format `2006-01-02`
     pub end_date: Option<String>,
     /// Number of records in response
-    pub outputsize: Option<i64>
+    pub outputsize: Option<i64>,
 }
 
 impl GetCashFlowParams {
@@ -344,7 +343,7 @@ pub struct GetCashFlowParamsBuilder {
     /// End date for filtering cash flow statements. Only cash flow statements with fiscal dates on or before this date will be included. Format `2006-01-02`
     end_date: Option<String>,
     /// Number of records in response
-    outputsize: Option<i64>
+    outputsize: Option<i64>,
 }
 
 impl GetCashFlowParamsBuilder {
@@ -417,7 +416,7 @@ impl GetCashFlowParamsBuilder {
             period: self.period,
             start_date: self.start_date,
             end_date: self.end_date,
-            outputsize: self.outputsize
+            outputsize: self.outputsize,
         }
     }
 }
@@ -446,7 +445,7 @@ pub struct GetCashFlowConsolidatedParams {
     /// End date for filtering cash flow statements. Only cash flow statements with fiscal dates on or before this date will be included. Format `2006-01-02`
     pub end_date: Option<String>,
     /// Number of records in response
-    pub outputsize: Option<i64>
+    pub outputsize: Option<i64>,
 }
 
 impl GetCashFlowConsolidatedParams {
@@ -480,7 +479,7 @@ pub struct GetCashFlowConsolidatedParamsBuilder {
     /// End date for filtering cash flow statements. Only cash flow statements with fiscal dates on or before this date will be included. Format `2006-01-02`
     end_date: Option<String>,
     /// Number of records in response
-    outputsize: Option<i64>
+    outputsize: Option<i64>,
 }
 
 impl GetCashFlowConsolidatedParamsBuilder {
@@ -553,7 +552,7 @@ impl GetCashFlowConsolidatedParamsBuilder {
             period: self.period,
             start_date: self.start_date,
             end_date: self.end_date,
-            outputsize: self.outputsize
+            outputsize: self.outputsize,
         }
     }
 }
@@ -582,7 +581,7 @@ pub struct GetDividendsParams {
     /// End date for the dividend data query. Only dividends with dates on or after this date will be returned. Format `2006-01-02`. If provided together with `range` parameter, `range` will take precedence.
     pub end_date: Option<String>,
     /// Specifies if there should be an adjustment
-    pub adjust: Option<bool>
+    pub adjust: Option<bool>,
 }
 
 impl GetDividendsParams {
@@ -616,7 +615,7 @@ pub struct GetDividendsParamsBuilder {
     /// End date for the dividend data query. Only dividends with dates on or after this date will be returned. Format `2006-01-02`. If provided together with `range` parameter, `range` will take precedence.
     end_date: Option<String>,
     /// Specifies if there should be an adjustment
-    adjust: Option<bool>
+    adjust: Option<bool>,
 }
 
 impl GetDividendsParamsBuilder {
@@ -689,7 +688,7 @@ impl GetDividendsParamsBuilder {
             range: self.range,
             start_date: self.start_date,
             end_date: self.end_date,
-            adjust: self.adjust
+            adjust: self.adjust,
         }
     }
 }
@@ -718,7 +717,7 @@ pub struct GetDividendsCalendarParams {
     /// Number of data points to retrieve. Supports values in the range from `1` to `500`. Default `100` when no date parameters are set, otherwise set to maximum
     pub outputsize: Option<i64>,
     /// Page number
-    pub page: Option<i64>
+    pub page: Option<i64>,
 }
 
 impl GetDividendsCalendarParams {
@@ -752,7 +751,7 @@ pub struct GetDividendsCalendarParamsBuilder {
     /// Number of data points to retrieve. Supports values in the range from `1` to `500`. Default `100` when no date parameters are set, otherwise set to maximum
     outputsize: Option<i64>,
     /// Page number
-    page: Option<i64>
+    page: Option<i64>,
 }
 
 impl GetDividendsCalendarParamsBuilder {
@@ -825,7 +824,7 @@ impl GetDividendsCalendarParamsBuilder {
             start_date: self.start_date,
             end_date: self.end_date,
             outputsize: self.outputsize,
-            page: self.page
+            page: self.page,
         }
     }
 }
@@ -862,7 +861,7 @@ pub struct GetEarningsParams {
     /// The date to which the data is requested. The date format is `YYYY-MM-DD`.
     pub end_date: Option<String>,
     /// The number of decimal places in the response data. Should be in range [0,11] inclusive
-    pub dp: Option<i64>
+    pub dp: Option<i64>,
 }
 
 impl GetEarningsParams {
@@ -904,7 +903,7 @@ pub struct GetEarningsParamsBuilder {
     /// The date to which the data is requested. The date format is `YYYY-MM-DD`.
     end_date: Option<String>,
     /// The number of decimal places in the response data. Should be in range [0,11] inclusive
-    dp: Option<i64>
+    dp: Option<i64>,
 }
 
 impl GetEarningsParamsBuilder {
@@ -1001,7 +1000,7 @@ impl GetEarningsParamsBuilder {
             delimiter: self.delimiter,
             start_date: self.start_date,
             end_date: self.end_date,
-            dp: self.dp
+            dp: self.dp,
         }
     }
 }
@@ -1024,7 +1023,7 @@ pub struct GetEarningsCalendarParams {
     /// Can be used separately and together with start_date. Format `2006-01-02` or `2006-01-02T15:04:05`
     pub end_date: Option<String>,
     /// Specifies the number of decimal places for floating values. Should be in range [0,11] inclusive
-    pub dp: Option<i64>
+    pub dp: Option<i64>,
 }
 
 impl GetEarningsCalendarParams {
@@ -1052,7 +1051,7 @@ pub struct GetEarningsCalendarParamsBuilder {
     /// Can be used separately and together with start_date. Format `2006-01-02` or `2006-01-02T15:04:05`
     end_date: Option<String>,
     /// Specifies the number of decimal places for floating values. Should be in range [0,11] inclusive
-    dp: Option<i64>
+    dp: Option<i64>,
 }
 
 impl GetEarningsCalendarParamsBuilder {
@@ -1107,7 +1106,7 @@ impl GetEarningsCalendarParamsBuilder {
             delimiter: self.delimiter,
             start_date: self.start_date,
             end_date: self.end_date,
-            dp: self.dp
+            dp: self.dp,
         }
     }
 }
@@ -1136,7 +1135,7 @@ pub struct GetIncomeStatementParams {
     /// End date for filtering income statements by fiscal date. Returns income statements with fiscal dates on or before this date. Format `2006-01-02`
     pub end_date: Option<String>,
     /// Number of records in response
-    pub outputsize: Option<i64>
+    pub outputsize: Option<i64>,
 }
 
 impl GetIncomeStatementParams {
@@ -1170,7 +1169,7 @@ pub struct GetIncomeStatementParamsBuilder {
     /// End date for filtering income statements by fiscal date. Returns income statements with fiscal dates on or before this date. Format `2006-01-02`
     end_date: Option<String>,
     /// Number of records in response
-    outputsize: Option<i64>
+    outputsize: Option<i64>,
 }
 
 impl GetIncomeStatementParamsBuilder {
@@ -1243,7 +1242,7 @@ impl GetIncomeStatementParamsBuilder {
             period: self.period,
             start_date: self.start_date,
             end_date: self.end_date,
-            outputsize: self.outputsize
+            outputsize: self.outputsize,
         }
     }
 }
@@ -1272,7 +1271,7 @@ pub struct GetIncomeStatementConsolidatedParams {
     /// End date for filtering income statements by fiscal date. Returns income statements with fiscal dates on or before this date. Format `2006-01-02`
     pub end_date: Option<String>,
     /// Number of records in response
-    pub outputsize: Option<i64>
+    pub outputsize: Option<i64>,
 }
 
 impl GetIncomeStatementConsolidatedParams {
@@ -1306,7 +1305,7 @@ pub struct GetIncomeStatementConsolidatedParamsBuilder {
     /// End date for filtering income statements by fiscal date. Returns income statements with fiscal dates on or before this date. Format `2006-01-02`
     end_date: Option<String>,
     /// Number of records in response
-    outputsize: Option<i64>
+    outputsize: Option<i64>,
 }
 
 impl GetIncomeStatementConsolidatedParamsBuilder {
@@ -1379,7 +1378,7 @@ impl GetIncomeStatementConsolidatedParamsBuilder {
             period: self.period,
             start_date: self.start_date,
             end_date: self.end_date,
-            outputsize: self.outputsize
+            outputsize: self.outputsize,
         }
     }
 }
@@ -1396,7 +1395,7 @@ pub struct GetIpoCalendarParams {
     /// The earliest IPO date to include in the results. Format: `2006-01-02`
     pub start_date: Option<String>,
     /// The latest IPO date to include in the results. Format: `2006-01-02`
-    pub end_date: Option<String>
+    pub end_date: Option<String>,
 }
 
 impl GetIpoCalendarParams {
@@ -1418,7 +1417,7 @@ pub struct GetIpoCalendarParamsBuilder {
     /// The earliest IPO date to include in the results. Format: `2006-01-02`
     start_date: Option<String>,
     /// The latest IPO date to include in the results. Format: `2006-01-02`
-    end_date: Option<String>
+    end_date: Option<String>,
 }
 
 impl GetIpoCalendarParamsBuilder {
@@ -1455,7 +1454,7 @@ impl GetIpoCalendarParamsBuilder {
             mic_code: self.mic_code,
             country: self.country,
             start_date: self.start_date,
-            end_date: self.end_date
+            end_date: self.end_date,
         }
     }
 }
@@ -1476,7 +1475,7 @@ pub struct GetKeyExecutivesParams {
     /// Market Identifier Code (MIC) under ISO 10383 standard
     pub mic_code: Option<String>,
     /// Country where instrument is traded, e.g., `United States` or `US`
-    pub country: Option<String>
+    pub country: Option<String>,
 }
 
 impl GetKeyExecutivesParams {
@@ -1502,7 +1501,7 @@ pub struct GetKeyExecutivesParamsBuilder {
     /// Market Identifier Code (MIC) under ISO 10383 standard
     mic_code: Option<String>,
     /// Country where instrument is traded, e.g., `United States` or `US`
-    country: Option<String>
+    country: Option<String>,
 }
 
 impl GetKeyExecutivesParamsBuilder {
@@ -1551,7 +1550,7 @@ impl GetKeyExecutivesParamsBuilder {
             cusip: self.cusip,
             exchange: self.exchange,
             mic_code: self.mic_code,
-            country: self.country
+            country: self.country,
         }
     }
 }
@@ -1574,7 +1573,7 @@ pub struct GetLastChangesParams {
     /// Page number
     pub page: Option<i64>,
     /// Number of records in response
-    pub outputsize: Option<i64>
+    pub outputsize: Option<i64>,
 }
 
 impl GetLastChangesParams {
@@ -1602,7 +1601,7 @@ pub struct GetLastChangesParamsBuilder {
     /// Page number
     page: Option<i64>,
     /// Number of records in response
-    outputsize: Option<i64>
+    outputsize: Option<i64>,
 }
 
 impl GetLastChangesParamsBuilder {
@@ -1657,7 +1656,7 @@ impl GetLastChangesParamsBuilder {
             mic_code: self.mic_code,
             country: self.country,
             page: self.page,
-            outputsize: self.outputsize
+            outputsize: self.outputsize,
         }
     }
 }
@@ -1672,7 +1671,7 @@ pub struct GetLogoParams {
     /// The Market Identifier Code (MIC) of the exchange where the instrument is traded, e.g., `XNAS`, `XLON`
     pub mic_code: Option<String>,
     /// The country where the instrument is traded, e.g., `United States` or `US`
-    pub country: Option<String>
+    pub country: Option<String>,
 }
 
 impl GetLogoParams {
@@ -1692,7 +1691,7 @@ pub struct GetLogoParamsBuilder {
     /// The Market Identifier Code (MIC) of the exchange where the instrument is traded, e.g., `XNAS`, `XLON`
     mic_code: Option<String>,
     /// The country where the instrument is traded, e.g., `United States` or `US`
-    country: Option<String>
+    country: Option<String>,
 }
 
 impl GetLogoParamsBuilder {
@@ -1723,7 +1722,7 @@ impl GetLogoParamsBuilder {
             symbol: self.symbol,
             exchange: self.exchange,
             mic_code: self.mic_code,
-            country: self.country
+            country: self.country,
         }
     }
 }
@@ -1752,7 +1751,7 @@ pub struct GetMarketCapParams {
     /// Page number
     pub page: Option<i64>,
     /// Number of records in response
-    pub outputsize: Option<i64>
+    pub outputsize: Option<i64>,
 }
 
 impl GetMarketCapParams {
@@ -1786,7 +1785,7 @@ pub struct GetMarketCapParamsBuilder {
     /// Page number
     page: Option<i64>,
     /// Number of records in response
-    outputsize: Option<i64>
+    outputsize: Option<i64>,
 }
 
 impl GetMarketCapParamsBuilder {
@@ -1859,7 +1858,7 @@ impl GetMarketCapParamsBuilder {
             start_date: self.start_date,
             end_date: self.end_date,
             page: self.page,
-            outputsize: self.outputsize
+            outputsize: self.outputsize,
         }
     }
 }
@@ -1880,7 +1879,7 @@ pub struct GetProfileParams {
     /// Market Identifier Code (MIC) under ISO 10383 standard
     pub mic_code: Option<String>,
     /// Country where instrument is traded, e.g., `United States` or `US`
-    pub country: Option<String>
+    pub country: Option<String>,
 }
 
 impl GetProfileParams {
@@ -1906,7 +1905,7 @@ pub struct GetProfileParamsBuilder {
     /// Market Identifier Code (MIC) under ISO 10383 standard
     mic_code: Option<String>,
     /// Country where instrument is traded, e.g., `United States` or `US`
-    country: Option<String>
+    country: Option<String>,
 }
 
 impl GetProfileParamsBuilder {
@@ -1955,7 +1954,7 @@ impl GetProfileParamsBuilder {
             cusip: self.cusip,
             exchange: self.exchange,
             mic_code: self.mic_code,
-            country: self.country
+            country: self.country,
         }
     }
 }
@@ -1982,7 +1981,7 @@ pub struct GetSplitsParams {
     /// The starting date for data selection. Format `2006-01-02`
     pub start_date: Option<String>,
     /// The ending date for data selection. Format `2006-01-02`
-    pub end_date: Option<String>
+    pub end_date: Option<String>,
 }
 
 impl GetSplitsParams {
@@ -2014,7 +2013,7 @@ pub struct GetSplitsParamsBuilder {
     /// The starting date for data selection. Format `2006-01-02`
     start_date: Option<String>,
     /// The ending date for data selection. Format `2006-01-02`
-    end_date: Option<String>
+    end_date: Option<String>,
 }
 
 impl GetSplitsParamsBuilder {
@@ -2081,7 +2080,7 @@ impl GetSplitsParamsBuilder {
             country: self.country,
             range: self.range,
             start_date: self.start_date,
-            end_date: self.end_date
+            end_date: self.end_date,
         }
     }
 }
@@ -2110,7 +2109,7 @@ pub struct GetSplitsCalendarParams {
     /// Number of data points to retrieve. Supports values in the range from `1` to `500`. Default `100` when no date parameters are set, otherwise set to maximum
     pub outputsize: Option<i64>,
     /// Page number
-    pub page: Option<String>
+    pub page: Option<String>,
 }
 
 impl GetSplitsCalendarParams {
@@ -2144,7 +2143,7 @@ pub struct GetSplitsCalendarParamsBuilder {
     /// Number of data points to retrieve. Supports values in the range from `1` to `500`. Default `100` when no date parameters are set, otherwise set to maximum
     outputsize: Option<i64>,
     /// Page number
-    page: Option<String>
+    page: Option<String>,
 }
 
 impl GetSplitsCalendarParamsBuilder {
@@ -2217,7 +2216,7 @@ impl GetSplitsCalendarParamsBuilder {
             start_date: self.start_date,
             end_date: self.end_date,
             outputsize: self.outputsize,
-            page: self.page
+            page: self.page,
         }
     }
 }
@@ -2238,7 +2237,7 @@ pub struct GetStatisticsParams {
     /// Market Identifier Code (MIC) under ISO 10383 standard
     pub mic_code: Option<String>,
     /// Country where instrument is traded, e.g., `United States` or `US`
-    pub country: Option<String>
+    pub country: Option<String>,
 }
 
 impl GetStatisticsParams {
@@ -2264,7 +2263,7 @@ pub struct GetStatisticsParamsBuilder {
     /// Market Identifier Code (MIC) under ISO 10383 standard
     mic_code: Option<String>,
     /// Country where instrument is traded, e.g., `United States` or `US`
-    country: Option<String>
+    country: Option<String>,
 }
 
 impl GetStatisticsParamsBuilder {
@@ -2313,11 +2312,10 @@ impl GetStatisticsParamsBuilder {
             cusip: self.cusip,
             exchange: self.exchange,
             mic_code: self.mic_code,
-            country: self.country
+            country: self.country,
         }
     }
 }
-
 
 /// struct for typed errors of method [`get_balance_sheet`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -2452,9 +2450,11 @@ pub enum GetStatisticsError {
     UnknownValue(serde_json::Value),
 }
 
-
 /// The balance sheet endpoint provides a detailed financial statement for a company, outlining its assets, liabilities, and shareholders' equity. This endpoint returns structured data that includes current and non-current assets, total liabilities, and equity figures, enabling users to assess a company's financial health and stability.
-pub async fn get_balance_sheet(configuration: &configuration::Configuration, params: GetBalanceSheetParams) -> Result<models::GetBalanceSheet200Response, Error<GetBalanceSheetError>> {
+pub async fn get_balance_sheet(
+    configuration: &configuration::Configuration,
+    params: GetBalanceSheetParams,
+) -> Result<models::GetBalanceSheet200ResponseEnum, Error<GetBalanceSheetError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -2493,7 +2493,7 @@ pub async fn get_balance_sheet(configuration: &configuration::Configuration, par
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_period {
-        req_builder = req_builder.query(&[("period", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("period", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_start_date {
         req_builder = req_builder.query(&[("start_date", &param_value.to_string())]);
@@ -2531,18 +2531,28 @@ pub async fn get_balance_sheet(configuration: &configuration::Configuration, par
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetBalanceSheet200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetBalanceSheet200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetBalanceSheet200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetBalanceSheet200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetBalanceSheetError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The balance sheet consolidated endpoint provides a detailed overview of a company's raw balance sheet, including a comprehensive summary of its assets, liabilities, and shareholders' equity. This endpoint is useful for retrieving financial data that reflects the overall financial position of a company, allowing users to access critical information about its financial health and structure.
-pub async fn get_balance_sheet_consolidated(configuration: &configuration::Configuration, params: GetBalanceSheetConsolidatedParams) -> Result<models::GetBalanceSheetConsolidated200Response, Error<GetBalanceSheetConsolidatedError>> {
+pub async fn get_balance_sheet_consolidated(
+    configuration: &configuration::Configuration,
+    params: GetBalanceSheetConsolidatedParams,
+) -> Result<
+    models::GetBalanceSheetConsolidated200ResponseEnum,
+    Error<GetBalanceSheetConsolidatedError>,
+> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -2581,7 +2591,7 @@ pub async fn get_balance_sheet_consolidated(configuration: &configuration::Confi
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_period {
-        req_builder = req_builder.query(&[("period", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("period", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_start_date {
         req_builder = req_builder.query(&[("start_date", &param_value.to_string())]);
@@ -2619,18 +2629,25 @@ pub async fn get_balance_sheet_consolidated(configuration: &configuration::Confi
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetBalanceSheetConsolidated200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetBalanceSheetConsolidated200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetBalanceSheetConsolidated200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetBalanceSheetConsolidated200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetBalanceSheetConsolidatedError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The cash flow endpoint provides detailed information on a company's cash flow activities, including the net cash and cash equivalents moving in and out of the business. This data includes operating, investing, and financing cash flows, offering a comprehensive view of the company's liquidity and financial health.
-pub async fn get_cash_flow(configuration: &configuration::Configuration, params: GetCashFlowParams) -> Result<models::GetCashFlow200Response, Error<GetCashFlowError>> {
+pub async fn get_cash_flow(
+    configuration: &configuration::Configuration,
+    params: GetCashFlowParams,
+) -> Result<models::GetCashFlow200ResponseEnum, Error<GetCashFlowError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -2669,7 +2686,7 @@ pub async fn get_cash_flow(configuration: &configuration::Configuration, params:
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_period {
-        req_builder = req_builder.query(&[("period", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("period", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_start_date {
         req_builder = req_builder.query(&[("start_date", &param_value.to_string())]);
@@ -2707,18 +2724,25 @@ pub async fn get_cash_flow(configuration: &configuration::Configuration, params:
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetCashFlow200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCashFlow200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetCashFlow200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCashFlow200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetCashFlowError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The cash flow consolidated endpoint provides raw data on a company's consolidated cash flow, including the net cash and cash equivalents moving in and out of the business. It returns information on operating, investing, and financing activities, helping users track liquidity and financial health over a specified period.
-pub async fn get_cash_flow_consolidated(configuration: &configuration::Configuration, params: GetCashFlowConsolidatedParams) -> Result<models::GetCashFlowConsolidated200Response, Error<GetCashFlowConsolidatedError>> {
+pub async fn get_cash_flow_consolidated(
+    configuration: &configuration::Configuration,
+    params: GetCashFlowConsolidatedParams,
+) -> Result<models::GetCashFlowConsolidated200ResponseEnum, Error<GetCashFlowConsolidatedError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -2757,7 +2781,7 @@ pub async fn get_cash_flow_consolidated(configuration: &configuration::Configura
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_period {
-        req_builder = req_builder.query(&[("period", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("period", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_start_date {
         req_builder = req_builder.query(&[("start_date", &param_value.to_string())]);
@@ -2795,18 +2819,25 @@ pub async fn get_cash_flow_consolidated(configuration: &configuration::Configura
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetCashFlowConsolidated200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCashFlowConsolidated200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetCashFlowConsolidated200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetCashFlowConsolidated200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetCashFlowConsolidatedError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The dividends endpoint provides historical dividend data for a specified stock, in many cases covering over a decade. It returns information on dividend payouts, including the amount, payment date, and frequency. This endpoint is ideal for users tracking dividend histories or evaluating the income potential of stocks.
-pub async fn get_dividends(configuration: &configuration::Configuration, params: GetDividendsParams) -> Result<models::GetDividends200Response, Error<GetDividendsError>> {
+pub async fn get_dividends(
+    configuration: &configuration::Configuration,
+    params: GetDividendsParams,
+) -> Result<models::GetDividends200ResponseEnum, Error<GetDividendsError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -2845,7 +2876,7 @@ pub async fn get_dividends(configuration: &configuration::Configuration, params:
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_range {
-        req_builder = req_builder.query(&[("range", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("range", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_start_date {
         req_builder = req_builder.query(&[("start_date", &param_value.to_string())]);
@@ -2883,18 +2914,25 @@ pub async fn get_dividends(configuration: &configuration::Configuration, params:
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetDividends200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetDividends200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetDividends200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetDividends200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetDividendsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The dividends calendar endpoint provides a detailed schedule of upcoming and past dividend events for specified date ranges. By using the `start_date` and `end_date` parameters, users can retrieve a list of companies issuing dividends, including the ex-dividend date, payment date, and dividend amount. This endpoint is ideal for tracking dividend payouts and planning investment strategies based on dividend schedules.
-pub async fn get_dividends_calendar(configuration: &configuration::Configuration, params: GetDividendsCalendarParams) -> Result<Vec<models::DividendsCalendarItem>, Error<GetDividendsCalendarError>> {
+pub async fn get_dividends_calendar(
+    configuration: &configuration::Configuration,
+    params: GetDividendsCalendarParams,
+) -> Result<models::GetDividendsCalendar200ResponseEnum, Error<GetDividendsCalendarError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -2971,18 +3009,25 @@ pub async fn get_dividends_calendar(configuration: &configuration::Configuration
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `Vec&lt;models::DividendsCalendarItem&gt;`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `Vec&lt;models::DividendsCalendarItem&gt;`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetDividendsCalendar200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetDividendsCalendar200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetDividendsCalendarError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The earnings endpoint provides comprehensive earnings data for a specified company, including both the estimated and actual Earnings Per Share (EPS) figures. This endpoint delivers historical earnings information, allowing users to track a company's financial performance over time.
-pub async fn get_earnings(configuration: &configuration::Configuration, params: GetEarningsParams) -> Result<models::GetEarnings200Response, Error<GetEarningsError>> {
+pub async fn get_earnings(
+    configuration: &configuration::Configuration,
+    params: GetEarningsParams,
+) -> Result<models::GetEarnings200ResponseEnum, Error<GetEarningsError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -3025,16 +3070,16 @@ pub async fn get_earnings(configuration: &configuration::Configuration, params: 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_period {
-        req_builder = req_builder.query(&[("period", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("period", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_outputsize {
         req_builder = req_builder.query(&[("outputsize", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -3075,18 +3120,25 @@ pub async fn get_earnings(configuration: &configuration::Configuration, params: 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetEarnings200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEarnings200Response`")))),
+            ContentType::Text => return Ok(models::GetEarnings200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEarnings200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetEarningsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The earnings calendar endpoint provides a schedule of company earnings announcements for a specified date range. By default, it returns earnings data for the current day. Users can customize the date range using the `start_date` and `end_date` parameters to retrieve earnings information for specific periods. This endpoint is useful for tracking upcoming earnings reports and planning around key financial announcements.
-pub async fn get_earnings_calendar(configuration: &configuration::Configuration, params: GetEarningsCalendarParams) -> Result<models::GetEarningsCalendar200Response, Error<GetEarningsCalendarError>> {
+pub async fn get_earnings_calendar(
+    configuration: &configuration::Configuration,
+    params: GetEarningsCalendarParams,
+) -> Result<models::GetEarningsCalendar200ResponseEnum, Error<GetEarningsCalendarError>> {
     // Extract parameters from params struct
     let p_query_exchange = params.exchange;
     let p_query_mic_code = params.mic_code;
@@ -3110,7 +3162,7 @@ pub async fn get_earnings_calendar(configuration: &configuration::Configuration,
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -3151,18 +3203,25 @@ pub async fn get_earnings_calendar(configuration: &configuration::Configuration,
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetEarningsCalendar200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEarningsCalendar200Response`")))),
+            ContentType::Text => return Ok(models::GetEarningsCalendar200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEarningsCalendar200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetEarningsCalendarError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The income statement endpoint provides detailed financial data on a company's income statement, including revenues, expenses, and net income for specified periods, either annually or quarterly. This endpoint is essential for retrieving comprehensive financial performance metrics of a company, allowing users to access historical and current financial results.
-pub async fn get_income_statement(configuration: &configuration::Configuration, params: GetIncomeStatementParams) -> Result<models::GetIncomeStatement200Response, Error<GetIncomeStatementError>> {
+pub async fn get_income_statement(
+    configuration: &configuration::Configuration,
+    params: GetIncomeStatementParams,
+) -> Result<models::GetIncomeStatement200ResponseEnum, Error<GetIncomeStatementError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -3201,7 +3260,7 @@ pub async fn get_income_statement(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_period {
-        req_builder = req_builder.query(&[("period", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("period", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_start_date {
         req_builder = req_builder.query(&[("start_date", &param_value.to_string())]);
@@ -3239,18 +3298,28 @@ pub async fn get_income_statement(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetIncomeStatement200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetIncomeStatement200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetIncomeStatement200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetIncomeStatement200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetIncomeStatementError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The income statement consolidated endpoint provides a company's raw income statement, detailing revenue, expenses, and net income for specified periods, either annually or quarterly. This data is essential for evaluating a company's financial performance over time, allowing users to access comprehensive financial results in a structured format.
-pub async fn get_income_statement_consolidated(configuration: &configuration::Configuration, params: GetIncomeStatementConsolidatedParams) -> Result<models::GetIncomeStatementConsolidated200Response, Error<GetIncomeStatementConsolidatedError>> {
+pub async fn get_income_statement_consolidated(
+    configuration: &configuration::Configuration,
+    params: GetIncomeStatementConsolidatedParams,
+) -> Result<
+    models::GetIncomeStatementConsolidated200ResponseEnum,
+    Error<GetIncomeStatementConsolidatedError>,
+> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -3289,7 +3358,7 @@ pub async fn get_income_statement_consolidated(configuration: &configuration::Co
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_period {
-        req_builder = req_builder.query(&[("period", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("period", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_start_date {
         req_builder = req_builder.query(&[("start_date", &param_value.to_string())]);
@@ -3327,18 +3396,26 @@ pub async fn get_income_statement_consolidated(configuration: &configuration::Co
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetIncomeStatementConsolidated200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetIncomeStatementConsolidated200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetIncomeStatementConsolidated200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetIncomeStatementConsolidated200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<GetIncomeStatementConsolidatedError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        let entity: Option<GetIncomeStatementConsolidatedError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The IPO Calendar endpoint provides detailed information on initial public offerings (IPOs), including those that have occurred in the past, are happening today, or are scheduled for the future. Users can access data such as company names, IPO dates, and offering details, allowing them to track and monitor IPO activity efficiently.
-pub async fn get_ipo_calendar(configuration: &configuration::Configuration, params: GetIpoCalendarParams) -> Result<std::collections::HashMap<String, Vec<models::GetIpoCalendar200ResponseValueInner>>, Error<GetIpoCalendarError>> {
+pub async fn get_ipo_calendar(
+    configuration: &configuration::Configuration,
+    params: GetIpoCalendarParams,
+) -> Result<models::GetIpoCalendar200ResponseEnum, Error<GetIpoCalendarError>> {
     // Extract parameters from params struct
     let p_query_exchange = params.exchange;
     let p_query_mic_code = params.mic_code;
@@ -3391,18 +3468,25 @@ pub async fn get_ipo_calendar(configuration: &configuration::Configuration, para
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `std::collections::HashMap&lt;String, Vec&lt;models::GetIpoCalendar200ResponseValueInner&gt;&gt;`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `std::collections::HashMap&lt;String, Vec&lt;models::GetIpoCalendar200ResponseValueInner&gt;&gt;`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetIpoCalendar200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetIpoCalendar200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetIpoCalendarError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The key executives endpoint provides detailed information about a company's key executives identified by a specific stock symbol. It returns data such as names, titles, and roles of the executives, which can be useful for understanding the leadership structure of the company.
-pub async fn get_key_executives(configuration: &configuration::Configuration, params: GetKeyExecutivesParams) -> Result<models::GetKeyExecutives200Response, Error<GetKeyExecutivesError>> {
+pub async fn get_key_executives(
+    configuration: &configuration::Configuration,
+    params: GetKeyExecutivesParams,
+) -> Result<models::GetKeyExecutives200ResponseEnum, Error<GetKeyExecutivesError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -3463,18 +3547,25 @@ pub async fn get_key_executives(configuration: &configuration::Configuration, pa
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetKeyExecutives200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetKeyExecutives200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetKeyExecutives200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetKeyExecutives200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetKeyExecutivesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The last change endpoint provides the most recent updates to fundamental data for a specified dataset. It returns a timestamp indicating when the data was last modified, allowing users to efficiently manage API requests by only fetching new data when changes occur. This helps optimize data retrieval and reduce unnecessary API credit usage.
-pub async fn get_last_changes(configuration: &configuration::Configuration, params: GetLastChangesParams) -> Result<models::GetLastChanges200Response, Error<GetLastChangesError>> {
+pub async fn get_last_changes(
+    configuration: &configuration::Configuration,
+    params: GetLastChangesParams,
+) -> Result<models::GetLastChanges200ResponseEnum, Error<GetLastChangesError>> {
     // Extract parameters from params struct
     let p_path_endpoint = params.endpoint;
     let p_query_start_date = params.start_date;
@@ -3485,7 +3576,11 @@ pub async fn get_last_changes(configuration: &configuration::Configuration, para
     let p_query_page = params.page;
     let p_query_outputsize = params.outputsize;
 
-    let uri_str = format!("{}/last_change/{endpoint}", configuration.base_path, endpoint=crate::apis::urlencode(p_path_endpoint));
+    let uri_str = format!(
+        "{}/last_change/{endpoint}",
+        configuration.base_path,
+        endpoint = crate::apis::urlencode(p_path_endpoint)
+    );
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref param_value) = p_query_start_date {
@@ -3536,18 +3631,25 @@ pub async fn get_last_changes(configuration: &configuration::Configuration, para
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetLastChanges200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetLastChanges200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetLastChanges200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetLastChanges200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetLastChangesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The logo endpoint provides the official logo image for a specified company, cryptocurrency, or forex pair. This endpoint is useful for integrating visual branding elements into financial applications, websites, or reports, ensuring that users can easily identify and associate the correct logo with the respective financial asset.
-pub async fn get_logo(configuration: &configuration::Configuration, params: GetLogoParams) -> Result<models::GetLogo200Response, Error<GetLogoError>> {
+pub async fn get_logo(
+    configuration: &configuration::Configuration,
+    params: GetLogoParams,
+) -> Result<models::GetLogo200ResponseEnum, Error<GetLogoError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_exchange = params.exchange;
@@ -3594,18 +3696,25 @@ pub async fn get_logo(configuration: &configuration::Configuration, params: GetL
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetLogo200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetLogo200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetLogo200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetLogo200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetLogoError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Market Capitalization History endpoint provides historical data on a company's market capitalization over a specified time period. It returns a time series of market cap values, allowing users to track changes in a company's market value.
-pub async fn get_market_cap(configuration: &configuration::Configuration, params: GetMarketCapParams) -> Result<models::GetMarketCap200Response, Error<GetMarketCapError>> {
+pub async fn get_market_cap(
+    configuration: &configuration::Configuration,
+    params: GetMarketCapParams,
+) -> Result<models::GetMarketCap200ResponseEnum, Error<GetMarketCapError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -3682,18 +3791,25 @@ pub async fn get_market_cap(configuration: &configuration::Configuration, params
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetMarketCap200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMarketCap200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetMarketCap200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetMarketCap200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetMarketCapError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The profile endpoint provides detailed company information, including the company's name, industry, sector, CEO, headquarters location, and market capitalization. This data is useful for obtaining a comprehensive overview of a company's business and financial standing.
-pub async fn get_profile(configuration: &configuration::Configuration, params: GetProfileParams) -> Result<models::GetProfile200Response, Error<GetProfileError>> {
+pub async fn get_profile(
+    configuration: &configuration::Configuration,
+    params: GetProfileParams,
+) -> Result<models::GetProfile200ResponseEnum, Error<GetProfileError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -3754,18 +3870,25 @@ pub async fn get_profile(configuration: &configuration::Configuration, params: G
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetProfile200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetProfile200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetProfile200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetProfile200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetProfileError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The splits endpoint provides historical data on stock split events for a specified company. It returns details including the date of each split and the corresponding split factor.
-pub async fn get_splits(configuration: &configuration::Configuration, params: GetSplitsParams) -> Result<models::GetSplits200Response, Error<GetSplitsError>> {
+pub async fn get_splits(
+    configuration: &configuration::Configuration,
+    params: GetSplitsParams,
+) -> Result<models::GetSplits200ResponseEnum, Error<GetSplitsError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -3803,7 +3926,7 @@ pub async fn get_splits(configuration: &configuration::Configuration, params: Ge
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_range {
-        req_builder = req_builder.query(&[("range", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("range", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_start_date {
         req_builder = req_builder.query(&[("start_date", &param_value.to_string())]);
@@ -3838,18 +3961,25 @@ pub async fn get_splits(configuration: &configuration::Configuration, params: Ge
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetSplits200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetSplits200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetSplits200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetSplits200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetSplitsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The splits calendar endpoint provides a detailed calendar of stock split events within a specified date range. By setting the `start_date` and `end_date` parameters, users can retrieve a list of upcoming or past stock splits, including the company name, split ratio, and effective date. This endpoint is useful for tracking changes in stock structure and planning investment strategies around these events.
-pub async fn get_splits_calendar(configuration: &configuration::Configuration, params: GetSplitsCalendarParams) -> Result<Vec<models::SplitsCalendarResponseItem>, Error<GetSplitsCalendarError>> {
+pub async fn get_splits_calendar(
+    configuration: &configuration::Configuration,
+    params: GetSplitsCalendarParams,
+) -> Result<models::GetSplitsCalendar200ResponseEnum, Error<GetSplitsCalendarError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -3926,18 +4056,25 @@ pub async fn get_splits_calendar(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `Vec&lt;models::SplitsCalendarResponseItem&gt;`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `Vec&lt;models::SplitsCalendarResponseItem&gt;`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetSplitsCalendar200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetSplitsCalendar200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetSplitsCalendarError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The statistics endpoint provides a comprehensive snapshot of a company's key financial statistics, including valuation metrics, revenue figures, profit margins, and other essential financial data. This endpoint is ideal for users seeking detailed insights into a company's financial health and performance metrics.
-pub async fn get_statistics(configuration: &configuration::Configuration, params: GetStatisticsParams) -> Result<models::GetStatistics200Response, Error<GetStatisticsError>> {
+pub async fn get_statistics(
+    configuration: &configuration::Configuration,
+    params: GetStatisticsParams,
+) -> Result<models::GetStatistics200ResponseEnum, Error<GetStatisticsError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -3998,13 +4135,16 @@ pub async fn get_statistics(configuration: &configuration::Configuration, params
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetStatistics200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetStatistics200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetStatistics200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetStatistics200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetStatisticsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
-

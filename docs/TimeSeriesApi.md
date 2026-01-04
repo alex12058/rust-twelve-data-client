@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## get_time_series
 
-> models::GetTimeSeries200Response get_time_series(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust)
+> models::GetTimeSeries200ResponseEnum get_time_series(interval, symbol, isin, figi, cusip, outputsize, exchange, mic_code, country, r#type, timezone, start_date, end_date, date, order, prepost, format, delimiter, dp, previous_close, adjust)
 Time series
 
 The time series endpoint provides detailed historical data for a specified financial instrument. It returns two main components: metadata, which includes essential information about the instrument, and a time series dataset. The time series consists of chronological entries with Open, High, Low, and Close prices, and for applicable instruments, it also includes trading volume. This endpoint is ideal for retrieving comprehensive historical price data for analysis or visualization purposes.
@@ -45,7 +45,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeries200Response**](GetTimeSeries_200_response.md)
+[**models::GetTimeSeries200ResponseEnum**](GetTimeSeries_200_responseEnum.md)
 
 ### Authorization
 
@@ -54,14 +54,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_time_series_cross
 
-> models::GetTimeSeriesCross200Response get_time_series_cross(base, quote, interval, base_type, base_exchange, base_mic_code, quote_type, quote_exchange, quote_mic_code, outputsize, format, delimiter, prepost, start_date, end_date, adjust, dp, timezone)
+> models::GetTimeSeriesCross200ResponseEnum get_time_series_cross(base, quote, interval, base_type, base_exchange, base_mic_code, quote_type, quote_exchange, quote_mic_code, outputsize, format, delimiter, prepost, start_date, end_date, adjust, dp, timezone)
 Time series cross
 
 The Time Series Cross endpoint calculates and returns historical cross-rate data for exotic forex pairs, cryptocurrencies, or stocks (e.g., Apple Inc. price in Indian Rupees) on the fly. It provides metadata about the requested symbol and a time series array with Open, High, Low, and Close prices, sorted descending by time, enabling analysis of price history and market trends.
@@ -92,7 +92,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetTimeSeriesCross200Response**](GetTimeSeriesCross_200_response.md)
+[**models::GetTimeSeriesCross200ResponseEnum**](GetTimeSeriesCross_200_responseEnum.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

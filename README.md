@@ -18,8 +18,8 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-twelve-data-client = "0.2"
-tokio = { version = "1", features = ["full"] }
+twelve-data-client = "0.3"
+tokio = { version = "1.49.0", features = ["full"] }
 ```
 
 ## Quick Start
@@ -27,6 +27,7 @@ tokio = { version = "1", features = ["full"] }
 ```rust
 use twelve_data_client::apis::{configuration, time_series_api};
 use twelve_data_client::apis::time_series_api::GetTimeSeriesParams;
+use twelve_data_client::models::GetTimeSeries200ResponseEnum;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -44,11 +45,21 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .outputsize(10)
         .build();
 
-    // Make API call
+    // Make API call and handle response
     let response = time_series_api::get_time_series(&config, params).await?;
     
-    println!("Symbol: {:?}", response.meta.unwrap().symbol);
-    println!("Data points: {}", response.values.unwrap().len());
+    match response {
+        GetTimeSeries200ResponseEnum::GetTimeSeries200Response(data) => {
+            println!("Symbol: {:?}", data.meta.as_ref().unwrap().symbol);
+            println!("Data points: {}", data.values.as_ref().unwrap().len());
+        }
+        GetTimeSeries200ResponseEnum::ApiError(err) => {
+            eprintln!("API Error: {}", err.message.unwrap_or_default());
+        }
+        GetTimeSeries200ResponseEnum::Text(csv) => {
+            println!("CSV Response:\n{}", csv);
+        }
+    }
     
     Ok(())
 }
@@ -88,6 +99,8 @@ get_time_series(
 
 You get this (clean builder pattern):
 ```rust
+use twelve_data_client::models::GetTimeSeries200ResponseEnum;
+
 // New style - ergonomic and clear
 let params = GetTimeSeriesParams::builder()
     .symbol("AAPL")
@@ -95,8 +108,34 @@ let params = GetTimeSeriesParams::builder()
     .outputsize(10)
     .build();
 
-get_time_series(&config, params).await?
+let response = get_time_series(&config, params).await?;
+
+// Handle the response enum
+match response {
+    GetTimeSeries200ResponseEnum::GetTimeSeries200Response(data) => {
+        // Process successful JSON response
+        println!("Got {} data points", data.values.unwrap().len());
+    }
+    GetTimeSeries200ResponseEnum::ApiError(err) => {
+        // Handle API errors
+        eprintln!("Error: {}", err.message.unwrap_or_default());
+    }
+    GetTimeSeries200ResponseEnum::Text(csv) => {
+        // Handle CSV format response
+        println!("CSV data:\n{}", csv);
+    }
+}
 ```
+
+### Response Types
+
+Most endpoints return an enum type with multiple variants to handle different response scenarios:
+
+- **Success variant**: Contains the actual data (e.g., `GetTimeSeries200Response`)
+- **`ApiError` variant**: Contains error information when the API returns an error
+- **`Text` variant**: Contains raw text (CSV) response when using `format` parameter
+
+This approach provides type-safe error handling and format flexibility.
 
 ## Available APIs
 
@@ -204,14 +243,14 @@ To regenerate the client after OpenAPI spec updates:
 
 ## Examples
 
-See the `examples/` directory for complete working examples:
+See the `tests/` directory for complete working examples:
 
-- [`time_series_builder.rs`](examples/time_series_builder.rs) - Fetching historical time series data with builder pattern
+- [`time_series_builder.rs`](tests/time_series_builder.rs) - Fetching historical time series data with builder pattern, including JSON, error, and CSV response handling
 
-Run an example:
+Run the tests:
 ```bash
 export TWELVE_DATA_API_KEY="your_api_key"
-cargo run --example time_series_builder
+cargo test --test time_series_builder
 ```
 
 ## Documentation

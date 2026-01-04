@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 ## get_analyst_ratings_light
 
-> models::GetAnalystRatingsLight200Response get_analyst_ratings_light(symbol, figi, isin, cusip, exchange, rating_change, outputsize, country)
+> models::GetAnalystRatingsLight200ResponseEnum get_analyst_ratings_light(symbol, figi, isin, cusip, exchange, rating_change, outputsize, country)
 Analyst ratings snapshot
 
 The analyst ratings snapshot endpoint provides a streamlined summary of ratings from analyst firms for both US and international markets. It delivers essential data on analyst recommendations, including buy, hold, and sell ratings, allowing users to quickly assess the general sentiment of analysts towards a particular stock.
@@ -40,7 +40,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetAnalystRatingsLight200Response**](GetAnalystRatingsLight_200_response.md)
+[**models::GetAnalystRatingsLight200ResponseEnum**](GetAnalystRatingsLight_200_responseEnum.md)
 
 ### Authorization
 
@@ -56,7 +56,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_analyst_ratings_us_equities
 
-> models::GetAnalystRatingsUsEquities200Response get_analyst_ratings_us_equities(symbol, figi, isin, cusip, exchange, rating_change, outputsize)
+> models::GetAnalystRatingsUsEquities200ResponseEnum get_analyst_ratings_us_equities(symbol, figi, isin, cusip, exchange, rating_change, outputsize)
 Analyst ratings US equities
 
 The analyst ratings US equities endpoint provides detailed information on analyst ratings for U.S. stocks. It returns data on the latest ratings issued by various analyst firms, including the rating itself, the firm issuing the rating, and any changes in the rating. This endpoint is useful for users tracking analyst opinions on U.S. equities, allowing them to see how professional analysts view the potential performance of specific stocks.
@@ -76,7 +76,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetAnalystRatingsUsEquities200Response**](GetAnalystRatingsUsEquities_200_response.md)
+[**models::GetAnalystRatingsUsEquities200ResponseEnum**](GetAnalystRatingsUsEquities_200_responseEnum.md)
 
 ### Authorization
 
@@ -92,7 +92,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_earnings_estimate
 
-> models::GetEarningsEstimate200Response get_earnings_estimate(symbol, figi, isin, cusip, country, exchange)
+> models::GetEarningsEstimate200ResponseEnum get_earnings_estimate(symbol, figi, isin, cusip, country, exchange)
 Earnings estimate
 
 The earnings estimate endpoint provides access to analysts' projected earnings per share (EPS) for a specific company, covering both upcoming quarterly and annual periods. This data is crucial for users who need to track and compare expected financial performance across different timeframes, aiding in the evaluation of a company's future profitability.
@@ -111,7 +111,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetEarningsEstimate200Response**](GetEarningsEstimate_200_response.md)
+[**models::GetEarningsEstimate200ResponseEnum**](GetEarningsEstimate_200_responseEnum.md)
 
 ### Authorization
 
@@ -127,7 +127,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_edgar_filings_archive
 
-> models::GetEdgarFilingsArchive200Response get_edgar_filings_archive(symbol, figi, isin, cusip, exchange, mic_code, country, form_type, filled_from, filled_to, page, page_size)
+> models::GetEdgarFilingsArchive200ResponseEnum get_edgar_filings_archive(symbol, figi, isin, cusip, exchange, mic_code, country, form_type, filled_from, filled_to, page, page_size)
 EDGAR fillings
 
 The EDGAR fillings endpoint provides access to a comprehensive collection of financial documents submitted to the SEC, including real-time and historical forms, filings, and exhibits. Users can retrieve detailed information about company disclosures, financial statements, and regulatory submissions, enabling them to access essential compliance and financial data directly from the SEC's EDGAR system.
@@ -152,7 +152,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetEdgarFilingsArchive200Response**](GetEdgarFilingsArchive_200_response.md)
+[**models::GetEdgarFilingsArchive200ResponseEnum**](GetEdgarFilingsArchive_200_responseEnum.md)
 
 ### Authorization
 
@@ -168,7 +168,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_eps_revisions
 
-> models::GetEpsRevisions200Response get_eps_revisions(symbol, figi, isin, cusip, country, exchange)
+> models::GetEpsRevisions200ResponseEnum get_eps_revisions(symbol, figi, isin, cusip, country, exchange)
 EPS revisions
 
 The EPS revisions endpoint provides updated analyst forecasts for a company's earnings per share (EPS) on both a quarterly and annual basis. It delivers data on how these EPS predictions have changed over the past week and month, allowing users to track recent adjustments in analyst expectations. This endpoint is useful for monitoring shifts in market sentiment regarding a company's financial performance.
@@ -187,7 +187,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetEpsRevisions200Response**](GetEpsRevisions_200_response.md)
+[**models::GetEpsRevisions200ResponseEnum**](GetEpsRevisions_200_responseEnum.md)
 
 ### Authorization
 
@@ -203,7 +203,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_eps_trend
 
-> models::GetEpsTrend200Response get_eps_trend(symbol, figi, isin, cusip, country, exchange)
+> models::GetEpsTrend200ResponseEnum get_eps_trend(symbol, figi, isin, cusip, country, exchange)
 EPS trend
 
 The EPS trend endpoint provides detailed historical data on Earnings Per Share (EPS) trends over specified periods. It returns a comprehensive breakdown of estimated EPS changes, allowing users to track and analyze the progression of a company's earnings performance over time. This endpoint is ideal for users seeking to understand historical EPS fluctuations and assess financial growth patterns.
@@ -222,7 +222,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetEpsTrend200Response**](GetEpsTrend_200_response.md)
+[**models::GetEpsTrend200ResponseEnum**](GetEpsTrend_200_responseEnum.md)
 
 ### Authorization
 
@@ -238,7 +238,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_growth_estimates
 
-> models::GetGrowthEstimates200Response get_growth_estimates(symbol, figi, isin, cusip, country, exchange)
+> models::GetGrowthEstimates200ResponseEnum get_growth_estimates(symbol, figi, isin, cusip, country, exchange)
 Growth estimates
 
 The growth estimates endpoint provides consensus analyst projections on a company's growth rates over various timeframes. It aggregates and averages estimates from multiple analysts, focusing on key financial metrics such as earnings per share and revenue. This endpoint is useful for obtaining a comprehensive view of expected company performance based on expert analysis.
@@ -257,7 +257,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetGrowthEstimates200Response**](GetGrowthEstimates_200_response.md)
+[**models::GetGrowthEstimates200ResponseEnum**](GetGrowthEstimates_200_responseEnum.md)
 
 ### Authorization
 
@@ -273,7 +273,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_price_target
 
-> models::GetPriceTarget200Response get_price_target(symbol, figi, isin, cusip, country, exchange)
+> models::GetPriceTarget200ResponseEnum get_price_target(symbol, figi, isin, cusip, country, exchange)
 Price target
 
 The price target endpoint provides detailed projections of a security's future price as estimated by financial analysts. It returns data including the high, low, and average price targets. This endpoint is useful for users seeking to understand potential future valuations of specific securities based on expert analysis.
@@ -292,7 +292,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetPriceTarget200Response**](GetPriceTarget_200_response.md)
+[**models::GetPriceTarget200ResponseEnum**](GetPriceTarget_200_responseEnum.md)
 
 ### Authorization
 
@@ -308,7 +308,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_recommendations
 
-> models::GetRecommendations200Response get_recommendations(symbol, figi, isin, cusip, country, exchange)
+> models::GetRecommendations200ResponseEnum get_recommendations(symbol, figi, isin, cusip, country, exchange)
 Recommendations
 
 The recommendations endpoint provides a summary of analyst opinions for a specific stock, delivering an average recommendation categorized as Strong Buy, Buy, Hold, or Sell. It also includes a numerical recommendation score, offering a quick overview of market sentiment based on expert analysis.
@@ -327,7 +327,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetRecommendations200Response**](GetRecommendations_200_response.md)
+[**models::GetRecommendations200ResponseEnum**](GetRecommendations_200_responseEnum.md)
 
 ### Authorization
 
@@ -343,7 +343,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_revenue_estimate
 
-> models::GetRevenueEstimate200Response get_revenue_estimate(symbol, figi, isin, cusip, country, exchange, dp)
+> models::GetRevenueEstimate200ResponseEnum get_revenue_estimate(symbol, figi, isin, cusip, country, exchange, dp)
 Revenue estimate
 
 The revenue estimate endpoint provides a company's projected quarterly and annual revenue figures based on analysts' estimates. This data is useful for users seeking insights into expected company performance, allowing them to compare forecasted sales with historical data or other companies' estimates.
@@ -363,7 +363,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetRevenueEstimate200Response**](GetRevenueEstimate_200_response.md)
+[**models::GetRevenueEstimate200ResponseEnum**](GetRevenueEstimate_200_responseEnum.md)
 
 ### Authorization
 

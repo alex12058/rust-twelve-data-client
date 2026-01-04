@@ -28,7 +28,7 @@ Method | HTTP request | Description
 
 ## get_balance_sheet
 
-> models::GetBalanceSheet200Response get_balance_sheet(symbol, figi, isin, cusip, exchange, mic_code, country, period, start_date, end_date, outputsize)
+> models::GetBalanceSheet200ResponseEnum get_balance_sheet(symbol, figi, isin, cusip, exchange, mic_code, country, period, start_date, end_date, outputsize)
 Balance sheet
 
 The balance sheet endpoint provides a detailed financial statement for a company, outlining its assets, liabilities, and shareholders' equity. This endpoint returns structured data that includes current and non-current assets, total liabilities, and equity figures, enabling users to assess a company's financial health and stability.
@@ -52,7 +52,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetBalanceSheet200Response**](GetBalanceSheet_200_response.md)
+[**models::GetBalanceSheet200ResponseEnum**](GetBalanceSheet_200_responseEnum.md)
 
 ### Authorization
 
@@ -68,7 +68,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_balance_sheet_consolidated
 
-> models::GetBalanceSheetConsolidated200Response get_balance_sheet_consolidated(symbol, figi, isin, cusip, exchange, mic_code, country, period, start_date, end_date, outputsize)
+> models::GetBalanceSheetConsolidated200ResponseEnum get_balance_sheet_consolidated(symbol, figi, isin, cusip, exchange, mic_code, country, period, start_date, end_date, outputsize)
 Balance sheet consolidated
 
 The balance sheet consolidated endpoint provides a detailed overview of a company's raw balance sheet, including a comprehensive summary of its assets, liabilities, and shareholders' equity. This endpoint is useful for retrieving financial data that reflects the overall financial position of a company, allowing users to access critical information about its financial health and structure.
@@ -92,7 +92,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetBalanceSheetConsolidated200Response**](GetBalanceSheetConsolidated_200_response.md)
+[**models::GetBalanceSheetConsolidated200ResponseEnum**](GetBalanceSheetConsolidated_200_responseEnum.md)
 
 ### Authorization
 
@@ -108,7 +108,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_cash_flow
 
-> models::GetCashFlow200Response get_cash_flow(symbol, figi, isin, cusip, exchange, mic_code, country, period, start_date, end_date, outputsize)
+> models::GetCashFlow200ResponseEnum get_cash_flow(symbol, figi, isin, cusip, exchange, mic_code, country, period, start_date, end_date, outputsize)
 Cash flow
 
 The cash flow endpoint provides detailed information on a company's cash flow activities, including the net cash and cash equivalents moving in and out of the business. This data includes operating, investing, and financing cash flows, offering a comprehensive view of the company's liquidity and financial health.
@@ -132,7 +132,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetCashFlow200Response**](GetCashFlow_200_response.md)
+[**models::GetCashFlow200ResponseEnum**](GetCashFlow_200_responseEnum.md)
 
 ### Authorization
 
@@ -148,7 +148,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_cash_flow_consolidated
 
-> models::GetCashFlowConsolidated200Response get_cash_flow_consolidated(symbol, figi, isin, cusip, exchange, mic_code, country, period, start_date, end_date, outputsize)
+> models::GetCashFlowConsolidated200ResponseEnum get_cash_flow_consolidated(symbol, figi, isin, cusip, exchange, mic_code, country, period, start_date, end_date, outputsize)
 Cash flow consolidated
 
 The cash flow consolidated endpoint provides raw data on a company's consolidated cash flow, including the net cash and cash equivalents moving in and out of the business. It returns information on operating, investing, and financing activities, helping users track liquidity and financial health over a specified period.
@@ -172,7 +172,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetCashFlowConsolidated200Response**](GetCashFlowConsolidated_200_response.md)
+[**models::GetCashFlowConsolidated200ResponseEnum**](GetCashFlowConsolidated_200_responseEnum.md)
 
 ### Authorization
 
@@ -188,7 +188,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_dividends
 
-> models::GetDividends200Response get_dividends(symbol, figi, isin, cusip, exchange, mic_code, country, range, start_date, end_date, adjust)
+> models::GetDividends200ResponseEnum get_dividends(symbol, figi, isin, cusip, exchange, mic_code, country, range, start_date, end_date, adjust)
 Dividends
 
 The dividends endpoint provides historical dividend data for a specified stock, in many cases covering over a decade. It returns information on dividend payouts, including the amount, payment date, and frequency. This endpoint is ideal for users tracking dividend histories or evaluating the income potential of stocks.
@@ -212,7 +212,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetDividends200Response**](GetDividends_200_response.md)
+[**models::GetDividends200ResponseEnum**](GetDividends_200_responseEnum.md)
 
 ### Authorization
 
@@ -228,7 +228,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_dividends_calendar
 
-> Vec<models::DividendsCalendarItem> get_dividends_calendar(symbol, figi, isin, cusip, exchange, mic_code, country, start_date, end_date, outputsize, page)
+> models::GetDividendsCalendar200ResponseEnum get_dividends_calendar(symbol, figi, isin, cusip, exchange, mic_code, country, start_date, end_date, outputsize, page)
 Dividends calendar
 
 The dividends calendar endpoint provides a detailed schedule of upcoming and past dividend events for specified date ranges. By using the `start_date` and `end_date` parameters, users can retrieve a list of companies issuing dividends, including the ex-dividend date, payment date, and dividend amount. This endpoint is ideal for tracking dividend payouts and planning investment strategies based on dividend schedules.
@@ -252,7 +252,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**Vec<models::DividendsCalendarItem>**](DividendsCalendarItem.md)
+[**models::GetDividendsCalendar200ResponseEnum**](GetDividendsCalendar_200_responseEnum.md)
 
 ### Authorization
 
@@ -268,7 +268,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_earnings
 
-> models::GetEarnings200Response get_earnings(symbol, figi, isin, cusip, exchange, mic_code, country, r#type, period, outputsize, format, delimiter, start_date, end_date, dp)
+> models::GetEarnings200ResponseEnum get_earnings(symbol, figi, isin, cusip, exchange, mic_code, country, r#type, period, outputsize, format, delimiter, start_date, end_date, dp)
 Earnings
 
 The earnings endpoint provides comprehensive earnings data for a specified company, including both the estimated and actual Earnings Per Share (EPS) figures. This endpoint delivers historical earnings information, allowing users to track a company's financial performance over time.
@@ -296,7 +296,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetEarnings200Response**](GetEarnings_200_response.md)
+[**models::GetEarnings200ResponseEnum**](GetEarnings_200_responseEnum.md)
 
 ### Authorization
 
@@ -305,14 +305,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_earnings_calendar
 
-> models::GetEarningsCalendar200Response get_earnings_calendar(exchange, mic_code, country, format, delimiter, start_date, end_date, dp)
+> models::GetEarningsCalendar200ResponseEnum get_earnings_calendar(exchange, mic_code, country, format, delimiter, start_date, end_date, dp)
 Earnings calendar
 
 The earnings calendar endpoint provides a schedule of company earnings announcements for a specified date range. By default, it returns earnings data for the current day. Users can customize the date range using the `start_date` and `end_date` parameters to retrieve earnings information for specific periods. This endpoint is useful for tracking upcoming earnings reports and planning around key financial announcements.
@@ -333,7 +333,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetEarningsCalendar200Response**](GetEarningsCalendar_200_response.md)
+[**models::GetEarningsCalendar200ResponseEnum**](GetEarningsCalendar_200_responseEnum.md)
 
 ### Authorization
 
@@ -342,14 +342,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_income_statement
 
-> models::GetIncomeStatement200Response get_income_statement(symbol, figi, isin, cusip, exchange, mic_code, country, period, start_date, end_date, outputsize)
+> models::GetIncomeStatement200ResponseEnum get_income_statement(symbol, figi, isin, cusip, exchange, mic_code, country, period, start_date, end_date, outputsize)
 Income statement
 
 The income statement endpoint provides detailed financial data on a company's income statement, including revenues, expenses, and net income for specified periods, either annually or quarterly. This endpoint is essential for retrieving comprehensive financial performance metrics of a company, allowing users to access historical and current financial results.
@@ -373,7 +373,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetIncomeStatement200Response**](GetIncomeStatement_200_response.md)
+[**models::GetIncomeStatement200ResponseEnum**](GetIncomeStatement_200_responseEnum.md)
 
 ### Authorization
 
@@ -389,7 +389,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_income_statement_consolidated
 
-> models::GetIncomeStatementConsolidated200Response get_income_statement_consolidated(symbol, figi, isin, cusip, exchange, mic_code, country, period, start_date, end_date, outputsize)
+> models::GetIncomeStatementConsolidated200ResponseEnum get_income_statement_consolidated(symbol, figi, isin, cusip, exchange, mic_code, country, period, start_date, end_date, outputsize)
 Income statement consolidated
 
 The income statement consolidated endpoint provides a company's raw income statement, detailing revenue, expenses, and net income for specified periods, either annually or quarterly. This data is essential for evaluating a company's financial performance over time, allowing users to access comprehensive financial results in a structured format.
@@ -413,7 +413,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetIncomeStatementConsolidated200Response**](GetIncomeStatementConsolidated_200_response.md)
+[**models::GetIncomeStatementConsolidated200ResponseEnum**](GetIncomeStatementConsolidated_200_responseEnum.md)
 
 ### Authorization
 
@@ -429,7 +429,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_ipo_calendar
 
-> std::collections::HashMap<String, Vec<models::GetIpoCalendar200ResponseValueInner>> get_ipo_calendar(exchange, mic_code, country, start_date, end_date)
+> models::GetIpoCalendar200ResponseEnum get_ipo_calendar(exchange, mic_code, country, start_date, end_date)
 IPO calendar
 
 The IPO Calendar endpoint provides detailed information on initial public offerings (IPOs), including those that have occurred in the past, are happening today, or are scheduled for the future. Users can access data such as company names, IPO dates, and offering details, allowing them to track and monitor IPO activity efficiently.
@@ -447,7 +447,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**std::collections::HashMap<String, Vec<models::GetIpoCalendar200ResponseValueInner>>**](Vec.md)
+[**models::GetIpoCalendar200ResponseEnum**](GetIpoCalendar_200_responseEnum.md)
 
 ### Authorization
 
@@ -463,7 +463,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_key_executives
 
-> models::GetKeyExecutives200Response get_key_executives(symbol, figi, isin, cusip, exchange, mic_code, country)
+> models::GetKeyExecutives200ResponseEnum get_key_executives(symbol, figi, isin, cusip, exchange, mic_code, country)
 Key executives
 
 The key executives endpoint provides detailed information about a company's key executives identified by a specific stock symbol. It returns data such as names, titles, and roles of the executives, which can be useful for understanding the leadership structure of the company.
@@ -483,7 +483,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetKeyExecutives200Response**](GetKeyExecutives_200_response.md)
+[**models::GetKeyExecutives200ResponseEnum**](GetKeyExecutives_200_responseEnum.md)
 
 ### Authorization
 
@@ -499,7 +499,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_last_changes
 
-> models::GetLastChanges200Response get_last_changes(endpoint, start_date, symbol, exchange, mic_code, country, page, outputsize)
+> models::GetLastChanges200ResponseEnum get_last_changes(endpoint, start_date, symbol, exchange, mic_code, country, page, outputsize)
 Last changes
 
 The last change endpoint provides the most recent updates to fundamental data for a specified dataset. It returns a timestamp indicating when the data was last modified, allowing users to efficiently manage API requests by only fetching new data when changes occur. This helps optimize data retrieval and reduce unnecessary API credit usage.
@@ -520,7 +520,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetLastChanges200Response**](GetLastChanges_200_response.md)
+[**models::GetLastChanges200ResponseEnum**](GetLastChanges_200_responseEnum.md)
 
 ### Authorization
 
@@ -536,7 +536,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_logo
 
-> models::GetLogo200Response get_logo(symbol, exchange, mic_code, country)
+> models::GetLogo200ResponseEnum get_logo(symbol, exchange, mic_code, country)
 Logo
 
 The logo endpoint provides the official logo image for a specified company, cryptocurrency, or forex pair. This endpoint is useful for integrating visual branding elements into financial applications, websites, or reports, ensuring that users can easily identify and associate the correct logo with the respective financial asset.
@@ -553,7 +553,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetLogo200Response**](GetLogo_200_response.md)
+[**models::GetLogo200ResponseEnum**](GetLogo_200_responseEnum.md)
 
 ### Authorization
 
@@ -569,7 +569,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_market_cap
 
-> models::GetMarketCap200Response get_market_cap(symbol, figi, isin, cusip, exchange, mic_code, country, start_date, end_date, page, outputsize)
+> models::GetMarketCap200ResponseEnum get_market_cap(symbol, figi, isin, cusip, exchange, mic_code, country, start_date, end_date, page, outputsize)
 Market capitalization
 
 The Market Capitalization History endpoint provides historical data on a company's market capitalization over a specified time period. It returns a time series of market cap values, allowing users to track changes in a company's market value.
@@ -593,7 +593,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetMarketCap200Response**](GetMarketCap_200_response.md)
+[**models::GetMarketCap200ResponseEnum**](GetMarketCap_200_responseEnum.md)
 
 ### Authorization
 
@@ -609,7 +609,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_profile
 
-> models::GetProfile200Response get_profile(symbol, figi, isin, cusip, exchange, mic_code, country)
+> models::GetProfile200ResponseEnum get_profile(symbol, figi, isin, cusip, exchange, mic_code, country)
 Profile
 
 The profile endpoint provides detailed company information, including the company's name, industry, sector, CEO, headquarters location, and market capitalization. This data is useful for obtaining a comprehensive overview of a company's business and financial standing.
@@ -629,7 +629,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetProfile200Response**](GetProfile_200_response.md)
+[**models::GetProfile200ResponseEnum**](GetProfile_200_responseEnum.md)
 
 ### Authorization
 
@@ -645,7 +645,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_splits
 
-> models::GetSplits200Response get_splits(symbol, figi, isin, cusip, exchange, mic_code, country, range, start_date, end_date)
+> models::GetSplits200ResponseEnum get_splits(symbol, figi, isin, cusip, exchange, mic_code, country, range, start_date, end_date)
 Splits
 
 The splits endpoint provides historical data on stock split events for a specified company. It returns details including the date of each split and the corresponding split factor.
@@ -668,7 +668,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetSplits200Response**](GetSplits_200_response.md)
+[**models::GetSplits200ResponseEnum**](GetSplits_200_responseEnum.md)
 
 ### Authorization
 
@@ -684,7 +684,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_splits_calendar
 
-> Vec<models::SplitsCalendarResponseItem> get_splits_calendar(symbol, figi, isin, cusip, exchange, mic_code, country, start_date, end_date, outputsize, page)
+> models::GetSplitsCalendar200ResponseEnum get_splits_calendar(symbol, figi, isin, cusip, exchange, mic_code, country, start_date, end_date, outputsize, page)
 Splits calendar
 
 The splits calendar endpoint provides a detailed calendar of stock split events within a specified date range. By setting the `start_date` and `end_date` parameters, users can retrieve a list of upcoming or past stock splits, including the company name, split ratio, and effective date. This endpoint is useful for tracking changes in stock structure and planning investment strategies around these events.
@@ -708,7 +708,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**Vec<models::SplitsCalendarResponseItem>**](SplitsCalendarResponseItem.md)
+[**models::GetSplitsCalendar200ResponseEnum**](GetSplitsCalendar_200_responseEnum.md)
 
 ### Authorization
 
@@ -724,7 +724,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_statistics
 
-> models::GetStatistics200Response get_statistics(symbol, figi, isin, cusip, exchange, mic_code, country)
+> models::GetStatistics200ResponseEnum get_statistics(symbol, figi, isin, cusip, exchange, mic_code, country)
 Statistics
 
 The statistics endpoint provides a comprehensive snapshot of a company's key financial statistics, including valuation metrics, revenue figures, profit margins, and other essential financial data. This endpoint is ideal for users seeking detailed insights into a company's financial health and performance metrics.
@@ -744,7 +744,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetStatistics200Response**](GetStatistics_200_response.md)
+[**models::GetStatistics200ResponseEnum**](GetStatistics_200_responseEnum.md)
 
 ### Authorization
 

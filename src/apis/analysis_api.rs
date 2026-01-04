@@ -4,15 +4,14 @@
  * ## Overview  Welcome to Twelve Data developer docs — your gateway to comprehensive financial market data through a powerful and easy-to-use API. Twelve Data provides access to financial markets across over 50 global countries, covering more than 1 million public instruments, including stocks, forex, ETFs, mutual funds, commodities, and cryptocurrencies.  ## Quickstart  To get started, you'll need to sign up for an API key. Once you have your API key, you can start making requests to the API.  ### Step 1: Create Twelve Data account  Sign up on the Twelve Data website to create your account [here](https://twelvedata.com/register). This gives you access to the API dashboard and your API key.  ### Step 2: Get your API key  After signing in, navigate to your [dashboard](https://twelvedata.com/account/api-keys) to find your unique API key. This key is required to authenticate all API and WebSocket requests.  ### Step 3: Make your first request  Try a simple API call with cURL to fetch the latest price for Apple (AAPL):  ``` curl \"https://api.twelvedata.com/price?symbol=AAPL&apikey=your_api_key\" ```  ### Step 4: Make a request from Python or Javascript  Use our client libraries or standard HTTP clients to make API calls programmatically. Here’s an example in [Python](https://github.com/twelvedata/twelvedata-python) and JavaScript:  #### Python (using official Twelve Data SDK):  ```python from twelvedata import TDClient  # Initialize client with your API key td = TDClient(apikey=\"your_api_key\")  # Get latest price for Apple price = td.price(symbol=\"AAPL\").as_json()  print(price) ```  #### JavaScript (Node.js):  ```javascript const fetch = require('node-fetch');  fetch('https://api.twelvedata.com/price?symbol=AAPL&apikey=your_api_key') &nbsp;&nbsp;.then(response => response.json()) &nbsp;&nbsp;.then(data => console.log(data)); ```  ### Step 5: Perform correlation analysis between Tesla and Microsoft prices  Fetch historical price data for Tesla (TSLA) and Microsoft (MSFT) and calculate the correlation of their closing prices:  ```python from twelvedata import TDClient import pandas as pd  # Initialize client with your API key td = TDClient(apikey=\"your_api_key\")  # Fetch historical price data for Tesla tsla_ts = td.time_series( &nbsp;&nbsp;&nbsp;&nbsp;symbol=\"TSLA\", &nbsp;&nbsp;&nbsp;&nbsp;interval=\"1day\", &nbsp;&nbsp;&nbsp;&nbsp;outputsize=100 ).as_pandas()  # Fetch historical price data for Microsoft msft_ts = td.time_series( &nbsp;&nbsp;&nbsp;&nbsp;symbol=\"MSFT\", &nbsp;&nbsp;&nbsp;&nbsp;interval=\"1day\", &nbsp;&nbsp;&nbsp;&nbsp;outputsize=100 ).as_pandas()  # Align data on datetime index combined = pd.concat( &nbsp;&nbsp;&nbsp;&nbsp;[tsla_ts['close'].astype(float), msft_ts['close'].astype(float)], &nbsp;&nbsp;&nbsp;&nbsp;axis=1, &nbsp;&nbsp;&nbsp;&nbsp;keys=[\"TSLA\", \"MSFT\"] ).dropna()  # Calculate correlation correlation = combined[\"TSLA\"].corr(combined[\"MSFT\"]) print(f\"Correlation of closing prices between TSLA and MSFT: {correlation:.2f}\") ```  ### Authentication  Authenticate your requests using one of these methods:  #### Query parameter method ``` GET https://api.twelvedata.com/endpoint?symbol=AAPL&apikey=your_api_key ```  #### HTTP header method (recommended) ``` Authorization: apikey your_api_key ```  ##### API key useful information <ul> <li> Demo API key (<code>apikey=demo</code>) available for demo requests</li> <li> Personal API key required for full access</li> <li> Premium endpoints and data require higher-tier plans (testable with <a href=\"https://twelvedata.com/exchanges\">trial symbols</a>)</li> </ul>  ### API endpoints   Service | Base URL | ---------|----------|  REST API | `https://api.twelvedata.com` |  WebSocket | `wss://ws.twelvedata.com` |  ### Parameter guidelines <ul> <li><b>Separator:</b> Use <code>&</code> to separate multiple parameters</li> <li><b>Case sensitivity:</b> Parameter names are case-insensitive</li>  <ul><li><code>symbol=AAPL</code> = <code>symbol=aapl</code></li></ul>  <li><b>Multiple values:</b> Separate with commas where supported</li> </ul>  ### Response handling  #### Default format All responses return JSON format by default unless otherwise specified.  #### Null values <b>Important:</b> Some response fields may contain `null` values when data is unavailable for specific metrics. This is expected behavior, not an error.  ##### Best Practices: <ul> <li>Always implement <code>null</code> value handling in your application</li> <li>Use defensive programming techniques for data processing</li> <li>Consider fallback values or error handling for critical metrics</li> </ul>  #### Error handling Structure your code to gracefully handle: <ul> <li>Network timeouts</li> <li>Rate limiting responses</li> <li>Invalid parameter errors</li> <li>Data unavailability periods</li> </ul>  ##### Best practices <ul> <li><b>Rate limits:</b> Adhere to your plan’s rate limits to avoid throttling. Check your dashboard for details.</li> <li><b>Error handling:</b> Implement retry logic for transient errors (e.g., <code>429 Too Many Requests</code>).</li> <li><b>Caching:</b> Cache responses for frequently accessed data to reduce API calls and improve performance.</li> <li><b>Secure storage:</b> Store your API key securely and never expose it in client-side code or public repositories.</li> </ul>  ## Errors  Twelve Data API employs a standardized error response format, delivering a JSON object with `code`, `message`, and `status` keys for clear and consistent error communication.  ### Codes  Below is a table of possible error codes, their HTTP status, meanings, and resolution steps:   Code | status | Meaning | Resolution |  --- | --- | --- | --- |  **400** | Bad Request | Invalid or incorrect parameter(s) provided. | Check the `message` in the response for details. Refer to the API Documenta­tion to correct the input. |  **401** | Unauthor­ized | Invalid or incorrect API key. | Verify your API key is correct. Sign up for a key <a href=\"https://twelvedata.com/account/api-keys\">here</a>. |  **403** | Forbidden | API key lacks permissions for the requested resource (upgrade required). | Upgrade your plan <a href=\"https://twelvedata.com/pricing\">here</a>. |  **404** | Not Found | Requested data could not be found. | Adjust parameters to be less strict as they may be too restrictive. |  **414** | Parameter Too Long | Input parameter array exceeds the allowed length. | Follow the `message` guidance to adjust the parameter length. |  **429** | Too Many Requests | API request limit reached for your key. | Wait briefly or upgrade your plan <a href=\"https://twelvedata.com/pricing\">here</a>. |  **500** | Internal Server Error | Server-side issue occurred; retry later. | Contact support <a href=\"https://twelvedata.com/contact\">here</a> for assistance. |  ### Example error response  Consider the following invalid request:  ``` https://api.twelvedata.com/time_series?symbol=AAPL&interval=0.99min&apikey=your_api_key ```  Due to the incorrect `interval` value, the API returns:  ```json { &nbsp;&nbsp;\"code\": 400, &nbsp;&nbsp;\"message\": \"Invalid **interval** provided: 0.99min. Supported intervals: 1min, 5min, 15min, 30min, 45min, 1h, 2h, 4h, 8h, 1day, 1week, 1month\", &nbsp;&nbsp;\"status\": \"error\" } ```  Refer to the API Documentation for valid parameter values to resolve such errors.  ## Libraries  Twelve Data provides a growing ecosystem of libraries and integrations to help you build faster and smarter in your preferred environment. Official libraries are actively maintained by the Twelve Data team, while selected community-built libraries offer additional flexibility.  A full list is available on our [GitHub profile](https://github.com/search?q=twelvedata).  ### Official SDKs <ul> <li><b>Python:</b> <a href=\"https://github.com/twelvedata/twelvedata-python\">twelvedata-python</a></li> <li><b>R:</b> <a href=\"https://github.com/twelvedata/twelvedata-r-sdk\">twelvedata-r-sdk</a></li> </ul>  ### AI integrations <ul> <li><b>Twelve Data MCP Server:</b> <a href=\"https://github.com/twelvedata/mcp\">Repository</a> — Model Context Protocol (MCP) server that provides seamless integration with AI assistants and language models, enabling direct access to Twelve Data's financial market data within conversational interfaces and AI workflows.</li> </ul>  ### Spreadsheet add-ons <ul> <li><b>Excel:</b> <a href=\"https://twelvedata.com/excel\">Excel Add-in</a></li> <li><b>Google Sheets:</b> <a href=\"https://twelvedata.com/google-sheets\">Google Sheets Add-on</a></li> </ul>  ### Community libraries  The community has developed libraries in several popular languages. You can explore more community libraries on [GitHub](https://github.com/search?q=twelvedata). <ul> <li><b>C#:</b> <a href=\"https://github.com/pseudomarkets/TwelveDataSharp\">TwelveDataSharp</a></li> <li><b>JavaScript:</b> <a href=\"https://github.com/evzaboun/twelvedata\">twelvedata</a></li> <li><b>PHP:</b> <a href=\"https://github.com/ingelby/twelvedata\">twelvedata</a></li> <li><b>Go:</b> <a href=\"https://github.com/soulgarden/twelvedata\">twelvedata</a></li> <li><b>TypeScript:</b> <a href=\"https://github.com/Clyde-Goodall/twelve-data-wrapper\">twelve-data-wrapper</a></li> </ul>  ### Other Twelve Data repositories <ul> <li><b>searchindex</b> <i>(Go)</i>: <a href=\"https://github.com/twelvedata/searchindex\">Repository</a> — In-memory search index by strings</li> <li><b>ws-tools</b> <i>(Python)</i>: <a href=\"https://github.com/twelvedata/ws-tools\">Repository</a> — Utility tools for WebSocket stream handling</li> </ul>  ### API specification <ul> <li><b>OpenAPI / Swagger:</b> Access the <a href=\"https://api.twelvedata.com/doc/swagger/openapi.json\">complete API specification</a> in OpenAPI format. You can use this file to automatically generate client libraries in your preferred programming language, explore the API interactively via Swagger tools, or integrate Twelve Data seamlessly into your AI and LLM workflows.</li> </ul>
  *
  * The version of the OpenAPI document: 0.0.1
- * 
+ *
  * Generated by: https://openapi-generator.tech
  */
 
-
-use reqwest;
-use serde::{Deserialize, Serialize, de::Error as _};
+use super::{configuration, ContentType, Error};
 use crate::{apis::ResponseContent, models};
-use super::{Error, configuration, ContentType};
+use reqwest;
+use serde::{de::Error as _, Deserialize, Serialize};
 
 /// struct for passing parameters to the method [`get_analyst_ratings_light`]
 #[derive(Clone, Debug, Default, Serialize, Deserialize)]
@@ -32,7 +31,7 @@ pub struct GetAnalystRatingsLightParams {
     /// Number of records in response
     pub outputsize: Option<i64>,
     /// Filter by country name or alpha code, e.g., `United States` or `US`
-    pub country: Option<String>
+    pub country: Option<String>,
 }
 
 impl GetAnalystRatingsLightParams {
@@ -60,7 +59,7 @@ pub struct GetAnalystRatingsLightParamsBuilder {
     /// Number of records in response
     outputsize: Option<i64>,
     /// Filter by country name or alpha code, e.g., `United States` or `US`
-    country: Option<String>
+    country: Option<String>,
 }
 
 impl GetAnalystRatingsLightParamsBuilder {
@@ -115,7 +114,7 @@ impl GetAnalystRatingsLightParamsBuilder {
             exchange: self.exchange,
             rating_change: self.rating_change,
             outputsize: self.outputsize,
-            country: self.country
+            country: self.country,
         }
     }
 }
@@ -136,7 +135,7 @@ pub struct GetAnalystRatingsUsEquitiesParams {
     /// Filter by rating change action
     pub rating_change: Option<String>,
     /// Number of records in response
-    pub outputsize: Option<i64>
+    pub outputsize: Option<i64>,
 }
 
 impl GetAnalystRatingsUsEquitiesParams {
@@ -162,7 +161,7 @@ pub struct GetAnalystRatingsUsEquitiesParamsBuilder {
     /// Filter by rating change action
     rating_change: Option<String>,
     /// Number of records in response
-    outputsize: Option<i64>
+    outputsize: Option<i64>,
 }
 
 impl GetAnalystRatingsUsEquitiesParamsBuilder {
@@ -211,7 +210,7 @@ impl GetAnalystRatingsUsEquitiesParamsBuilder {
             cusip: self.cusip,
             exchange: self.exchange,
             rating_change: self.rating_change,
-            outputsize: self.outputsize
+            outputsize: self.outputsize,
         }
     }
 }
@@ -230,7 +229,7 @@ pub struct GetEarningsEstimateParams {
     /// The country where the instrument is traded, e.g., `United States` or `US`
     pub country: Option<String>,
     /// Exchange where instrument is traded
-    pub exchange: Option<String>
+    pub exchange: Option<String>,
 }
 
 impl GetEarningsEstimateParams {
@@ -254,7 +253,7 @@ pub struct GetEarningsEstimateParamsBuilder {
     /// The country where the instrument is traded, e.g., `United States` or `US`
     country: Option<String>,
     /// Exchange where instrument is traded
-    exchange: Option<String>
+    exchange: Option<String>,
 }
 
 impl GetEarningsEstimateParamsBuilder {
@@ -297,7 +296,7 @@ impl GetEarningsEstimateParamsBuilder {
             isin: self.isin,
             cusip: self.cusip,
             country: self.country,
-            exchange: self.exchange
+            exchange: self.exchange,
         }
     }
 }
@@ -328,7 +327,7 @@ pub struct GetEdgarFilingsArchiveParams {
     /// Page number
     pub page: Option<i64>,
     /// Number of records in response
-    pub page_size: Option<i64>
+    pub page_size: Option<i64>,
 }
 
 impl GetEdgarFilingsArchiveParams {
@@ -364,7 +363,7 @@ pub struct GetEdgarFilingsArchiveParamsBuilder {
     /// Page number
     page: Option<i64>,
     /// Number of records in response
-    page_size: Option<i64>
+    page_size: Option<i64>,
 }
 
 impl GetEdgarFilingsArchiveParamsBuilder {
@@ -443,7 +442,7 @@ impl GetEdgarFilingsArchiveParamsBuilder {
             filled_from: self.filled_from,
             filled_to: self.filled_to,
             page: self.page,
-            page_size: self.page_size
+            page_size: self.page_size,
         }
     }
 }
@@ -462,7 +461,7 @@ pub struct GetEpsRevisionsParams {
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub country: Option<String>,
     /// Filter by exchange name
-    pub exchange: Option<String>
+    pub exchange: Option<String>,
 }
 
 impl GetEpsRevisionsParams {
@@ -486,7 +485,7 @@ pub struct GetEpsRevisionsParamsBuilder {
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     country: Option<String>,
     /// Filter by exchange name
-    exchange: Option<String>
+    exchange: Option<String>,
 }
 
 impl GetEpsRevisionsParamsBuilder {
@@ -529,7 +528,7 @@ impl GetEpsRevisionsParamsBuilder {
             isin: self.isin,
             cusip: self.cusip,
             country: self.country,
-            exchange: self.exchange
+            exchange: self.exchange,
         }
     }
 }
@@ -548,7 +547,7 @@ pub struct GetEpsTrendParams {
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub country: Option<String>,
     /// Filter by exchange name
-    pub exchange: Option<String>
+    pub exchange: Option<String>,
 }
 
 impl GetEpsTrendParams {
@@ -572,7 +571,7 @@ pub struct GetEpsTrendParamsBuilder {
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     country: Option<String>,
     /// Filter by exchange name
-    exchange: Option<String>
+    exchange: Option<String>,
 }
 
 impl GetEpsTrendParamsBuilder {
@@ -615,7 +614,7 @@ impl GetEpsTrendParamsBuilder {
             isin: self.isin,
             cusip: self.cusip,
             country: self.country,
-            exchange: self.exchange
+            exchange: self.exchange,
         }
     }
 }
@@ -634,7 +633,7 @@ pub struct GetGrowthEstimatesParams {
     /// The country where the instrument is traded, e.g., `United States` or `US`
     pub country: Option<String>,
     /// Exchange where instrument is traded
-    pub exchange: Option<String>
+    pub exchange: Option<String>,
 }
 
 impl GetGrowthEstimatesParams {
@@ -658,7 +657,7 @@ pub struct GetGrowthEstimatesParamsBuilder {
     /// The country where the instrument is traded, e.g., `United States` or `US`
     country: Option<String>,
     /// Exchange where instrument is traded
-    exchange: Option<String>
+    exchange: Option<String>,
 }
 
 impl GetGrowthEstimatesParamsBuilder {
@@ -701,7 +700,7 @@ impl GetGrowthEstimatesParamsBuilder {
             isin: self.isin,
             cusip: self.cusip,
             country: self.country,
-            exchange: self.exchange
+            exchange: self.exchange,
         }
     }
 }
@@ -720,7 +719,7 @@ pub struct GetPriceTargetParams {
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     pub country: Option<String>,
     /// Filter by exchange name
-    pub exchange: Option<String>
+    pub exchange: Option<String>,
 }
 
 impl GetPriceTargetParams {
@@ -744,7 +743,7 @@ pub struct GetPriceTargetParamsBuilder {
     /// Filter by country name or alpha code, e.g., `United States` or `US`
     country: Option<String>,
     /// Filter by exchange name
-    exchange: Option<String>
+    exchange: Option<String>,
 }
 
 impl GetPriceTargetParamsBuilder {
@@ -787,7 +786,7 @@ impl GetPriceTargetParamsBuilder {
             isin: self.isin,
             cusip: self.cusip,
             country: self.country,
-            exchange: self.exchange
+            exchange: self.exchange,
         }
     }
 }
@@ -806,7 +805,7 @@ pub struct GetRecommendationsParams {
     /// The country where the instrument is traded, e.g., `United States` or `US`
     pub country: Option<String>,
     /// The exchange name where the instrument is traded, e.g., `Nasdaq`, `NSE`.
-    pub exchange: Option<String>
+    pub exchange: Option<String>,
 }
 
 impl GetRecommendationsParams {
@@ -830,7 +829,7 @@ pub struct GetRecommendationsParamsBuilder {
     /// The country where the instrument is traded, e.g., `United States` or `US`
     country: Option<String>,
     /// The exchange name where the instrument is traded, e.g., `Nasdaq`, `NSE`.
-    exchange: Option<String>
+    exchange: Option<String>,
 }
 
 impl GetRecommendationsParamsBuilder {
@@ -873,7 +872,7 @@ impl GetRecommendationsParamsBuilder {
             isin: self.isin,
             cusip: self.cusip,
             country: self.country,
-            exchange: self.exchange
+            exchange: self.exchange,
         }
     }
 }
@@ -894,7 +893,7 @@ pub struct GetRevenueEstimateParams {
     /// Filter by exchange name
     pub exchange: Option<String>,
     /// Number of decimal places for floating values. Should be in range [0,11] inclusive
-    pub dp: Option<i64>
+    pub dp: Option<i64>,
 }
 
 impl GetRevenueEstimateParams {
@@ -920,7 +919,7 @@ pub struct GetRevenueEstimateParamsBuilder {
     /// Filter by exchange name
     exchange: Option<String>,
     /// Number of decimal places for floating values. Should be in range [0,11] inclusive
-    dp: Option<i64>
+    dp: Option<i64>,
 }
 
 impl GetRevenueEstimateParamsBuilder {
@@ -969,11 +968,10 @@ impl GetRevenueEstimateParamsBuilder {
             cusip: self.cusip,
             country: self.country,
             exchange: self.exchange,
-            dp: self.dp
+            dp: self.dp,
         }
     }
 }
-
 
 /// struct for typed errors of method [`get_analyst_ratings_light`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -1045,9 +1043,11 @@ pub enum GetRevenueEstimateError {
     UnknownValue(serde_json::Value),
 }
 
-
 /// The analyst ratings snapshot endpoint provides a streamlined summary of ratings from analyst firms for both US and international markets. It delivers essential data on analyst recommendations, including buy, hold, and sell ratings, allowing users to quickly assess the general sentiment of analysts towards a particular stock.
-pub async fn get_analyst_ratings_light(configuration: &configuration::Configuration, params: GetAnalystRatingsLightParams) -> Result<models::GetAnalystRatingsLight200Response, Error<GetAnalystRatingsLightError>> {
+pub async fn get_analyst_ratings_light(
+    configuration: &configuration::Configuration,
+    params: GetAnalystRatingsLightParams,
+) -> Result<models::GetAnalystRatingsLight200ResponseEnum, Error<GetAnalystRatingsLightError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -1077,7 +1077,7 @@ pub async fn get_analyst_ratings_light(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("exchange", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_rating_change {
-        req_builder = req_builder.query(&[("rating_change", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("rating_change", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_outputsize {
         req_builder = req_builder.query(&[("outputsize", &param_value.to_string())]);
@@ -1112,18 +1112,28 @@ pub async fn get_analyst_ratings_light(configuration: &configuration::Configurat
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetAnalystRatingsLight200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetAnalystRatingsLight200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetAnalystRatingsLight200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetAnalystRatingsLight200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetAnalystRatingsLightError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The analyst ratings US equities endpoint provides detailed information on analyst ratings for U.S. stocks. It returns data on the latest ratings issued by various analyst firms, including the rating itself, the firm issuing the rating, and any changes in the rating. This endpoint is useful for users tracking analyst opinions on U.S. equities, allowing them to see how professional analysts view the potential performance of specific stocks.
-pub async fn get_analyst_ratings_us_equities(configuration: &configuration::Configuration, params: GetAnalystRatingsUsEquitiesParams) -> Result<models::GetAnalystRatingsUsEquities200Response, Error<GetAnalystRatingsUsEquitiesError>> {
+pub async fn get_analyst_ratings_us_equities(
+    configuration: &configuration::Configuration,
+    params: GetAnalystRatingsUsEquitiesParams,
+) -> Result<
+    models::GetAnalystRatingsUsEquities200ResponseEnum,
+    Error<GetAnalystRatingsUsEquitiesError>,
+> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -1152,7 +1162,7 @@ pub async fn get_analyst_ratings_us_equities(configuration: &configuration::Conf
         req_builder = req_builder.query(&[("exchange", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_rating_change {
-        req_builder = req_builder.query(&[("rating_change", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("rating_change", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_outputsize {
         req_builder = req_builder.query(&[("outputsize", &param_value.to_string())]);
@@ -1184,18 +1194,25 @@ pub async fn get_analyst_ratings_us_equities(configuration: &configuration::Conf
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetAnalystRatingsUsEquities200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetAnalystRatingsUsEquities200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetAnalystRatingsUsEquities200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetAnalystRatingsUsEquities200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetAnalystRatingsUsEquitiesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The earnings estimate endpoint provides access to analysts' projected earnings per share (EPS) for a specific company, covering both upcoming quarterly and annual periods. This data is crucial for users who need to track and compare expected financial performance across different timeframes, aiding in the evaluation of a company's future profitability.
-pub async fn get_earnings_estimate(configuration: &configuration::Configuration, params: GetEarningsEstimateParams) -> Result<models::GetEarningsEstimate200Response, Error<GetEarningsEstimateError>> {
+pub async fn get_earnings_estimate(
+    configuration: &configuration::Configuration,
+    params: GetEarningsEstimateParams,
+) -> Result<models::GetEarningsEstimate200ResponseEnum, Error<GetEarningsEstimateError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -1252,18 +1269,25 @@ pub async fn get_earnings_estimate(configuration: &configuration::Configuration,
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetEarningsEstimate200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEarningsEstimate200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEarningsEstimate200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEarningsEstimate200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetEarningsEstimateError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The EDGAR fillings endpoint provides access to a comprehensive collection of financial documents submitted to the SEC, including real-time and historical forms, filings, and exhibits. Users can retrieve detailed information about company disclosures, financial statements, and regulatory submissions, enabling them to access essential compliance and financial data directly from the SEC's EDGAR system.
-pub async fn get_edgar_filings_archive(configuration: &configuration::Configuration, params: GetEdgarFilingsArchiveParams) -> Result<models::GetEdgarFilingsArchive200Response, Error<GetEdgarFilingsArchiveError>> {
+pub async fn get_edgar_filings_archive(
+    configuration: &configuration::Configuration,
+    params: GetEdgarFilingsArchiveParams,
+) -> Result<models::GetEdgarFilingsArchive200ResponseEnum, Error<GetEdgarFilingsArchiveError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -1344,18 +1368,25 @@ pub async fn get_edgar_filings_archive(configuration: &configuration::Configurat
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetEdgarFilingsArchive200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEdgarFilingsArchive200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEdgarFilingsArchive200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEdgarFilingsArchive200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetEdgarFilingsArchiveError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The EPS revisions endpoint provides updated analyst forecasts for a company's earnings per share (EPS) on both a quarterly and annual basis. It delivers data on how these EPS predictions have changed over the past week and month, allowing users to track recent adjustments in analyst expectations. This endpoint is useful for monitoring shifts in market sentiment regarding a company's financial performance.
-pub async fn get_eps_revisions(configuration: &configuration::Configuration, params: GetEpsRevisionsParams) -> Result<models::GetEpsRevisions200Response, Error<GetEpsRevisionsError>> {
+pub async fn get_eps_revisions(
+    configuration: &configuration::Configuration,
+    params: GetEpsRevisionsParams,
+) -> Result<models::GetEpsRevisions200ResponseEnum, Error<GetEpsRevisionsError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -1412,18 +1443,25 @@ pub async fn get_eps_revisions(configuration: &configuration::Configuration, par
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetEpsRevisions200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEpsRevisions200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEpsRevisions200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEpsRevisions200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetEpsRevisionsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The EPS trend endpoint provides detailed historical data on Earnings Per Share (EPS) trends over specified periods. It returns a comprehensive breakdown of estimated EPS changes, allowing users to track and analyze the progression of a company's earnings performance over time. This endpoint is ideal for users seeking to understand historical EPS fluctuations and assess financial growth patterns.
-pub async fn get_eps_trend(configuration: &configuration::Configuration, params: GetEpsTrendParams) -> Result<models::GetEpsTrend200Response, Error<GetEpsTrendError>> {
+pub async fn get_eps_trend(
+    configuration: &configuration::Configuration,
+    params: GetEpsTrendParams,
+) -> Result<models::GetEpsTrend200ResponseEnum, Error<GetEpsTrendError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -1480,18 +1518,25 @@ pub async fn get_eps_trend(configuration: &configuration::Configuration, params:
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetEpsTrend200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEpsTrend200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetEpsTrend200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetEpsTrend200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetEpsTrendError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The growth estimates endpoint provides consensus analyst projections on a company's growth rates over various timeframes. It aggregates and averages estimates from multiple analysts, focusing on key financial metrics such as earnings per share and revenue. This endpoint is useful for obtaining a comprehensive view of expected company performance based on expert analysis.
-pub async fn get_growth_estimates(configuration: &configuration::Configuration, params: GetGrowthEstimatesParams) -> Result<models::GetGrowthEstimates200Response, Error<GetGrowthEstimatesError>> {
+pub async fn get_growth_estimates(
+    configuration: &configuration::Configuration,
+    params: GetGrowthEstimatesParams,
+) -> Result<models::GetGrowthEstimates200ResponseEnum, Error<GetGrowthEstimatesError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -1548,18 +1593,25 @@ pub async fn get_growth_estimates(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetGrowthEstimates200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetGrowthEstimates200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetGrowthEstimates200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetGrowthEstimates200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetGrowthEstimatesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The price target endpoint provides detailed projections of a security's future price as estimated by financial analysts. It returns data including the high, low, and average price targets. This endpoint is useful for users seeking to understand potential future valuations of specific securities based on expert analysis.
-pub async fn get_price_target(configuration: &configuration::Configuration, params: GetPriceTargetParams) -> Result<models::GetPriceTarget200Response, Error<GetPriceTargetError>> {
+pub async fn get_price_target(
+    configuration: &configuration::Configuration,
+    params: GetPriceTargetParams,
+) -> Result<models::GetPriceTarget200ResponseEnum, Error<GetPriceTargetError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -1616,18 +1668,25 @@ pub async fn get_price_target(configuration: &configuration::Configuration, para
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetPriceTarget200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetPriceTarget200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetPriceTarget200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetPriceTarget200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetPriceTargetError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The recommendations endpoint provides a summary of analyst opinions for a specific stock, delivering an average recommendation categorized as Strong Buy, Buy, Hold, or Sell. It also includes a numerical recommendation score, offering a quick overview of market sentiment based on expert analysis.
-pub async fn get_recommendations(configuration: &configuration::Configuration, params: GetRecommendationsParams) -> Result<models::GetRecommendations200Response, Error<GetRecommendationsError>> {
+pub async fn get_recommendations(
+    configuration: &configuration::Configuration,
+    params: GetRecommendationsParams,
+) -> Result<models::GetRecommendations200ResponseEnum, Error<GetRecommendationsError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -1684,18 +1743,25 @@ pub async fn get_recommendations(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetRecommendations200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetRecommendations200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetRecommendations200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetRecommendations200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetRecommendationsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The revenue estimate endpoint provides a company's projected quarterly and annual revenue figures based on analysts' estimates. This data is useful for users seeking insights into expected company performance, allowing them to compare forecasted sales with historical data or other companies' estimates.
-pub async fn get_revenue_estimate(configuration: &configuration::Configuration, params: GetRevenueEstimateParams) -> Result<models::GetRevenueEstimate200Response, Error<GetRevenueEstimateError>> {
+pub async fn get_revenue_estimate(
+    configuration: &configuration::Configuration,
+    params: GetRevenueEstimateParams,
+) -> Result<models::GetRevenueEstimate200ResponseEnum, Error<GetRevenueEstimateError>> {
     // Extract parameters from params struct
     let p_query_symbol = params.symbol;
     let p_query_figi = params.figi;
@@ -1756,13 +1822,16 @@ pub async fn get_revenue_estimate(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetRevenueEstimate200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetRevenueEstimate200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/*` content type response that cannot be converted to `models::GetRevenueEstimate200ResponseEnum`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetRevenueEstimate200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetRevenueEstimateError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
-

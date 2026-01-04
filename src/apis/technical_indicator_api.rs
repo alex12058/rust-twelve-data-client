@@ -4,15 +4,14 @@
  * ## Overview  Welcome to Twelve Data developer docs — your gateway to comprehensive financial market data through a powerful and easy-to-use API. Twelve Data provides access to financial markets across over 50 global countries, covering more than 1 million public instruments, including stocks, forex, ETFs, mutual funds, commodities, and cryptocurrencies.  ## Quickstart  To get started, you'll need to sign up for an API key. Once you have your API key, you can start making requests to the API.  ### Step 1: Create Twelve Data account  Sign up on the Twelve Data website to create your account [here](https://twelvedata.com/register). This gives you access to the API dashboard and your API key.  ### Step 2: Get your API key  After signing in, navigate to your [dashboard](https://twelvedata.com/account/api-keys) to find your unique API key. This key is required to authenticate all API and WebSocket requests.  ### Step 3: Make your first request  Try a simple API call with cURL to fetch the latest price for Apple (AAPL):  ``` curl \"https://api.twelvedata.com/price?symbol=AAPL&apikey=your_api_key\" ```  ### Step 4: Make a request from Python or Javascript  Use our client libraries or standard HTTP clients to make API calls programmatically. Here’s an example in [Python](https://github.com/twelvedata/twelvedata-python) and JavaScript:  #### Python (using official Twelve Data SDK):  ```python from twelvedata import TDClient  # Initialize client with your API key td = TDClient(apikey=\"your_api_key\")  # Get latest price for Apple price = td.price(symbol=\"AAPL\").as_json()  print(price) ```  #### JavaScript (Node.js):  ```javascript const fetch = require('node-fetch');  fetch('https://api.twelvedata.com/price?symbol=AAPL&apikey=your_api_key') &nbsp;&nbsp;.then(response => response.json()) &nbsp;&nbsp;.then(data => console.log(data)); ```  ### Step 5: Perform correlation analysis between Tesla and Microsoft prices  Fetch historical price data for Tesla (TSLA) and Microsoft (MSFT) and calculate the correlation of their closing prices:  ```python from twelvedata import TDClient import pandas as pd  # Initialize client with your API key td = TDClient(apikey=\"your_api_key\")  # Fetch historical price data for Tesla tsla_ts = td.time_series( &nbsp;&nbsp;&nbsp;&nbsp;symbol=\"TSLA\", &nbsp;&nbsp;&nbsp;&nbsp;interval=\"1day\", &nbsp;&nbsp;&nbsp;&nbsp;outputsize=100 ).as_pandas()  # Fetch historical price data for Microsoft msft_ts = td.time_series( &nbsp;&nbsp;&nbsp;&nbsp;symbol=\"MSFT\", &nbsp;&nbsp;&nbsp;&nbsp;interval=\"1day\", &nbsp;&nbsp;&nbsp;&nbsp;outputsize=100 ).as_pandas()  # Align data on datetime index combined = pd.concat( &nbsp;&nbsp;&nbsp;&nbsp;[tsla_ts['close'].astype(float), msft_ts['close'].astype(float)], &nbsp;&nbsp;&nbsp;&nbsp;axis=1, &nbsp;&nbsp;&nbsp;&nbsp;keys=[\"TSLA\", \"MSFT\"] ).dropna()  # Calculate correlation correlation = combined[\"TSLA\"].corr(combined[\"MSFT\"]) print(f\"Correlation of closing prices between TSLA and MSFT: {correlation:.2f}\") ```  ### Authentication  Authenticate your requests using one of these methods:  #### Query parameter method ``` GET https://api.twelvedata.com/endpoint?symbol=AAPL&apikey=your_api_key ```  #### HTTP header method (recommended) ``` Authorization: apikey your_api_key ```  ##### API key useful information <ul> <li> Demo API key (<code>apikey=demo</code>) available for demo requests</li> <li> Personal API key required for full access</li> <li> Premium endpoints and data require higher-tier plans (testable with <a href=\"https://twelvedata.com/exchanges\">trial symbols</a>)</li> </ul>  ### API endpoints   Service | Base URL | ---------|----------|  REST API | `https://api.twelvedata.com` |  WebSocket | `wss://ws.twelvedata.com` |  ### Parameter guidelines <ul> <li><b>Separator:</b> Use <code>&</code> to separate multiple parameters</li> <li><b>Case sensitivity:</b> Parameter names are case-insensitive</li>  <ul><li><code>symbol=AAPL</code> = <code>symbol=aapl</code></li></ul>  <li><b>Multiple values:</b> Separate with commas where supported</li> </ul>  ### Response handling  #### Default format All responses return JSON format by default unless otherwise specified.  #### Null values <b>Important:</b> Some response fields may contain `null` values when data is unavailable for specific metrics. This is expected behavior, not an error.  ##### Best Practices: <ul> <li>Always implement <code>null</code> value handling in your application</li> <li>Use defensive programming techniques for data processing</li> <li>Consider fallback values or error handling for critical metrics</li> </ul>  #### Error handling Structure your code to gracefully handle: <ul> <li>Network timeouts</li> <li>Rate limiting responses</li> <li>Invalid parameter errors</li> <li>Data unavailability periods</li> </ul>  ##### Best practices <ul> <li><b>Rate limits:</b> Adhere to your plan’s rate limits to avoid throttling. Check your dashboard for details.</li> <li><b>Error handling:</b> Implement retry logic for transient errors (e.g., <code>429 Too Many Requests</code>).</li> <li><b>Caching:</b> Cache responses for frequently accessed data to reduce API calls and improve performance.</li> <li><b>Secure storage:</b> Store your API key securely and never expose it in client-side code or public repositories.</li> </ul>  ## Errors  Twelve Data API employs a standardized error response format, delivering a JSON object with `code`, `message`, and `status` keys for clear and consistent error communication.  ### Codes  Below is a table of possible error codes, their HTTP status, meanings, and resolution steps:   Code | status | Meaning | Resolution |  --- | --- | --- | --- |  **400** | Bad Request | Invalid or incorrect parameter(s) provided. | Check the `message` in the response for details. Refer to the API Documenta­tion to correct the input. |  **401** | Unauthor­ized | Invalid or incorrect API key. | Verify your API key is correct. Sign up for a key <a href=\"https://twelvedata.com/account/api-keys\">here</a>. |  **403** | Forbidden | API key lacks permissions for the requested resource (upgrade required). | Upgrade your plan <a href=\"https://twelvedata.com/pricing\">here</a>. |  **404** | Not Found | Requested data could not be found. | Adjust parameters to be less strict as they may be too restrictive. |  **414** | Parameter Too Long | Input parameter array exceeds the allowed length. | Follow the `message` guidance to adjust the parameter length. |  **429** | Too Many Requests | API request limit reached for your key. | Wait briefly or upgrade your plan <a href=\"https://twelvedata.com/pricing\">here</a>. |  **500** | Internal Server Error | Server-side issue occurred; retry later. | Contact support <a href=\"https://twelvedata.com/contact\">here</a> for assistance. |  ### Example error response  Consider the following invalid request:  ``` https://api.twelvedata.com/time_series?symbol=AAPL&interval=0.99min&apikey=your_api_key ```  Due to the incorrect `interval` value, the API returns:  ```json { &nbsp;&nbsp;\"code\": 400, &nbsp;&nbsp;\"message\": \"Invalid **interval** provided: 0.99min. Supported intervals: 1min, 5min, 15min, 30min, 45min, 1h, 2h, 4h, 8h, 1day, 1week, 1month\", &nbsp;&nbsp;\"status\": \"error\" } ```  Refer to the API Documentation for valid parameter values to resolve such errors.  ## Libraries  Twelve Data provides a growing ecosystem of libraries and integrations to help you build faster and smarter in your preferred environment. Official libraries are actively maintained by the Twelve Data team, while selected community-built libraries offer additional flexibility.  A full list is available on our [GitHub profile](https://github.com/search?q=twelvedata).  ### Official SDKs <ul> <li><b>Python:</b> <a href=\"https://github.com/twelvedata/twelvedata-python\">twelvedata-python</a></li> <li><b>R:</b> <a href=\"https://github.com/twelvedata/twelvedata-r-sdk\">twelvedata-r-sdk</a></li> </ul>  ### AI integrations <ul> <li><b>Twelve Data MCP Server:</b> <a href=\"https://github.com/twelvedata/mcp\">Repository</a> — Model Context Protocol (MCP) server that provides seamless integration with AI assistants and language models, enabling direct access to Twelve Data's financial market data within conversational interfaces and AI workflows.</li> </ul>  ### Spreadsheet add-ons <ul> <li><b>Excel:</b> <a href=\"https://twelvedata.com/excel\">Excel Add-in</a></li> <li><b>Google Sheets:</b> <a href=\"https://twelvedata.com/google-sheets\">Google Sheets Add-on</a></li> </ul>  ### Community libraries  The community has developed libraries in several popular languages. You can explore more community libraries on [GitHub](https://github.com/search?q=twelvedata). <ul> <li><b>C#:</b> <a href=\"https://github.com/pseudomarkets/TwelveDataSharp\">TwelveDataSharp</a></li> <li><b>JavaScript:</b> <a href=\"https://github.com/evzaboun/twelvedata\">twelvedata</a></li> <li><b>PHP:</b> <a href=\"https://github.com/ingelby/twelvedata\">twelvedata</a></li> <li><b>Go:</b> <a href=\"https://github.com/soulgarden/twelvedata\">twelvedata</a></li> <li><b>TypeScript:</b> <a href=\"https://github.com/Clyde-Goodall/twelve-data-wrapper\">twelve-data-wrapper</a></li> </ul>  ### Other Twelve Data repositories <ul> <li><b>searchindex</b> <i>(Go)</i>: <a href=\"https://github.com/twelvedata/searchindex\">Repository</a> — In-memory search index by strings</li> <li><b>ws-tools</b> <i>(Python)</i>: <a href=\"https://github.com/twelvedata/ws-tools\">Repository</a> — Utility tools for WebSocket stream handling</li> </ul>  ### API specification <ul> <li><b>OpenAPI / Swagger:</b> Access the <a href=\"https://api.twelvedata.com/doc/swagger/openapi.json\">complete API specification</a> in OpenAPI format. You can use this file to automatically generate client libraries in your preferred programming language, explore the API interactively via Swagger tools, or integrate Twelve Data seamlessly into your AI and LLM workflows.</li> </ul>
  *
  * The version of the OpenAPI document: 0.0.1
- * 
+ *
  * Generated by: https://openapi-generator.tech
  */
 
-
-use reqwest;
-use serde::{Deserialize, Serialize, de::Error as _};
+use super::{configuration, ContentType, Error};
 use crate::{apis::ResponseContent, models};
-use super::{Error, configuration, ContentType};
+use reqwest;
+use serde::{de::Error as _, Deserialize, Serialize};
 
 /// struct for passing parameters to the method [`get_time_series_ad`]
 #[derive(Clone, Debug, Default, Serialize, Deserialize)]
@@ -60,7 +59,7 @@ pub struct GetTimeSeriesAdParams {
     /// Adjusting mode for prices
     pub adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAdParams {
@@ -116,7 +115,7 @@ pub struct GetTimeSeriesAdParamsBuilder {
     /// Adjusting mode for prices
     adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAdParamsBuilder {
@@ -255,7 +254,7 @@ impl GetTimeSeriesAdParamsBuilder {
             dp: self.dp,
             previous_close: self.previous_close,
             adjust: self.adjust,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -310,7 +309,7 @@ pub struct GetTimeSeriesAdOscParams {
     /// Number of periods for slow moving average. Takes values in the range from `1` to `800`
     pub slow_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAdOscParams {
@@ -370,7 +369,7 @@ pub struct GetTimeSeriesAdOscParamsBuilder {
     /// Number of periods for slow moving average. Takes values in the range from `1` to `800`
     slow_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAdOscParamsBuilder {
@@ -521,7 +520,7 @@ impl GetTimeSeriesAdOscParamsBuilder {
             adjust: self.adjust,
             fast_period: self.fast_period,
             slow_period: self.slow_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -576,7 +575,7 @@ pub struct GetTimeSeriesAddParams {
     /// Price type used as the second part of technical indicator
     pub series_type_2: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAddParams {
@@ -636,7 +635,7 @@ pub struct GetTimeSeriesAddParamsBuilder {
     /// Price type used as the second part of technical indicator
     series_type_2: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAddParamsBuilder {
@@ -787,7 +786,7 @@ impl GetTimeSeriesAddParamsBuilder {
             adjust: self.adjust,
             series_type_1: self.series_type_1,
             series_type_2: self.series_type_2,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -840,7 +839,7 @@ pub struct GetTimeSeriesAdxParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAdxParams {
@@ -898,7 +897,7 @@ pub struct GetTimeSeriesAdxParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAdxParamsBuilder {
@@ -1043,7 +1042,7 @@ impl GetTimeSeriesAdxParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -1096,7 +1095,7 @@ pub struct GetTimeSeriesAdxrParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAdxrParams {
@@ -1154,7 +1153,7 @@ pub struct GetTimeSeriesAdxrParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAdxrParamsBuilder {
@@ -1299,7 +1298,7 @@ impl GetTimeSeriesAdxrParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -1358,7 +1357,7 @@ pub struct GetTimeSeriesApoParams {
     /// The type of moving average used
     pub ma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesApoParams {
@@ -1422,7 +1421,7 @@ pub struct GetTimeSeriesApoParamsBuilder {
     /// The type of moving average used
     ma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesApoParamsBuilder {
@@ -1585,7 +1584,7 @@ impl GetTimeSeriesApoParamsBuilder {
             fast_period: self.fast_period,
             slow_period: self.slow_period,
             ma_type: self.ma_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -1638,7 +1637,7 @@ pub struct GetTimeSeriesAroonParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAroonParams {
@@ -1696,7 +1695,7 @@ pub struct GetTimeSeriesAroonParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAroonParamsBuilder {
@@ -1841,7 +1840,7 @@ impl GetTimeSeriesAroonParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -1894,7 +1893,7 @@ pub struct GetTimeSeriesAroonOscParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAroonOscParams {
@@ -1952,7 +1951,7 @@ pub struct GetTimeSeriesAroonOscParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAroonOscParamsBuilder {
@@ -2097,7 +2096,7 @@ impl GetTimeSeriesAroonOscParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -2150,7 +2149,7 @@ pub struct GetTimeSeriesAtrParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAtrParams {
@@ -2208,7 +2207,7 @@ pub struct GetTimeSeriesAtrParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAtrParamsBuilder {
@@ -2353,7 +2352,7 @@ impl GetTimeSeriesAtrParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -2408,7 +2407,7 @@ pub struct GetTimeSeriesAvgParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAvgParams {
@@ -2468,7 +2467,7 @@ pub struct GetTimeSeriesAvgParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAvgParamsBuilder {
@@ -2619,7 +2618,7 @@ impl GetTimeSeriesAvgParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -2670,7 +2669,7 @@ pub struct GetTimeSeriesAvgPriceParams {
     /// Adjusting mode for prices
     pub adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAvgPriceParams {
@@ -2726,7 +2725,7 @@ pub struct GetTimeSeriesAvgPriceParamsBuilder {
     /// Adjusting mode for prices
     adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesAvgPriceParamsBuilder {
@@ -2865,7 +2864,7 @@ impl GetTimeSeriesAvgPriceParamsBuilder {
             dp: self.dp,
             previous_close: self.previous_close,
             adjust: self.adjust,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -2924,7 +2923,7 @@ pub struct GetTimeSeriesBBandsParams {
     /// The type of moving average used
     pub ma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesBBandsParams {
@@ -2988,7 +2987,7 @@ pub struct GetTimeSeriesBBandsParamsBuilder {
     /// The type of moving average used
     ma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesBBandsParamsBuilder {
@@ -3151,7 +3150,7 @@ impl GetTimeSeriesBBandsParamsBuilder {
             time_period: self.time_period,
             sd: self.sd,
             ma_type: self.ma_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -3208,7 +3207,7 @@ pub struct GetTimeSeriesBetaParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesBetaParams {
@@ -3270,7 +3269,7 @@ pub struct GetTimeSeriesBetaParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesBetaParamsBuilder {
@@ -3427,7 +3426,7 @@ impl GetTimeSeriesBetaParamsBuilder {
             series_type_1: self.series_type_1,
             series_type_2: self.series_type_2,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -3478,7 +3477,7 @@ pub struct GetTimeSeriesBopParams {
     /// Adjusting mode for prices
     pub adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesBopParams {
@@ -3534,7 +3533,7 @@ pub struct GetTimeSeriesBopParamsBuilder {
     /// Adjusting mode for prices
     adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesBopParamsBuilder {
@@ -3673,7 +3672,7 @@ impl GetTimeSeriesBopParamsBuilder {
             dp: self.dp,
             previous_close: self.previous_close,
             adjust: self.adjust,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -3726,7 +3725,7 @@ pub struct GetTimeSeriesCciParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesCciParams {
@@ -3784,7 +3783,7 @@ pub struct GetTimeSeriesCciParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesCciParamsBuilder {
@@ -3929,7 +3928,7 @@ impl GetTimeSeriesCciParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -3982,7 +3981,7 @@ pub struct GetTimeSeriesCeilParams {
     /// Price type on which technical indicator is calculated
     pub series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesCeilParams {
@@ -4040,7 +4039,7 @@ pub struct GetTimeSeriesCeilParamsBuilder {
     /// Price type on which technical indicator is calculated
     series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesCeilParamsBuilder {
@@ -4185,7 +4184,7 @@ impl GetTimeSeriesCeilParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             series_type: self.series_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -4240,7 +4239,7 @@ pub struct GetTimeSeriesCmoParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesCmoParams {
@@ -4300,7 +4299,7 @@ pub struct GetTimeSeriesCmoParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesCmoParamsBuilder {
@@ -4451,7 +4450,7 @@ impl GetTimeSeriesCmoParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -4510,7 +4509,7 @@ pub struct GetTimeSeriesCoppockParams {
     /// Number of periods for short term rate of change. Takes values in the range from `1` to `800`
     pub short_roc_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesCoppockParams {
@@ -4574,7 +4573,7 @@ pub struct GetTimeSeriesCoppockParamsBuilder {
     /// Number of periods for short term rate of change. Takes values in the range from `1` to `800`
     short_roc_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesCoppockParamsBuilder {
@@ -4737,7 +4736,7 @@ impl GetTimeSeriesCoppockParamsBuilder {
             wma_period: self.wma_period,
             long_roc_period: self.long_roc_period,
             short_roc_period: self.short_roc_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -4794,7 +4793,7 @@ pub struct GetTimeSeriesCorrelParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesCorrelParams {
@@ -4856,7 +4855,7 @@ pub struct GetTimeSeriesCorrelParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesCorrelParamsBuilder {
@@ -5013,7 +5012,7 @@ impl GetTimeSeriesCorrelParamsBuilder {
             series_type_1: self.series_type_1,
             series_type_2: self.series_type_2,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -5072,7 +5071,7 @@ pub struct GetTimeSeriesCrsiParams {
     /// Number of periods used to calculate PercentRank. Takes values in the range from `1` to `800`
     pub percent_rank_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesCrsiParams {
@@ -5136,7 +5135,7 @@ pub struct GetTimeSeriesCrsiParamsBuilder {
     /// Number of periods used to calculate PercentRank. Takes values in the range from `1` to `800`
     percent_rank_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesCrsiParamsBuilder {
@@ -5299,7 +5298,7 @@ impl GetTimeSeriesCrsiParamsBuilder {
             rsi_period: self.rsi_period,
             up_down_length: self.up_down_length,
             percent_rank_period: self.percent_rank_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -5354,7 +5353,7 @@ pub struct GetTimeSeriesDemaParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesDemaParams {
@@ -5414,7 +5413,7 @@ pub struct GetTimeSeriesDemaParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesDemaParamsBuilder {
@@ -5565,7 +5564,7 @@ impl GetTimeSeriesDemaParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -5620,7 +5619,7 @@ pub struct GetTimeSeriesDivParams {
     /// Price type used as the second part of technical indicator
     pub series_type_2: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesDivParams {
@@ -5680,7 +5679,7 @@ pub struct GetTimeSeriesDivParamsBuilder {
     /// Price type used as the second part of technical indicator
     series_type_2: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesDivParamsBuilder {
@@ -5831,7 +5830,7 @@ impl GetTimeSeriesDivParamsBuilder {
             adjust: self.adjust,
             series_type_1: self.series_type_1,
             series_type_2: self.series_type_2,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -5888,7 +5887,7 @@ pub struct GetTimeSeriesDpoParams {
     /// Specifies if there should be a shift to match the current price
     pub centered: Option<bool>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesDpoParams {
@@ -5950,7 +5949,7 @@ pub struct GetTimeSeriesDpoParamsBuilder {
     /// Specifies if there should be a shift to match the current price
     centered: Option<bool>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesDpoParamsBuilder {
@@ -6107,7 +6106,7 @@ impl GetTimeSeriesDpoParamsBuilder {
             series_type: self.series_type,
             time_period: self.time_period,
             centered: self.centered,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -6160,7 +6159,7 @@ pub struct GetTimeSeriesDxParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesDxParams {
@@ -6218,7 +6217,7 @@ pub struct GetTimeSeriesDxParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesDxParamsBuilder {
@@ -6363,7 +6362,7 @@ impl GetTimeSeriesDxParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -6418,7 +6417,7 @@ pub struct GetTimeSeriesEmaParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesEmaParams {
@@ -6478,7 +6477,7 @@ pub struct GetTimeSeriesEmaParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesEmaParamsBuilder {
@@ -6629,7 +6628,7 @@ impl GetTimeSeriesEmaParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -6682,7 +6681,7 @@ pub struct GetTimeSeriesExpParams {
     /// Price type on which technical indicator is calculated
     pub series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesExpParams {
@@ -6740,7 +6739,7 @@ pub struct GetTimeSeriesExpParamsBuilder {
     /// Price type on which technical indicator is calculated
     series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesExpParamsBuilder {
@@ -6885,7 +6884,7 @@ impl GetTimeSeriesExpParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             series_type: self.series_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -6938,7 +6937,7 @@ pub struct GetTimeSeriesFloorParams {
     /// Price type on which technical indicator is calculated
     pub series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesFloorParams {
@@ -6996,7 +6995,7 @@ pub struct GetTimeSeriesFloorParamsBuilder {
     /// Price type on which technical indicator is calculated
     series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesFloorParamsBuilder {
@@ -7141,7 +7140,7 @@ impl GetTimeSeriesFloorParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             series_type: self.series_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -7192,7 +7191,7 @@ pub struct GetTimeSeriesHeikinashiCandlesParams {
     /// Adjusting mode for prices
     pub adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesHeikinashiCandlesParams {
@@ -7248,7 +7247,7 @@ pub struct GetTimeSeriesHeikinashiCandlesParamsBuilder {
     /// Adjusting mode for prices
     adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesHeikinashiCandlesParamsBuilder {
@@ -7387,7 +7386,7 @@ impl GetTimeSeriesHeikinashiCandlesParamsBuilder {
             dp: self.dp,
             previous_close: self.previous_close,
             adjust: self.adjust,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -7438,7 +7437,7 @@ pub struct GetTimeSeriesHlc3Params {
     /// Adjusting mode for prices
     pub adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesHlc3Params {
@@ -7494,7 +7493,7 @@ pub struct GetTimeSeriesHlc3ParamsBuilder {
     /// Adjusting mode for prices
     adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesHlc3ParamsBuilder {
@@ -7633,7 +7632,7 @@ impl GetTimeSeriesHlc3ParamsBuilder {
             dp: self.dp,
             previous_close: self.previous_close,
             adjust: self.adjust,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -7686,7 +7685,7 @@ pub struct GetTimeSeriesHtDcPeriodParams {
     /// Price type on which technical indicator is calculated
     pub series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesHtDcPeriodParams {
@@ -7744,7 +7743,7 @@ pub struct GetTimeSeriesHtDcPeriodParamsBuilder {
     /// Price type on which technical indicator is calculated
     series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesHtDcPeriodParamsBuilder {
@@ -7889,7 +7888,7 @@ impl GetTimeSeriesHtDcPeriodParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             series_type: self.series_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -7942,7 +7941,7 @@ pub struct GetTimeSeriesHtDcPhaseParams {
     /// Price type on which technical indicator is calculated
     pub series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesHtDcPhaseParams {
@@ -8000,7 +7999,7 @@ pub struct GetTimeSeriesHtDcPhaseParamsBuilder {
     /// Price type on which technical indicator is calculated
     series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesHtDcPhaseParamsBuilder {
@@ -8145,7 +8144,7 @@ impl GetTimeSeriesHtDcPhaseParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             series_type: self.series_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -8198,7 +8197,7 @@ pub struct GetTimeSeriesHtPhasorParams {
     /// Price type on which technical indicator is calculated
     pub series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesHtPhasorParams {
@@ -8256,7 +8255,7 @@ pub struct GetTimeSeriesHtPhasorParamsBuilder {
     /// Price type on which technical indicator is calculated
     series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesHtPhasorParamsBuilder {
@@ -8401,7 +8400,7 @@ impl GetTimeSeriesHtPhasorParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             series_type: self.series_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -8454,7 +8453,7 @@ pub struct GetTimeSeriesHtSineParams {
     /// Price type on which technical indicator is calculated
     pub series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesHtSineParams {
@@ -8512,7 +8511,7 @@ pub struct GetTimeSeriesHtSineParamsBuilder {
     /// Price type on which technical indicator is calculated
     series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesHtSineParamsBuilder {
@@ -8657,7 +8656,7 @@ impl GetTimeSeriesHtSineParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             series_type: self.series_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -8710,7 +8709,7 @@ pub struct GetTimeSeriesHtTrendModeParams {
     /// Price type on which technical indicator is calculated
     pub series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesHtTrendModeParams {
@@ -8768,7 +8767,7 @@ pub struct GetTimeSeriesHtTrendModeParamsBuilder {
     /// Price type on which technical indicator is calculated
     series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesHtTrendModeParamsBuilder {
@@ -8913,7 +8912,7 @@ impl GetTimeSeriesHtTrendModeParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             series_type: self.series_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -8966,7 +8965,7 @@ pub struct GetTimeSeriesHtTrendlineParams {
     /// Price type on which technical indicator is calculated
     pub series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesHtTrendlineParams {
@@ -9024,7 +9023,7 @@ pub struct GetTimeSeriesHtTrendlineParamsBuilder {
     /// Price type on which technical indicator is calculated
     series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesHtTrendlineParamsBuilder {
@@ -9169,7 +9168,7 @@ impl GetTimeSeriesHtTrendlineParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             series_type: self.series_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -9230,7 +9229,7 @@ pub struct GetTimeSeriesIchimokuParams {
     /// Indicates whether to include ahead span period
     pub include_ahead_span_period: Option<bool>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesIchimokuParams {
@@ -9296,7 +9295,7 @@ pub struct GetTimeSeriesIchimokuParamsBuilder {
     /// Indicates whether to include ahead span period
     include_ahead_span_period: Option<bool>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesIchimokuParamsBuilder {
@@ -9465,7 +9464,7 @@ impl GetTimeSeriesIchimokuParamsBuilder {
             leading_span_b_period: self.leading_span_b_period,
             lagging_span_period: self.lagging_span_period,
             include_ahead_span_period: self.include_ahead_span_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -9520,7 +9519,7 @@ pub struct GetTimeSeriesKamaParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesKamaParams {
@@ -9580,7 +9579,7 @@ pub struct GetTimeSeriesKamaParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesKamaParamsBuilder {
@@ -9731,7 +9730,7 @@ impl GetTimeSeriesKamaParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -9792,7 +9791,7 @@ pub struct GetTimeSeriesKeltnerParams {
     /// The type of moving average used
     pub ma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesKeltnerParams {
@@ -9858,7 +9857,7 @@ pub struct GetTimeSeriesKeltnerParamsBuilder {
     /// The type of moving average used
     ma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesKeltnerParamsBuilder {
@@ -10027,7 +10026,7 @@ impl GetTimeSeriesKeltnerParamsBuilder {
             multiplier: self.multiplier,
             series_type: self.series_type,
             ma_type: self.ma_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -10096,7 +10095,7 @@ pub struct GetTimeSeriesKstParams {
     /// The time period used for generating the signal line.
     pub signal_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesKstParams {
@@ -10170,7 +10169,7 @@ pub struct GetTimeSeriesKstParamsBuilder {
     /// The time period used for generating the signal line.
     signal_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesKstParamsBuilder {
@@ -10363,7 +10362,7 @@ impl GetTimeSeriesKstParamsBuilder {
             sma_period_3: self.sma_period_3,
             sma_period_4: self.sma_period_4,
             signal_period: self.signal_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -10418,7 +10417,7 @@ pub struct GetTimeSeriesLinearRegParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesLinearRegParams {
@@ -10478,7 +10477,7 @@ pub struct GetTimeSeriesLinearRegParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesLinearRegParamsBuilder {
@@ -10629,7 +10628,7 @@ impl GetTimeSeriesLinearRegParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -10684,7 +10683,7 @@ pub struct GetTimeSeriesLinearRegAngleParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesLinearRegAngleParams {
@@ -10744,7 +10743,7 @@ pub struct GetTimeSeriesLinearRegAngleParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesLinearRegAngleParamsBuilder {
@@ -10895,7 +10894,7 @@ impl GetTimeSeriesLinearRegAngleParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -10950,7 +10949,7 @@ pub struct GetTimeSeriesLinearRegInterceptParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesLinearRegInterceptParams {
@@ -11010,7 +11009,7 @@ pub struct GetTimeSeriesLinearRegInterceptParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesLinearRegInterceptParamsBuilder {
@@ -11161,7 +11160,7 @@ impl GetTimeSeriesLinearRegInterceptParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -11216,7 +11215,7 @@ pub struct GetTimeSeriesLinearRegSlopeParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesLinearRegSlopeParams {
@@ -11276,7 +11275,7 @@ pub struct GetTimeSeriesLinearRegSlopeParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesLinearRegSlopeParamsBuilder {
@@ -11427,7 +11426,7 @@ impl GetTimeSeriesLinearRegSlopeParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -11480,7 +11479,7 @@ pub struct GetTimeSeriesLnParams {
     /// Price type on which technical indicator is calculated
     pub series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesLnParams {
@@ -11538,7 +11537,7 @@ pub struct GetTimeSeriesLnParamsBuilder {
     /// Price type on which technical indicator is calculated
     series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesLnParamsBuilder {
@@ -11683,7 +11682,7 @@ impl GetTimeSeriesLnParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             series_type: self.series_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -11736,7 +11735,7 @@ pub struct GetTimeSeriesLog10Params {
     /// Price type on which technical indicator is calculated
     pub series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesLog10Params {
@@ -11794,7 +11793,7 @@ pub struct GetTimeSeriesLog10ParamsBuilder {
     /// Price type on which technical indicator is calculated
     series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesLog10ParamsBuilder {
@@ -11939,7 +11938,7 @@ impl GetTimeSeriesLog10ParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             series_type: self.series_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -11996,7 +11995,7 @@ pub struct GetTimeSeriesMaParams {
     /// The type of moving average used
     pub ma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMaParams {
@@ -12058,7 +12057,7 @@ pub struct GetTimeSeriesMaParamsBuilder {
     /// The type of moving average used
     ma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMaParamsBuilder {
@@ -12215,7 +12214,7 @@ impl GetTimeSeriesMaParamsBuilder {
             series_type: self.series_type,
             time_period: self.time_period,
             ma_type: self.ma_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -12274,7 +12273,7 @@ pub struct GetTimeSeriesMacdParams {
     /// The time period used for generating the signal line.
     pub signal_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMacdParams {
@@ -12338,7 +12337,7 @@ pub struct GetTimeSeriesMacdParamsBuilder {
     /// The time period used for generating the signal line.
     signal_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMacdParamsBuilder {
@@ -12501,7 +12500,7 @@ impl GetTimeSeriesMacdParamsBuilder {
             fast_period: self.fast_period,
             slow_period: self.slow_period,
             signal_period: self.signal_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -12566,7 +12565,7 @@ pub struct GetTimeSeriesMacdExtParams {
     /// The type of fast moving average used for generating the signal line.
     pub signal_ma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMacdExtParams {
@@ -12636,7 +12635,7 @@ pub struct GetTimeSeriesMacdExtParamsBuilder {
     /// The type of fast moving average used for generating the signal line.
     signal_ma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMacdExtParamsBuilder {
@@ -12817,7 +12816,7 @@ impl GetTimeSeriesMacdExtParamsBuilder {
             slow_ma_type: self.slow_ma_type,
             signal_period: self.signal_period,
             signal_ma_type: self.signal_ma_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -12878,7 +12877,7 @@ pub struct GetTimeSeriesMacdSlopeParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMacdSlopeParams {
@@ -12944,7 +12943,7 @@ pub struct GetTimeSeriesMacdSlopeParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMacdSlopeParamsBuilder {
@@ -13113,7 +13112,7 @@ impl GetTimeSeriesMacdSlopeParamsBuilder {
             slow_period: self.slow_period,
             signal_period: self.signal_period,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -13170,7 +13169,7 @@ pub struct GetTimeSeriesMamaParams {
     /// The limit for the slow moving average.
     pub slow_limit: Option<f64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMamaParams {
@@ -13232,7 +13231,7 @@ pub struct GetTimeSeriesMamaParamsBuilder {
     /// The limit for the slow moving average.
     slow_limit: Option<f64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMamaParamsBuilder {
@@ -13389,7 +13388,7 @@ impl GetTimeSeriesMamaParamsBuilder {
             series_type: self.series_type,
             fast_limit: self.fast_limit,
             slow_limit: self.slow_limit,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -13444,7 +13443,7 @@ pub struct GetTimeSeriesMaxParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMaxParams {
@@ -13504,7 +13503,7 @@ pub struct GetTimeSeriesMaxParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMaxParamsBuilder {
@@ -13655,7 +13654,7 @@ impl GetTimeSeriesMaxParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -13710,7 +13709,7 @@ pub struct GetTimeSeriesMaxIndexParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMaxIndexParams {
@@ -13770,7 +13769,7 @@ pub struct GetTimeSeriesMaxIndexParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMaxIndexParamsBuilder {
@@ -13921,7 +13920,7 @@ impl GetTimeSeriesMaxIndexParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -13974,7 +13973,7 @@ pub struct GetTimeSeriesMcGinleyDynamicParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMcGinleyDynamicParams {
@@ -14032,7 +14031,7 @@ pub struct GetTimeSeriesMcGinleyDynamicParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMcGinleyDynamicParamsBuilder {
@@ -14177,7 +14176,7 @@ impl GetTimeSeriesMcGinleyDynamicParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -14228,7 +14227,7 @@ pub struct GetTimeSeriesMedPriceParams {
     /// Adjusting mode for prices
     pub adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMedPriceParams {
@@ -14284,7 +14283,7 @@ pub struct GetTimeSeriesMedPriceParamsBuilder {
     /// Adjusting mode for prices
     adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMedPriceParamsBuilder {
@@ -14423,7 +14422,7 @@ impl GetTimeSeriesMedPriceParamsBuilder {
             dp: self.dp,
             previous_close: self.previous_close,
             adjust: self.adjust,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -14476,7 +14475,7 @@ pub struct GetTimeSeriesMfiParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMfiParams {
@@ -14534,7 +14533,7 @@ pub struct GetTimeSeriesMfiParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMfiParamsBuilder {
@@ -14679,7 +14678,7 @@ impl GetTimeSeriesMfiParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -14734,7 +14733,7 @@ pub struct GetTimeSeriesMidPointParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMidPointParams {
@@ -14794,7 +14793,7 @@ pub struct GetTimeSeriesMidPointParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMidPointParamsBuilder {
@@ -14945,7 +14944,7 @@ impl GetTimeSeriesMidPointParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -14998,7 +14997,7 @@ pub struct GetTimeSeriesMidPriceParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMidPriceParams {
@@ -15056,7 +15055,7 @@ pub struct GetTimeSeriesMidPriceParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMidPriceParamsBuilder {
@@ -15201,7 +15200,7 @@ impl GetTimeSeriesMidPriceParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -15256,7 +15255,7 @@ pub struct GetTimeSeriesMinParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMinParams {
@@ -15316,7 +15315,7 @@ pub struct GetTimeSeriesMinParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMinParamsBuilder {
@@ -15467,7 +15466,7 @@ impl GetTimeSeriesMinParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -15522,7 +15521,7 @@ pub struct GetTimeSeriesMinIndexParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMinIndexParams {
@@ -15582,7 +15581,7 @@ pub struct GetTimeSeriesMinIndexParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMinIndexParamsBuilder {
@@ -15733,7 +15732,7 @@ impl GetTimeSeriesMinIndexParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -15788,7 +15787,7 @@ pub struct GetTimeSeriesMinMaxParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMinMaxParams {
@@ -15848,7 +15847,7 @@ pub struct GetTimeSeriesMinMaxParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMinMaxParamsBuilder {
@@ -15999,7 +15998,7 @@ impl GetTimeSeriesMinMaxParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -16054,7 +16053,7 @@ pub struct GetTimeSeriesMinMaxIndexParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMinMaxIndexParams {
@@ -16114,7 +16113,7 @@ pub struct GetTimeSeriesMinMaxIndexParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMinMaxIndexParamsBuilder {
@@ -16265,7 +16264,7 @@ impl GetTimeSeriesMinMaxIndexParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -16318,7 +16317,7 @@ pub struct GetTimeSeriesMinusDiParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMinusDiParams {
@@ -16376,7 +16375,7 @@ pub struct GetTimeSeriesMinusDiParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMinusDiParamsBuilder {
@@ -16521,7 +16520,7 @@ impl GetTimeSeriesMinusDiParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -16574,7 +16573,7 @@ pub struct GetTimeSeriesMinusDmParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMinusDmParams {
@@ -16632,7 +16631,7 @@ pub struct GetTimeSeriesMinusDmParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMinusDmParamsBuilder {
@@ -16777,7 +16776,7 @@ impl GetTimeSeriesMinusDmParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -16832,7 +16831,7 @@ pub struct GetTimeSeriesMomParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMomParams {
@@ -16892,7 +16891,7 @@ pub struct GetTimeSeriesMomParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMomParamsBuilder {
@@ -17043,7 +17042,7 @@ impl GetTimeSeriesMomParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -17098,7 +17097,7 @@ pub struct GetTimeSeriesMultParams {
     /// Price type used as the second part of technical indicator
     pub series_type_2: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMultParams {
@@ -17158,7 +17157,7 @@ pub struct GetTimeSeriesMultParamsBuilder {
     /// Price type used as the second part of technical indicator
     series_type_2: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesMultParamsBuilder {
@@ -17309,7 +17308,7 @@ impl GetTimeSeriesMultParamsBuilder {
             adjust: self.adjust,
             series_type_1: self.series_type_1,
             series_type_2: self.series_type_2,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -17362,7 +17361,7 @@ pub struct GetTimeSeriesNatrParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesNatrParams {
@@ -17420,7 +17419,7 @@ pub struct GetTimeSeriesNatrParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesNatrParamsBuilder {
@@ -17565,7 +17564,7 @@ impl GetTimeSeriesNatrParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -17618,7 +17617,7 @@ pub struct GetTimeSeriesObvParams {
     /// Price type on which technical indicator is calculated
     pub series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesObvParams {
@@ -17676,7 +17675,7 @@ pub struct GetTimeSeriesObvParamsBuilder {
     /// Price type on which technical indicator is calculated
     series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesObvParamsBuilder {
@@ -17821,7 +17820,7 @@ impl GetTimeSeriesObvParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             series_type: self.series_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -17880,7 +17879,7 @@ pub struct GetTimeSeriesPercentBParams {
     /// The type of moving average used
     pub ma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesPercentBParams {
@@ -17944,7 +17943,7 @@ pub struct GetTimeSeriesPercentBParamsBuilder {
     /// The type of moving average used
     ma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesPercentBParamsBuilder {
@@ -18107,7 +18106,7 @@ impl GetTimeSeriesPercentBParamsBuilder {
             time_period: self.time_period,
             sd: self.sd,
             ma_type: self.ma_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -18160,7 +18159,7 @@ pub struct GetTimeSeriesPivotPointsHlParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesPivotPointsHlParams {
@@ -18218,7 +18217,7 @@ pub struct GetTimeSeriesPivotPointsHlParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesPivotPointsHlParamsBuilder {
@@ -18363,7 +18362,7 @@ impl GetTimeSeriesPivotPointsHlParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -18416,7 +18415,7 @@ pub struct GetTimeSeriesPlusDiParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesPlusDiParams {
@@ -18474,7 +18473,7 @@ pub struct GetTimeSeriesPlusDiParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesPlusDiParamsBuilder {
@@ -18619,7 +18618,7 @@ impl GetTimeSeriesPlusDiParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -18672,7 +18671,7 @@ pub struct GetTimeSeriesPlusDmParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesPlusDmParams {
@@ -18730,7 +18729,7 @@ pub struct GetTimeSeriesPlusDmParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesPlusDmParamsBuilder {
@@ -18875,7 +18874,7 @@ impl GetTimeSeriesPlusDmParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -18934,7 +18933,7 @@ pub struct GetTimeSeriesPpoParams {
     /// The type of moving average used
     pub ma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesPpoParams {
@@ -18998,7 +18997,7 @@ pub struct GetTimeSeriesPpoParamsBuilder {
     /// The type of moving average used
     ma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesPpoParamsBuilder {
@@ -19161,7 +19160,7 @@ impl GetTimeSeriesPpoParamsBuilder {
             fast_period: self.fast_period,
             slow_period: self.slow_period,
             ma_type: self.ma_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -19216,7 +19215,7 @@ pub struct GetTimeSeriesRocParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesRocParams {
@@ -19276,7 +19275,7 @@ pub struct GetTimeSeriesRocParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesRocParamsBuilder {
@@ -19427,7 +19426,7 @@ impl GetTimeSeriesRocParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -19482,7 +19481,7 @@ pub struct GetTimeSeriesRocpParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesRocpParams {
@@ -19542,7 +19541,7 @@ pub struct GetTimeSeriesRocpParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesRocpParamsBuilder {
@@ -19693,7 +19692,7 @@ impl GetTimeSeriesRocpParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -19748,7 +19747,7 @@ pub struct GetTimeSeriesRocrParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesRocrParams {
@@ -19808,7 +19807,7 @@ pub struct GetTimeSeriesRocrParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesRocrParamsBuilder {
@@ -19959,7 +19958,7 @@ impl GetTimeSeriesRocrParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -20014,7 +20013,7 @@ pub struct GetTimeSeriesRocr100Params {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesRocr100Params {
@@ -20074,7 +20073,7 @@ pub struct GetTimeSeriesRocr100ParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesRocr100ParamsBuilder {
@@ -20225,7 +20224,7 @@ impl GetTimeSeriesRocr100ParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -20280,7 +20279,7 @@ pub struct GetTimeSeriesRsiParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesRsiParams {
@@ -20340,7 +20339,7 @@ pub struct GetTimeSeriesRsiParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesRsiParamsBuilder {
@@ -20491,7 +20490,7 @@ impl GetTimeSeriesRsiParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -20544,7 +20543,7 @@ pub struct GetTimeSeriesRvolParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesRvolParams {
@@ -20602,7 +20601,7 @@ pub struct GetTimeSeriesRvolParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesRvolParamsBuilder {
@@ -20747,7 +20746,7 @@ impl GetTimeSeriesRvolParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -20802,7 +20801,7 @@ pub struct GetTimeSeriesSarParams {
     /// The maximum value considered for the indicator calculation.
     pub maximum: Option<f64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesSarParams {
@@ -20862,7 +20861,7 @@ pub struct GetTimeSeriesSarParamsBuilder {
     /// The maximum value considered for the indicator calculation.
     maximum: Option<f64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesSarParamsBuilder {
@@ -21013,7 +21012,7 @@ impl GetTimeSeriesSarParamsBuilder {
             adjust: self.adjust,
             acceleration: self.acceleration,
             maximum: self.maximum,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -21080,7 +21079,7 @@ pub struct GetTimeSeriesSarExtParams {
     /// The highest allowed acceleration for short positions.
     pub acceleration_max_short: Option<f64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesSarExtParams {
@@ -21152,7 +21151,7 @@ pub struct GetTimeSeriesSarExtParamsBuilder {
     /// The highest allowed acceleration for short positions.
     acceleration_max_short: Option<f64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesSarExtParamsBuilder {
@@ -21339,7 +21338,7 @@ impl GetTimeSeriesSarExtParamsBuilder {
             acceleration_limit_short: self.acceleration_limit_short,
             acceleration_short: self.acceleration_short,
             acceleration_max_short: self.acceleration_max_short,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -21394,7 +21393,7 @@ pub struct GetTimeSeriesSmaParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesSmaParams {
@@ -21454,7 +21453,7 @@ pub struct GetTimeSeriesSmaParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesSmaParamsBuilder {
@@ -21605,7 +21604,7 @@ impl GetTimeSeriesSmaParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -21658,7 +21657,7 @@ pub struct GetTimeSeriesSqrtParams {
     /// Price type on which technical indicator is calculated
     pub series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesSqrtParams {
@@ -21716,7 +21715,7 @@ pub struct GetTimeSeriesSqrtParamsBuilder {
     /// Price type on which technical indicator is calculated
     series_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesSqrtParamsBuilder {
@@ -21861,7 +21860,7 @@ impl GetTimeSeriesSqrtParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             series_type: self.series_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -21918,7 +21917,7 @@ pub struct GetTimeSeriesStdDevParams {
     /// The standard deviation applied in the calculation.
     pub sd: Option<f64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesStdDevParams {
@@ -21980,7 +21979,7 @@ pub struct GetTimeSeriesStdDevParamsBuilder {
     /// The standard deviation applied in the calculation.
     sd: Option<f64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesStdDevParamsBuilder {
@@ -22137,7 +22136,7 @@ impl GetTimeSeriesStdDevParamsBuilder {
             series_type: self.series_type,
             time_period: self.time_period,
             sd: self.sd,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -22198,7 +22197,7 @@ pub struct GetTimeSeriesStochParams {
     /// The type of slow Displaced Moving Average used. Default is SMA.
     pub slow_dma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesStochParams {
@@ -22264,7 +22263,7 @@ pub struct GetTimeSeriesStochParamsBuilder {
     /// The type of slow Displaced Moving Average used. Default is SMA.
     slow_dma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesStochParamsBuilder {
@@ -22433,7 +22432,7 @@ impl GetTimeSeriesStochParamsBuilder {
             slow_d_period: self.slow_d_period,
             slow_kma_type: self.slow_kma_type,
             slow_dma_type: self.slow_dma_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -22490,7 +22489,7 @@ pub struct GetTimeSeriesStochFParams {
     /// The type of fast Displaced Moving Average used.
     pub fast_dma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesStochFParams {
@@ -22552,7 +22551,7 @@ pub struct GetTimeSeriesStochFParamsBuilder {
     /// The type of fast Displaced Moving Average used.
     fast_dma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesStochFParamsBuilder {
@@ -22709,7 +22708,7 @@ impl GetTimeSeriesStochFParamsBuilder {
             fast_k_period: self.fast_k_period,
             fast_d_period: self.fast_d_period,
             fast_dma_type: self.fast_dma_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -22772,7 +22771,7 @@ pub struct GetTimeSeriesStochRsiParams {
     pub d_period: Option<i64>,
     pub slow_dma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesStochRsiParams {
@@ -22840,7 +22839,7 @@ pub struct GetTimeSeriesStochRsiParamsBuilder {
     d_period: Option<i64>,
     slow_dma_type: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesStochRsiParamsBuilder {
@@ -23019,7 +23018,7 @@ impl GetTimeSeriesStochRsiParamsBuilder {
             slow_kma_type: self.slow_kma_type,
             d_period: self.d_period,
             slow_dma_type: self.slow_dma_type,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -23074,7 +23073,7 @@ pub struct GetTimeSeriesSubParams {
     /// Price type used as the second part of technical indicator
     pub series_type_2: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesSubParams {
@@ -23134,7 +23133,7 @@ pub struct GetTimeSeriesSubParamsBuilder {
     /// Price type used as the second part of technical indicator
     series_type_2: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesSubParamsBuilder {
@@ -23285,7 +23284,7 @@ impl GetTimeSeriesSubParamsBuilder {
             adjust: self.adjust,
             series_type_1: self.series_type_1,
             series_type_2: self.series_type_2,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -23340,7 +23339,7 @@ pub struct GetTimeSeriesSumParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesSumParams {
@@ -23400,7 +23399,7 @@ pub struct GetTimeSeriesSumParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesSumParamsBuilder {
@@ -23551,7 +23550,7 @@ impl GetTimeSeriesSumParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -23606,7 +23605,7 @@ pub struct GetTimeSeriesSuperTrendParams {
     /// The factor used to adjust the indicator's sensitivity.
     pub multiplier: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesSuperTrendParams {
@@ -23666,7 +23665,7 @@ pub struct GetTimeSeriesSuperTrendParamsBuilder {
     /// The factor used to adjust the indicator's sensitivity.
     multiplier: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesSuperTrendParamsBuilder {
@@ -23817,7 +23816,7 @@ impl GetTimeSeriesSuperTrendParamsBuilder {
             adjust: self.adjust,
             period: self.period,
             multiplier: self.multiplier,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -23872,7 +23871,7 @@ pub struct GetTimeSeriesSuperTrendHeikinAshiCandlesParams {
     /// The factor used to adjust the indicator's sensitivity.
     pub multiplier: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesSuperTrendHeikinAshiCandlesParams {
@@ -23932,7 +23931,7 @@ pub struct GetTimeSeriesSuperTrendHeikinAshiCandlesParamsBuilder {
     /// The factor used to adjust the indicator's sensitivity.
     multiplier: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesSuperTrendHeikinAshiCandlesParamsBuilder {
@@ -24083,7 +24082,7 @@ impl GetTimeSeriesSuperTrendHeikinAshiCandlesParamsBuilder {
             adjust: self.adjust,
             period: self.period,
             multiplier: self.multiplier,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -24140,7 +24139,7 @@ pub struct GetTimeSeriesT3maParams {
     /// The factor used to adjust the indicator's volatility. Takes values in the range from `0` to `1`
     pub v_factor: Option<f64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesT3maParams {
@@ -24202,7 +24201,7 @@ pub struct GetTimeSeriesT3maParamsBuilder {
     /// The factor used to adjust the indicator's volatility. Takes values in the range from `0` to `1`
     v_factor: Option<f64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesT3maParamsBuilder {
@@ -24359,7 +24358,7 @@ impl GetTimeSeriesT3maParamsBuilder {
             series_type: self.series_type,
             time_period: self.time_period,
             v_factor: self.v_factor,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -24410,7 +24409,7 @@ pub struct GetTimeSeriesTRangeParams {
     /// Adjusting mode for prices
     pub adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesTRangeParams {
@@ -24466,7 +24465,7 @@ pub struct GetTimeSeriesTRangeParamsBuilder {
     /// Adjusting mode for prices
     adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesTRangeParamsBuilder {
@@ -24605,7 +24604,7 @@ impl GetTimeSeriesTRangeParamsBuilder {
             dp: self.dp,
             previous_close: self.previous_close,
             adjust: self.adjust,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -24660,7 +24659,7 @@ pub struct GetTimeSeriesTemaParams {
     /// The time period used for calculation in the indicator. Default is 9.
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesTemaParams {
@@ -24720,7 +24719,7 @@ pub struct GetTimeSeriesTemaParamsBuilder {
     /// The time period used for calculation in the indicator. Default is 9.
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesTemaParamsBuilder {
@@ -24871,7 +24870,7 @@ impl GetTimeSeriesTemaParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -24926,7 +24925,7 @@ pub struct GetTimeSeriesTrimaParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesTrimaParams {
@@ -24986,7 +24985,7 @@ pub struct GetTimeSeriesTrimaParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesTrimaParamsBuilder {
@@ -25137,7 +25136,7 @@ impl GetTimeSeriesTrimaParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -25192,7 +25191,7 @@ pub struct GetTimeSeriesTsfParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesTsfParams {
@@ -25252,7 +25251,7 @@ pub struct GetTimeSeriesTsfParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesTsfParamsBuilder {
@@ -25403,7 +25402,7 @@ impl GetTimeSeriesTsfParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -25454,7 +25453,7 @@ pub struct GetTimeSeriesTypPriceParams {
     /// Adjusting mode for prices
     pub adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesTypPriceParams {
@@ -25510,7 +25509,7 @@ pub struct GetTimeSeriesTypPriceParamsBuilder {
     /// Adjusting mode for prices
     adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesTypPriceParamsBuilder {
@@ -25649,7 +25648,7 @@ impl GetTimeSeriesTypPriceParamsBuilder {
             dp: self.dp,
             previous_close: self.previous_close,
             adjust: self.adjust,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -25706,7 +25705,7 @@ pub struct GetTimeSeriesUltOscParams {
     /// The third time period used for calculation in the indicator. Takes values in the range from `1` to `800`
     pub time_period_3: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesUltOscParams {
@@ -25768,7 +25767,7 @@ pub struct GetTimeSeriesUltOscParamsBuilder {
     /// The third time period used for calculation in the indicator. Takes values in the range from `1` to `800`
     time_period_3: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesUltOscParamsBuilder {
@@ -25925,7 +25924,7 @@ impl GetTimeSeriesUltOscParamsBuilder {
             time_period_1: self.time_period_1,
             time_period_2: self.time_period_2,
             time_period_3: self.time_period_3,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -25980,7 +25979,7 @@ pub struct GetTimeSeriesVarParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesVarParams {
@@ -26040,7 +26039,7 @@ pub struct GetTimeSeriesVarParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesVarParamsBuilder {
@@ -26191,7 +26190,7 @@ impl GetTimeSeriesVarParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -26246,7 +26245,7 @@ pub struct GetTimeSeriesVwapParams {
     /// The standard deviation applied in the calculation. Must be greater than `0`. Recommended value is `2`. This parameter is only used together with `sd_time_period`.
     pub sd: Option<f64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesVwapParams {
@@ -26306,7 +26305,7 @@ pub struct GetTimeSeriesVwapParamsBuilder {
     /// The standard deviation applied in the calculation. Must be greater than `0`. Recommended value is `2`. This parameter is only used together with `sd_time_period`.
     sd: Option<f64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesVwapParamsBuilder {
@@ -26457,7 +26456,7 @@ impl GetTimeSeriesVwapParamsBuilder {
             adjust: self.adjust,
             sd_time_period: self.sd_time_period,
             sd: self.sd,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -26508,7 +26507,7 @@ pub struct GetTimeSeriesWclPriceParams {
     /// Adjusting mode for prices
     pub adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesWclPriceParams {
@@ -26564,7 +26563,7 @@ pub struct GetTimeSeriesWclPriceParamsBuilder {
     /// Adjusting mode for prices
     adjust: Option<String>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesWclPriceParamsBuilder {
@@ -26703,7 +26702,7 @@ impl GetTimeSeriesWclPriceParamsBuilder {
             dp: self.dp,
             previous_close: self.previous_close,
             adjust: self.adjust,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -26756,7 +26755,7 @@ pub struct GetTimeSeriesWillRParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesWillRParams {
@@ -26814,7 +26813,7 @@ pub struct GetTimeSeriesWillRParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesWillRParamsBuilder {
@@ -26959,7 +26958,7 @@ impl GetTimeSeriesWillRParamsBuilder {
             previous_close: self.previous_close,
             adjust: self.adjust,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
@@ -27014,7 +27013,7 @@ pub struct GetTimeSeriesWmaParams {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     pub time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    pub include_ohlc: Option<bool>
+    pub include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesWmaParams {
@@ -27074,7 +27073,7 @@ pub struct GetTimeSeriesWmaParamsBuilder {
     /// Number of periods to average over. Takes values in the range from `1` to `800`
     time_period: Option<i64>,
     /// Specify if OHLC values should be added in the output
-    include_ohlc: Option<bool>
+    include_ohlc: Option<bool>,
 }
 
 impl GetTimeSeriesWmaParamsBuilder {
@@ -27225,11 +27224,10 @@ impl GetTimeSeriesWmaParamsBuilder {
             adjust: self.adjust,
             series_type: self.series_type,
             time_period: self.time_period,
-            include_ohlc: self.include_ohlc
+            include_ohlc: self.include_ohlc,
         }
     }
 }
-
 
 /// struct for typed errors of method [`get_time_series_ad`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -27945,9 +27943,11 @@ pub enum GetTimeSeriesWmaError {
     UnknownValue(serde_json::Value),
 }
 
-
 /// The Accumulation/Distribution (AD) endpoint provides data on the cumulative money flow into and out of a financial instrument, using its closing price, price range, and trading volume. This endpoint returns the AD line, which helps users identify potential buying or selling pressure and assess the strength of price movements.
-pub async fn get_time_series_ad(configuration: &configuration::Configuration, params: GetTimeSeriesAdParams) -> Result<models::GetTimeSeriesAd200Response, Error<GetTimeSeriesAdError>> {
+pub async fn get_time_series_ad(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesAdParams,
+) -> Result<models::GetTimeSeriesAd200ResponseEnum, Error<GetTimeSeriesAdError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -28001,7 +28001,7 @@ pub async fn get_time_series_ad(configuration: &configuration::Configuration, pa
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -28016,13 +28016,13 @@ pub async fn get_time_series_ad(configuration: &configuration::Configuration, pa
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -28034,7 +28034,7 @@ pub async fn get_time_series_ad(configuration: &configuration::Configuration, pa
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -28066,18 +28066,25 @@ pub async fn get_time_series_ad(configuration: &configuration::Configuration, pa
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesAd200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAd200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesAd200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAd200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesAdError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Accumulation/Distribution Oscillator endpoint (ADOSC) calculates a momentum indicator that highlights shifts in buying or selling pressure by analyzing price and volume data over different time frames. It returns numerical values that help users identify potential trend reversals in financial markets.
-pub async fn get_time_series_ad_osc(configuration: &configuration::Configuration, params: GetTimeSeriesAdOscParams) -> Result<models::GetTimeSeriesAdOsc200Response, Error<GetTimeSeriesAdOscError>> {
+pub async fn get_time_series_ad_osc(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesAdOscParams,
+) -> Result<models::GetTimeSeriesAdOsc200ResponseEnum, Error<GetTimeSeriesAdOscError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -28133,7 +28140,7 @@ pub async fn get_time_series_ad_osc(configuration: &configuration::Configuration
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -28148,13 +28155,13 @@ pub async fn get_time_series_ad_osc(configuration: &configuration::Configuration
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -28166,7 +28173,7 @@ pub async fn get_time_series_ad_osc(configuration: &configuration::Configuration
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_fast_period {
         req_builder = req_builder.query(&[("fast_period", &param_value.to_string())]);
@@ -28204,18 +28211,25 @@ pub async fn get_time_series_ad_osc(configuration: &configuration::Configuration
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesAdOsc200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAdOsc200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesAdOsc200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAdOsc200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesAdOscError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Addition (ADD) endpoint calculates the sum of two input data series, such as technical indicators or price data, and returns the combined result. This endpoint is useful for users who need to aggregate data points to create custom indicators or analyze the combined effect of multiple data series in financial analysis.
-pub async fn get_time_series_add(configuration: &configuration::Configuration, params: GetTimeSeriesAddParams) -> Result<models::GetTimeSeriesAdd200Response, Error<GetTimeSeriesAddError>> {
+pub async fn get_time_series_add(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesAddParams,
+) -> Result<models::GetTimeSeriesAdd200ResponseEnum, Error<GetTimeSeriesAddError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -28271,7 +28285,7 @@ pub async fn get_time_series_add(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -28286,13 +28300,13 @@ pub async fn get_time_series_add(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -28304,13 +28318,13 @@ pub async fn get_time_series_add(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type_1 {
-        req_builder = req_builder.query(&[("series_type_1", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type_1", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type_2 {
-        req_builder = req_builder.query(&[("series_type_2", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type_2", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -28342,18 +28356,25 @@ pub async fn get_time_series_add(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesAdd200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAdd200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesAdd200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAdd200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesAddError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Average Directional Index (ADX) endpoint provides data on the strength of a market trend, regardless of its direction. It returns a numerical value that helps users identify whether a market is trending or moving sideways.
-pub async fn get_time_series_adx(configuration: &configuration::Configuration, params: GetTimeSeriesAdxParams) -> Result<models::GetTimeSeriesAdx200Response, Error<GetTimeSeriesAdxError>> {
+pub async fn get_time_series_adx(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesAdxParams,
+) -> Result<models::GetTimeSeriesAdx200ResponseEnum, Error<GetTimeSeriesAdxError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -28408,7 +28429,7 @@ pub async fn get_time_series_adx(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -28423,13 +28444,13 @@ pub async fn get_time_series_adx(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -28441,7 +28462,7 @@ pub async fn get_time_series_adx(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -28476,18 +28497,25 @@ pub async fn get_time_series_adx(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesAdx200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAdx200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesAdx200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAdx200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesAdxError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Average Directional Movement Index Rating (ADXR) endpoint provides a smoothed measure of trend strength for a specified financial instrument. It returns the ADXR values, which help users assess the consistency of a trend over a given period by reducing short-term fluctuations. This endpoint is useful for traders and analysts who need to evaluate the stability of market trends for better timing of entry and exit points in their trading strategies.
-pub async fn get_time_series_adxr(configuration: &configuration::Configuration, params: GetTimeSeriesAdxrParams) -> Result<models::GetTimeSeriesAdxr200Response, Error<GetTimeSeriesAdxrError>> {
+pub async fn get_time_series_adxr(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesAdxrParams,
+) -> Result<models::GetTimeSeriesAdxr200ResponseEnum, Error<GetTimeSeriesAdxrError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -28542,7 +28570,7 @@ pub async fn get_time_series_adxr(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -28557,13 +28585,13 @@ pub async fn get_time_series_adxr(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -28575,7 +28603,7 @@ pub async fn get_time_series_adxr(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -28610,18 +28638,25 @@ pub async fn get_time_series_adxr(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesAdxr200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAdxr200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesAdxr200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAdxr200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesAdxrError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Absolute Price Oscillator (APO) endpoint calculates the difference between two specified moving averages of a financial instrument's price, providing data that helps users identify potential price trends and reversals. The response includes the calculated APO values over a specified time period, which can be used to track momentum changes and assess the strength of price movements.
-pub async fn get_time_series_apo(configuration: &configuration::Configuration, params: GetTimeSeriesApoParams) -> Result<models::GetTimeSeriesApo200Response, Error<GetTimeSeriesApoError>> {
+pub async fn get_time_series_apo(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesApoParams,
+) -> Result<models::GetTimeSeriesApo200ResponseEnum, Error<GetTimeSeriesApoError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -28679,7 +28714,7 @@ pub async fn get_time_series_apo(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -28694,13 +28729,13 @@ pub async fn get_time_series_apo(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -28712,10 +28747,10 @@ pub async fn get_time_series_apo(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_fast_period {
         req_builder = req_builder.query(&[("fast_period", &param_value.to_string())]);
@@ -28724,7 +28759,7 @@ pub async fn get_time_series_apo(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("slow_period", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_ma_type {
-        req_builder = req_builder.query(&[("ma_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("ma_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -28756,18 +28791,25 @@ pub async fn get_time_series_apo(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesApo200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesApo200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesApo200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesApo200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesApoError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Aroon Indicator endpoint provides data on the time elapsed since the highest high and lowest low within a specified period, helping users identify the presence and strength of market trends. It returns two values: Aroon Up and Aroon Down, which indicate the trend direction and momentum. This endpoint is useful for traders and analysts looking to assess trend patterns and potential reversals in financial markets.
-pub async fn get_time_series_aroon(configuration: &configuration::Configuration, params: GetTimeSeriesAroonParams) -> Result<models::GetTimeSeriesAroon200Response, Error<GetTimeSeriesAroonError>> {
+pub async fn get_time_series_aroon(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesAroonParams,
+) -> Result<models::GetTimeSeriesAroon200ResponseEnum, Error<GetTimeSeriesAroonError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -28822,7 +28864,7 @@ pub async fn get_time_series_aroon(configuration: &configuration::Configuration,
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -28837,13 +28879,13 @@ pub async fn get_time_series_aroon(configuration: &configuration::Configuration,
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -28855,7 +28897,7 @@ pub async fn get_time_series_aroon(configuration: &configuration::Configuration,
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -28890,18 +28932,25 @@ pub async fn get_time_series_aroon(configuration: &configuration::Configuration,
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesAroon200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAroon200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesAroon200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAroon200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesAroonError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Aroon Oscillator endpoint provides the calculated difference between the Aroon Up and Aroon Down indicators for a given financial instrument. It returns a time series of values that help users identify the strength and direction of a trend, as well as potential trend reversals. This data is useful for traders and analysts seeking to evaluate market trends over a specified period.
-pub async fn get_time_series_aroon_osc(configuration: &configuration::Configuration, params: GetTimeSeriesAroonOscParams) -> Result<models::GetTimeSeriesAroonOsc200Response, Error<GetTimeSeriesAroonOscError>> {
+pub async fn get_time_series_aroon_osc(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesAroonOscParams,
+) -> Result<models::GetTimeSeriesAroonOsc200ResponseEnum, Error<GetTimeSeriesAroonOscError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -28956,7 +29005,7 @@ pub async fn get_time_series_aroon_osc(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -28971,13 +29020,13 @@ pub async fn get_time_series_aroon_osc(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -28989,7 +29038,7 @@ pub async fn get_time_series_aroon_osc(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -29024,18 +29073,25 @@ pub async fn get_time_series_aroon_osc(configuration: &configuration::Configurat
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesAroonOsc200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAroonOsc200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesAroonOsc200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAroonOsc200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesAroonOscError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Average True Range (ATR) endpoint provides data on market volatility by calculating the average range of price movement over a user-defined period. It returns numerical values representing the ATR for each time interval, allowing users to gauge the degree of price fluctuation in a financial instrument. This data is useful for setting stop-loss levels and determining optimal entry and exit points in trading strategies.
-pub async fn get_time_series_atr(configuration: &configuration::Configuration, params: GetTimeSeriesAtrParams) -> Result<models::GetTimeSeriesAtr200Response, Error<GetTimeSeriesAtrError>> {
+pub async fn get_time_series_atr(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesAtrParams,
+) -> Result<models::GetTimeSeriesAtr200ResponseEnum, Error<GetTimeSeriesAtrError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -29090,7 +29146,7 @@ pub async fn get_time_series_atr(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -29105,13 +29161,13 @@ pub async fn get_time_series_atr(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -29123,7 +29179,7 @@ pub async fn get_time_series_atr(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -29158,18 +29214,25 @@ pub async fn get_time_series_atr(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesAtr200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAtr200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesAtr200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAtr200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesAtrError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Average (AVG) endpoint calculates the arithmetic mean of a specified data series over a chosen time period. It returns a smoothed dataset that helps users identify trends by reducing short-term fluctuations. This endpoint is useful for obtaining a clearer view of data trends, particularly in time series analysis.
-pub async fn get_time_series_avg(configuration: &configuration::Configuration, params: GetTimeSeriesAvgParams) -> Result<models::GetTimeSeriesAvg200Response, Error<GetTimeSeriesAvgError>> {
+pub async fn get_time_series_avg(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesAvgParams,
+) -> Result<models::GetTimeSeriesAvg200ResponseEnum, Error<GetTimeSeriesAvgError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -29225,7 +29288,7 @@ pub async fn get_time_series_avg(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -29240,13 +29303,13 @@ pub async fn get_time_series_avg(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -29258,10 +29321,10 @@ pub async fn get_time_series_avg(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -29296,18 +29359,25 @@ pub async fn get_time_series_avg(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesAvg200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAvg200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesAvg200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAvg200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesAvgError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Average Price (AVGPRICE) endpoint calculates and returns the mean value of a security's open, high, low, and close prices. This endpoint provides a straightforward metric to assess the overall price level of a security over a specified period.
-pub async fn get_time_series_avg_price(configuration: &configuration::Configuration, params: GetTimeSeriesAvgPriceParams) -> Result<models::GetTimeSeriesAvgPrice200Response, Error<GetTimeSeriesAvgPriceError>> {
+pub async fn get_time_series_avg_price(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesAvgPriceParams,
+) -> Result<models::GetTimeSeriesAvgPrice200ResponseEnum, Error<GetTimeSeriesAvgPriceError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -29361,7 +29431,7 @@ pub async fn get_time_series_avg_price(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -29376,13 +29446,13 @@ pub async fn get_time_series_avg_price(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -29394,7 +29464,7 @@ pub async fn get_time_series_avg_price(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -29426,18 +29496,25 @@ pub async fn get_time_series_avg_price(configuration: &configuration::Configurat
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesAvgPrice200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAvgPrice200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesAvgPrice200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesAvgPrice200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesAvgPriceError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Bollinger Bands (BBANDS) endpoint calculates and returns three key data points: an upper band, a lower band, and a simple moving average (SMA) for a specified financial instrument. These bands are used to assess market volatility by showing how far prices deviate from the SMA. This information helps users identify potential price reversals and determine whether an asset is overbought or oversold.
-pub async fn get_time_series_b_bands(configuration: &configuration::Configuration, params: GetTimeSeriesBBandsParams) -> Result<models::GetTimeSeriesBBands200Response, Error<GetTimeSeriesBBandsError>> {
+pub async fn get_time_series_b_bands(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesBBandsParams,
+) -> Result<models::GetTimeSeriesBBands200ResponseEnum, Error<GetTimeSeriesBBandsError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -29495,7 +29572,7 @@ pub async fn get_time_series_b_bands(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -29510,13 +29587,13 @@ pub async fn get_time_series_b_bands(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -29528,10 +29605,10 @@ pub async fn get_time_series_b_bands(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -29540,7 +29617,7 @@ pub async fn get_time_series_b_bands(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("sd", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_ma_type {
-        req_builder = req_builder.query(&[("ma_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("ma_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -29572,18 +29649,25 @@ pub async fn get_time_series_b_bands(configuration: &configuration::Configuratio
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesBBands200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesBBands200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesBBands200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesBBands200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesBBandsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Beta Indicator endpoint provides data on a security's sensitivity to market movements by comparing its price changes to a benchmark index. It returns the beta value, which quantifies the systematic risk of the security relative to the market. This information is useful for evaluating how much a security's price is expected to move in relation to market changes.
-pub async fn get_time_series_beta(configuration: &configuration::Configuration, params: GetTimeSeriesBetaParams) -> Result<models::GetTimeSeriesBeta200Response, Error<GetTimeSeriesBetaError>> {
+pub async fn get_time_series_beta(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesBetaParams,
+) -> Result<models::GetTimeSeriesBeta200ResponseEnum, Error<GetTimeSeriesBetaError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -29640,7 +29724,7 @@ pub async fn get_time_series_beta(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -29655,13 +29739,13 @@ pub async fn get_time_series_beta(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -29673,13 +29757,13 @@ pub async fn get_time_series_beta(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type_1 {
-        req_builder = req_builder.query(&[("series_type_1", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type_1", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type_2 {
-        req_builder = req_builder.query(&[("series_type_2", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type_2", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -29714,18 +29798,25 @@ pub async fn get_time_series_beta(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesBeta200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesBeta200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesBeta200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesBeta200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesBetaError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Balance of Power (BOP) endpoint provides data on the buying and selling pressure of a security by analyzing its open, high, low, and close prices. It returns numerical values that help users detect shifts in market sentiment and potential price movements.
-pub async fn get_time_series_bop(configuration: &configuration::Configuration, params: GetTimeSeriesBopParams) -> Result<models::GetTimeSeriesBop200Response, Error<GetTimeSeriesBopError>> {
+pub async fn get_time_series_bop(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesBopParams,
+) -> Result<models::GetTimeSeriesBop200ResponseEnum, Error<GetTimeSeriesBopError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -29779,7 +29870,7 @@ pub async fn get_time_series_bop(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -29794,13 +29885,13 @@ pub async fn get_time_series_bop(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -29812,7 +29903,7 @@ pub async fn get_time_series_bop(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -29844,18 +29935,25 @@ pub async fn get_time_series_bop(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesBop200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesBop200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesBop200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesBop200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesBopError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Commodity Channel Index (CCI) endpoint provides data on the CCI values for a specified security, helping users detect potential price reversals by identifying overbought or oversold conditions. It returns a series of CCI values calculated over a specified time period, allowing users to assess the momentum of a security relative to its average price range.
-pub async fn get_time_series_cci(configuration: &configuration::Configuration, params: GetTimeSeriesCciParams) -> Result<models::GetTimeSeriesCci200Response, Error<GetTimeSeriesCciError>> {
+pub async fn get_time_series_cci(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesCciParams,
+) -> Result<models::GetTimeSeriesCci200ResponseEnum, Error<GetTimeSeriesCciError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -29910,7 +30008,7 @@ pub async fn get_time_series_cci(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -29925,13 +30023,13 @@ pub async fn get_time_series_cci(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -29943,7 +30041,7 @@ pub async fn get_time_series_cci(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -29978,18 +30076,25 @@ pub async fn get_time_series_cci(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesCci200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesCci200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesCci200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesCci200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesCciError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Ceiling (CEIL) endpoint rounds each value in the input data series up to the nearest whole number. It returns a series where each original data point is adjusted to its ceiling value, which can be useful for precise calculations or when integrating with other technical indicators that require integer inputs.
-pub async fn get_time_series_ceil(configuration: &configuration::Configuration, params: GetTimeSeriesCeilParams) -> Result<models::GetTimeSeriesCeil200Response, Error<GetTimeSeriesCeilError>> {
+pub async fn get_time_series_ceil(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesCeilParams,
+) -> Result<models::GetTimeSeriesCeil200ResponseEnum, Error<GetTimeSeriesCeilError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -30044,7 +30149,7 @@ pub async fn get_time_series_ceil(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -30059,13 +30164,13 @@ pub async fn get_time_series_ceil(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -30077,10 +30182,10 @@ pub async fn get_time_series_ceil(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -30112,18 +30217,25 @@ pub async fn get_time_series_ceil(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesCeil200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesCeil200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesCeil200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesCeil200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesCeilError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Chande Momentum Oscillator (CMO) endpoint provides data on the momentum of a security by calculating the relative strength of recent price movements. It returns a numerical value indicating whether a security is potentially overbought or oversold, assisting users in identifying possible trend reversals.
-pub async fn get_time_series_cmo(configuration: &configuration::Configuration, params: GetTimeSeriesCmoParams) -> Result<models::GetTimeSeriesCmo200Response, Error<GetTimeSeriesCmoError>> {
+pub async fn get_time_series_cmo(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesCmoParams,
+) -> Result<models::GetTimeSeriesCmo200ResponseEnum, Error<GetTimeSeriesCmoError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -30179,7 +30291,7 @@ pub async fn get_time_series_cmo(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -30194,13 +30306,13 @@ pub async fn get_time_series_cmo(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -30212,10 +30324,10 @@ pub async fn get_time_series_cmo(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -30250,18 +30362,25 @@ pub async fn get_time_series_cmo(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesCmo200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesCmo200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesCmo200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesCmo200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesCmoError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Coppock Curve is a momentum oscillator used to detect potential long-term trend reversals in financial markets. It returns the calculated values of this indicator over a specified period, allowing users to identify when a security's price may be shifting from a downtrend to an uptrend. This endpoint is particularly useful for analyzing securities in bottoming markets.
-pub async fn get_time_series_coppock(configuration: &configuration::Configuration, params: GetTimeSeriesCoppockParams) -> Result<models::GetTimeSeriesCoppock200Response, Error<GetTimeSeriesCoppockError>> {
+pub async fn get_time_series_coppock(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesCoppockParams,
+) -> Result<models::GetTimeSeriesCoppock200ResponseEnum, Error<GetTimeSeriesCoppockError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -30319,7 +30438,7 @@ pub async fn get_time_series_coppock(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -30334,13 +30453,13 @@ pub async fn get_time_series_coppock(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -30352,10 +30471,10 @@ pub async fn get_time_series_coppock(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_wma_period {
         req_builder = req_builder.query(&[("wma_period", &param_value.to_string())]);
@@ -30396,18 +30515,25 @@ pub async fn get_time_series_coppock(configuration: &configuration::Configuratio
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesCoppock200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesCoppock200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesCoppock200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesCoppock200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesCoppockError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Correlation (CORREL) endpoint calculates the statistical relationship between two securities over a specified time period, returning a correlation coefficient. This coefficient ranges from -1 to 1, indicating the strength and direction of their linear relationship. A value close to 1 suggests a strong positive correlation, while a value near -1 indicates a strong negative correlation. This data is useful for identifying securities that move together or in opposite directions, aiding in strategies like diversification or pairs trading.
-pub async fn get_time_series_correl(configuration: &configuration::Configuration, params: GetTimeSeriesCorrelParams) -> Result<models::GetTimeSeriesCorrel200Response, Error<GetTimeSeriesCorrelError>> {
+pub async fn get_time_series_correl(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesCorrelParams,
+) -> Result<models::GetTimeSeriesCorrel200ResponseEnum, Error<GetTimeSeriesCorrelError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -30464,7 +30590,7 @@ pub async fn get_time_series_correl(configuration: &configuration::Configuration
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -30479,13 +30605,13 @@ pub async fn get_time_series_correl(configuration: &configuration::Configuration
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -30497,13 +30623,13 @@ pub async fn get_time_series_correl(configuration: &configuration::Configuration
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type_1 {
-        req_builder = req_builder.query(&[("series_type_1", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type_1", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type_2 {
-        req_builder = req_builder.query(&[("series_type_2", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type_2", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -30538,18 +30664,25 @@ pub async fn get_time_series_correl(configuration: &configuration::Configuration
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesCorrel200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesCorrel200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesCorrel200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesCorrel200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesCorrelError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Connors Relative Strength Index (CRSI) endpoint provides a detailed analysis of stock momentum by combining three components: the Relative Strength Index, the Rate of Change, and the Up/Down Length. This endpoint returns a numerical value that helps identify potential trend reversals and momentum shifts in a security's price. Ideal for traders seeking to refine entry and exit points, the CRSI offers a nuanced view of market conditions beyond traditional RSI indicators.
-pub async fn get_time_series_crsi(configuration: &configuration::Configuration, params: GetTimeSeriesCrsiParams) -> Result<models::GetTimeSeriesCrsi200Response, Error<GetTimeSeriesCrsiError>> {
+pub async fn get_time_series_crsi(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesCrsiParams,
+) -> Result<models::GetTimeSeriesCrsi200ResponseEnum, Error<GetTimeSeriesCrsiError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -30607,7 +30740,7 @@ pub async fn get_time_series_crsi(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -30622,13 +30755,13 @@ pub async fn get_time_series_crsi(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -30640,10 +30773,10 @@ pub async fn get_time_series_crsi(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_rsi_period {
         req_builder = req_builder.query(&[("rsi_period", &param_value.to_string())]);
@@ -30684,18 +30817,25 @@ pub async fn get_time_series_crsi(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesCrsi200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesCrsi200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesCrsi200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesCrsi200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesCrsiError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Double Exponential Moving Average (DEMA) endpoint provides a data series that calculates a moving average with reduced lag by emphasizing recent price data. This endpoint returns time-series data that includes the DEMA values for a specified financial instrument, allowing users to track price trends and identify potential trading opportunities.
-pub async fn get_time_series_dema(configuration: &configuration::Configuration, params: GetTimeSeriesDemaParams) -> Result<models::GetTimeSeriesDema200Response, Error<GetTimeSeriesDemaError>> {
+pub async fn get_time_series_dema(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesDemaParams,
+) -> Result<models::GetTimeSeriesDema200ResponseEnum, Error<GetTimeSeriesDemaError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -30751,7 +30891,7 @@ pub async fn get_time_series_dema(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -30766,13 +30906,13 @@ pub async fn get_time_series_dema(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -30784,10 +30924,10 @@ pub async fn get_time_series_dema(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -30822,18 +30962,25 @@ pub async fn get_time_series_dema(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesDema200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesDema200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesDema200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesDema200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesDemaError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Division (DIV) endpoint calculates the result of dividing one data series by another, providing a normalized output. It is commonly used to combine or adjust multiple technical indicators or price data for comparative analysis. This endpoint returns the division results as a time series, allowing users to easily interpret and utilize the normalized data in their financial models or charts.
-pub async fn get_time_series_div(configuration: &configuration::Configuration, params: GetTimeSeriesDivParams) -> Result<models::GetTimeSeriesDiv200Response, Error<GetTimeSeriesDivError>> {
+pub async fn get_time_series_div(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesDivParams,
+) -> Result<models::GetTimeSeriesDiv200ResponseEnum, Error<GetTimeSeriesDivError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -30889,7 +31036,7 @@ pub async fn get_time_series_div(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -30904,13 +31051,13 @@ pub async fn get_time_series_div(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -30922,13 +31069,13 @@ pub async fn get_time_series_div(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type_1 {
-        req_builder = req_builder.query(&[("series_type_1", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type_1", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type_2 {
-        req_builder = req_builder.query(&[("series_type_2", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type_2", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -30960,18 +31107,25 @@ pub async fn get_time_series_div(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesDiv200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesDiv200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesDiv200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesDiv200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesDivError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Detrended Price Oscillator (DPO) endpoint calculates and returns the DPO values for a specified financial instrument over a given time period. This endpoint helps traders by highlighting short-term price cycles and identifying potential overbought or oversold conditions without the influence of long-term trends. The response includes a series of DPO values, which can be used to assess price momentum and cyclical patterns in the market.
-pub async fn get_time_series_dpo(configuration: &configuration::Configuration, params: GetTimeSeriesDpoParams) -> Result<models::GetTimeSeriesDpo200Response, Error<GetTimeSeriesDpoError>> {
+pub async fn get_time_series_dpo(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesDpoParams,
+) -> Result<models::GetTimeSeriesDpo200ResponseEnum, Error<GetTimeSeriesDpoError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -31028,7 +31182,7 @@ pub async fn get_time_series_dpo(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -31043,13 +31197,13 @@ pub async fn get_time_series_dpo(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -31061,10 +31215,10 @@ pub async fn get_time_series_dpo(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -31102,18 +31256,25 @@ pub async fn get_time_series_dpo(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesDpo200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesDpo200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesDpo200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesDpo200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesDpoError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// Retrieve the Directional Movement Index (DX) values for a given security to assess the strength of its positive and negative price movements. This endpoint provides a time series of DX values, which are useful for evaluating the momentum and trend direction of the security over a specified period.
-pub async fn get_time_series_dx(configuration: &configuration::Configuration, params: GetTimeSeriesDxParams) -> Result<models::GetTimeSeriesDx200Response, Error<GetTimeSeriesDxError>> {
+pub async fn get_time_series_dx(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesDxParams,
+) -> Result<models::GetTimeSeriesDx200ResponseEnum, Error<GetTimeSeriesDxError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -31168,7 +31329,7 @@ pub async fn get_time_series_dx(configuration: &configuration::Configuration, pa
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -31183,13 +31344,13 @@ pub async fn get_time_series_dx(configuration: &configuration::Configuration, pa
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -31201,7 +31362,7 @@ pub async fn get_time_series_dx(configuration: &configuration::Configuration, pa
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -31236,18 +31397,25 @@ pub async fn get_time_series_dx(configuration: &configuration::Configuration, pa
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesDx200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesDx200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesDx200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesDx200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesDxError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Exponential Moving Average (EMA) endpoint calculates the EMA for a specified financial instrument over a given time period. It returns a time series of EMA values, which highlight recent price trends by weighting recent data more heavily. This is useful for traders seeking to identify trend directions and potential trade opportunities based on recent price movements.
-pub async fn get_time_series_ema(configuration: &configuration::Configuration, params: GetTimeSeriesEmaParams) -> Result<models::GetTimeSeriesEma200Response, Error<GetTimeSeriesEmaError>> {
+pub async fn get_time_series_ema(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesEmaParams,
+) -> Result<models::GetTimeSeriesEma200ResponseEnum, Error<GetTimeSeriesEmaError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -31303,7 +31471,7 @@ pub async fn get_time_series_ema(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -31318,13 +31486,13 @@ pub async fn get_time_series_ema(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -31336,10 +31504,10 @@ pub async fn get_time_series_ema(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -31374,18 +31542,25 @@ pub async fn get_time_series_ema(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesEma200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesEma200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesEma200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesEma200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesEmaError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Exponential (EXP) Indicator endpoint computes the exponential value of a specified input, providing a numerical result that is commonly applied in complex mathematical and financial computations.
-pub async fn get_time_series_exp(configuration: &configuration::Configuration, params: GetTimeSeriesExpParams) -> Result<models::GetTimeSeriesExp200Response, Error<GetTimeSeriesExpError>> {
+pub async fn get_time_series_exp(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesExpParams,
+) -> Result<models::GetTimeSeriesExp200ResponseEnum, Error<GetTimeSeriesExpError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -31440,7 +31615,7 @@ pub async fn get_time_series_exp(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -31455,13 +31630,13 @@ pub async fn get_time_series_exp(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -31473,10 +31648,10 @@ pub async fn get_time_series_exp(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -31508,18 +31683,25 @@ pub async fn get_time_series_exp(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesExp200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesExp200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesExp200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesExp200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesExpError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Floor (FLOOR) endpoint processes numerical input data by rounding each value down to the nearest integer. It returns a series of adjusted data points that can be used for further calculations or combined with other datasets. This endpoint is useful for users needing to simplify data by removing decimal precision, aiding in scenarios where integer values are required.
-pub async fn get_time_series_floor(configuration: &configuration::Configuration, params: GetTimeSeriesFloorParams) -> Result<models::GetTimeSeriesFloor200Response, Error<GetTimeSeriesFloorError>> {
+pub async fn get_time_series_floor(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesFloorParams,
+) -> Result<models::GetTimeSeriesFloor200ResponseEnum, Error<GetTimeSeriesFloorError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -31574,7 +31756,7 @@ pub async fn get_time_series_floor(configuration: &configuration::Configuration,
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -31589,13 +31771,13 @@ pub async fn get_time_series_floor(configuration: &configuration::Configuration,
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -31607,10 +31789,10 @@ pub async fn get_time_series_floor(configuration: &configuration::Configuration,
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -31642,18 +31824,28 @@ pub async fn get_time_series_floor(configuration: &configuration::Configuration,
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesFloor200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesFloor200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesFloor200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesFloor200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesFloorError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The heikinashi candles endpoint provides smoothed candlestick data by averaging price information to reduce market noise. It returns a series of Heikin Ashi candles, which include open, high, low, and close values, making it easier to identify trends and potential reversals in asset prices. This endpoint is useful for traders and analysts seeking a clearer view of market trends without the volatility present in traditional candlestick charts.
-pub async fn get_time_series_heikinashi_candles(configuration: &configuration::Configuration, params: GetTimeSeriesHeikinashiCandlesParams) -> Result<models::GetTimeSeriesHeikinashiCandles200Response, Error<GetTimeSeriesHeikinashiCandlesError>> {
+pub async fn get_time_series_heikinashi_candles(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesHeikinashiCandlesParams,
+) -> Result<
+    models::GetTimeSeriesHeikinashiCandles200ResponseEnum,
+    Error<GetTimeSeriesHeikinashiCandlesError>,
+> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -31707,7 +31899,7 @@ pub async fn get_time_series_heikinashi_candles(configuration: &configuration::C
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -31722,13 +31914,13 @@ pub async fn get_time_series_heikinashi_candles(configuration: &configuration::C
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -31740,7 +31932,7 @@ pub async fn get_time_series_heikinashi_candles(configuration: &configuration::C
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -31772,18 +31964,26 @@ pub async fn get_time_series_heikinashi_candles(configuration: &configuration::C
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesHeikinashiCandles200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesHeikinashiCandles200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesHeikinashiCandles200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesHeikinashiCandles200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<GetTimeSeriesHeikinashiCandlesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        let entity: Option<GetTimeSeriesHeikinashiCandlesError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The High, Low, Close Average (HLC3) endpoint calculates and returns the average of a security's high, low, and close prices for a specified period. This endpoint provides a straightforward metric to assess price trends, helping users quickly identify the average price level of a security over time.
-pub async fn get_time_series_hlc3(configuration: &configuration::Configuration, params: GetTimeSeriesHlc3Params) -> Result<models::GetTimeSeriesHlc3200Response, Error<GetTimeSeriesHlc3Error>> {
+pub async fn get_time_series_hlc3(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesHlc3Params,
+) -> Result<models::GetTimeSeriesHlc3200ResponseEnum, Error<GetTimeSeriesHlc3Error>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -31837,7 +32037,7 @@ pub async fn get_time_series_hlc3(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -31852,13 +32052,13 @@ pub async fn get_time_series_hlc3(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -31870,7 +32070,7 @@ pub async fn get_time_series_hlc3(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -31902,18 +32102,25 @@ pub async fn get_time_series_hlc3(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesHlc3200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesHlc3200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesHlc3200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesHlc3200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesHlc3Error> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Hilbert Transform Dominant Cycle Period (HT_DCPERIOD) endpoint calculates the dominant cycle length of a financial instrument's price data. It returns a numerical value representing the cycle period, which traders can use to identify prevailing market cycles and adjust their trading strategies accordingly.
-pub async fn get_time_series_ht_dc_period(configuration: &configuration::Configuration, params: GetTimeSeriesHtDcPeriodParams) -> Result<models::GetTimeSeriesHtDcPeriod200Response, Error<GetTimeSeriesHtDcPeriodError>> {
+pub async fn get_time_series_ht_dc_period(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesHtDcPeriodParams,
+) -> Result<models::GetTimeSeriesHtDcPeriod200ResponseEnum, Error<GetTimeSeriesHtDcPeriodError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -31968,7 +32175,7 @@ pub async fn get_time_series_ht_dc_period(configuration: &configuration::Configu
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -31983,13 +32190,13 @@ pub async fn get_time_series_ht_dc_period(configuration: &configuration::Configu
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -32001,10 +32208,10 @@ pub async fn get_time_series_ht_dc_period(configuration: &configuration::Configu
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -32036,18 +32243,25 @@ pub async fn get_time_series_ht_dc_period(configuration: &configuration::Configu
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesHtDcPeriod200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesHtDcPeriod200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesHtDcPeriod200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesHtDcPeriod200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesHtDcPeriodError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Hilbert Transform Dominant Cycle Phase (HT_DCPHASE) endpoint provides the current phase of the dominant market cycle for a given financial instrument. It returns numerical data indicating the phase angle, which can be used by traders to identify potential market entry and exit points based on cyclical patterns.
-pub async fn get_time_series_ht_dc_phase(configuration: &configuration::Configuration, params: GetTimeSeriesHtDcPhaseParams) -> Result<models::GetTimeSeriesHtDcPhase200Response, Error<GetTimeSeriesHtDcPhaseError>> {
+pub async fn get_time_series_ht_dc_phase(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesHtDcPhaseParams,
+) -> Result<models::GetTimeSeriesHtDcPhase200ResponseEnum, Error<GetTimeSeriesHtDcPhaseError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -32102,7 +32316,7 @@ pub async fn get_time_series_ht_dc_phase(configuration: &configuration::Configur
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -32117,13 +32331,13 @@ pub async fn get_time_series_ht_dc_phase(configuration: &configuration::Configur
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -32135,10 +32349,10 @@ pub async fn get_time_series_ht_dc_phase(configuration: &configuration::Configur
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -32170,18 +32384,25 @@ pub async fn get_time_series_ht_dc_phase(configuration: &configuration::Configur
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesHtDcPhase200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesHtDcPhase200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesHtDcPhase200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesHtDcPhase200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesHtDcPhaseError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Hilbert Transform Phasor Components (HT_PHASOR) endpoint analyzes a price series to return two key components: in-phase and quadrature. These components help identify cyclical patterns and the direction of trends in the data. Use this endpoint to gain precise insights into the timing and strength of market cycles, enhancing your ability to track and predict price movements.
-pub async fn get_time_series_ht_phasor(configuration: &configuration::Configuration, params: GetTimeSeriesHtPhasorParams) -> Result<models::GetTimeSeriesHtPhasor200Response, Error<GetTimeSeriesHtPhasorError>> {
+pub async fn get_time_series_ht_phasor(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesHtPhasorParams,
+) -> Result<models::GetTimeSeriesHtPhasor200ResponseEnum, Error<GetTimeSeriesHtPhasorError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -32236,7 +32457,7 @@ pub async fn get_time_series_ht_phasor(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -32251,13 +32472,13 @@ pub async fn get_time_series_ht_phasor(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -32269,10 +32490,10 @@ pub async fn get_time_series_ht_phasor(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -32304,18 +32525,25 @@ pub async fn get_time_series_ht_phasor(configuration: &configuration::Configurat
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesHtPhasor200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesHtPhasor200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesHtPhasor200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesHtPhasor200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesHtPhasorError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Hilbert Transform Sine Wave (HT_SINE) endpoint provides sine and cosine wave components derived from the dominant market cycle. This data helps traders pinpoint potential market turning points and assess trend directions by analyzing cyclical patterns.
-pub async fn get_time_series_ht_sine(configuration: &configuration::Configuration, params: GetTimeSeriesHtSineParams) -> Result<models::GetTimeSeriesHtSine200Response, Error<GetTimeSeriesHtSineError>> {
+pub async fn get_time_series_ht_sine(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesHtSineParams,
+) -> Result<models::GetTimeSeriesHtSine200ResponseEnum, Error<GetTimeSeriesHtSineError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -32370,7 +32598,7 @@ pub async fn get_time_series_ht_sine(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -32385,13 +32613,13 @@ pub async fn get_time_series_ht_sine(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -32403,10 +32631,10 @@ pub async fn get_time_series_ht_sine(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -32438,18 +32666,25 @@ pub async fn get_time_series_ht_sine(configuration: &configuration::Configuratio
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesHtSine200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesHtSine200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesHtSine200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesHtSine200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesHtSineError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Hilbert Transform Trend vs Cycle Mode (HT_TRENDMODE) endpoint identifies whether a market is in a trending or cyclical phase. It returns data indicating the current market phase, allowing users to adjust their trading strategies based on the prevailing conditions.
-pub async fn get_time_series_ht_trend_mode(configuration: &configuration::Configuration, params: GetTimeSeriesHtTrendModeParams) -> Result<models::GetTimeSeriesHtTrendMode200Response, Error<GetTimeSeriesHtTrendModeError>> {
+pub async fn get_time_series_ht_trend_mode(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesHtTrendModeParams,
+) -> Result<models::GetTimeSeriesHtTrendMode200ResponseEnum, Error<GetTimeSeriesHtTrendModeError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -32504,7 +32739,7 @@ pub async fn get_time_series_ht_trend_mode(configuration: &configuration::Config
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -32519,13 +32754,13 @@ pub async fn get_time_series_ht_trend_mode(configuration: &configuration::Config
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -32537,10 +32772,10 @@ pub async fn get_time_series_ht_trend_mode(configuration: &configuration::Config
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -32572,18 +32807,25 @@ pub async fn get_time_series_ht_trend_mode(configuration: &configuration::Config
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesHtTrendMode200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesHtTrendMode200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesHtTrendMode200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesHtTrendMode200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesHtTrendModeError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Hilbert Transform Instantaneous Trendline (HT_TRENDLINE) endpoint provides a smoothed moving average that aligns with the dominant market cycle. It returns data points that help traders identify current market trends and determine potential entry or exit points in trading.
-pub async fn get_time_series_ht_trendline(configuration: &configuration::Configuration, params: GetTimeSeriesHtTrendlineParams) -> Result<models::GetTimeSeriesHtTrendline200Response, Error<GetTimeSeriesHtTrendlineError>> {
+pub async fn get_time_series_ht_trendline(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesHtTrendlineParams,
+) -> Result<models::GetTimeSeriesHtTrendline200ResponseEnum, Error<GetTimeSeriesHtTrendlineError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -32638,7 +32880,7 @@ pub async fn get_time_series_ht_trendline(configuration: &configuration::Configu
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -32653,13 +32895,13 @@ pub async fn get_time_series_ht_trendline(configuration: &configuration::Configu
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -32671,10 +32913,10 @@ pub async fn get_time_series_ht_trendline(configuration: &configuration::Configu
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -32706,18 +32948,25 @@ pub async fn get_time_series_ht_trendline(configuration: &configuration::Configu
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesHtTrendline200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesHtTrendline200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesHtTrendline200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesHtTrendline200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesHtTrendlineError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Ichimoku Cloud endpoint provides data on the Ichimoku Kinko Hyo indicator, offering insights into trend direction, support and resistance levels, and potential entry and exit points. It returns key components such as the Tenkan-sen, Kijun-sen, Senkou Span A, Senkou Span B, and Chikou Span. This data helps users evaluate market trends and identify strategic trading opportunities.
-pub async fn get_time_series_ichimoku(configuration: &configuration::Configuration, params: GetTimeSeriesIchimokuParams) -> Result<models::GetTimeSeriesIchimoku200Response, Error<GetTimeSeriesIchimokuError>> {
+pub async fn get_time_series_ichimoku(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesIchimokuParams,
+) -> Result<models::GetTimeSeriesIchimoku200ResponseEnum, Error<GetTimeSeriesIchimokuError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -32776,7 +33025,7 @@ pub async fn get_time_series_ichimoku(configuration: &configuration::Configurati
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -32791,13 +33040,13 @@ pub async fn get_time_series_ichimoku(configuration: &configuration::Configurati
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -32809,7 +33058,7 @@ pub async fn get_time_series_ichimoku(configuration: &configuration::Configurati
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_conversion_line_period {
         req_builder = req_builder.query(&[("conversion_line_period", &param_value.to_string())]);
@@ -32856,18 +33105,25 @@ pub async fn get_time_series_ichimoku(configuration: &configuration::Configurati
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesIchimoku200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesIchimoku200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesIchimoku200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesIchimoku200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesIchimokuError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Kaufman Adaptive Moving Average (KAMA) endpoint calculates the KAMA for a specified financial instrument, returning a time series of values that reflect the average price adjusted for market volatility. This endpoint helps users identify trends by smoothing out price fluctuations while remaining sensitive to significant price movements.
-pub async fn get_time_series_kama(configuration: &configuration::Configuration, params: GetTimeSeriesKamaParams) -> Result<models::GetTimeSeriesKama200Response, Error<GetTimeSeriesKamaError>> {
+pub async fn get_time_series_kama(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesKamaParams,
+) -> Result<models::GetTimeSeriesKama200ResponseEnum, Error<GetTimeSeriesKamaError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -32923,7 +33179,7 @@ pub async fn get_time_series_kama(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -32938,13 +33194,13 @@ pub async fn get_time_series_kama(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -32956,10 +33212,10 @@ pub async fn get_time_series_kama(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -32994,18 +33250,25 @@ pub async fn get_time_series_kama(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesKama200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesKama200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesKama200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesKama200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesKamaError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Keltner Channel endpoint provides data for a volatility-based technical indicator that combines the Exponential Moving Average (EMA) and the Average True Range (ATR) to form a channel around a security's price. This endpoint returns the upper, middle, and lower bands of the channel, which can be used to identify potential overbought or oversold conditions, assess trend direction, and detect possible price breakouts.
-pub async fn get_time_series_keltner(configuration: &configuration::Configuration, params: GetTimeSeriesKeltnerParams) -> Result<models::GetTimeSeriesKeltner200Response, Error<GetTimeSeriesKeltnerError>> {
+pub async fn get_time_series_keltner(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesKeltnerParams,
+) -> Result<models::GetTimeSeriesKeltner200ResponseEnum, Error<GetTimeSeriesKeltnerError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -33064,7 +33327,7 @@ pub async fn get_time_series_keltner(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -33079,13 +33342,13 @@ pub async fn get_time_series_keltner(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -33097,7 +33360,7 @@ pub async fn get_time_series_keltner(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -33109,10 +33372,10 @@ pub async fn get_time_series_keltner(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("multiplier", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_ma_type {
-        req_builder = req_builder.query(&[("ma_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("ma_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -33144,18 +33407,25 @@ pub async fn get_time_series_keltner(configuration: &configuration::Configuratio
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesKeltner200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesKeltner200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesKeltner200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesKeltner200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesKeltnerError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Know Sure Thing (KST) endpoint provides a momentum oscillator that combines four smoothed rates of change into a single trend-following indicator. This endpoint returns data that helps users identify potential trend reversals, as well as overbought or oversold conditions in the market.
-pub async fn get_time_series_kst(configuration: &configuration::Configuration, params: GetTimeSeriesKstParams) -> Result<models::GetTimeSeriesKst200Response, Error<GetTimeSeriesKstError>> {
+pub async fn get_time_series_kst(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesKstParams,
+) -> Result<models::GetTimeSeriesKst200ResponseEnum, Error<GetTimeSeriesKstError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -33218,7 +33488,7 @@ pub async fn get_time_series_kst(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -33233,13 +33503,13 @@ pub async fn get_time_series_kst(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -33251,7 +33521,7 @@ pub async fn get_time_series_kst(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_roc_period_1 {
         req_builder = req_builder.query(&[("roc_period_1", &param_value.to_string())]);
@@ -33310,18 +33580,25 @@ pub async fn get_time_series_kst(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesKst200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesKst200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesKst200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesKst200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesKstError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Linear Regression endpoint (LINEARREG) calculates the best-fit straight line through a series of financial data points. It returns the slope and intercept values of this line, allowing users to determine the overall direction of a market trend and identify potential support or resistance levels.
-pub async fn get_time_series_linear_reg(configuration: &configuration::Configuration, params: GetTimeSeriesLinearRegParams) -> Result<models::GetTimeSeriesLinearReg200Response, Error<GetTimeSeriesLinearRegError>> {
+pub async fn get_time_series_linear_reg(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesLinearRegParams,
+) -> Result<models::GetTimeSeriesLinearReg200ResponseEnum, Error<GetTimeSeriesLinearRegError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -33377,7 +33654,7 @@ pub async fn get_time_series_linear_reg(configuration: &configuration::Configura
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -33392,13 +33669,13 @@ pub async fn get_time_series_linear_reg(configuration: &configuration::Configura
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -33410,10 +33687,10 @@ pub async fn get_time_series_linear_reg(configuration: &configuration::Configura
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -33448,18 +33725,28 @@ pub async fn get_time_series_linear_reg(configuration: &configuration::Configura
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesLinearReg200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesLinearReg200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesLinearReg200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesLinearReg200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesLinearRegError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Linear Regression Angle endpoint (LINEARREGANGLE) calculates the angle of the linear regression line for a given time series of stock prices. It returns the slope of the trend line, expressed in degrees, which helps users identify the direction and steepness of a trend over a specified period. This data is useful for detecting upward or downward trends in asset prices.
-pub async fn get_time_series_linear_reg_angle(configuration: &configuration::Configuration, params: GetTimeSeriesLinearRegAngleParams) -> Result<models::GetTimeSeriesLinearRegAngle200Response, Error<GetTimeSeriesLinearRegAngleError>> {
+pub async fn get_time_series_linear_reg_angle(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesLinearRegAngleParams,
+) -> Result<
+    models::GetTimeSeriesLinearRegAngle200ResponseEnum,
+    Error<GetTimeSeriesLinearRegAngleError>,
+> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -33515,7 +33802,7 @@ pub async fn get_time_series_linear_reg_angle(configuration: &configuration::Con
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -33530,13 +33817,13 @@ pub async fn get_time_series_linear_reg_angle(configuration: &configuration::Con
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -33548,10 +33835,10 @@ pub async fn get_time_series_linear_reg_angle(configuration: &configuration::Con
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -33586,18 +33873,28 @@ pub async fn get_time_series_linear_reg_angle(configuration: &configuration::Con
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesLinearRegAngle200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesLinearRegAngle200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesLinearRegAngle200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesLinearRegAngle200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesLinearRegAngleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Linear Regression Intercept endpoint (LINEARREGINTERCEPT) calculates the y-intercept of a linear regression line for a given dataset. It returns the value where the regression line crosses the y-axis, providing a numerical reference point for understanding the starting position of a trend over a specified period. This can be useful for users needing to establish baseline values in their data analysis.
-pub async fn get_time_series_linear_reg_intercept(configuration: &configuration::Configuration, params: GetTimeSeriesLinearRegInterceptParams) -> Result<models::GetTimeSeriesLinearRegIntercept200Response, Error<GetTimeSeriesLinearRegInterceptError>> {
+pub async fn get_time_series_linear_reg_intercept(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesLinearRegInterceptParams,
+) -> Result<
+    models::GetTimeSeriesLinearRegIntercept200ResponseEnum,
+    Error<GetTimeSeriesLinearRegInterceptError>,
+> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -33653,7 +33950,7 @@ pub async fn get_time_series_linear_reg_intercept(configuration: &configuration:
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -33668,13 +33965,13 @@ pub async fn get_time_series_linear_reg_intercept(configuration: &configuration:
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -33686,10 +33983,10 @@ pub async fn get_time_series_linear_reg_intercept(configuration: &configuration:
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -33724,18 +34021,29 @@ pub async fn get_time_series_linear_reg_intercept(configuration: &configuration:
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesLinearRegIntercept200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesLinearRegIntercept200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesLinearRegIntercept200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesLinearRegIntercept200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<GetTimeSeriesLinearRegInterceptError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        let entity: Option<GetTimeSeriesLinearRegInterceptError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Linear Regression Slope endpoint (LINEARREGSLOPE) calculates the slope of a linear regression line for a given dataset, reflecting the rate of change in the data trend over a specified period. It returns a numerical value representing this slope, which can be used to assess the direction and strength of the trend in the dataset.
-pub async fn get_time_series_linear_reg_slope(configuration: &configuration::Configuration, params: GetTimeSeriesLinearRegSlopeParams) -> Result<models::GetTimeSeriesLinearRegSlope200Response, Error<GetTimeSeriesLinearRegSlopeError>> {
+pub async fn get_time_series_linear_reg_slope(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesLinearRegSlopeParams,
+) -> Result<
+    models::GetTimeSeriesLinearRegSlope200ResponseEnum,
+    Error<GetTimeSeriesLinearRegSlopeError>,
+> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -33791,7 +34099,7 @@ pub async fn get_time_series_linear_reg_slope(configuration: &configuration::Con
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -33806,13 +34114,13 @@ pub async fn get_time_series_linear_reg_slope(configuration: &configuration::Con
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -33824,10 +34132,10 @@ pub async fn get_time_series_linear_reg_slope(configuration: &configuration::Con
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -33862,18 +34170,25 @@ pub async fn get_time_series_linear_reg_slope(configuration: &configuration::Con
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesLinearRegSlope200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesLinearRegSlope200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesLinearRegSlope200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesLinearRegSlope200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesLinearRegSlopeError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Natural Logarithm (LN) endpoint computes the natural logarithm of a specified input value, returning a numerical result. This endpoint is useful for users needing to perform logarithmic transformations on data, which can be applied in various financial calculations and advanced mathematical analyses.
-pub async fn get_time_series_ln(configuration: &configuration::Configuration, params: GetTimeSeriesLnParams) -> Result<models::GetTimeSeriesLn200Response, Error<GetTimeSeriesLnError>> {
+pub async fn get_time_series_ln(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesLnParams,
+) -> Result<models::GetTimeSeriesLn200ResponseEnum, Error<GetTimeSeriesLnError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -33928,7 +34243,7 @@ pub async fn get_time_series_ln(configuration: &configuration::Configuration, pa
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -33943,13 +34258,13 @@ pub async fn get_time_series_ln(configuration: &configuration::Configuration, pa
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -33961,10 +34276,10 @@ pub async fn get_time_series_ln(configuration: &configuration::Configuration, pa
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -33996,18 +34311,25 @@ pub async fn get_time_series_ln(configuration: &configuration::Configuration, pa
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesLn200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesLn200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesLn200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesLn200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesLnError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Base-10 Logarithm (LOG10) endpoint computes the base-10 logarithm of a specified input value. It returns a numerical result that represents the power to which the number 10 must be raised to obtain the input value. This endpoint is useful for transforming data into a logarithmic scale, which can simplify the analysis of exponential growth patterns or compress large ranges of data in financial calculations.
-pub async fn get_time_series_log10(configuration: &configuration::Configuration, params: GetTimeSeriesLog10Params) -> Result<models::GetTimeSeriesLog10200Response, Error<GetTimeSeriesLog10Error>> {
+pub async fn get_time_series_log10(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesLog10Params,
+) -> Result<models::GetTimeSeriesLog10200ResponseEnum, Error<GetTimeSeriesLog10Error>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -34062,7 +34384,7 @@ pub async fn get_time_series_log10(configuration: &configuration::Configuration,
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -34077,13 +34399,13 @@ pub async fn get_time_series_log10(configuration: &configuration::Configuration,
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -34095,10 +34417,10 @@ pub async fn get_time_series_log10(configuration: &configuration::Configuration,
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -34130,18 +34452,25 @@ pub async fn get_time_series_log10(configuration: &configuration::Configuration,
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesLog10200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesLog10200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesLog10200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesLog10200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesLog10Error> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Moving Average (MA) endpoint provides the average price of a security over a specified time frame, offering a smoothed representation of price data. This endpoint returns the calculated moving average values, which can assist users in identifying price trends and potential support or resistance levels in the market.
-pub async fn get_time_series_ma(configuration: &configuration::Configuration, params: GetTimeSeriesMaParams) -> Result<models::GetTimeSeriesMa200Response, Error<GetTimeSeriesMaError>> {
+pub async fn get_time_series_ma(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMaParams,
+) -> Result<models::GetTimeSeriesMa200ResponseEnum, Error<GetTimeSeriesMaError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -34198,7 +34527,7 @@ pub async fn get_time_series_ma(configuration: &configuration::Configuration, pa
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -34213,13 +34542,13 @@ pub async fn get_time_series_ma(configuration: &configuration::Configuration, pa
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -34231,16 +34560,16 @@ pub async fn get_time_series_ma(configuration: &configuration::Configuration, pa
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_ma_type {
-        req_builder = req_builder.query(&[("ma_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("ma_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -34272,18 +34601,25 @@ pub async fn get_time_series_ma(configuration: &configuration::Configuration, pa
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMa200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMa200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMa200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMa200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMaError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// This endpoint calculates the Moving Average Convergence Divergence (MACD) for a specified financial instrument. It returns the MACD line, signal line, and histogram values, which help users identify potential trend reversals and trading opportunities by analyzing the relationship between two moving averages.
-pub async fn get_time_series_macd(configuration: &configuration::Configuration, params: GetTimeSeriesMacdParams) -> Result<models::GetTimeSeriesMacd200Response, Error<GetTimeSeriesMacdError>> {
+pub async fn get_time_series_macd(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMacdParams,
+) -> Result<models::GetTimeSeriesMacd200ResponseEnum, Error<GetTimeSeriesMacdError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -34341,7 +34677,7 @@ pub async fn get_time_series_macd(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -34356,13 +34692,13 @@ pub async fn get_time_series_macd(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -34374,10 +34710,10 @@ pub async fn get_time_series_macd(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_fast_period {
         req_builder = req_builder.query(&[("fast_period", &param_value.to_string())]);
@@ -34418,18 +34754,25 @@ pub async fn get_time_series_macd(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMacd200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMacd200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMacd200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMacd200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMacdError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Moving Average Convergence Divergence Extension (MACDEXT) endpoint provides a customizable version of the MACD indicator, allowing users to specify different moving average types and parameters. It returns data that includes the MACD line, signal line, and histogram values, tailored to the user's chosen settings. This endpoint is useful for traders who require flexibility in analyzing price trends and momentum by adjusting the calculation methods to fit their specific trading strategies.
-pub async fn get_time_series_macd_ext(configuration: &configuration::Configuration, params: GetTimeSeriesMacdExtParams) -> Result<models::GetTimeSeriesMacdExt200Response, Error<GetTimeSeriesMacdExtError>> {
+pub async fn get_time_series_macd_ext(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMacdExtParams,
+) -> Result<models::GetTimeSeriesMacdExt200ResponseEnum, Error<GetTimeSeriesMacdExtError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -34490,7 +34833,7 @@ pub async fn get_time_series_macd_ext(configuration: &configuration::Configurati
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -34505,13 +34848,13 @@ pub async fn get_time_series_macd_ext(configuration: &configuration::Configurati
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -34523,28 +34866,28 @@ pub async fn get_time_series_macd_ext(configuration: &configuration::Configurati
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_fast_period {
         req_builder = req_builder.query(&[("fast_period", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_fast_ma_type {
-        req_builder = req_builder.query(&[("fast_ma_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("fast_ma_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_slow_period {
         req_builder = req_builder.query(&[("slow_period", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_slow_ma_type {
-        req_builder = req_builder.query(&[("slow_ma_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("slow_ma_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_signal_period {
         req_builder = req_builder.query(&[("signal_period", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_signal_ma_type {
-        req_builder = req_builder.query(&[("signal_ma_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("signal_ma_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -34576,18 +34919,25 @@ pub async fn get_time_series_macd_ext(configuration: &configuration::Configurati
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMacdExt200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMacdExt200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMacdExt200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMacdExt200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMacdExtError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Moving Average Convergence Divergence (MACD) Slope endpoint provides the rate of change of the MACD line for a given security. It returns data on how quickly the MACD line is rising or falling, offering insights into the momentum shifts in the security's price. This information is useful for traders looking to gauge the speed of price movements and potential trend reversals.
-pub async fn get_time_series_macd_slope(configuration: &configuration::Configuration, params: GetTimeSeriesMacdSlopeParams) -> Result<models::GetTimeSeriesMacdSlope200Response, Error<GetTimeSeriesMacdSlopeError>> {
+pub async fn get_time_series_macd_slope(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMacdSlopeParams,
+) -> Result<models::GetTimeSeriesMacdSlope200ResponseEnum, Error<GetTimeSeriesMacdSlopeError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -34646,7 +34996,7 @@ pub async fn get_time_series_macd_slope(configuration: &configuration::Configura
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -34661,13 +35011,13 @@ pub async fn get_time_series_macd_slope(configuration: &configuration::Configura
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -34679,10 +35029,10 @@ pub async fn get_time_series_macd_slope(configuration: &configuration::Configura
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_fast_period {
         req_builder = req_builder.query(&[("fast_period", &param_value.to_string())]);
@@ -34726,18 +35076,25 @@ pub async fn get_time_series_macd_slope(configuration: &configuration::Configura
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMacdSlope200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMacdSlope200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMacdSlope200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMacdSlope200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMacdSlopeError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The MESA Adaptive Moving Average (MAMA) endpoint calculates a moving average that adjusts to the dominant market cycle, offering a balance between quick response to price changes and noise reduction. It returns data that includes the adaptive moving average values, which can be used to identify trends and potential reversal points.
-pub async fn get_time_series_mama(configuration: &configuration::Configuration, params: GetTimeSeriesMamaParams) -> Result<models::GetTimeSeriesMama200Response, Error<GetTimeSeriesMamaError>> {
+pub async fn get_time_series_mama(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMamaParams,
+) -> Result<models::GetTimeSeriesMama200ResponseEnum, Error<GetTimeSeriesMamaError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -34794,7 +35151,7 @@ pub async fn get_time_series_mama(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -34809,13 +35166,13 @@ pub async fn get_time_series_mama(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -34827,10 +35184,10 @@ pub async fn get_time_series_mama(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_fast_limit {
         req_builder = req_builder.query(&[("fast_limit", &param_value.to_string())]);
@@ -34868,18 +35225,25 @@ pub async fn get_time_series_mama(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMama200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMama200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMama200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMama200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMamaError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Maximum (MAX) endpoint calculates and returns the highest value within a specified data series over a given period. This endpoint is useful for identifying potential resistance levels or detecting extreme price movements in financial data.
-pub async fn get_time_series_max(configuration: &configuration::Configuration, params: GetTimeSeriesMaxParams) -> Result<models::GetTimeSeriesMax200Response, Error<GetTimeSeriesMaxError>> {
+pub async fn get_time_series_max(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMaxParams,
+) -> Result<models::GetTimeSeriesMax200ResponseEnum, Error<GetTimeSeriesMaxError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -34935,7 +35299,7 @@ pub async fn get_time_series_max(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -34950,13 +35314,13 @@ pub async fn get_time_series_max(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -34968,10 +35332,10 @@ pub async fn get_time_series_max(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -35006,18 +35370,25 @@ pub async fn get_time_series_max(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMax200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMax200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMax200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMax200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMaxError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Maximum Index (MAXINDEX) endpoint identifies the position of the highest value within a specified data series over a given time frame. It returns the index where the peak value occurs, allowing users to pinpoint when the maximum price or value was reached in the series. This is useful for tracking the timing of significant peaks in financial data.
-pub async fn get_time_series_max_index(configuration: &configuration::Configuration, params: GetTimeSeriesMaxIndexParams) -> Result<models::GetTimeSeriesMaxIndex200Response, Error<GetTimeSeriesMaxIndexError>> {
+pub async fn get_time_series_max_index(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMaxIndexParams,
+) -> Result<models::GetTimeSeriesMaxIndex200ResponseEnum, Error<GetTimeSeriesMaxIndexError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -35073,7 +35444,7 @@ pub async fn get_time_series_max_index(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -35088,13 +35459,13 @@ pub async fn get_time_series_max_index(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -35106,10 +35477,10 @@ pub async fn get_time_series_max_index(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -35144,18 +35515,28 @@ pub async fn get_time_series_max_index(configuration: &configuration::Configurat
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMaxIndex200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMaxIndex200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMaxIndex200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMaxIndex200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMaxIndexError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// This endpoint calculates the McGinley Dynamic (MCGINLEY_DYNAMIC) indicator, which provides a refined moving average that adapts to market volatility. This endpoint returns data that reflects smoother price trends and identifies potential support or resistance levels more accurately than traditional moving averages. It is useful for users seeking to track price movements with reduced lag and enhanced responsiveness to market changes.
-pub async fn get_time_series_mc_ginley_dynamic(configuration: &configuration::Configuration, params: GetTimeSeriesMcGinleyDynamicParams) -> Result<models::GetTimeSeriesMcGinleyDynamic200Response, Error<GetTimeSeriesMcGinleyDynamicError>> {
+pub async fn get_time_series_mc_ginley_dynamic(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMcGinleyDynamicParams,
+) -> Result<
+    models::GetTimeSeriesMcGinleyDynamic200ResponseEnum,
+    Error<GetTimeSeriesMcGinleyDynamicError>,
+> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -35210,7 +35591,7 @@ pub async fn get_time_series_mc_ginley_dynamic(configuration: &configuration::Co
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -35225,13 +35606,13 @@ pub async fn get_time_series_mc_ginley_dynamic(configuration: &configuration::Co
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -35243,7 +35624,7 @@ pub async fn get_time_series_mc_ginley_dynamic(configuration: &configuration::Co
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -35278,18 +35659,25 @@ pub async fn get_time_series_mc_ginley_dynamic(configuration: &configuration::Co
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMcGinleyDynamic200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMcGinleyDynamic200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMcGinleyDynamic200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMcGinleyDynamic200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMcGinleyDynamicError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Median Price (MEDPRICE) endpoint calculates and returns the average of the high and low prices of a security for a specified period. This endpoint provides a simplified view of price movements, helping users quickly assess price trends by focusing on the midpoint of price action.
-pub async fn get_time_series_med_price(configuration: &configuration::Configuration, params: GetTimeSeriesMedPriceParams) -> Result<models::GetTimeSeriesMedPrice200Response, Error<GetTimeSeriesMedPriceError>> {
+pub async fn get_time_series_med_price(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMedPriceParams,
+) -> Result<models::GetTimeSeriesMedPrice200ResponseEnum, Error<GetTimeSeriesMedPriceError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -35343,7 +35731,7 @@ pub async fn get_time_series_med_price(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -35358,13 +35746,13 @@ pub async fn get_time_series_med_price(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -35376,7 +35764,7 @@ pub async fn get_time_series_med_price(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -35408,18 +35796,25 @@ pub async fn get_time_series_med_price(configuration: &configuration::Configurat
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMedPrice200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMedPrice200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMedPrice200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMedPrice200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMedPriceError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Money Flow Index (MFI) endpoint provides a volume-weighted momentum oscillator that quantifies buying and selling pressure by analyzing positive and negative money flow. It returns data indicating potential overbought or oversold conditions in a financial asset, aiding users in understanding market trends and price movements.
-pub async fn get_time_series_mfi(configuration: &configuration::Configuration, params: GetTimeSeriesMfiParams) -> Result<models::GetTimeSeriesMfi200Response, Error<GetTimeSeriesMfiError>> {
+pub async fn get_time_series_mfi(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMfiParams,
+) -> Result<models::GetTimeSeriesMfi200ResponseEnum, Error<GetTimeSeriesMfiError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -35474,7 +35869,7 @@ pub async fn get_time_series_mfi(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -35489,13 +35884,13 @@ pub async fn get_time_series_mfi(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -35507,7 +35902,7 @@ pub async fn get_time_series_mfi(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -35542,18 +35937,25 @@ pub async fn get_time_series_mfi(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMfi200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMfi200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMfi200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMfi200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMfiError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Midpoint (MIDPOINT) endpoint calculates the average value between the highest and lowest prices of a financial instrument over a specified period. It returns a time series of midpoint values, which can help users identify price trends and smooth out short-term fluctuations in the data.
-pub async fn get_time_series_mid_point(configuration: &configuration::Configuration, params: GetTimeSeriesMidPointParams) -> Result<models::GetTimeSeriesMidPoint200Response, Error<GetTimeSeriesMidPointError>> {
+pub async fn get_time_series_mid_point(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMidPointParams,
+) -> Result<models::GetTimeSeriesMidPoint200ResponseEnum, Error<GetTimeSeriesMidPointError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -35609,7 +36011,7 @@ pub async fn get_time_series_mid_point(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -35624,13 +36026,13 @@ pub async fn get_time_series_mid_point(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -35642,10 +36044,10 @@ pub async fn get_time_series_mid_point(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -35680,18 +36082,25 @@ pub async fn get_time_series_mid_point(configuration: &configuration::Configurat
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMidPoint200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMidPoint200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMidPoint200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMidPoint200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMidPointError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Midprice (MIDPRICE) endpoint calculates and returns the average of a financial instrument's highest and lowest prices over a specified time period. This data provides a smoothed representation of price movements, helping users identify potential support or resistance levels in the market.
-pub async fn get_time_series_mid_price(configuration: &configuration::Configuration, params: GetTimeSeriesMidPriceParams) -> Result<models::GetTimeSeriesMidPrice200Response, Error<GetTimeSeriesMidPriceError>> {
+pub async fn get_time_series_mid_price(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMidPriceParams,
+) -> Result<models::GetTimeSeriesMidPrice200ResponseEnum, Error<GetTimeSeriesMidPriceError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -35746,7 +36155,7 @@ pub async fn get_time_series_mid_price(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -35761,13 +36170,13 @@ pub async fn get_time_series_mid_price(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -35779,7 +36188,7 @@ pub async fn get_time_series_mid_price(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -35814,18 +36223,25 @@ pub async fn get_time_series_mid_price(configuration: &configuration::Configurat
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMidPrice200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMidPrice200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMidPrice200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMidPrice200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMidPriceError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Minimum (MIN) Indicator endpoint provides the lowest value of a specified data series over a chosen time period. This endpoint is useful for identifying potential support levels or detecting extreme price movements in financial data.
-pub async fn get_time_series_min(configuration: &configuration::Configuration, params: GetTimeSeriesMinParams) -> Result<models::GetTimeSeriesMin200Response, Error<GetTimeSeriesMinError>> {
+pub async fn get_time_series_min(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMinParams,
+) -> Result<models::GetTimeSeriesMin200ResponseEnum, Error<GetTimeSeriesMinError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -35881,7 +36297,7 @@ pub async fn get_time_series_min(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -35896,13 +36312,13 @@ pub async fn get_time_series_min(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -35914,10 +36330,10 @@ pub async fn get_time_series_min(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -35952,18 +36368,25 @@ pub async fn get_time_series_min(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMin200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMin200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMin200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMin200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMinError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Minimum Index (MININDEX) endpoint identifies the position of the lowest value within a specified data series over a given time frame. It returns the index number corresponding to the earliest occurrence of this minimum value. This is useful for pinpointing when the lowest price or value occurred in a dataset, aiding in time-based analysis of data trends.
-pub async fn get_time_series_min_index(configuration: &configuration::Configuration, params: GetTimeSeriesMinIndexParams) -> Result<models::GetTimeSeriesMinIndex200Response, Error<GetTimeSeriesMinIndexError>> {
+pub async fn get_time_series_min_index(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMinIndexParams,
+) -> Result<models::GetTimeSeriesMinIndex200ResponseEnum, Error<GetTimeSeriesMinIndexError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -36019,7 +36442,7 @@ pub async fn get_time_series_min_index(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -36034,13 +36457,13 @@ pub async fn get_time_series_min_index(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -36052,10 +36475,10 @@ pub async fn get_time_series_min_index(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -36090,18 +36513,25 @@ pub async fn get_time_series_min_index(configuration: &configuration::Configurat
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMinIndex200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMinIndex200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMinIndex200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMinIndex200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMinIndexError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Minimum and Maximum (MINMAX) endpoint identifies the lowest and highest values within a specified time frame for a given data series. It returns these extreme values, which can be used to detect potential support and resistance levels or significant price fluctuations in the data.
-pub async fn get_time_series_min_max(configuration: &configuration::Configuration, params: GetTimeSeriesMinMaxParams) -> Result<models::GetTimeSeriesMinMax200Response, Error<GetTimeSeriesMinMaxError>> {
+pub async fn get_time_series_min_max(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMinMaxParams,
+) -> Result<models::GetTimeSeriesMinMax200ResponseEnum, Error<GetTimeSeriesMinMaxError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -36157,7 +36587,7 @@ pub async fn get_time_series_min_max(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -36172,13 +36602,13 @@ pub async fn get_time_series_min_max(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -36190,10 +36620,10 @@ pub async fn get_time_series_min_max(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -36228,18 +36658,25 @@ pub async fn get_time_series_min_max(configuration: &configuration::Configuratio
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMinMax200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMinMax200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMinMax200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMinMax200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMinMaxError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Minimum and Maximum Index (MINMAXINDEX) endpoint identifies the positions of the lowest and highest values within a specified data series period. It returns indices that indicate when these extreme values occur, allowing users to pinpoint significant price changes over time.
-pub async fn get_time_series_min_max_index(configuration: &configuration::Configuration, params: GetTimeSeriesMinMaxIndexParams) -> Result<models::GetTimeSeriesMinMaxIndex200Response, Error<GetTimeSeriesMinMaxIndexError>> {
+pub async fn get_time_series_min_max_index(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMinMaxIndexParams,
+) -> Result<models::GetTimeSeriesMinMaxIndex200ResponseEnum, Error<GetTimeSeriesMinMaxIndexError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -36295,7 +36732,7 @@ pub async fn get_time_series_min_max_index(configuration: &configuration::Config
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -36310,13 +36747,13 @@ pub async fn get_time_series_min_max_index(configuration: &configuration::Config
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -36328,10 +36765,10 @@ pub async fn get_time_series_min_max_index(configuration: &configuration::Config
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -36366,18 +36803,25 @@ pub async fn get_time_series_min_max_index(configuration: &configuration::Config
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMinMaxIndex200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMinMaxIndex200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMinMaxIndex200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMinMaxIndex200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMinMaxIndexError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Minus Directional Indicator (MINUS_DI) endpoint calculates and returns the strength of a security's downward price movement over a specified period. This data is useful for traders and analysts looking to identify bearish trends and assess the intensity of price declines in financial markets.
-pub async fn get_time_series_minus_di(configuration: &configuration::Configuration, params: GetTimeSeriesMinusDiParams) -> Result<models::GetTimeSeriesMinusDi200Response, Error<GetTimeSeriesMinusDiError>> {
+pub async fn get_time_series_minus_di(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMinusDiParams,
+) -> Result<models::GetTimeSeriesMinusDi200ResponseEnum, Error<GetTimeSeriesMinusDiError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -36432,7 +36876,7 @@ pub async fn get_time_series_minus_di(configuration: &configuration::Configurati
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -36447,13 +36891,13 @@ pub async fn get_time_series_minus_di(configuration: &configuration::Configurati
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -36465,7 +36909,7 @@ pub async fn get_time_series_minus_di(configuration: &configuration::Configurati
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -36500,18 +36944,25 @@ pub async fn get_time_series_minus_di(configuration: &configuration::Configurati
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMinusDi200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMinusDi200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMinusDi200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMinusDi200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMinusDiError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Minus Directional Movement endpoint (MINUS_DM) calculates the downward price movement of a security over a specified period. It returns a series of values indicating the strength of downward trends, useful for traders to identify potential selling opportunities or confirm bearish market conditions.
-pub async fn get_time_series_minus_dm(configuration: &configuration::Configuration, params: GetTimeSeriesMinusDmParams) -> Result<models::GetTimeSeriesMinusDm200Response, Error<GetTimeSeriesMinusDmError>> {
+pub async fn get_time_series_minus_dm(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMinusDmParams,
+) -> Result<models::GetTimeSeriesMinusDm200ResponseEnum, Error<GetTimeSeriesMinusDmError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -36566,7 +37017,7 @@ pub async fn get_time_series_minus_dm(configuration: &configuration::Configurati
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -36581,13 +37032,13 @@ pub async fn get_time_series_minus_dm(configuration: &configuration::Configurati
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -36599,7 +37050,7 @@ pub async fn get_time_series_minus_dm(configuration: &configuration::Configurati
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -36634,18 +37085,25 @@ pub async fn get_time_series_minus_dm(configuration: &configuration::Configurati
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMinusDm200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMinusDm200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMinusDm200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMinusDm200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMinusDmError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Momentum (MOM) endpoint provides data on the rate of change in a security's price over a user-defined period. It returns a series of numerical values indicating the speed and direction of the price movement, which can help users detect emerging trends or potential reversals in the market.
-pub async fn get_time_series_mom(configuration: &configuration::Configuration, params: GetTimeSeriesMomParams) -> Result<models::GetTimeSeriesMom200Response, Error<GetTimeSeriesMomError>> {
+pub async fn get_time_series_mom(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMomParams,
+) -> Result<models::GetTimeSeriesMom200ResponseEnum, Error<GetTimeSeriesMomError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -36701,7 +37159,7 @@ pub async fn get_time_series_mom(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -36716,13 +37174,13 @@ pub async fn get_time_series_mom(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -36734,10 +37192,10 @@ pub async fn get_time_series_mom(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -36772,18 +37230,25 @@ pub async fn get_time_series_mom(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMom200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMom200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMom200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMom200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMomError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Multiplication (MULT) endpoint calculates the product of two input data series, returning a new data series that represents the element-wise multiplication of the inputs. This is useful for combining or adjusting technical indicators or price data to create custom metrics or to normalize values across different scales.
-pub async fn get_time_series_mult(configuration: &configuration::Configuration, params: GetTimeSeriesMultParams) -> Result<models::GetTimeSeriesMult200Response, Error<GetTimeSeriesMultError>> {
+pub async fn get_time_series_mult(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesMultParams,
+) -> Result<models::GetTimeSeriesMult200ResponseEnum, Error<GetTimeSeriesMultError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -36839,7 +37304,7 @@ pub async fn get_time_series_mult(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -36854,13 +37319,13 @@ pub async fn get_time_series_mult(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -36872,13 +37337,13 @@ pub async fn get_time_series_mult(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type_1 {
-        req_builder = req_builder.query(&[("series_type_1", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type_1", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type_2 {
-        req_builder = req_builder.query(&[("series_type_2", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type_2", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -36910,18 +37375,25 @@ pub async fn get_time_series_mult(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesMult200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMult200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesMult200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesMult200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesMultError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Normalized Average True Range (NATR) endpoint provides a volatility indicator that calculates the average range of price movement over a specified period, expressed as a percentage of the security's price. This data allows users to compare volatility levels across different securities easily. The endpoint returns a time series of NATR values, which can be used to assess and compare the price volatility of various financial instruments.
-pub async fn get_time_series_natr(configuration: &configuration::Configuration, params: GetTimeSeriesNatrParams) -> Result<models::GetTimeSeriesNatr200Response, Error<GetTimeSeriesNatrError>> {
+pub async fn get_time_series_natr(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesNatrParams,
+) -> Result<models::GetTimeSeriesNatr200ResponseEnum, Error<GetTimeSeriesNatrError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -36976,7 +37448,7 @@ pub async fn get_time_series_natr(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -36991,13 +37463,13 @@ pub async fn get_time_series_natr(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -37009,7 +37481,7 @@ pub async fn get_time_series_natr(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -37044,18 +37516,25 @@ pub async fn get_time_series_natr(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesNatr200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesNatr200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesNatr200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesNatr200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesNatrError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The On Balance Volume (OBV) endpoint provides a time series of the OBV indicator, which calculates cumulative volume to reflect buying and selling pressure over time. This endpoint returns data that helps users track volume trends in relation to price movements, aiding in the identification of potential trend continuations or reversals in a security's price.
-pub async fn get_time_series_obv(configuration: &configuration::Configuration, params: GetTimeSeriesObvParams) -> Result<models::GetTimeSeriesObv200Response, Error<GetTimeSeriesObvError>> {
+pub async fn get_time_series_obv(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesObvParams,
+) -> Result<models::GetTimeSeriesObv200ResponseEnum, Error<GetTimeSeriesObvError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -37110,7 +37589,7 @@ pub async fn get_time_series_obv(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -37125,13 +37604,13 @@ pub async fn get_time_series_obv(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -37143,10 +37622,10 @@ pub async fn get_time_series_obv(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -37178,18 +37657,25 @@ pub async fn get_time_series_obv(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesObv200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesObv200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesObv200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesObv200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesObvError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Percent B (%B) endpoint calculates and returns the %B value, which indicates the position of a security's price relative to its Bollinger Bands. This data helps users determine if a security is near the upper or lower band, potentially signaling overbought or oversold conditions.
-pub async fn get_time_series_percent_b(configuration: &configuration::Configuration, params: GetTimeSeriesPercentBParams) -> Result<models::GetTimeSeriesPercentB200Response, Error<GetTimeSeriesPercentBError>> {
+pub async fn get_time_series_percent_b(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesPercentBParams,
+) -> Result<models::GetTimeSeriesPercentB200ResponseEnum, Error<GetTimeSeriesPercentBError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -37247,7 +37733,7 @@ pub async fn get_time_series_percent_b(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -37262,13 +37748,13 @@ pub async fn get_time_series_percent_b(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -37280,10 +37766,10 @@ pub async fn get_time_series_percent_b(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -37292,7 +37778,7 @@ pub async fn get_time_series_percent_b(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("sd", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_ma_type {
-        req_builder = req_builder.query(&[("ma_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("ma_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -37324,18 +37810,26 @@ pub async fn get_time_series_percent_b(configuration: &configuration::Configurat
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesPercentB200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesPercentB200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesPercentB200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesPercentB200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesPercentBError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Pivot Points High Low (PIVOT_POINTS_HL) endpoint calculates key support and resistance levels for a security by analyzing its highest and lowest prices over a specified period. This endpoint returns data that includes pivot points, support levels, and resistance levels, which can be used to identify potential price reversal zones and optimize trade entry and exit strategies.
-pub async fn get_time_series_pivot_points_hl(configuration: &configuration::Configuration, params: GetTimeSeriesPivotPointsHlParams) -> Result<models::GetTimeSeriesPivotPointsHl200Response, Error<GetTimeSeriesPivotPointsHlError>> {
+pub async fn get_time_series_pivot_points_hl(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesPivotPointsHlParams,
+) -> Result<models::GetTimeSeriesPivotPointsHl200ResponseEnum, Error<GetTimeSeriesPivotPointsHlError>>
+{
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -37390,7 +37884,7 @@ pub async fn get_time_series_pivot_points_hl(configuration: &configuration::Conf
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -37405,13 +37899,13 @@ pub async fn get_time_series_pivot_points_hl(configuration: &configuration::Conf
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -37423,7 +37917,7 @@ pub async fn get_time_series_pivot_points_hl(configuration: &configuration::Conf
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -37458,18 +37952,25 @@ pub async fn get_time_series_pivot_points_hl(configuration: &configuration::Conf
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesPivotPointsHl200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesPivotPointsHl200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesPivotPointsHl200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesPivotPointsHl200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesPivotPointsHlError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Plus Directional Indicator endpoint (/plus_di) provides data on the strength of a security's upward price movement by calculating the Plus Directional Indicator (PLUS_DI). It returns a time series of PLUS_DI values, which can be used to assess the intensity of upward trends in a security's price over a specified period.
-pub async fn get_time_series_plus_di(configuration: &configuration::Configuration, params: GetTimeSeriesPlusDiParams) -> Result<models::GetTimeSeriesPlusDi200Response, Error<GetTimeSeriesPlusDiError>> {
+pub async fn get_time_series_plus_di(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesPlusDiParams,
+) -> Result<models::GetTimeSeriesPlusDi200ResponseEnum, Error<GetTimeSeriesPlusDiError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -37524,7 +38025,7 @@ pub async fn get_time_series_plus_di(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -37539,13 +38040,13 @@ pub async fn get_time_series_plus_di(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -37557,7 +38058,7 @@ pub async fn get_time_series_plus_di(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -37592,18 +38093,25 @@ pub async fn get_time_series_plus_di(configuration: &configuration::Configuratio
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesPlusDi200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesPlusDi200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesPlusDi200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesPlusDi200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesPlusDiError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Plus Directional Movement (PLUS_DM) endpoint calculates the upward price movement of a financial security over a specified period. It returns numerical values representing the magnitude of upward price changes, which can be used to assess the strength of an uptrend. This data is essential for traders and analysts who need to evaluate the bullish momentum of a security.
-pub async fn get_time_series_plus_dm(configuration: &configuration::Configuration, params: GetTimeSeriesPlusDmParams) -> Result<models::GetTimeSeriesPlusDm200Response, Error<GetTimeSeriesPlusDmError>> {
+pub async fn get_time_series_plus_dm(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesPlusDmParams,
+) -> Result<models::GetTimeSeriesPlusDm200ResponseEnum, Error<GetTimeSeriesPlusDmError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -37658,7 +38166,7 @@ pub async fn get_time_series_plus_dm(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -37673,13 +38181,13 @@ pub async fn get_time_series_plus_dm(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -37691,7 +38199,7 @@ pub async fn get_time_series_plus_dm(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -37726,18 +38234,25 @@ pub async fn get_time_series_plus_dm(configuration: &configuration::Configuratio
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesPlusDm200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesPlusDm200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesPlusDm200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesPlusDm200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesPlusDmError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Percentage Price Oscillator (PPO) endpoint calculates the percentage difference between two specified moving averages of a financial instrument's price. It returns data that includes the PPO values, which traders can use to identify potential trend reversals and generate trading signals.
-pub async fn get_time_series_ppo(configuration: &configuration::Configuration, params: GetTimeSeriesPpoParams) -> Result<models::GetTimeSeriesPpo200Response, Error<GetTimeSeriesPpoError>> {
+pub async fn get_time_series_ppo(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesPpoParams,
+) -> Result<models::GetTimeSeriesPpo200ResponseEnum, Error<GetTimeSeriesPpoError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -37795,7 +38310,7 @@ pub async fn get_time_series_ppo(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -37810,13 +38325,13 @@ pub async fn get_time_series_ppo(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -37828,10 +38343,10 @@ pub async fn get_time_series_ppo(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_fast_period {
         req_builder = req_builder.query(&[("fast_period", &param_value.to_string())]);
@@ -37840,7 +38355,7 @@ pub async fn get_time_series_ppo(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("slow_period", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_ma_type {
-        req_builder = req_builder.query(&[("ma_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("ma_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -37872,18 +38387,25 @@ pub async fn get_time_series_ppo(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesPpo200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesPpo200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesPpo200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesPpo200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesPpoError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Rate of Change (ROC) endpoint calculates the percentage change in a security's price over a defined period, returning a time series of ROC values. This data helps users track momentum by showing how quickly prices are changing, which can be useful for identifying potential price movements.
-pub async fn get_time_series_roc(configuration: &configuration::Configuration, params: GetTimeSeriesRocParams) -> Result<models::GetTimeSeriesRoc200Response, Error<GetTimeSeriesRocError>> {
+pub async fn get_time_series_roc(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesRocParams,
+) -> Result<models::GetTimeSeriesRoc200ResponseEnum, Error<GetTimeSeriesRocError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -37939,7 +38461,7 @@ pub async fn get_time_series_roc(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -37954,13 +38476,13 @@ pub async fn get_time_series_roc(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -37972,10 +38494,10 @@ pub async fn get_time_series_roc(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -38010,18 +38532,25 @@ pub async fn get_time_series_roc(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesRoc200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesRoc200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesRoc200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesRoc200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesRocError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Rate of Change Percentage (ROCP) endpoint calculates and returns the percentage change in the price of a financial security over a user-defined period. This data helps users identify shifts in price momentum and potential trend reversals by providing a clear numerical representation of how much the price has increased or decreased in percentage terms.
-pub async fn get_time_series_rocp(configuration: &configuration::Configuration, params: GetTimeSeriesRocpParams) -> Result<models::GetTimeSeriesRocp200Response, Error<GetTimeSeriesRocpError>> {
+pub async fn get_time_series_rocp(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesRocpParams,
+) -> Result<models::GetTimeSeriesRocp200ResponseEnum, Error<GetTimeSeriesRocpError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -38077,7 +38606,7 @@ pub async fn get_time_series_rocp(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -38092,13 +38621,13 @@ pub async fn get_time_series_rocp(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -38110,10 +38639,10 @@ pub async fn get_time_series_rocp(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -38148,18 +38677,25 @@ pub async fn get_time_series_rocp(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesRocp200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesRocp200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesRocp200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesRocp200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesRocpError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Rate of Change Ratio (ROCR) endpoint calculates and returns the ratio of a security's current price to its price from a specified number of periods ago. This data helps users track price momentum and identify potential trend reversals by providing a clear numerical value that reflects price changes over time.
-pub async fn get_time_series_rocr(configuration: &configuration::Configuration, params: GetTimeSeriesRocrParams) -> Result<models::GetTimeSeriesRocr200Response, Error<GetTimeSeriesRocrError>> {
+pub async fn get_time_series_rocr(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesRocrParams,
+) -> Result<models::GetTimeSeriesRocr200ResponseEnum, Error<GetTimeSeriesRocrError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -38215,7 +38751,7 @@ pub async fn get_time_series_rocr(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -38230,13 +38766,13 @@ pub async fn get_time_series_rocr(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -38248,10 +38784,10 @@ pub async fn get_time_series_rocr(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -38286,18 +38822,25 @@ pub async fn get_time_series_rocr(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesRocr200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesRocr200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesRocr200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesRocr200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesRocrError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Rate of Change Ratio 100 (ROCR100) endpoint calculates the percentage change in a security's price over a specified period, expressed as a ratio to 100. It returns data that highlights the momentum of the price movement and identifies potential trend reversals. This endpoint is useful for users looking to assess the strength and direction of a security's price trend over time.
-pub async fn get_time_series_rocr100(configuration: &configuration::Configuration, params: GetTimeSeriesRocr100Params) -> Result<models::GetTimeSeriesRocr100200Response, Error<GetTimeSeriesRocr100Error>> {
+pub async fn get_time_series_rocr100(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesRocr100Params,
+) -> Result<models::GetTimeSeriesRocr100200ResponseEnum, Error<GetTimeSeriesRocr100Error>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -38353,7 +38896,7 @@ pub async fn get_time_series_rocr100(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -38368,13 +38911,13 @@ pub async fn get_time_series_rocr100(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -38386,10 +38929,10 @@ pub async fn get_time_series_rocr100(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -38424,18 +38967,25 @@ pub async fn get_time_series_rocr100(configuration: &configuration::Configuratio
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesRocr100200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesRocr100200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesRocr100200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesRocr100200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesRocr100Error> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Relative Strength Index (RSI) endpoint provides data on the RSI values for a specified financial instrument over a given period. It returns a series of RSI values, which indicate the momentum of price movements and help identify potential overbought or oversold conditions. This data is useful for traders looking to assess the strength of price trends and anticipate possible trend reversals.
-pub async fn get_time_series_rsi(configuration: &configuration::Configuration, params: GetTimeSeriesRsiParams) -> Result<models::GetTimeSeriesRsi200Response, Error<GetTimeSeriesRsiError>> {
+pub async fn get_time_series_rsi(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesRsiParams,
+) -> Result<models::GetTimeSeriesRsi200ResponseEnum, Error<GetTimeSeriesRsiError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -38491,7 +39041,7 @@ pub async fn get_time_series_rsi(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -38506,13 +39056,13 @@ pub async fn get_time_series_rsi(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -38524,10 +39074,10 @@ pub async fn get_time_series_rsi(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -38562,18 +39112,25 @@ pub async fn get_time_series_rsi(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesRsi200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesRsi200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesRsi200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesRsi200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesRsiError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Relative Volume endpoint (/rvol) provides a ratio comparing a security's current trading volume to its average volume over a specified period. This data helps users detect unusual trading activity and assess the strength of price movements, offering insights into potential market breakouts.
-pub async fn get_time_series_rvol(configuration: &configuration::Configuration, params: GetTimeSeriesRvolParams) -> Result<models::GetTimeSeriesRvol200Response, Error<GetTimeSeriesRvolError>> {
+pub async fn get_time_series_rvol(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesRvolParams,
+) -> Result<models::GetTimeSeriesRvol200ResponseEnum, Error<GetTimeSeriesRvolError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -38628,7 +39185,7 @@ pub async fn get_time_series_rvol(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -38643,13 +39200,13 @@ pub async fn get_time_series_rvol(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -38661,7 +39218,7 @@ pub async fn get_time_series_rvol(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -38696,18 +39253,25 @@ pub async fn get_time_series_rvol(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesRvol200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesRvol200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesRvol200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesRvol200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesRvolError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Parabolic Stop and Reverse (SAR) endpoint provides data on potential support and resistance levels for a specified security, using its price and time. This endpoint returns numerical values that help traders determine possible entry and exit points in their trading strategies.
-pub async fn get_time_series_sar(configuration: &configuration::Configuration, params: GetTimeSeriesSarParams) -> Result<models::GetTimeSeriesSar200Response, Error<GetTimeSeriesSarError>> {
+pub async fn get_time_series_sar(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesSarParams,
+) -> Result<models::GetTimeSeriesSar200ResponseEnum, Error<GetTimeSeriesSarError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -38763,7 +39327,7 @@ pub async fn get_time_series_sar(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -38778,13 +39342,13 @@ pub async fn get_time_series_sar(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -38796,7 +39360,7 @@ pub async fn get_time_series_sar(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_acceleration {
         req_builder = req_builder.query(&[("acceleration", &param_value.to_string())]);
@@ -38834,18 +39398,25 @@ pub async fn get_time_series_sar(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesSar200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesSar200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesSar200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesSar200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesSarError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Parabolic SAR Extended (SAREXT) endpoint provides a customizable version of the Parabolic SAR indicator, which is used to identify potential entry and exit points in trading. Users can adjust parameters such as acceleration factors to tailor the indicator to specific trading strategies. The endpoint returns data points indicating potential trend reversals.
-pub async fn get_time_series_sar_ext(configuration: &configuration::Configuration, params: GetTimeSeriesSarExtParams) -> Result<models::GetTimeSeriesSarExt200Response, Error<GetTimeSeriesSarExtError>> {
+pub async fn get_time_series_sar_ext(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesSarExtParams,
+) -> Result<models::GetTimeSeriesSarExt200ResponseEnum, Error<GetTimeSeriesSarExtError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -38907,7 +39478,7 @@ pub async fn get_time_series_sar_ext(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -38922,13 +39493,13 @@ pub async fn get_time_series_sar_ext(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -38940,7 +39511,7 @@ pub async fn get_time_series_sar_ext(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_start_value {
         req_builder = req_builder.query(&[("start_value", &param_value.to_string())]);
@@ -38996,18 +39567,25 @@ pub async fn get_time_series_sar_ext(configuration: &configuration::Configuratio
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesSarExt200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesSarExt200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesSarExt200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesSarExt200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesSarExtError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Simple Moving Average (SMA) endpoint calculates and returns the average price of a security over a user-defined time period. This endpoint provides a series of data points that represent the smoothed price trend, which can help users identify potential price movements and evaluate historical price behavior.
-pub async fn get_time_series_sma(configuration: &configuration::Configuration, params: GetTimeSeriesSmaParams) -> Result<models::GetTimeSeriesSma200Response, Error<GetTimeSeriesSmaError>> {
+pub async fn get_time_series_sma(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesSmaParams,
+) -> Result<models::GetTimeSeriesSma200ResponseEnum, Error<GetTimeSeriesSmaError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -39063,7 +39641,7 @@ pub async fn get_time_series_sma(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -39078,13 +39656,13 @@ pub async fn get_time_series_sma(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -39096,10 +39674,10 @@ pub async fn get_time_series_sma(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -39134,18 +39712,25 @@ pub async fn get_time_series_sma(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesSma200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesSma200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesSma200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesSma200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesSmaError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Square Root (SQRT) endpoint computes the square root of a specified numerical input. It returns a single numerical value representing the square root, which can be used in various mathematical computations or financial models requiring this specific transformation.
-pub async fn get_time_series_sqrt(configuration: &configuration::Configuration, params: GetTimeSeriesSqrtParams) -> Result<models::GetTimeSeriesSqrt200Response, Error<GetTimeSeriesSqrtError>> {
+pub async fn get_time_series_sqrt(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesSqrtParams,
+) -> Result<models::GetTimeSeriesSqrt200ResponseEnum, Error<GetTimeSeriesSqrtError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -39200,7 +39785,7 @@ pub async fn get_time_series_sqrt(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -39215,13 +39800,13 @@ pub async fn get_time_series_sqrt(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -39233,10 +39818,10 @@ pub async fn get_time_series_sqrt(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -39268,18 +39853,25 @@ pub async fn get_time_series_sqrt(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesSqrt200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesSqrt200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesSqrt200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesSqrt200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesSqrtError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Standard Deviation (STDDEV) endpoint calculates the dispersion of a financial instrument's price data from its average value. It returns a numerical value representing the volatility of the asset over a specified period. This endpoint is useful for traders and analysts to assess price variability and identify periods of high or low volatility in the market.
-pub async fn get_time_series_std_dev(configuration: &configuration::Configuration, params: GetTimeSeriesStdDevParams) -> Result<models::GetTimeSeriesStdDev200Response, Error<GetTimeSeriesStdDevError>> {
+pub async fn get_time_series_std_dev(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesStdDevParams,
+) -> Result<models::GetTimeSeriesStdDev200ResponseEnum, Error<GetTimeSeriesStdDevError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -39336,7 +39928,7 @@ pub async fn get_time_series_std_dev(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -39351,13 +39943,13 @@ pub async fn get_time_series_std_dev(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -39369,10 +39961,10 @@ pub async fn get_time_series_std_dev(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -39410,18 +40002,25 @@ pub async fn get_time_series_std_dev(configuration: &configuration::Configuratio
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesStdDev200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesStdDev200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesStdDev200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesStdDev200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesStdDevError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Stochastic Oscillator endpoint provides data on a momentum indicator that evaluates a security's closing price relative to its price range over a specified timeframe. It returns values indicating potential overbought or oversold conditions, aiding in identifying possible trend reversals. Users receive the %K and %D values, which are essential for analyzing the momentum and potential turning points in the market.
-pub async fn get_time_series_stoch(configuration: &configuration::Configuration, params: GetTimeSeriesStochParams) -> Result<models::GetTimeSeriesStoch200Response, Error<GetTimeSeriesStochError>> {
+pub async fn get_time_series_stoch(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesStochParams,
+) -> Result<models::GetTimeSeriesStoch200ResponseEnum, Error<GetTimeSeriesStochError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -39480,7 +40079,7 @@ pub async fn get_time_series_stoch(configuration: &configuration::Configuration,
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -39495,13 +40094,13 @@ pub async fn get_time_series_stoch(configuration: &configuration::Configuration,
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -39513,7 +40112,7 @@ pub async fn get_time_series_stoch(configuration: &configuration::Configuration,
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_fast_k_period {
         req_builder = req_builder.query(&[("fast_k_period", &param_value.to_string())]);
@@ -39525,10 +40124,10 @@ pub async fn get_time_series_stoch(configuration: &configuration::Configuration,
         req_builder = req_builder.query(&[("slow_d_period", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_slow_kma_type {
-        req_builder = req_builder.query(&[("slow_kma_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("slow_kma_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_slow_dma_type {
-        req_builder = req_builder.query(&[("slow_dma_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("slow_dma_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -39560,18 +40159,25 @@ pub async fn get_time_series_stoch(configuration: &configuration::Configuration,
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesStoch200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesStoch200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesStoch200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesStoch200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesStochError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Stochastic Fast (STOCHF) endpoint calculates the fast version of the Stochastic Oscillator, providing data on the momentum of a financial instrument by comparing a particular closing price to a range of its prices over a specified period. This endpoint returns the %K and %D values, which are used to identify potential overbought or oversold conditions in the market. It is useful for traders who need quick, responsive insights into price movements, although it may generate more false signals due to its sensitivity.
-pub async fn get_time_series_stoch_f(configuration: &configuration::Configuration, params: GetTimeSeriesStochFParams) -> Result<models::GetTimeSeriesStochF200Response, Error<GetTimeSeriesStochFError>> {
+pub async fn get_time_series_stoch_f(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesStochFParams,
+) -> Result<models::GetTimeSeriesStochF200ResponseEnum, Error<GetTimeSeriesStochFError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -39628,7 +40234,7 @@ pub async fn get_time_series_stoch_f(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -39643,13 +40249,13 @@ pub async fn get_time_series_stoch_f(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -39661,7 +40267,7 @@ pub async fn get_time_series_stoch_f(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_fast_k_period {
         req_builder = req_builder.query(&[("fast_k_period", &param_value.to_string())]);
@@ -39670,7 +40276,7 @@ pub async fn get_time_series_stoch_f(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("fast_d_period", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_fast_dma_type {
-        req_builder = req_builder.query(&[("fast_dma_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("fast_dma_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -39702,18 +40308,25 @@ pub async fn get_time_series_stoch_f(configuration: &configuration::Configuratio
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesStochF200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesStochF200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesStochF200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesStochF200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesStochFError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Stochastic Relative Strength Index (Stochastic RSI) endpoint calculates the Stochastic RSI values for a given financial instrument, providing data on its momentum and potential price reversals. This endpoint returns time-series data, including the %K and %D lines, which help users identify overbought or oversold conditions. Ideal for traders seeking to refine entry and exit points by analyzing short-term price movements.
-pub async fn get_time_series_stoch_rsi(configuration: &configuration::Configuration, params: GetTimeSeriesStochRsiParams) -> Result<models::GetTimeSeriesStochRsi200Response, Error<GetTimeSeriesStochRsiError>> {
+pub async fn get_time_series_stoch_rsi(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesStochRsiParams,
+) -> Result<models::GetTimeSeriesStochRsi200ResponseEnum, Error<GetTimeSeriesStochRsiError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -39774,7 +40387,7 @@ pub async fn get_time_series_stoch_rsi(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -39789,13 +40402,13 @@ pub async fn get_time_series_stoch_rsi(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -39807,10 +40420,10 @@ pub async fn get_time_series_stoch_rsi(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_rsi_length {
         req_builder = req_builder.query(&[("rsi_length", &param_value.to_string())]);
@@ -39860,18 +40473,25 @@ pub async fn get_time_series_stoch_rsi(configuration: &configuration::Configurat
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesStochRsi200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesStochRsi200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesStochRsi200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesStochRsi200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesStochRsiError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Subtraction (SUB) endpoint calculates the difference between two input data series, such as technical indicators or price data. It returns a time series of the resulting values, allowing users to compare or normalize data by highlighting the variance between the two series.
-pub async fn get_time_series_sub(configuration: &configuration::Configuration, params: GetTimeSeriesSubParams) -> Result<models::GetTimeSeriesSub200Response, Error<GetTimeSeriesSubError>> {
+pub async fn get_time_series_sub(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesSubParams,
+) -> Result<models::GetTimeSeriesSub200ResponseEnum, Error<GetTimeSeriesSubError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -39927,7 +40547,7 @@ pub async fn get_time_series_sub(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -39942,13 +40562,13 @@ pub async fn get_time_series_sub(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -39960,13 +40580,13 @@ pub async fn get_time_series_sub(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type_1 {
-        req_builder = req_builder.query(&[("series_type_1", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type_1", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type_2 {
-        req_builder = req_builder.query(&[("series_type_2", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type_2", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -39998,18 +40618,25 @@ pub async fn get_time_series_sub(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesSub200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesSub200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesSub200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesSub200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesSubError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Summation (SUM) endpoint calculates the cumulative total of a specified data series over a defined time period. It returns a numerical value representing the sum, which can be used to track the aggregate value of financial data, such as stock prices or trading volumes, over time. This endpoint is useful for users needing to compute the total accumulation of a dataset for further analysis or reporting.
-pub async fn get_time_series_sum(configuration: &configuration::Configuration, params: GetTimeSeriesSumParams) -> Result<models::GetTimeSeriesSum200Response, Error<GetTimeSeriesSumError>> {
+pub async fn get_time_series_sum(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesSumParams,
+) -> Result<models::GetTimeSeriesSum200ResponseEnum, Error<GetTimeSeriesSumError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -40065,7 +40692,7 @@ pub async fn get_time_series_sum(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -40080,13 +40707,13 @@ pub async fn get_time_series_sum(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -40098,10 +40725,10 @@ pub async fn get_time_series_sum(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -40136,18 +40763,25 @@ pub async fn get_time_series_sum(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesSum200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesSum200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesSum200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesSum200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesSumError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Supertrend endpoint provides data on the Supertrend indicator, a tool used to identify potential buy and sell signals in trending markets. It returns values that indicate the current trend direction and potential reversal points based on price, time, and volatility. Users can leverage this data to pinpoint optimal entry and exit points for trades.
-pub async fn get_time_series_super_trend(configuration: &configuration::Configuration, params: GetTimeSeriesSuperTrendParams) -> Result<models::GetTimeSeriesSuperTrend200Response, Error<GetTimeSeriesSuperTrendError>> {
+pub async fn get_time_series_super_trend(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesSuperTrendParams,
+) -> Result<models::GetTimeSeriesSuperTrend200ResponseEnum, Error<GetTimeSeriesSuperTrendError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -40203,7 +40837,7 @@ pub async fn get_time_series_super_trend(configuration: &configuration::Configur
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -40218,13 +40852,13 @@ pub async fn get_time_series_super_trend(configuration: &configuration::Configur
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -40236,7 +40870,7 @@ pub async fn get_time_series_super_trend(configuration: &configuration::Configur
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_period {
         req_builder = req_builder.query(&[("period", &param_value.to_string())]);
@@ -40274,18 +40908,28 @@ pub async fn get_time_series_super_trend(configuration: &configuration::Configur
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesSuperTrend200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesSuperTrend200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesSuperTrend200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesSuperTrend200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesSuperTrendError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Supertrend Heikin Ashi candles endpoint provides data combining Supertrend signals with Heikin Ashi candlestick patterns. It returns a series of data points indicating trend direction and smoothed price movements, useful for identifying potential buy or sell opportunities in trading.
-pub async fn get_time_series_super_trend_heikin_ashi_candles(configuration: &configuration::Configuration, params: GetTimeSeriesSuperTrendHeikinAshiCandlesParams) -> Result<models::GetTimeSeriesSuperTrendHeikinAshiCandles200Response, Error<GetTimeSeriesSuperTrendHeikinAshiCandlesError>> {
+pub async fn get_time_series_super_trend_heikin_ashi_candles(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesSuperTrendHeikinAshiCandlesParams,
+) -> Result<
+    models::GetTimeSeriesSuperTrendHeikinAshiCandles200ResponseEnum,
+    Error<GetTimeSeriesSuperTrendHeikinAshiCandlesError>,
+> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -40341,7 +40985,7 @@ pub async fn get_time_series_super_trend_heikin_ashi_candles(configuration: &con
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -40356,13 +41000,13 @@ pub async fn get_time_series_super_trend_heikin_ashi_candles(configuration: &con
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -40374,7 +41018,7 @@ pub async fn get_time_series_super_trend_heikin_ashi_candles(configuration: &con
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_period {
         req_builder = req_builder.query(&[("period", &param_value.to_string())]);
@@ -40412,18 +41056,26 @@ pub async fn get_time_series_super_trend_heikin_ashi_candles(configuration: &con
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesSuperTrendHeikinAshiCandles200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesSuperTrendHeikinAshiCandles200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesSuperTrendHeikinAshiCandles200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesSuperTrendHeikinAshiCandles200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<GetTimeSeriesSuperTrendHeikinAshiCandlesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        let entity: Option<GetTimeSeriesSuperTrendHeikinAshiCandlesError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Triple Exponential Moving Average (T3MA) endpoint calculates a smoothed moving average using three exponential moving averages on price data. It returns a dataset that highlights price trends with reduced lag, offering precise trend analysis. This is useful for identifying trend direction and potential reversal points.
-pub async fn get_time_series_t3ma(configuration: &configuration::Configuration, params: GetTimeSeriesT3maParams) -> Result<models::GetTimeSeriesT3ma200Response, Error<GetTimeSeriesT3maError>> {
+pub async fn get_time_series_t3ma(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesT3maParams,
+) -> Result<models::GetTimeSeriesT3ma200ResponseEnum, Error<GetTimeSeriesT3maError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -40480,7 +41132,7 @@ pub async fn get_time_series_t3ma(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -40495,13 +41147,13 @@ pub async fn get_time_series_t3ma(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -40513,10 +41165,10 @@ pub async fn get_time_series_t3ma(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -40554,18 +41206,25 @@ pub async fn get_time_series_t3ma(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesT3ma200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesT3ma200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesT3ma200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesT3ma200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesT3maError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The True Range (TRANGE) endpoint calculates the range of price movement for a specified period, providing a measure of market volatility. It returns data that includes the highest and lowest prices over the period, along with the closing price from the previous period. This information is useful for traders to assess market volatility and adjust their trading strategies accordingly.
-pub async fn get_time_series_t_range(configuration: &configuration::Configuration, params: GetTimeSeriesTRangeParams) -> Result<models::GetTimeSeriesTRange200Response, Error<GetTimeSeriesTRangeError>> {
+pub async fn get_time_series_t_range(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesTRangeParams,
+) -> Result<models::GetTimeSeriesTRange200ResponseEnum, Error<GetTimeSeriesTRangeError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -40619,7 +41278,7 @@ pub async fn get_time_series_t_range(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -40634,13 +41293,13 @@ pub async fn get_time_series_t_range(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -40652,7 +41311,7 @@ pub async fn get_time_series_t_range(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -40684,18 +41343,25 @@ pub async fn get_time_series_t_range(configuration: &configuration::Configuratio
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesTRange200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesTRange200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesTRange200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesTRange200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesTRangeError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Triple Exponential Moving Average (TEMA) endpoint calculates and returns the TEMA values for a specified financial instrument over a given time period. This endpoint provides a series of data points that smooth out price fluctuations by applying three layers of exponential moving averages, allowing users to identify and track underlying trends in the instrument's price movement.
-pub async fn get_time_series_tema(configuration: &configuration::Configuration, params: GetTimeSeriesTemaParams) -> Result<models::GetTimeSeriesTema200Response, Error<GetTimeSeriesTemaError>> {
+pub async fn get_time_series_tema(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesTemaParams,
+) -> Result<models::GetTimeSeriesTema200ResponseEnum, Error<GetTimeSeriesTemaError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -40751,7 +41417,7 @@ pub async fn get_time_series_tema(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -40766,13 +41432,13 @@ pub async fn get_time_series_tema(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -40784,10 +41450,10 @@ pub async fn get_time_series_tema(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -40822,18 +41488,25 @@ pub async fn get_time_series_tema(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesTema200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesTema200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesTema200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesTema200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesTemaError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Triangular Moving Average (TRIMA) endpoint calculates and returns the smoothed average price of a financial security over a specified period, with a focus on central data points. This endpoint provides a balanced view of price trends by applying a double smoothing process, making it useful for identifying underlying price patterns and reducing short-term fluctuations.
-pub async fn get_time_series_trima(configuration: &configuration::Configuration, params: GetTimeSeriesTrimaParams) -> Result<models::GetTimeSeriesTrima200Response, Error<GetTimeSeriesTrimaError>> {
+pub async fn get_time_series_trima(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesTrimaParams,
+) -> Result<models::GetTimeSeriesTrima200ResponseEnum, Error<GetTimeSeriesTrimaError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -40889,7 +41562,7 @@ pub async fn get_time_series_trima(configuration: &configuration::Configuration,
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -40904,13 +41577,13 @@ pub async fn get_time_series_trima(configuration: &configuration::Configuration,
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -40922,10 +41595,10 @@ pub async fn get_time_series_trima(configuration: &configuration::Configuration,
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -40960,18 +41633,25 @@ pub async fn get_time_series_trima(configuration: &configuration::Configuration,
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesTrima200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesTrima200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesTrima200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesTrima200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesTrimaError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Time Series Forecast (TSF) endpoint provides projected future price levels using linear regression analysis. It returns data that helps users identify potential support and resistance levels, as well as trend direction in a financial market. This endpoint is useful for traders seeking to anticipate price movements and adjust their strategies accordingly.
-pub async fn get_time_series_tsf(configuration: &configuration::Configuration, params: GetTimeSeriesTsfParams) -> Result<models::GetTimeSeriesTsf200Response, Error<GetTimeSeriesTsfError>> {
+pub async fn get_time_series_tsf(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesTsfParams,
+) -> Result<models::GetTimeSeriesTsf200ResponseEnum, Error<GetTimeSeriesTsfError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -41027,7 +41707,7 @@ pub async fn get_time_series_tsf(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -41042,13 +41722,13 @@ pub async fn get_time_series_tsf(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -41060,10 +41740,10 @@ pub async fn get_time_series_tsf(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -41098,18 +41778,25 @@ pub async fn get_time_series_tsf(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesTsf200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesTsf200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesTsf200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesTsf200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesTsfError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Typical Price (TYPPRICE) endpoint calculates and returns the average of a financial instrument's high, low, and close prices for a given period. This endpoint provides a simplified metric that reflects the central tendency of price movements, useful for traders and analysts who need a straightforward view of price trends.
-pub async fn get_time_series_typ_price(configuration: &configuration::Configuration, params: GetTimeSeriesTypPriceParams) -> Result<models::GetTimeSeriesTypPrice200Response, Error<GetTimeSeriesTypPriceError>> {
+pub async fn get_time_series_typ_price(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesTypPriceParams,
+) -> Result<models::GetTimeSeriesTypPrice200ResponseEnum, Error<GetTimeSeriesTypPriceError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -41163,7 +41850,7 @@ pub async fn get_time_series_typ_price(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -41178,13 +41865,13 @@ pub async fn get_time_series_typ_price(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -41196,7 +41883,7 @@ pub async fn get_time_series_typ_price(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -41228,18 +41915,25 @@ pub async fn get_time_series_typ_price(configuration: &configuration::Configurat
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesTypPrice200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesTypPrice200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesTypPrice200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesTypPrice200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesTypPriceError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Ultimate Oscillator endpoint (/ultosc) calculates a momentum oscillator that integrates short, intermediate, and long-term price movements to detect potential overbought or oversold conditions and possible trend reversals. It returns a time series of oscillator values, which can be used to assess market momentum and identify entry or exit points in trading strategies.
-pub async fn get_time_series_ult_osc(configuration: &configuration::Configuration, params: GetTimeSeriesUltOscParams) -> Result<models::GetTimeSeriesUltOsc200Response, Error<GetTimeSeriesUltOscError>> {
+pub async fn get_time_series_ult_osc(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesUltOscParams,
+) -> Result<models::GetTimeSeriesUltOsc200ResponseEnum, Error<GetTimeSeriesUltOscError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -41296,7 +41990,7 @@ pub async fn get_time_series_ult_osc(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -41311,13 +42005,13 @@ pub async fn get_time_series_ult_osc(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -41329,7 +42023,7 @@ pub async fn get_time_series_ult_osc(configuration: &configuration::Configuratio
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period_1 {
         req_builder = req_builder.query(&[("time_period_1", &param_value.to_string())]);
@@ -41370,18 +42064,25 @@ pub async fn get_time_series_ult_osc(configuration: &configuration::Configuratio
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesUltOsc200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesUltOsc200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesUltOsc200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesUltOsc200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesUltOscError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Variance (VAR) endpoint calculates the statistical variance of a financial data series, providing a measure of how much the data points deviate from the average value. It returns a numerical value representing this dispersion, which can be used to assess the volatility of a security over a specified period. This information is crucial for traders and analysts who need to evaluate the risk associated with price fluctuations in the market.
-pub async fn get_time_series_var(configuration: &configuration::Configuration, params: GetTimeSeriesVarParams) -> Result<models::GetTimeSeriesVar200Response, Error<GetTimeSeriesVarError>> {
+pub async fn get_time_series_var(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesVarParams,
+) -> Result<models::GetTimeSeriesVar200ResponseEnum, Error<GetTimeSeriesVarError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -41437,7 +42138,7 @@ pub async fn get_time_series_var(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -41452,13 +42153,13 @@ pub async fn get_time_series_var(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -41470,10 +42171,10 @@ pub async fn get_time_series_var(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -41508,18 +42209,25 @@ pub async fn get_time_series_var(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesVar200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesVar200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesVar200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesVar200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesVarError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Volume Weighted Average Price (VWAP) endpoint provides the VWAP value for a specified stock or asset over a given time period. This indicator calculates the average price at which a security has traded throughout the day, based on both volume and price. It is useful for identifying the true average price of an asset, helping traders to assess the current price relative to the day's average.
-pub async fn get_time_series_vwap(configuration: &configuration::Configuration, params: GetTimeSeriesVwapParams) -> Result<models::GetTimeSeriesVwap200Response, Error<GetTimeSeriesVwapError>> {
+pub async fn get_time_series_vwap(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesVwapParams,
+) -> Result<models::GetTimeSeriesVwap200ResponseEnum, Error<GetTimeSeriesVwapError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -41575,7 +42283,7 @@ pub async fn get_time_series_vwap(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -41590,13 +42298,13 @@ pub async fn get_time_series_vwap(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -41608,7 +42316,7 @@ pub async fn get_time_series_vwap(configuration: &configuration::Configuration, 
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_sd_time_period {
         req_builder = req_builder.query(&[("sd_time_period", &param_value.to_string())]);
@@ -41646,18 +42354,25 @@ pub async fn get_time_series_vwap(configuration: &configuration::Configuration, 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesVwap200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesVwap200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesVwap200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesVwap200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesVwapError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Weighted Close Price (WCLPRICE) endpoint calculates a security's average price by giving additional weight to the closing price, using the formula: (High + Low + Close * 2) / 4.
-pub async fn get_time_series_wcl_price(configuration: &configuration::Configuration, params: GetTimeSeriesWclPriceParams) -> Result<models::GetTimeSeriesWclPrice200Response, Error<GetTimeSeriesWclPriceError>> {
+pub async fn get_time_series_wcl_price(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesWclPriceParams,
+) -> Result<models::GetTimeSeriesWclPrice200ResponseEnum, Error<GetTimeSeriesWclPriceError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -41711,7 +42426,7 @@ pub async fn get_time_series_wcl_price(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -41726,13 +42441,13 @@ pub async fn get_time_series_wcl_price(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -41744,7 +42459,7 @@ pub async fn get_time_series_wcl_price(configuration: &configuration::Configurat
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_include_ohlc {
         req_builder = req_builder.query(&[("include_ohlc", &param_value.to_string())]);
@@ -41776,18 +42491,25 @@ pub async fn get_time_series_wcl_price(configuration: &configuration::Configurat
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesWclPrice200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesWclPrice200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesWclPrice200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesWclPrice200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesWclPriceError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Williams %R (WILLR) endpoint calculates the Williams Percent Range, a momentum indicator that evaluates a security's closing price relative to its high-low range over a specified period. This endpoint returns data that helps users identify potential overbought or oversold conditions and possible trend reversals in the market.
-pub async fn get_time_series_will_r(configuration: &configuration::Configuration, params: GetTimeSeriesWillRParams) -> Result<models::GetTimeSeriesWillR200Response, Error<GetTimeSeriesWillRError>> {
+pub async fn get_time_series_will_r(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesWillRParams,
+) -> Result<models::GetTimeSeriesWillR200ResponseEnum, Error<GetTimeSeriesWillRError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -41842,7 +42564,7 @@ pub async fn get_time_series_will_r(configuration: &configuration::Configuration
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -41857,13 +42579,13 @@ pub async fn get_time_series_will_r(configuration: &configuration::Configuration
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -41875,7 +42597,7 @@ pub async fn get_time_series_will_r(configuration: &configuration::Configuration
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -41910,18 +42632,25 @@ pub async fn get_time_series_will_r(configuration: &configuration::Configuration
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesWillR200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesWillR200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesWillR200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesWillR200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesWillRError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
 
 /// The Weighted Moving Average (WMA) endpoint calculates and returns the WMA values for a given security over a specified period. This endpoint provides a time series of weighted averages, where recent prices have a higher influence, allowing users to track and analyze short-term price trends effectively.
-pub async fn get_time_series_wma(configuration: &configuration::Configuration, params: GetTimeSeriesWmaParams) -> Result<models::GetTimeSeriesWma200Response, Error<GetTimeSeriesWmaError>> {
+pub async fn get_time_series_wma(
+    configuration: &configuration::Configuration,
+    params: GetTimeSeriesWmaParams,
+) -> Result<models::GetTimeSeriesWma200ResponseEnum, Error<GetTimeSeriesWmaError>> {
     // Extract parameters from params struct
     let p_query_interval = params.interval;
     let p_query_symbol = params.symbol;
@@ -41977,7 +42706,7 @@ pub async fn get_time_series_wma(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("country", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_type {
-        req_builder = req_builder.query(&[("type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_timezone {
         req_builder = req_builder.query(&[("timezone", &param_value.to_string())]);
@@ -41992,13 +42721,13 @@ pub async fn get_time_series_wma(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("date", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_prepost {
         req_builder = req_builder.query(&[("prepost", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_format {
-        req_builder = req_builder.query(&[("format", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("format", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
@@ -42010,10 +42739,10 @@ pub async fn get_time_series_wma(configuration: &configuration::Configuration, p
         req_builder = req_builder.query(&[("previous_close", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_adjust {
-        req_builder = req_builder.query(&[("adjust", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("adjust", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_series_type {
-        req_builder = req_builder.query(&[("series_type", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("series_type", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_time_period {
         req_builder = req_builder.query(&[("time_period", &param_value.to_string())]);
@@ -42048,13 +42777,16 @@ pub async fn get_time_series_wma(configuration: &configuration::Configuration, p
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTimeSeriesWma200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesWma200Response`")))),
+            ContentType::Text => return Ok(models::GetTimeSeriesWma200ResponseEnum::Text(content)),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTimeSeriesWma200ResponseEnum`")))),
         }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetTimeSeriesWmaError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
     }
 }
-

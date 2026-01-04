@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 ## get_mutual_funds_world
 
-> models::GetMutualFundsWorld200Response get_mutual_funds_world(symbol, figi, isin, cusip, country, dp)
+> models::GetMutualFundsWorld200ResponseEnum get_mutual_funds_world(symbol, figi, isin, cusip, country, dp)
 MF full data
 
 The mutual full data endpoint provides detailed information about global mutual funds. It returns a comprehensive dataset that includes a summary of the fund, its performance metrics, risk assessment, ratings, asset composition, purchase details, and sustainability factors. This endpoint is essential for users seeking in-depth insights into mutual funds on a global scale, allowing them to evaluate various aspects such as investment performance, risk levels, and environmental impact.
@@ -36,7 +36,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetMutualFundsWorld200Response**](GetMutualFundsWorld_200_response.md)
+[**models::GetMutualFundsWorld200ResponseEnum**](GetMutualFundsWorld_200_responseEnum.md)
 
 ### Authorization
 
@@ -52,7 +52,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_mutual_funds_world_composition
 
-> models::GetMutualFundsWorldComposition200Response get_mutual_funds_world_composition(symbol, figi, isin, cusip, country, dp)
+> models::GetMutualFundsWorldComposition200ResponseEnum get_mutual_funds_world_composition(symbol, figi, isin, cusip, country, dp)
 Composition
 
 The mutual funds compositions endpoint provides detailed information about the portfolio composition of a specified mutual fund. It returns data on sector allocations, individual holdings, and their respective weighted exposures. This endpoint is useful for users seeking to understand the investment distribution and risk profile of a mutual fund.
@@ -71,7 +71,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetMutualFundsWorldComposition200Response**](GetMutualFundsWorldComposition_200_response.md)
+[**models::GetMutualFundsWorldComposition200ResponseEnum**](GetMutualFundsWorldComposition_200_responseEnum.md)
 
 ### Authorization
 
@@ -87,7 +87,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_mutual_funds_world_performance
 
-> models::GetMutualFundsWorldPerformance200Response get_mutual_funds_world_performance(symbol, figi, isin, cusip, country, dp)
+> models::GetMutualFundsWorldPerformance200ResponseEnum get_mutual_funds_world_performance(symbol, figi, isin, cusip, country, dp)
 Performance
 
 The mutual funds performances endpoint provides comprehensive performance data for mutual funds globally. It returns metrics such as trailing returns, annual returns, quarterly returns, and load-adjusted returns.
@@ -106,7 +106,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetMutualFundsWorldPerformance200Response**](GetMutualFundsWorldPerformance_200_response.md)
+[**models::GetMutualFundsWorldPerformance200ResponseEnum**](GetMutualFundsWorldPerformance_200_responseEnum.md)
 
 ### Authorization
 
@@ -122,7 +122,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_mutual_funds_world_purchase_info
 
-> models::GetMutualFundsWorldPurchaseInfo200Response get_mutual_funds_world_purchase_info(symbol, figi, isin, cusip, country, dp)
+> models::GetMutualFundsWorldPurchaseInfo200ResponseEnum get_mutual_funds_world_purchase_info(symbol, figi, isin, cusip, country, dp)
 Purchase info
 
 The mutual funds purchase information endpoint provides detailed purchasing details for global mutual funds. It returns data on minimum investment requirements, current pricing, and a list of brokerages where the mutual fund can be purchased. This endpoint is useful for users looking to understand the entry requirements and options available for investing in specific mutual funds.
@@ -141,7 +141,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetMutualFundsWorldPurchaseInfo200Response**](GetMutualFundsWorldPurchaseInfo_200_response.md)
+[**models::GetMutualFundsWorldPurchaseInfo200ResponseEnum**](GetMutualFundsWorldPurchaseInfo_200_responseEnum.md)
 
 ### Authorization
 
@@ -157,7 +157,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_mutual_funds_world_ratings
 
-> models::GetMutualFundsWorldRatings200Response get_mutual_funds_world_ratings(symbol, figi, isin, cusip, country, dp)
+> models::GetMutualFundsWorldRatings200ResponseEnum get_mutual_funds_world_ratings(symbol, figi, isin, cusip, country, dp)
 Ratings
 
 The mutual funds ratings endpoint provides detailed ratings for mutual funds across global markets. It returns data on the performance and quality of mutual funds, including ratings calculated in-house by Twelve Data and from various financial institutions.
@@ -176,7 +176,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetMutualFundsWorldRatings200Response**](GetMutualFundsWorldRatings_200_response.md)
+[**models::GetMutualFundsWorldRatings200ResponseEnum**](GetMutualFundsWorldRatings_200_responseEnum.md)
 
 ### Authorization
 
@@ -192,7 +192,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_mutual_funds_world_risk
 
-> models::GetMutualFundsWorldRisk200Response get_mutual_funds_world_risk(symbol, figi, isin, cusip, country, dp)
+> models::GetMutualFundsWorldRisk200ResponseEnum get_mutual_funds_world_risk(symbol, figi, isin, cusip, country, dp)
 Risk
 
 The mutual funds risk endpoint provides detailed risk metrics for global mutual funds. It returns data such as standard deviation, beta, and Sharpe ratio, which help assess the volatility and risk profile of mutual funds across different markets.
@@ -211,7 +211,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetMutualFundsWorldRisk200Response**](GetMutualFundsWorldRisk_200_response.md)
+[**models::GetMutualFundsWorldRisk200ResponseEnum**](GetMutualFundsWorldRisk_200_responseEnum.md)
 
 ### Authorization
 
@@ -227,7 +227,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_mutual_funds_world_summary
 
-> models::GetMutualFundsWorldSummary200Response get_mutual_funds_world_summary(symbol, figi, isin, cusip, country, dp)
+> models::GetMutualFundsWorldSummary200ResponseEnum get_mutual_funds_world_summary(symbol, figi, isin, cusip, country, dp)
 Summary
 
 The mutual funds summary endpoint provides a concise overview of global mutual funds, including key details such as fund name, symbol, asset class, and region. This endpoint is useful for quickly obtaining essential information about various mutual funds worldwide, aiding in the comparison and selection of funds for investment portfolios.
@@ -246,7 +246,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetMutualFundsWorldSummary200Response**](GetMutualFundsWorldSummary_200_response.md)
+[**models::GetMutualFundsWorldSummary200ResponseEnum**](GetMutualFundsWorldSummary_200_responseEnum.md)
 
 ### Authorization
 
@@ -262,7 +262,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_mutual_funds_world_sustainability
 
-> models::GetMutualFundsWorldSustainability200Response get_mutual_funds_world_sustainability(symbol, figi, isin, cusip, country, dp)
+> models::GetMutualFundsWorldSustainability200ResponseEnum get_mutual_funds_world_sustainability(symbol, figi, isin, cusip, country, dp)
 Sustainability
 
 The mutual funds sustainability endpoint provides detailed information on the sustainability and Environmental, Social, and Governance (ESG) ratings of global mutual funds. It returns data such as ESG scores, sustainability metrics, and fund identifiers.
@@ -281,7 +281,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetMutualFundsWorldSustainability200Response**](GetMutualFundsWorldSustainability_200_response.md)
+[**models::GetMutualFundsWorldSustainability200ResponseEnum**](GetMutualFundsWorldSustainability_200_responseEnum.md)
 
 ### Authorization
 
