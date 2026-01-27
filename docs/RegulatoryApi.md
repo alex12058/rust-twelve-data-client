@@ -26,9 +26,9 @@ The direct holders endpoint provides detailed information about the number of sh
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
 **country** | Option<**String**> | Country where instrument is traded, e.g., `United States` or `US` |  |
@@ -62,9 +62,9 @@ The fund holders endpoint provides detailed information about the proportion of 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
 **country** | Option<**String**> | Country where instrument is traded, e.g., `United States` or `US` |  |
@@ -98,9 +98,9 @@ The insider transaction endpoint provides detailed data on trades executed by co
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | The ticker symbol of an instrument for which data is requested, e.g., `AAPL`, `TSLA`. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **exchange** | Option<**String**> | Exchange where instrument is traded, e.g., `Nasdaq`, `NSE` |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
 **country** | Option<**String**> | Country where instrument is traded, e.g., United States or US. |  |
@@ -134,9 +134,9 @@ The institutional holders endpoint provides detailed information on the percenta
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
 **country** | Option<**String**> | Country where instrument is traded, e.g., `United States` or `US` |  |
@@ -200,9 +200,9 @@ The tax information endpoint provides detailed tax-related data for a specified 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | The ticker symbol of an instrument for which data is requested, e.g., `SKYQ`, `AIRE`, `ALM:BME`, `HSI:HKEX`. |  |
-**isin** | Option<**String**> | The ISIN of an instrument for which data is requested |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **exchange** | Option<**String**> | The exchange name where the instrument is traded, e.g., `Nasdaq`, `Euronext` |  |
 **mic_code** | Option<**String**> | The Market Identifier Code (MIC) of the exchange where the instrument is traded, e.g., `XNAS`, `XLON` |  |
 

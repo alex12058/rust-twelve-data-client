@@ -205,6 +205,26 @@ def rename_response_components(openapi: dict) -> dict:
 
     return rename_map
 
+def make_object_values_required(openapi: dict, keys: list[str]):
+    num_required_values = 0
+    schemas = openapi.setdefault("components", {}).setdefault("schemas", {})
+
+    for key in keys:
+        schema_def = schemas.get(key)
+        if not isinstance(schema_def, dict):
+            raise ValueError(f"Did not find a component named {key}")
+        
+        schema_type = schema_def.get("type")
+        if schema_type != "object":
+            raise ValueError(f'Expected componnet {key} to be type "object" but found "{schema_type}"')
+        
+        properties = schema_def.get("properties")
+        if isinstance(properties, dict):
+            dict_keys = list(properties.keys())
+            schema_def["required"] = dict_keys
+            num_required_values += len(dict_keys)
+    
+    return num_required_values
 
 def update_refs(node, rename_map: dict):
     if isinstance(node, dict):
@@ -233,6 +253,12 @@ def main():
     api_error_updates = add_api_error_to_responses(openapi)
     csv_updates = add_text_csv_responses(openapi)
     rename_map = rename_response_components(openapi)
+    num_required_vals = make_object_values_required(
+        openapi,
+        # Add additional object component schema names here as needed to make all of their values
+        # required. This should only be for schemas where all values are guaranteed to be defined.
+        ["TimeSeriesItem"]
+    )
 
     write_openapi(openapi)
 
@@ -242,6 +268,7 @@ def main():
     print(f"- 200 responses wrapped with ApiError: {api_error_updates}")
     print(f"- text/csv responses added: {csv_updates}")
     print(f"- schemas renamed: {len(rename_map)}")
+    print(f"- object values updated to be required: {num_required_vals}")
 
 
 if __name__ == "__main__":

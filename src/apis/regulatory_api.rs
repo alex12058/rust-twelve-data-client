@@ -18,11 +18,11 @@ use serde::{de::Error as _, Deserialize, Serialize};
 pub struct GetDirectHoldersParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
-    /// Filter by financial instrument global identifier (FIGI)
+    /// Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan
     pub figi: Option<String>,
-    /// Filter by international securities identification number (ISIN)
+    /// Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub isin: Option<String>,
-    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
+    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub cusip: Option<String>,
     /// Exchange where instrument is traded
     pub exchange: Option<String>,
@@ -44,11 +44,11 @@ impl GetDirectHoldersParams {
 pub struct GetDirectHoldersParamsBuilder {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     symbol: Option<String>,
-    /// Filter by financial instrument global identifier (FIGI)
+    /// Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan
     figi: Option<String>,
-    /// Filter by international securities identification number (ISIN)
+    /// Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     isin: Option<String>,
-    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
+    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     cusip: Option<String>,
     /// Exchange where instrument is traded
     exchange: Option<String>,
@@ -64,17 +64,17 @@ impl GetDirectHoldersParamsBuilder {
         self.symbol = Some(symbol.into());
         self
     }
-    /// Filter by financial instrument global identifier (FIGI)
+    /// Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan
     pub fn figi(mut self, figi: impl Into<String>) -> Self {
         self.figi = Some(figi.into());
         self
     }
-    /// Filter by international securities identification number (ISIN)
+    /// Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub fn isin(mut self, isin: impl Into<String>) -> Self {
         self.isin = Some(isin.into());
         self
     }
-    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
+    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub fn cusip(mut self, cusip: impl Into<String>) -> Self {
         self.cusip = Some(cusip.into());
         self
@@ -114,11 +114,11 @@ impl GetDirectHoldersParamsBuilder {
 pub struct GetFundHoldersParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
-    /// Filter by financial instrument global identifier (FIGI)
+    /// Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan
     pub figi: Option<String>,
-    /// Filter by international securities identification number (ISIN)
+    /// Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub isin: Option<String>,
-    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
+    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub cusip: Option<String>,
     /// Exchange where instrument is traded
     pub exchange: Option<String>,
@@ -140,11 +140,11 @@ impl GetFundHoldersParams {
 pub struct GetFundHoldersParamsBuilder {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     symbol: Option<String>,
-    /// Filter by financial instrument global identifier (FIGI)
+    /// Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan
     figi: Option<String>,
-    /// Filter by international securities identification number (ISIN)
+    /// Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     isin: Option<String>,
-    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
+    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     cusip: Option<String>,
     /// Exchange where instrument is traded
     exchange: Option<String>,
@@ -160,17 +160,17 @@ impl GetFundHoldersParamsBuilder {
         self.symbol = Some(symbol.into());
         self
     }
-    /// Filter by financial instrument global identifier (FIGI)
+    /// Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan
     pub fn figi(mut self, figi: impl Into<String>) -> Self {
         self.figi = Some(figi.into());
         self
     }
-    /// Filter by international securities identification number (ISIN)
+    /// Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub fn isin(mut self, isin: impl Into<String>) -> Self {
         self.isin = Some(isin.into());
         self
     }
-    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
+    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub fn cusip(mut self, cusip: impl Into<String>) -> Self {
         self.cusip = Some(cusip.into());
         self
@@ -210,11 +210,11 @@ impl GetFundHoldersParamsBuilder {
 pub struct GetInsiderTransactionsParams {
     /// The ticker symbol of an instrument for which data is requested, e.g., `AAPL`, `TSLA`. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
-    /// Filter by financial instrument global identifier (FIGI)
+    /// Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan
     pub figi: Option<String>,
-    /// Filter by international securities identification number (ISIN)
+    /// Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub isin: Option<String>,
-    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
+    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub cusip: Option<String>,
     /// Exchange where instrument is traded, e.g., `Nasdaq`, `NSE`
     pub exchange: Option<String>,
@@ -236,11 +236,11 @@ impl GetInsiderTransactionsParams {
 pub struct GetInsiderTransactionsParamsBuilder {
     /// The ticker symbol of an instrument for which data is requested, e.g., `AAPL`, `TSLA`. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     symbol: Option<String>,
-    /// Filter by financial instrument global identifier (FIGI)
+    /// Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan
     figi: Option<String>,
-    /// Filter by international securities identification number (ISIN)
+    /// Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     isin: Option<String>,
-    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
+    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     cusip: Option<String>,
     /// Exchange where instrument is traded, e.g., `Nasdaq`, `NSE`
     exchange: Option<String>,
@@ -256,17 +256,17 @@ impl GetInsiderTransactionsParamsBuilder {
         self.symbol = Some(symbol.into());
         self
     }
-    /// Filter by financial instrument global identifier (FIGI)
+    /// Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan
     pub fn figi(mut self, figi: impl Into<String>) -> Self {
         self.figi = Some(figi.into());
         self
     }
-    /// Filter by international securities identification number (ISIN)
+    /// Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub fn isin(mut self, isin: impl Into<String>) -> Self {
         self.isin = Some(isin.into());
         self
     }
-    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
+    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub fn cusip(mut self, cusip: impl Into<String>) -> Self {
         self.cusip = Some(cusip.into());
         self
@@ -306,11 +306,11 @@ impl GetInsiderTransactionsParamsBuilder {
 pub struct GetInstitutionalHoldersParams {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     pub symbol: Option<String>,
-    /// Filter by financial instrument global identifier (FIGI)
+    /// Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan
     pub figi: Option<String>,
-    /// Filter by international securities identification number (ISIN)
+    /// Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub isin: Option<String>,
-    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
+    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub cusip: Option<String>,
     /// Exchange where instrument is traded
     pub exchange: Option<String>,
@@ -332,11 +332,11 @@ impl GetInstitutionalHoldersParams {
 pub struct GetInstitutionalHoldersParamsBuilder {
     /// Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct
     symbol: Option<String>,
-    /// Filter by financial instrument global identifier (FIGI)
+    /// Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan
     figi: Option<String>,
-    /// Filter by international securities identification number (ISIN)
+    /// Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     isin: Option<String>,
-    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
+    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     cusip: Option<String>,
     /// Exchange where instrument is traded
     exchange: Option<String>,
@@ -352,17 +352,17 @@ impl GetInstitutionalHoldersParamsBuilder {
         self.symbol = Some(symbol.into());
         self
     }
-    /// Filter by financial instrument global identifier (FIGI)
+    /// Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan
     pub fn figi(mut self, figi: impl Into<String>) -> Self {
         self.figi = Some(figi.into());
         self
     }
-    /// Filter by international securities identification number (ISIN)
+    /// Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub fn isin(mut self, isin: impl Into<String>) -> Self {
         self.isin = Some(isin.into());
         self
     }
-    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
+    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub fn cusip(mut self, cusip: impl Into<String>) -> Self {
         self.cusip = Some(cusip.into());
         self
@@ -438,11 +438,11 @@ impl GetSourceSanctionedEntitiesParamsBuilder {
 pub struct GetTaxInfoParams {
     /// The ticker symbol of an instrument for which data is requested, e.g., `SKYQ`, `AIRE`, `ALM:BME`, `HSI:HKEX`.
     pub symbol: Option<String>,
-    /// The ISIN of an instrument for which data is requested
+    /// Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub isin: Option<String>,
-    /// The FIGI of an instrument for which data is requested
+    /// The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan
     pub figi: Option<String>,
-    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
+    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub cusip: Option<String>,
     /// The exchange name where the instrument is traded, e.g., `Nasdaq`, `Euronext`
     pub exchange: Option<String>,
@@ -462,11 +462,11 @@ impl GetTaxInfoParams {
 pub struct GetTaxInfoParamsBuilder {
     /// The ticker symbol of an instrument for which data is requested, e.g., `SKYQ`, `AIRE`, `ALM:BME`, `HSI:HKEX`.
     symbol: Option<String>,
-    /// The ISIN of an instrument for which data is requested
+    /// Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     isin: Option<String>,
-    /// The FIGI of an instrument for which data is requested
+    /// The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan
     figi: Option<String>,
-    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
+    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     cusip: Option<String>,
     /// The exchange name where the instrument is traded, e.g., `Nasdaq`, `Euronext`
     exchange: Option<String>,
@@ -480,17 +480,17 @@ impl GetTaxInfoParamsBuilder {
         self.symbol = Some(symbol.into());
         self
     }
-    /// The ISIN of an instrument for which data is requested
+    /// Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub fn isin(mut self, isin: impl Into<String>) -> Self {
         self.isin = Some(isin.into());
         self
     }
-    /// The FIGI of an instrument for which data is requested
+    /// The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan
     pub fn figi(mut self, figi: impl Into<String>) -> Self {
         self.figi = Some(figi.into());
         self
     }
-    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section
+    /// The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section
     pub fn cusip(mut self, cusip: impl Into<String>) -> Self {
         self.cusip = Some(cusip.into());
         self

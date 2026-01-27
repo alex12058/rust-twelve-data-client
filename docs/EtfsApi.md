@@ -25,9 +25,9 @@ The ETF full data endpoint provides detailed information about global Exchange-T
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Symbol ticker of etf |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **country** | Option<**String**> | Filter by country name or alpha code, e.g., `United States` or `US` |  |
 **dp** | Option<**i64**> | Number of decimal places for floating values. Accepts value in range [0,11] |  |[default to 5]
 
@@ -60,9 +60,9 @@ The ETFs composition endpoint provides detailed information about the compositio
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Symbol ticker of etf |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **country** | Option<**String**> | Filter by country name or alpha code, e.g., `United States` or `US` |  |
 **dp** | Option<**i64**> | Number of decimal places for floating values. Accepts value in range [0,11] |  |[default to 5]
 
@@ -95,9 +95,9 @@ The ETFs performance endpoint provides comprehensive performance data for exchan
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Symbol ticker of etf |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **country** | Option<**String**> | Filter by country name or alpha code, e.g., `United States` or `US` |  |
 **dp** | Option<**i64**> | Number of decimal places for floating values. Accepts value in range [0,11] |  |[default to 5]
 
@@ -130,9 +130,9 @@ The ETFs risk endpoint provides essential risk metrics for global Exchange Trade
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Symbol ticker of etf |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **country** | Option<**String**> | Filter by country name or alpha code, e.g., `United States` or `US` |  |
 **dp** | Option<**i64**> | Number of decimal places for floating values. Accepts value in range [0,11] |  |[default to 5]
 
@@ -165,9 +165,9 @@ The ETFs summary endpoint provides a concise overview of global Exchange-Traded 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Symbol ticker of etf |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **country** | Option<**String**> | Filter by country name or alpha code, e.g., `United States` or `US` |  |
 **dp** | Option<**i64**> | Number of decimal places for floating values. Accepts value in range [0,11] |  |[default to 5]
 

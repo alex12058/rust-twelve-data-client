@@ -14,34 +14,41 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TimeSeriesItem {
     /// Datetime at local exchange time referring to when the bar with specified interval was opened.
-    #[serde(rename = "datetime", skip_serializing_if = "Option::is_none")]
-    pub datetime: Option<String>,
+    #[serde(rename = "datetime")]
+    pub datetime: String,
     /// Price at the opening of current bar
-    #[serde(rename = "open", skip_serializing_if = "Option::is_none")]
-    pub open: Option<String>,
+    #[serde(rename = "open")]
+    pub open: String,
     /// Highest price which occurred during the current bar.
-    #[serde(rename = "high", skip_serializing_if = "Option::is_none")]
-    pub high: Option<String>,
+    #[serde(rename = "high")]
+    pub high: String,
     /// Lowest price which occurred during the current bar.
-    #[serde(rename = "low", skip_serializing_if = "Option::is_none")]
-    pub low: Option<String>,
+    #[serde(rename = "low")]
+    pub low: String,
     /// Close price at the end of the bar.
-    #[serde(rename = "close", skip_serializing_if = "Option::is_none")]
-    pub close: Option<String>,
+    #[serde(rename = "close")]
+    pub close: String,
     /// Trading volume which occurred during the current bar
-    #[serde(rename = "volume", skip_serializing_if = "Option::is_none")]
-    pub volume: Option<String>,
+    #[serde(rename = "volume")]
+    pub volume: String,
 }
 
 impl TimeSeriesItem {
-    pub fn new() -> TimeSeriesItem {
+    pub fn new(
+        datetime: String,
+        open: String,
+        high: String,
+        low: String,
+        close: String,
+        volume: String,
+    ) -> TimeSeriesItem {
         TimeSeriesItem {
-            datetime: None,
-            open: None,
-            high: None,
-            low: None,
-            close: None,
-            volume: None,
+            datetime,
+            open,
+            high,
+            low,
+            close,
+            volume,
         }
     }
 }

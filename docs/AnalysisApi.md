@@ -30,9 +30,9 @@ The analyst ratings snapshot endpoint provides a streamlined summary of ratings 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Filter by symbol |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **exchange** | Option<**String**> | Filter by exchange name |  |
 **rating_change** | Option<**String**> | Filter by rating change action |  |
 **outputsize** | Option<**i64**> | Number of records in response |  |[default to 30]
@@ -67,9 +67,9 @@ The analyst ratings US equities endpoint provides detailed information on analys
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Filter by symbol |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **exchange** | Option<**String**> | Filter by exchange name |  |
 **rating_change** | Option<**String**> | Filter by rating change action |  |
 **outputsize** | Option<**i64**> | Number of records in response |  |[default to 30]
@@ -103,9 +103,9 @@ The earnings estimate endpoint provides access to analysts' projected earnings p
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Filter by symbol |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **country** | Option<**String**> | The country where the instrument is traded, e.g., `United States` or `US` |  |
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 
@@ -138,9 +138,9 @@ The EDGAR fillings endpoint provides access to a comprehensive collection of fin
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | The ticker symbol of an instrument for which data is requested |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **exchange** | Option<**String**> | Filter by exchange name |  |
 **mic_code** | Option<**String**> | Filter by market identifier code (MIC) under ISO 10383 standard |  |
 **country** | Option<**String**> | Filter by country name or alpha code, e.g., `United States` or `US` |  |
@@ -179,9 +179,9 @@ The EPS revisions endpoint provides updated analyst forecasts for a company's ea
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Filter by symbol |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **country** | Option<**String**> | Filter by country name or alpha code, e.g., `United States` or `US` |  |
 **exchange** | Option<**String**> | Filter by exchange name |  |
 
@@ -214,9 +214,9 @@ The EPS trend endpoint provides detailed historical data on Earnings Per Share (
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Filter by symbol |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **country** | Option<**String**> | Filter by country name or alpha code, e.g., `United States` or `US` |  |
 **exchange** | Option<**String**> | Filter by exchange name |  |
 
@@ -249,9 +249,9 @@ The growth estimates endpoint provides consensus analyst projections on a compan
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Filter by symbol |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **country** | Option<**String**> | The country where the instrument is traded, e.g., `United States` or `US` |  |
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 
@@ -284,9 +284,9 @@ The price target endpoint provides detailed projections of a security's future p
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Filter by symbol |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **country** | Option<**String**> | Filter by country name or alpha code, e.g., `United States` or `US` |  |
 **exchange** | Option<**String**> | Filter by exchange name |  |
 
@@ -319,9 +319,9 @@ The recommendations endpoint provides a summary of analyst opinions for a specif
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Filter by symbol |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **country** | Option<**String**> | The country where the instrument is traded, e.g., `United States` or `US` |  |
 **exchange** | Option<**String**> | The exchange name where the instrument is traded, e.g., `Nasdaq`, `NSE`. |  |
 
@@ -354,9 +354,9 @@ The revenue estimate endpoint provides a company's projected quarterly and annua
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Filter by symbol |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **country** | Option<**String**> | Filter by country name or alpha code, e.g., `United States` or `US` |  |
 **exchange** | Option<**String**> | Filter by exchange name |  |
 **dp** | Option<**i64**> | Number of decimal places for floating values. Should be in range [0,11] inclusive |  |[default to 5]

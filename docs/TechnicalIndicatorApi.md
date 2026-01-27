@@ -123,9 +123,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -174,9 +174,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -227,9 +227,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -280,9 +280,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -332,9 +332,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -384,9 +384,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -439,9 +439,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -491,9 +491,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -543,9 +543,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -595,9 +595,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -648,9 +648,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -699,9 +699,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -754,9 +754,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -808,9 +808,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -859,9 +859,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -911,9 +911,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -963,9 +963,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1016,9 +1016,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1071,9 +1071,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1125,9 +1125,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1180,9 +1180,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1233,9 +1233,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1286,9 +1286,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1340,9 +1340,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1392,9 +1392,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1445,9 +1445,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1497,9 +1497,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1549,9 +1549,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1600,9 +1600,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1651,9 +1651,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1703,9 +1703,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1755,9 +1755,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1807,9 +1807,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1859,9 +1859,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1911,9 +1911,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -1963,9 +1963,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2019,9 +2019,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2072,9 +2072,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2128,9 +2128,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2188,9 +2188,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2241,9 +2241,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2294,9 +2294,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2347,9 +2347,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2400,9 +2400,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2452,9 +2452,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2504,9 +2504,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2558,9 +2558,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2613,9 +2613,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2671,9 +2671,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2727,9 +2727,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2781,9 +2781,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2834,9 +2834,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2887,9 +2887,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2939,9 +2939,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -2990,9 +2990,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3042,9 +3042,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3095,9 +3095,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3147,9 +3147,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3200,9 +3200,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3253,9 +3253,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3306,9 +3306,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3359,9 +3359,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3411,9 +3411,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3463,9 +3463,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3516,9 +3516,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3569,9 +3569,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3621,9 +3621,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3673,9 +3673,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3728,9 +3728,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3780,9 +3780,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3832,9 +3832,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3884,9 +3884,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3939,9 +3939,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -3992,9 +3992,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4045,9 +4045,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4098,9 +4098,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4151,9 +4151,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4204,9 +4204,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4256,9 +4256,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4309,9 +4309,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4368,9 +4368,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4421,9 +4421,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4473,9 +4473,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4527,9 +4527,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4583,9 +4583,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4637,9 +4637,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4695,9 +4695,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4748,9 +4748,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4801,9 +4801,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4854,9 +4854,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4907,9 +4907,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -4961,9 +4961,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -5012,9 +5012,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -5065,9 +5065,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -5118,9 +5118,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -5171,9 +5171,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -5222,9 +5222,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -5276,9 +5276,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -5329,9 +5329,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -5382,9 +5382,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -5433,9 +5433,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |
@@ -5485,9 +5485,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. E.g. `AAPL`, `EUR/USD`, `ETH/BTC`, ... |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**figi** | Option<**String**> | The FIGI of an instrument for which data is requested |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**figi** | Option<**String**> | The FIGI of an instrument for which data is requested. This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **outputsize** | Option<**i64**> | Number of data points to retrieve. Supports values in the range from `1` to `5000`. Default `30` when no date parameters are set, otherwise set to maximum |  |[default to 30]
 **exchange** | Option<**String**> | Exchange where instrument is traded |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard |  |

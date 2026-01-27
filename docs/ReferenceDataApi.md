@@ -241,9 +241,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **interval** | **String** | Interval between two consecutive points in time series. | [required] |
 **symbol** | Option<**String**> | Symbol ticker of the instrument. |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan. |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **exchange** | Option<**String**> | Exchange where instrument is traded. |  |
 **mic_code** | Option<**String**> | Market Identifier Code (MIC) under ISO 10383 standard. |  |
 **timezone** | Option<**String**> | Timezone at which output datetime will be displayed. Supports: <ul> <li>1. <code>Exchange</code> for local exchange time</li> <li>2. <code>UTC</code> for datetime at universal UTC standard</li> <li>3. Timezone name according to the IANA Time Zone Database. E.g. <code>America/New_York</code>, <code>Asia/Singapore</code>. Full list of timezones can be found <a href=\"https://en.wikipedia.org/wiki/List_of_tz_database_time_zones\" target=\"blank\">here</a>.</li> </ul> <i>Take note that the IANA Timezone name is case-sensitive</i> |  |[default to Exchange]
@@ -277,9 +277,9 @@ The ETFs endpoint provides a daily updated list of all available Exchange-Traded
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | The ticker symbol of an instrument for which data is requested |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **cik** | Option<**String**> | The CIK of an instrument for which data is requested |  |
 **exchange** | Option<**String**> | Filter by exchange name |  |
 **mic_code** | Option<**String**> | Filter by market identifier code (MIC) under ISO 10383 standard |  |
@@ -349,9 +349,9 @@ The ETFs directory endpoint provides a daily updated list of exchange-traded fun
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Filter by symbol |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **cik** | Option<**String**> | The CIK of an instrument for which data is requested |  |
 **country** | Option<**String**> | Filter by country name or alpha code, e.g., `United States` or `US` |  |
 **fund_family** | Option<**String**> | Filter by investment company that manages the fund |  |
@@ -522,9 +522,9 @@ The funds endpoint provides a daily updated list of available investment funds. 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | The ticker symbol of an instrument for which data is requested |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **cik** | Option<**String**> | The CIK of an instrument for which data is requested |  |
 **exchange** | Option<**String**> | Filter by exchange name |  |
 **country** | Option<**String**> | Filter by country name or alpha code, e.g., `United States` or `US` |  |
@@ -680,9 +680,9 @@ The mutual funds directory endpoint provides a daily updated list of mutual fund
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | Filter by symbol |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **cik** | Option<**String**> | The CIK of an instrument for which data is requested |  |
 **country** | Option<**String**> | Filter by country name or alpha code, e.g., `United States` or `US` |  |
 **fund_family** | Option<**String**> | Filter by investment company that manages the fund |  |
@@ -752,9 +752,9 @@ The stocks endpoint provides a daily updated list of all available stock symbols
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **symbol** | Option<**String**> | The ticker symbol of an instrument for which data is requested |  |
-**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI) |  |
-**isin** | Option<**String**> | Filter by international securities identification number (ISIN) |  |
-**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Add-ons</a> section |  |
+**figi** | Option<**String**> | Filter by financial instrument global identifier (FIGI). This request parameter is available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan |  |
+**isin** | Option<**String**> | Filter by international securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
+**cusip** | Option<**String**> | The CUSIP of an instrument for which data is requested. CUSIP access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section |  |
 **cik** | Option<**String**> | The CIK of an instrument for which data is requested |  |
 **exchange** | Option<**String**> | Filter by exchange name |  |
 **mic_code** | Option<**String**> | Filter by market identifier code (MIC) under ISO 10383 standard |  |
@@ -793,7 +793,7 @@ The symbol search endpoint allows users to find financial instruments by name or
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**symbol** | **String** | Symbol to search. Supports: <ul> <li>Ticker symbol of instrument.</li> <li>International securities identification number (ISIN). <li>Financial instrument global identifier (FIGI). <li>Composite FIGI.</li> <li>Share Class FIGI.</li> </ul> | [required] |
+**symbol** | **String** | Symbol to search. Supports: <ul> <li>Ticker symbol of instrument.</li> <li>International securities identification number (ISIN). ISIN access is activating in the <a href=\"https://twelvedata.com/account/add-ons\">Data add-ons</a> section</li> <li>Financial instrument global identifier (FIGI). Available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan</li> <li>Composite FIGI. Available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan <li>Share Class FIGI. Available starting with the <a href=\"https://twelvedata.com/pricing\">Ultra<a> plan </ul> | [required] |
 **outputsize** | Option<**i64**> | Number of matches in response. Max <code>120</code> |  |[default to 30]
 **show_plan** | Option<**bool**> | Adds info on which plan symbol is available. |  |[default to false]
 
